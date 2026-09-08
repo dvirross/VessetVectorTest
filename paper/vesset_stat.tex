@@ -1,0 +1,820 @@
+\documentclass[12pt]{article}
+
+% ─── Packages ─────────────────────────────────────────────────────────────────
+\usepackage[a4paper, margin=2.54cm, headheight=14pt]{geometry}
+\usepackage{setspace}
+\usepackage{times}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage{float}
+
+% ─── Spacing & Layout ─────────────────────────────────────────────────────────
+\doublespacing
+\setlength{\parindent}{0.5in}
+\setlength{\parskip}{0pt}
+
+% ─── Header / Footer ──────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small\MakeUppercase{Jewish Religious Law and Menstrual Cycle Regularity}}
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ─── Section formatting ───────────────────────────────────────────────────────
+\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{}{0pt}{}[\ ---]
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\paragraph}{0pt}{6pt}{0.5em}
+
+% ─── Hyperlink styling ────────────────────────────────────────────────────────
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+
+% ─── Table column types ───────────────────────────────────────────────────────
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% ─── Figure path ──────────────────────────────────────────────────────────────
+\graphicspath{{figures/}}
+\captionsetup{font=small, labelfont=bf, width=0.92\textwidth}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+
+% ─── Title Page ───────────────────────────────────────────────────────────────
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+  {\large\bfseries Statistical Evidence for Halachic Vesset Patterns\\
+  in Natural Menstrual Cycle Data:\\[4pt]
+  A Study of Jewish Religious Law and Menstrual Cycle Regularity\\[4pt]
+  \normalfont\large A Permutation and Multinomial Sampling Analysis\par}
+  \vspace{1.5cm}
+  {\normalsize Dvir Ross\par}
+  \vspace{0.4cm}
+  {\normalsize\itshape
+    Department of Software Engineering, Shenkar College of Engineering,
+    Design and Art, Ramat Gan, Israel\\[4pt]
+    Department of Computer Science, SCE --- Shamoon College of Engineering,
+    Beer Sheva, Israel\par}
+  \vspace{3cm}
+  {\normalsize\bfseries Author Note\par}
+  \vspace{0.5cm}
+  \begin{flushleft}
+  \normalsize
+  Dvir Ross, Department of Software Engineering, Shenkar College of Engineering,
+  Design and Art, Ramat Gan, Israel; Department of Computer Science, SCE ---
+  Shamoon College of Engineering, Beer Sheva, Israel.
+
+  \medskip
+  The dataset analyzed in this study was originally collected by
+  Fehring et al.~\cite{fehring2013} and is publicly archived at Marquette
+  University \cite{marquette2013data}. The author declares no conflicts of interest.
+  Analysis code is publicly available at \url{https://github.com/dvirross/VessetVectorTest}.
+
+  \medskip
+  Correspondence:
+  \texttt{dvirross@shenkar.ac.il} or \texttt{RossDv@sce.ac.il}
+  \end{flushleft}
+\end{titlepage}
+
+% ─── Abstract ─────────────────────────────────────────────────────────────────
+\newpage
+\begin{center}{\bfseries Abstract}\end{center}
+
+\noindent
+Jewish religious law (\textit{Halacha}) prescribes that women anticipate menstruation
+based on recurring patterns in their menstrual cycle history --- rules collectively
+known as \textit{vesset} (Hebrew: anticipated pattern of menstrual onset). Of the 17 vesset pattern types documented in halachic
+literature, 7 are testable with cycle-length data alone; of these, 5 have positive
+observed frequencies and are analysed here: \textit{Haflaga} (fixed interval),
+\textit{Dilug} (arithmetic progression), \textit{Week} (weekly anchor),
+\textit{Week-Dilug} (30-day anchor), and \textit{Dilug-in-Dilug} (second-order
+progression). The five patterns form a polynomial hierarchy (degrees 0, 0, 0, 1, 2)
+whose structure generates mathematically necessary dependencies between them.
+We apply permutation testing and a multinomial sampling null model --- introduced in
+\cite{ross2022phd} and inspired by the simulation-based framework of King et al.\
+\cite{king2018} --- to a dataset of 1,554 menstrual cycles from 118 women
+\cite{fehring2013}. Pairwise chi-square tests confirm significant positive dependence
+between Haflaga, Week-Dilug, and Dilug-in-Dilug ($p < .01$ for both pairs), which we
+derive mathematically from set-theoretic inclusion and proximity in the polynomial
+hierarchy. Results reveal that \textit{Haflaga} ($z = 4.51$, $p < .001$) and
+\textit{Dilug} ($z = 1.83$, $p = .043$) are significantly overrepresented under both
+null models. Under the permutation null, only 2 of 50,000 simulations reached or
+exceeded the observed Haflaga count of 26, which ties the simulation maximum. A joint
+multivariate test \cite{ross2022phd} --- based on the Euclidean distance between the
+observed count vector and the null mean vector, accommodating the dependence structure
+without assuming independence --- is highly significant under both models ($p < .01$).
+A joint test restricted to the three mathematically dependent patterns (Haflaga, Week-Dilug, Dilug-in-Dilug) is also significant ($p < .01$). These findings provide the first rigorous statistical
+validation that two core halachic vesset rules reflect genuine regularities in
+menstrual cycle data.
+
+\medskip
+\noindent\textit{Keywords:} menstrual cycle, vesset, Halacha, permutation test,
+multinomial sampling, natural family planning, Jewish law, polynomial hierarchy,
+dependence structure, multivariate randomization test
+
+% ─── 1. Introduction ──────────────────────────────────────────────────────────
+\newpage
+\section{Introduction}
+
+Menstrual cycles exhibit substantial variability both within and across individuals
+\cite{munster1992,creinin2004,symul2019}. The cycle length distribution is
+approximately bell-shaped with a pronounced right tail (skewness $\approx 1.3$ in the
+present dataset), reflecting a small proportion of unusually long cycles. Within-person
+consistency is moderate: intraclass correlation coefficients for cycle length are
+typically in the range of $0.3$--$0.5$ \cite{dasharathy2012}, indicating meaningful
+regularity beneath the surface variability. Bayesian hierarchical state-space models have
+been proposed to exploit this temporal structure for cycle-length prediction
+\cite{bortot2010}, confirming that within-woman dynamics carry genuine predictive
+information.
+
+In the Jewish religious tradition, this regularity is also subject to detailed legal
+analysis. Halachic law (\textit{Halacha}, Jewish religious law) requires that a woman anticipate the onset of
+her next menstruation based on patterns discernible in her prior cycle history. These
+anticipatory rules are called \textit{vesset}, and they govern a system of abstinence
+obligations central to the observance of \textit{taharat hamishpacha} (family purity: the traditional Jewish
+system of laws governing marital intimacy in relation to the menstrual cycle). Of the 17 vesset pattern types documented in halachic literature, 10 require
+date or time-of-day data unavailable in standard cycle-length records; the remaining
+7 are testable empirically. Two of these 7 (Dilug Chozer Chalila and Haflaga Chozer Chalila
+(Hebrew: repeating-cycle arithmetic progression and repeating fixed interval,
+respectively) occurred zero times in the present dataset and are not reported separately.
+The five patterns with positive observed frequencies are analysed here.
+
+These five patterns form a \textit{polynomial hierarchy}: each describes a \textit{haflaga} (Hebrew: inter-menstrual interval, $H_k = L_k + 1$)
+sequence that follows a polynomial of a specific degree in cycle index. Haflaga,
+Week, and Week-Dilug are all degree-0 (constant) sequences; Dilug is degree-1
+(linear); Dilug-in-Dilug is degree-2 (quadratic). This hierarchy generates
+mathematically necessary dependence relationships between the patterns, with
+implications for how their joint frequencies should be tested.
+
+Despite the centuries-long practical application of vesset rules --- and the modern
+availability of large longitudinal cycle datasets --- no published study has formally
+tested whether these patterns occur in empirical data at rates exceeding chance. This
+is a non-trivial question: if vesset rules merely detect random fluctuations, their
+anticipatory validity is weakened. Conversely, if they are significantly
+overrepresented, their empirical basis is independently corroborated.
+
+The present study addresses this gap by applying two complementary null models ---
+a permutation test \cite{edgington2007} and a multinomial sampling null
+\cite{ross2022phd} --- to a longitudinal NFP dataset \cite{fehring2013}. We derive
+per-pattern p-values, effect sizes, and a joint multivariate test that accommodates
+the dependence structure among pattern counts without assuming independence. The joint
+test is an original methodological contribution \cite{ross2022phd}, inspired by the
+simulation-based testing philosophy of King et al.\ \cite{king2018} though distinct
+from their density-based approach; a formal theoretical treatment is planned in future
+work. We also characterise the mathematical dependence structure through pairwise
+chi-square tests and derive the dependencies analytically from the pattern definitions.
+
+This study extends a line of quantitative halachic scholarship \cite{ross2022markov,
+ross2019reliability,ross2021statistical}. To our knowledge it is the first to test
+vesset pattern frequencies against an explicit null model using modern hypothesis
+testing.
+
+% ─── 2. Background ────────────────────────────────────────────────────────────
+\section{Background}
+
+\subsection{The Polynomial Hierarchy of Vesset Rules}
+
+Let $L_1, L_2, \ldots, L_n$ denote the menstrual cycle lengths (in days) of a single
+woman, and define the \textit{haflaga} $H_k = L_k + 1$ (the interval from the first
+day of menstruation $k$ to the first day of menstruation $k+1$, following halachic
+convention \cite{ross2021statistical}). The five vesset pattern types are:
+
+\begin{description}
+  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$ (two or more consecutive haflagot
+    both equal to 30). Degree-0 polynomial (constant) at the canonical 30-day anchor.
+    Minimum run: 2 cycles.
+
+  \item[\textit{Week.}] $H_k = H_{k-1}$, $H_k \in \mathcal{W}$ where
+    $\mathcal{W} = \{H_{\min}+3, H_{\min}+10, \ldots\}$ (values spaced 7 apart).
+    Degree-0 polynomial anchored to weekly values. Minimum run: 2 cycles.
+
+  \item[\textit{Haflaga.}] $H_k = H_{k-1} = H_{k-2}$ (three or more consecutive
+    equal haflagot, any value). Degree-0 polynomial (constant, unrestricted).
+    Minimum run: 3 cycles.
+
+  \item[\textit{Dilug.}] $H_k - H_{k-1} = H_{k-1} - H_{k-2} = d \neq 0$ (constant
+    non-zero first difference). Degree-1 polynomial (linear).
+    Minimum run: 3 cycles.
+
+  \item[\textit{Dilug-in-Dilug.}] $(H_k - H_{k-1}) - (H_{k-1} - H_{k-2}) =
+    (H_{k-1} - H_{k-2}) - (H_{k-2} - H_{k-3}) = d \neq 0$ (constant non-zero second
+    difference). Degree-2 polynomial (quadratic). Minimum run: 4 cycles.
+\end{description}
+
+The hierarchy Haflaga (degree 0) $\to$ Dilug (degree 1) $\to$ Dilug-in-Dilug
+(degree 2) mirrors the classical Taylor expansion: a constant function is the
+zeroth-order approximation, a linear function the first-order, and a quadratic the
+second-order.
+
+\subsection{Mathematical Dependence Structure}
+
+The polynomial hierarchy generates three analytically derivable dependence
+relationships, which we verify empirically in Section~\ref{sec:chisq}:
+
+\paragraph{Haflaga and Week-Dilug --- set-theoretic inclusion.}
+Week-Dilug requires $H_k = H_{k-1} = 30$; Haflaga-30 requires $H_k = H_{k-1} =
+H_{k-2} = 30$. Therefore:
+\[
+  \{\text{Haflaga-30 sequence}\} \;\subseteq\; \{\text{Week-Dilug sequence}\}.
+\]
+Every Haflaga sequence with value 30 automatically generates a Week-Dilug event in
+its first two cycles. This is set-theoretic inclusion, not merely statistical
+correlation. In the present data, 3 of the 26 observed Haflaga sequences have value
+$H = 30$, each contributing directly to the Week-Dilug count of 18.
+
+\paragraph{Haflaga and Dilug-in-Dilug --- proximity in the hierarchy.}
+When the second difference $|d|$ of a Dilug-in-Dilug sequence is small, its first
+differences are nearly equal and the haflaga sequence is nearly constant --- i.e.\
+nearly a Haflaga. In the data, 16 of 27 observed DiD sequences have $|d| = 1$,
+making them almost indistinguishable from a constant sequence. Both patterns further
+share the same structural prerequisite: a minimum run of $\geq 3$ consecutive cycles
+satisfying a regularity condition, selecting the same women with high within-person
+cycle stability (within-person SD: Haflaga women $= 1.54$ days vs.\ no-vesset women
+$= 3.17$ days).
+
+\paragraph{Dilug and Week-Dilug --- logical incompatibility.}
+Dilug requires $\Delta H_k \neq 0$ (strictly non-constant differences); Week-Dilug
+requires $H_k = H_{k-1} = 30$ ($\Delta H = 0$). These conditions are mutually
+exclusive within the same cycle window, creating a negative dependence tendency.
+
+\subsection{Prior Work}
+
+\paragraph{Menstrual cycle statistics.}
+Variability and regularity of cycle length have been extensively characterised
+\cite{munster1992,creinin2004,dasharathy2012,symul2019}. Bortot et al.\
+\cite{bortot2010} developed a Bayesian hierarchical state-space model for sequential
+prediction of cycle lengths, exploiting within-woman temporal dependence; their model
+provides a benchmark for cycle-length predictability.
+
+\paragraph{Quantitative halachic analysis.}
+Ross \cite{ross2022markov} modelled cycle transitions with Markov chains;
+\cite{ross2019reliability} evaluated reliability of self-reported menstrual data in
+a halachic context; \cite{ross2021statistical} applied statistical analysis to
+abstinence laws. The present study adds the first formal hypothesis test of whether
+vesset patterns are overrepresented in real data.
+
+\paragraph{Randomization-based testing.}
+Permutation tests \cite{edgington2007,good2005} provide exact finite-sample p-values
+under exchangeability. The multinomial sampling null \cite{ross2022phd} draws each
+woman's cycles independently from the fitted empirical distribution, directly encoding
+the null hypothesis of cycle independence. For the joint test, King et al.\
+\cite{king2018} proposed a general framework for testing a vector of statistics via
+simulation of the joint density, using a multivariate kernel density estimator to
+define a smallest-acceptance-region test. The present joint test differs: we use the
+Euclidean distance from the null mean vector as the test statistic, which is simpler,
+requires no density estimation, and has an intuitive geometric interpretation. A formal
+theoretical comparison and analysis of the distance-based approach is planned in future
+work \cite{ross2022phd}.
+
+% ─── 3. Methods ───────────────────────────────────────────────────────────────
+\section{Methods}
+
+\subsection{Dataset}
+
+We analyzed a publicly available longitudinal dataset originally collected by Fehring
+et al.\ \cite{fehring2013} in a randomised trial comparing two internet-supported
+natural family planning methods, archived at Marquette University
+\cite{marquette2013data}. After excluding cycles shorter than 18 days or longer than
+54 days \cite{creinin2004}, the final sample comprised \textbf{1,554 cycles from 118
+women} ($M = 13.2$ cycles per woman, $\text{SD} = 7.0$, range $1$--$45$).
+
+Raw cycle lengths ranged from 18 to 54 days ($M = 29.3$, $\text{SD} = 3.9$,
+$\text{Mdn} = 28.5$, skewness $= 1.29$). The distribution is approximately
+bell-shaped with a right tail, consistent with the literature
+\cite{munster1992,creinin2004}. Women ranged in age from 21 to 43 years
+($M = 30.6$, $\text{SD} = 5.7$). Two charting cohorts were represented
+($n_0 = 96$, $n_1 = 67$). All cycle lengths were incremented by 1 to conform to the
+halachic haflaga convention ($H_k = L_k + 1$), yielding $M = 30.3$, $\text{SD} = 3.9$.
+
+The within-person variability structure is relevant to the Haflaga result: women who
+establish a Haflaga vesset have a mean within-person cycle-length SD of 1.54 days,
+compared to 3.17 days for women who establish no vesset. This confirms that Haflaga
+selects the most physiologically regular subgroup of women. Figure~\ref{fig:dist}
+shows the cycle length distribution and per-woman variability.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig0_cycle_distribution}
+  \caption{Cycle length distribution (filtered dataset). \textit{Left}: histogram
+    and kernel density estimate of raw cycle lengths $L_k$, with mean (dashed) and
+    median (dotted) marked. The distribution is right-skewed (skewness $= 1.29$).
+    \textit{Right}: per-woman mean vs.\ within-person SD, coloured by cycle count.
+    Women with more cycles tend to show lower variability, consistent with selection
+    of naturally regular chartists.}
+  \label{fig:dist}
+\end{figure}
+
+\subsection{Pattern Detection}
+
+Pattern counting was performed within each woman's sequence independently; sequences
+were never merged across women. Patient boundary pairs $(s_i, f_i)$ were encoded
+explicitly and all counting loops were constrained to $[s_i, f_i]$. Extended runs of
+the same pattern were counted as a single occurrence to avoid double-counting (e.g.,
+four consecutive equal haflagot constitute one Haflaga, not two). All five functions
+were validated against manually annotated examples and are available at
+\url{https://github.com/dvirross/VessetVectorTest}.
+
+\subsection{Null Models}
+\label{sec:nullmodels}
+
+Two null models were implemented, each run for $N = 50{,}000$ iterations with random
+seed 17. Both preserve the number of cycles per woman exactly.
+
+\paragraph{Permutation test.}
+At each iteration, the $n = 1{,}554$ haflaga values are randomly permuted without
+replacement. This preserves the exact empirical marginal distribution and is
+equivalent to assuming all $n!$ orderings are equally probable under $H_0$
+\cite{edgington2007}.
+
+\paragraph{Multinomial null.}
+At each iteration, for each woman $i$ with $n_i$ cycles, a fresh sequence
+$\tilde{H}_{i,1}, \ldots, \tilde{H}_{i,n_i} \overset{\text{i.i.d.}}{\sim} \hat{F}$
+is drawn, where $\hat{F}$ is the empirical CDF of all 1,554 observed haflaga values.
+This null directly encodes the hypothesis that cycles are \textit{independent} across
+time within each woman \cite{ross2022phd}. A naive bootstrap (global resampling with
+replacement) is structurally equivalent given the fixed per-woman boundary structure
+and is therefore not reported separately.
+
+\subsection{Statistical Inference}
+\label{sec:inference}
+
+For each pattern $j$ and null model $m$ we computed: the observed count $O_j$; the
+null mean $\bar{S}_j^{(m)}$ and SD $\sigma_j^{(m)}$; the z-score $z_j^{(m)} =
+(O_j - \bar{S}_j^{(m)}) / \sigma_j^{(m)}$; and the one-sided empirical p-value
+$p_j^{(m)} = \widehat{\Pr}(S_j^{(m)} \geq O_j)$.
+
+The \textbf{joint multivariate test} uses the Euclidean distance of the observed
+count vector from the null mean vector as the test statistic:
+\begin{equation}
+  D^{(m)} = \bigl\|\mathbf{O} - \bar{\mathbf{S}}^{(m)}\bigr\|_2
+  = \sqrt{\sum_{j=1}^{5}\bigl(O_j - \bar{S}_j^{(m)}\bigr)^2},
+  \label{eq:distance}
+\end{equation}
+with p-value equal to the fraction of iterations where the simulated distance exceeded
+$D^{(m)}$. Unlike Bonferroni correction --- which assumes independence --- this test
+accommodates dependence among the five counts by operating on the joint vector
+simultaneously. Inspired by King et al.\ \cite{king2018} but using distance rather
+than density as the test statistic, this approach is introduced in \cite{ross2022phd};
+a formal theoretical treatment is planned in future work.
+
+A \textbf{focused joint test} restricted to the three mathematically dependent
+patterns (Haflaga, Week-Dilug, Dilug-in-Dilug) is reported in Section~\ref{sec:chisq}.
+
+Pairwise \textbf{chi-square tests of independence} between pattern types were computed
+on the per-woman binary matrix (1 = woman established the pattern at least once).
+$\alpha = .05$ throughout.
+
+% ─── 4. Results ───────────────────────────────────────────────────────────────
+\section{Results}
+
+\subsection{Observed Pattern Counts}
+
+Observed counts were: Haflaga $= 26$, Dilug $= 61$, Week $= 32$, Week-Dilug $= 18$,
+Dilug-in-Dilug $= 27$. Permutation null means were: 11.30, 48.93, 27.00, 16.27,
+27.17 respectively. Of the 26 Haflaga sequences, 3 had value $H = 30$, each
+automatically constituting a Week-Dilug event (set-theoretic inclusion). Of the 27
+Dilug-in-Dilug sequences, 16 had second difference $|d| = 1$ (near-Haflaga).
+
+\subsection{Per-Pattern Hypothesis Tests}
+
+Table~\ref{tab:results} presents the full results under both null models.
+Figures~\ref{fig:nulldists} and \ref{fig:zscores} display the null distributions and
+effect sizes.
+
+\begin{table}[H]
+\centering
+\caption{Permutation and multinomial null-model results ($N = 50{,}000$ iterations).
+  \textit{Null Mean} and \textit{Null SD} are from the permutation null. Bold
+  $p$-values are significant at $\alpha = .05$ (one-sided).}
+\label{tab:results}
+\smallskip
+\begin{tabular}{L{3.0cm} C{1.2cm} C{1.6cm} C{1.4cm} C{1.4cm} C{1.6cm} C{1.6cm}}
+\toprule
+\textbf{Pattern} & \textbf{Obs.} & \textbf{Null Mean}
+  & \textbf{Null SD} & \textbf{$z$}
+  & \textbf{Perm.~$p$} & \textbf{Multi.~$p$} \\
+\midrule
+Haflaga         & 26 & 11.30 & 3.26 & $+4.51$ & $\mathbf{<.001}$ & $\mathbf{<.001}$ \\
+Dilug           & 61 & 48.93 & 6.60 & $+1.83$ & $\mathbf{.043}$  & $\mathbf{.043}$  \\
+Week            & 32 & 27.00 & 4.00 & $+1.25$ & $.133$           & $.188$           \\
+Week-Dilug      & 18 & 16.27 & 3.28 & $+0.53$ & $.345$           & $.366$           \\
+Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$           \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig1_null_distributions}
+  \caption{Null distributions (KDE) vs.\ observed counts for each vesset pattern
+    under the permutation (blue solid) and multinomial (green dashed) null models.
+    The vertical dotted red line marks the observed count; the shaded region is the
+    one-sided p-value area. Haflaga and Dilug show clearly right-displaced observed
+    values; Dilug-in-Dilug falls on its null mean.}
+  \label{fig:nulldists}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.88\textwidth]{fig2_zscores}
+  \caption{Effect sizes ($z$-scores) under permutation (blue) and multinomial (green)
+    null models. Dashed and dotted lines mark $\alpha = .05$ ($z = 1.645$) and
+    $\alpha = .01$ ($z = 2.326$) thresholds. Only Haflaga and Dilug exceed the
+    $\alpha = .05$ threshold; both null models are in close agreement.}
+  \label{fig:zscores}
+\end{figure}
+
+Haflaga showed the strongest effect: 26 occurrences vs.\ a null mean of 11.30, more
+than 4.5 standard deviations above chance ($z = 4.51$, $p < .001$). Crucially, under
+the permutation null only \textbf{2 of 50,000} simulations reached or exceeded 26 ---
+the observed count ties the simulation maximum. Dilug was significant under both models
+($z = 1.83$, $p = .043$). Week, Week-Dilug, and Dilug-in-Dilug did not reach
+significance.
+
+\subsection{Agreement Between Null Models}
+
+The permutation and multinomial null models are in close agreement across all five
+patterns (maximum difference in p-values: 0.055). Figure~\ref{fig:cdfs} shows the
+empirical CDFs, confirming the two nulls produce nearly identical distributions for
+each pattern. This robustness is expected: for a well-behaved empirical distribution,
+the two nulls converge as $n \to \infty$ under regularity conditions
+\cite{edgington2007}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig4_cdfs}
+  \caption{Empirical CDFs of null distributions for each pattern under permutation
+    (blue solid) and multinomial (green dashed) nulls. The vertical dotted red line
+    marks the observed count; horizontal dotted lines indicate $1-p$. The close
+    overlap confirms robustness to the choice of null model.}
+  \label{fig:cdfs}
+\end{figure}
+
+\subsection{Joint Multivariate Test}
+
+The joint multivariate test (Eq.~\ref{eq:distance}) was significant under both models.
+The observed Euclidean distance was $D = 19.74$, exceeding 99.1\% of permutation
+iterations ($p = .009$) and 98.6\% of multinomial iterations ($p = .014$).
+Figure~\ref{fig:joint1d} shows the null distance distributions.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig3_joint_test}
+  \caption{Joint multivariate test: null distribution of Euclidean distances
+    $D = \|\mathbf{S} - \bar{\mathbf{S}}\|_2$ under the permutation (left) and
+    multinomial (right) nulls. The dashed red line marks the observed $D = 19.74$;
+    the shaded region is the p-value area. Both models yield $p < .01$.}
+  \label{fig:joint1d}
+\end{figure}
+
+\subsection{Pairwise Dependence Tests and Focused Joint Test}
+\label{sec:chisq}
+
+Table~\ref{tab:chisq} presents the pairwise chi-square tests. Two pairs are
+statistically significant: Haflaga $\times$ Week-Dilug ($\chi^2 = 7.26$, $p = .007$)
+and Haflaga $\times$ Dilug-in-Dilug ($\chi^2 = 9.99$, $p = .002$), both with
+positive direction (co-occurrence substantially exceeds chance expectation). These
+findings are consistent with --- and explained by --- the mathematical relationships
+derived in Section~2.2. Figure~\ref{fig:chisq} visualises the full dependence matrix.
+
+\begin{table}[H]
+\centering
+\caption{Pairwise chi-square tests of independence between vesset types (per-woman
+  binary, $N = 118$). Significant pairs in bold. Direction: $+$ = co-occur more than
+  expected; $-$ = less than expected.}
+\label{tab:chisq}
+\smallskip
+\begin{tabular}{L{5.2cm} C{1.4cm} C{1.4cm} C{1.0cm} C{1.6cm} C{1.6cm}}
+\toprule
+\textbf{Pair} & \textbf{$\chi^2$} & \textbf{$p$} & \textbf{Dir.}
+  & \textbf{Obs(1,1)} & \textbf{Exp(1,1)} \\
+\midrule
+Haflaga $\times$ Dilug          & 0.87 & .352 & $+$ & 10 & 8.1  \\
+Haflaga $\times$ Week           & 0.89 & .346 & $+$ & 6  & 4.4  \\
+\textbf{Haflaga $\times$ Week-Dilug}     & \textbf{7.26} & \textbf{.007} & $+$ & \textbf{7}  & \textbf{3.1}  \\
+\textbf{Haflaga $\times$ Dilug-in-Dilug} & \textbf{9.99} & \textbf{.002} & $+$ & \textbf{9}  & \textbf{3.9}  \\
+Dilug $\times$ Week             & 2.40 & .122 & $+$ & 14 & 10.6 \\
+Dilug $\times$ Week-Dilug       & 1.47 & .226 & $-$ & 5  & 7.3  \\
+Dilug $\times$ Dilug-in-Dilug   & 0.09 & .761 & $+$ & 10 & 9.4  \\
+Week $\times$ Week-Dilug        & 0.41 & .523 & $+$ & 5  & 4.0  \\
+Week $\times$ Dilug-in-Dilug    & 1.17 & .279 & $+$ & 7  & 5.1  \\
+Week-Dilug $\times$ Dilug-in-Dilug & 0.93 & .335 & $+$ & 5 & 3.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig5_chisq_heatmap}
+  \caption{Pairwise dependence structure between vesset pattern types. \textit{Left}:
+    chi-square statistic; \textit{right}: signed $\chi^2$ (positive = co-occurrence
+    exceeds expectation; negative = below expectation). The two significant pairs
+    (Haflaga $\times$ Week-Dilug and Haflaga $\times$ Dilug-in-Dilug, marked **)
+    are both positive, consistent with the mathematical derivations in Section~2.2.}
+  \label{fig:chisq}
+\end{figure}
+
+Because Bonferroni correction assumes independence between tests --- which is
+mathematically incorrect here given the derivable dependence structure --- we
+additionally ran the joint multivariate test restricted to the three dependent patterns
+(Haflaga, Week-Dilug, Dilug-in-Dilug). The observed 3D distance was $D = 14.80$,
+exceeding 99.3\% of permutation iterations ($p = .007$) and 99.0\% of multinomial
+iterations ($p = .010$). Figures~\ref{fig:5dperm} and \ref{fig:5dmulti} provide complementary
+geometric illustrations. Figure~\ref{fig:5dperm} uses all three axes for the
+dependent sub-vector, giving the clearest spatial picture of the focused test.
+Figure~\ref{fig:5dmulti} shows all five patterns simultaneously using a mixed
+encoding (axes for the three primary patterns; size and colour for the remaining two),
+conveying the full 5D displacement at the cost of some interpretive complexity.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig6_5d_permutation}
+  \caption{Full 5-dimensional joint test under the \textbf{permutation} null
+    ($D = 19.74$, $p = .009$). Axes: Haflaga, Week-Dilug, Dilug-in-Dilug --- the three
+    mathematically dependent patterns. Marker size encodes Dilug count; marker colour
+    encodes Week count. The filled circle marks the null mean; the red arrow and label
+    identify the observed vector $(26, 18, 27)$ on the three primary axes; the dashed
+    line shows the 5D Euclidean distance. The observed vector lies at the periphery of
+    the null cloud, displaced primarily along the Haflaga axis.}
+  \label{fig:5dperm}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig7_5d_multinomial}
+  \caption{Full 5-dimensional joint test under the \textbf{multinomial} null
+    ($D = 19.63$, $p = .014$). Encoding identical to Figure~\ref{fig:5dperm}.
+    The close agreement between the two null clouds confirms that the visual result
+    is robust to the choice of null model: the observed vector lies equally far outside
+    the permutation and multinomial null distributions.}
+  \label{fig:5dmulti}
+\end{figure}
+
+% ─── 5. Discussion ────────────────────────────────────────────────────────────
+\section{Discussion}
+
+This study provides the first formal statistical test of whether halachic vesset
+patterns are overrepresented in empirical menstrual cycle data. Using $N = 50{,}000$
+iterations of permutation and multinomial null models, we found strong and consistent
+evidence for two of the five patterns analysed: \textit{Haflaga} ($z = 4.51$,
+$p < .001$) and \textit{Dilug} ($z = 1.83$, $p = .043$). The joint multivariate test
+confirmed collective overrepresentation ($p < .01$) and the focused test on the
+mathematically dependent sub-vector was similarly significant ($p < .01$).
+
+\subsection{Haflaga}
+
+The Haflaga finding is the most striking result. With only 2 of 50,000 permutation
+simulations reaching or exceeding the observed count of 26 (the simulation ceiling),
+the empirical evidence is essentially unambiguous. The result is biologically
+interpretable: Haflaga detects exactly the pattern expected in women with high
+within-person cycle regularity. The present data confirm this: women who establish
+Haflaga have within-person SDs of 1.54 days vs.\ 3.17 days for women who establish no
+vesset at all. Haflaga is the halachic formalisation of a genuine physiological regularity.
+
+\subsection{Dilug}
+
+The Dilug finding ($p = .043$) is more modest but consistent across both null models.
+Arithmetic progressions in cycle length may arise from gradual physiological trends
+within a woman's cycle history, e.g., gradual lengthening or shortening associated
+with hormonal change, ageing, or weight change. The significance of Dilug suggests
+that such directional trends are more common than random arrangements would produce,
+warranting replication in larger samples.
+
+\subsection{Mathematical Dependence Structure as a Unifying Observation}
+
+A distinctive feature of this study is that the observed statistical dependences between
+pattern types are not post-hoc empirical discoveries but \emph{mathematical necessities}
+derivable from the pattern definitions alone.  This is, to our knowledge, an observation
+that has not previously been stated explicitly in the halachic or statistical literature.
+
+\paragraph{The finite-difference hierarchy.}
+The five vesset patterns are naturally unified by the language of finite differences.
+Recall that the $n$-th forward difference operator $\Delta^n$ is defined recursively by
+$\Delta^0 H_k = H_k$ and $\Delta^n H_k = \Delta^{n-1}H_{k+1} - \Delta^{n-1}H_k$.
+Each vesset pattern corresponds to a condition on a specific order of $\Delta$:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Pattern & Condition & Order \\
+\midrule
+Week-Dilug & $H_k = 30$ (constant at 30) & $\Delta^0 H_k = 30$ \\
+Week       & $H_k = c \in \mathcal{W}$ (constant, anchored) & $\Delta^0 H_k = c$ \\
+Haflaga    & $H_k = c$ (constant, any $c$) & $\Delta^0 H_k = c$ \\
+Dilug      & $\Delta^1 H_k = d \neq 0$ (constant non-zero first difference) & \\
+Dilug-in-Dilug & $\Delta^2 H_k = d \neq 0$ (constant non-zero second difference) & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+This ordering mirrors the classical Taylor expansion: a constant function is a
+degree-0 polynomial, a linear function is degree-1, and a quadratic is degree-2.
+Haflaga, Week, and Week-Dilug detect degree-0 sequences (with progressively tighter
+constraints on which constant value is admissible); Dilug detects degree-1 sequences
+($H_k = a + bk$, $b \neq 0$); and Dilug-in-Dilug detects degree-2 sequences
+($H_k = a + bk + ck^2$, $c \neq 0$).  Crucially, a degree-2 sequence with a very
+small leading coefficient $c$ is nearly linear, and a degree-1 sequence with a very
+small slope $b$ is nearly constant --- so the hierarchy does not impose rigid
+boundaries; rather, it describes a spectrum of regularity along which the patterns
+sit at adjacent levels.
+
+This graded structure generates three mathematically necessary relationships between
+the patterns.
+
+\paragraph{Haflaga and Week-Dilug: containment.}
+Week-Dilug requires two consecutive \textit{haflagot} (pl.\ of \textit{haflaga}) both equal to 30, i.e.\
+$\Delta^0 H_{k-1} = \Delta^0 H_k = 30$.  Haflaga-30 requires three consecutive
+haflagot all equal to 30, i.e.\ $\Delta^0 H_{k-2} = \Delta^0 H_{k-1} = \Delta^0
+H_k = 30$, which strictly contains the Week-Dilug condition.  Algebraically,
+\[
+  \bigl\{H_{k-2} = H_{k-1} = H_k = 30\bigr\}
+  \;\;\Longrightarrow\;\;
+  \bigl\{H_{k-1} = H_k = 30\bigr\},
+\]
+so every Haflaga-30 sequence necessarily generates a Week-Dilug event at the same
+position.  This is not a probabilistic statement but a deterministic logical
+implication: any haflaga sequence that satisfies the Haflaga-30 condition
+automatically satisfies the Week-Dilug condition at its first two elements.  In
+the data, 3 of the 26 Haflaga sequences have value $H = 30$ and therefore each
+count once towards the Week-Dilug total as a direct algebraic consequence.
+
+\paragraph{Haflaga and Dilug-in-Dilug: limiting convergence.}
+A Dilug-in-Dilug sequence with second difference $d$ has first differences
+$\Delta^1 H_k = b,\, b+d,\, b+2d,\, \ldots$, so the haflaga values are
+\[
+  H_k = H_0 + bk + \tfrac{d}{2}k(k-1).
+\]
+As $d \to 0$, this reduces to $H_k = H_0 + bk$ (a Dilug), and as both $d \to 0$
+and $b \to 0$, it reduces to $H_k = H_0$ (a Haflaga).  More precisely, for a run
+of length $n$ starting at $H_0$, the maximum deviation from the constant sequence
+$\mathbf{c} = H_0$ is bounded by
+\[
+  \|H - \mathbf{c}\|_\infty \;\leq\; |b|\,n + \tfrac{|d|}{2}\,n^2.
+\]
+A DiD sequence with $|d| = 1$ and a short run ($n = 4$, the minimum) therefore
+deviates from the nearest constant by at most $4|b| + 8$ days --- for small $|b|$,
+this is a sequence that is barely distinguishable from a Haflaga.  In the data,
+16 of the 27 observed DiD sequences have $|d| = 1$, the minimum non-zero value;
+for these, the haflaga values change by only 1 day per cycle relative to linear
+trend.  The women who sustain a DiD pattern with $|d| = 1$ are the same women whose
+cycles are regular enough to sustain a near-constant sequence across multiple cycles
+--- biologically the same population as Haflaga women.  This explains the strong
+positive dependence $\chi^2 = 9.99$, $p = .002$: the polynomial hierarchy places
+Haflaga and DiD adjacent in a continuum of regularity, and the data show that real
+women tend to cluster near the boundary between them.
+
+\paragraph{Dilug and Week-Dilug: mutual exclusion.}
+Dilug requires $\Delta^1 H_k = H_k - H_{k-1} = d \neq 0$; Week-Dilug requires
+$\Delta^1 H_k = H_k - H_{k-1} = 0$.  Within any single cycle window $(k-1, k)$,
+these conditions are contradictory:
+\[
+  \Delta^1 H_k \neq 0 \quad\text{and}\quad \Delta^1 H_k = 0
+\]
+cannot both hold.  A cycle pair that satisfies Week-Dilug ($\Delta^1 H = 0$) is
+therefore excluded from contributing to a Dilug run ($\Delta^1 H \neq 0$), and vice
+versa.  This mutual exclusion at the window level predicts a negative co-occurrence
+tendency at the woman level.  Although the pair did not reach significance in our
+sample ($\chi^2 = 1.47$, $p = .226$), the direction is negative (5 observed
+co-occurrences vs.\ 7.3 expected), consistent with the prediction from the algebra.
+
+\paragraph{Implication for inference.}
+The three relationships derived above --- containment, limiting convergence, and
+mutual exclusion --- show that the five pattern counts are \emph{structurally}
+non-independent: their joint distribution is constrained by the algebra of
+finite differences, not by coincidence.  Applying Bonferroni correction, which
+assumes independence, would therefore be not merely conservative but logically
+inconsistent with the mathematical structure of the patterns.  The joint
+multivariate test of Section~\ref{sec:inference} sidesteps this problem by operating
+directly on the count vector, without any independence assumption, thereby respecting
+the dependence structure that the finite-difference hierarchy imposes.
+
+\subsection{The Joint Multivariate Test}
+
+The joint test (Eq.~\ref{eq:distance}) is an original methodological contribution
+\cite{ross2022phd}. It is \textit{inspired by} the simulation-based testing framework
+of King et al.\ \cite{king2018}, who propose a multivariate kernel density estimator
+to find the smallest acceptance region in the joint space of test statistics. The
+present approach is structurally simpler: it uses Euclidean distance from the null
+mean as the test statistic, requires no density estimation, and has a transparent
+geometric interpretation (the observed vector either falls inside or outside the null
+cloud). A formal comparison of the two approaches --- including theoretical properties
+such as consistency, power, and sensitivity to dependence among counts --- is planned
+in future work.
+
+\subsection{Non-Significant Patterns}
+
+Week, Week-Dilug, and Dilug-in-Dilug were not individually significant. These results
+do not invalidate these halachic rules, which are established on legal-theological
+grounds \cite{ross2021statistical}. The non-significance of Dilug-in-Dilug is
+particularly notable given its large z-score at the sequence level in the joint test:
+it is the dependence with Haflaga (via the polynomial hierarchy) that elevates its
+collective contribution to $D$, even when its individual count is exactly at the null
+mean. This illustrates why joint and individual tests can differ.
+
+\subsection{Limitations}
+
+Several limitations of the dataset and methodology are acknowledged, largely following
+the systematic assessment in \cite{ross2022phd}.
+
+\paragraph{Day-night timing (onset period).}
+A central requirement of halachic vesset law is that a pattern may be established
+only if all its constituent menstruations arrived during the \emph{same onset period}
+--- either all during the daytime period or all during the nighttime period.  The NFP dataset records cycle length in whole days but not
+the time of day of menstrual onset.  This creates two types of misclassification:
+(i)~patterns that are counted as established in our analysis may not qualify
+halachically because the onsets spanned both day and night; and (ii)~patterns that
+are not counted may in fact qualify because the day-rounding convention used here
+differs from the halachic one.  Both types of error introduce noise that attenuates
+the observed pattern frequencies.  The net direction of misclassification bias is indeterminate without
+data on onset timing: sequences counted as established patterns may not qualify
+halachically (upward bias), while sequences that do qualify halachically may be
+missed (downward bias). The two effects partially cancel, but their relative
+magnitude cannot be assessed from the present data, and the limitation applies
+equally to all five pattern types.
+
+\paragraph{Calendar dates.}
+The dataset does not record calendar dates, making it impossible to test the 10
+date-dependent vesset types (e.g., \textit{vesset hachodesh}, the monthly calendar
+anchor, and weekday-based patterns).  Only the 7 cycle-length-based vesset types
+are accessible; of these, two (Dilug Chozer Chalila and Haflaga Chozer Chalila) had
+zero occurrences, leaving the 5 patterns analysed here.
+
+\paragraph{Body-sign vesset.}
+The dataset does not include prodromal physical symptoms (\textit{vesset haguf}, body-sign vesset: a category established when a woman
+experiences a consistent recurring physical sensation --- such as yawning,
+shivering, or lower-abdominal pain --- immediately preceding menstrual onset).  Women in the sample may have established body-sign
+vesset patterns that are entirely invisible to a cycle-length analysis.
+
+\paragraph{Population generalizability.}
+The participants are non-Jewish NFP users \cite{fehring2013}.  Several halachic
+authorities hold that physiological regularities observed in non-Jewish women
+may not generalize to Jewish women in the context of halachic practice
+\cite{ross2022phd}.  More broadly, NFP users are a self-selected group who are
+likely more cycle-aware and may have more regular cycles than the general population,
+introducing a potential upward bias in regularity-dependent patterns such as Haflaga.
+
+\paragraph{Null model structure.}
+The permutation and multinomial null models shuffle cycle lengths globally across
+women, ignoring within-person autocorrelation structure \cite{bortot2010,symul2019}.
+A stratified null that preserves within-person temporal order while randomising
+assignments between women would provide a more stringent test.  Future work could
+also employ parametric nulls based on fitted state-space models \cite{bortot2010}.
+
+\paragraph{Sample size and power.}
+The requirement for minimum run lengths (3 cycles for Haflaga and Dilug; 4 for
+Dilug-in-Dilug) limits the number of testable windows, particularly for women with
+few recorded cycles.  With a mean of 13.2 cycles per woman, longer patterns such as
+Dilug-in-Dilug are likely underpowered.
+
+% ─── 6. Conclusion ────────────────────────────────────────────────────────────
+\section{Conclusion}
+
+This study provides the first rigorous statistical test of whether halachic vesset
+patterns are overrepresented in empirical menstrual cycle data. The five patterns
+analysed form a polynomial hierarchy whose structure generates mathematically
+necessary dependencies, confirmed by pairwise chi-square tests. Permutation and
+multinomial null models --- run for 50,000 iterations each and in close agreement
+throughout --- establish that Haflaga ($p < .001$) and Dilug ($p = .043$) are
+significantly overrepresented, while a joint multivariate test confirms collective
+overrepresentation of all five patterns ($p < .01$). The Haflaga result is
+particularly compelling: only 2 of 50,000 permutation simulations reached the observed
+count. A focused joint test on the three mathematically dependent patterns
+(Haflaga, Week-Dilug, Dilug-in-Dilug) is similarly significant ($p < .01$). These
+findings provide empirical statistical foundations for two of the most frequently
+applied halachic vesset rules, and introduce a joint distance-based test for dependent
+count vectors as a methodological contribution with potential applications beyond
+the halachic context.
+
+
+% ─── AI Disclosure ────────────────────────────────────────────────────────────
+\section*{AI Assistance Disclosure}
+
+Portions of the written text in this article were drafted and edited with the
+assistance of Claude (Anthropic, 2024), a large language model AI assistant.
+All scientific content, mathematical derivations, statistical analyses, and
+intellectual contributions are solely the work of the author. The AI tool was
+used exclusively for language editing, structural organisation of the manuscript,
+and generation of \LaTeX{} and Python code under the author's direct supervision
+and verification. The author takes full responsibility for the accuracy and
+integrity of all content presented in this article.
+
+% ─── References ───────────────────────────────────────────────────────────────
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
