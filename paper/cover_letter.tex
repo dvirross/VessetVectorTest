@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=2.54cm]{geometry}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{setspace}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{flushright}
+Dvir Ross\\
+Department of Software Engineering\\
+Shenkar College of Engineering, Design and Art\\
+Ramat Gan, Israel\\[2pt]
+Department of Computer Science\\
+SCE --- Shamoon College of Engineering\\
+Beer Sheva, Israel\\[2pt]
+\texttt{dvirross@shenkar.ac.il}\\
+\texttt{RossDv@sce.ac.il}\\[6pt]
+\today
+\end{flushright}
+
+\bigskip
+
+The Editors\\
+\textit{Statistical Methods in Medical Research}
+
+\bigskip
+
+Dear Editors,
+
+\medskip
+
+I am pleased to submit the manuscript \textbf{``Statistical Evidence for Halachic Vesset
+Patterns in Natural Menstrual Cycle Data: A Study of Jewish Religious Law and Menstrual
+Cycle Regularity --- A Permutation and Multinomial Sampling Analysis''} for consideration
+for publication in \textit{Statistical Methods in Medical Research}.
+
+\medskip
+\textbf{What this paper does.}
+Jewish religious law (\textit{Halacha}) prescribes that women anticipate menstruation
+based on recurring patterns in their cycle history, collectively known as \textit{vesset}.
+Despite their centuries-long practical application, no published study has formally tested
+whether these patterns occur in real menstrual cycle data at rates exceeding chance.
+This paper fills that gap using two complementary randomization-based null models ---
+permutation testing and a multinomial sampling null --- applied to a publicly available
+dataset of 1,554 cycles from 118 women (Fehring et al., \textit{Contraception}, 2013).
+
+\medskip
+\textbf{Methodological contributions.}
+The paper makes three methodological contributions that we believe are of broad interest
+to readers of this journal:
+
+\begin{enumerate}
+  \item \textbf{A joint multivariate test for dependent count vectors.}
+    We introduce a distance-based joint test that evaluates whether a vector of sequentially
+    computed pattern counts is collectively overrepresented relative to a randomization null,
+    without assuming independence among the counts. This test is applicable to any setting
+    where multiple sequential pattern types are counted in time-series or longitudinal data.
+
+  \item \textbf{A polynomial hierarchy of pattern types.}
+    We show that the five vesset pattern types form a hierarchy based on the order of the
+    finite-difference operator --- degree-0 (constant), degree-1 (linear), degree-2 (quadratic)
+    sequences. We derive three mathematically necessary dependence relationships between
+    the patterns (set-theoretic inclusion, limiting convergence, logical incompatibility) and
+    confirm each with pairwise chi-square tests. This motivates the joint test and explains
+    why Bonferroni correction would be logically inappropriate.
+
+  \item \textbf{A second null model: the multinomial sampling null.}
+    In addition to the standard permutation test, we introduce a multinomial null that draws
+    each woman's cycle sequence independently from the fitted empirical distribution,
+    directly encoding the null hypothesis of cycle-to-cycle independence. The close agreement
+    of permutation and multinomial results across all five patterns provides unusually strong
+    evidence of robustness.
+\end{enumerate}
+
+\medskip
+\textbf{Main findings.}
+Haflaga (fixed interval) is significantly overrepresented ($z = 4.51$, $p < .001$),
+with only 2 of 50,000 permutation simulations reaching the observed count.
+Dilug (arithmetic progression) is also significant ($p = .043$).
+A joint multivariate test confirms collective overrepresentation of all five patterns
+($p < .01$). A focused joint test restricted to the three mathematically dependent
+patterns is similarly significant ($p < .01$).
+
+\medskip
+\textbf{Fit with \textit{Statistical Methods in Medical Research}.}
+This paper sits squarely within the scope of the journal: it develops and applies
+novel statistical methodology --- randomization testing, multivariate distance tests,
+and null model comparison --- to a medical dataset with direct clinical and public-health
+relevance (menstrual cycle regularity). The interdisciplinary context (Jewish religious
+law) is unusual, but the statistical methodology and its contributions are entirely
+general and applicable beyond the halachic setting.
+
+\medskip
+\textbf{Originality and prior publication.}
+This manuscript has not been submitted elsewhere and is not under review at any other
+journal. A preliminary analysis appears in the author's PhD dissertation (Ariel University,
+2022, in Hebrew), but the present paper extends that work substantially: it introduces the
+joint multivariate test, the multinomial null model, the polynomial hierarchy with
+mathematical derivations, the chi-square dependence analysis, and the 5-dimensional
+geometric visualization, none of which appeared in the dissertation.
+
+\medskip
+\textbf{Data and code availability.}
+All analysis code and the filtered dataset are publicly available at
+\url{https://github.com/dvirross/VessetVectorTest}.
+The original dataset is archived at Marquette University
+(\url{https://epublications.marquette.edu/data_nfp/7/}).
+
+\medskip
+\textbf{Suggested reviewers.}
+Given the interdisciplinary nature of this work, I suggest reviewers with expertise in
+both statistical methodology and reproductive medicine or longitudinal biological data.
+I am happy to suggest specific names if the editors find this helpful.
+
+\medskip
+
+I believe this manuscript will be of genuine interest to the readership of
+\textit{Statistical Methods in Medical Research}, and I look forward to the
+editorial team's consideration.
+
+\bigskip
+
+Yours sincerely,
+
+\bigskip\bigskip
+
+Dvir Ross, PhD\\
+Department of Software Engineering, Shenkar College of Engineering, Design and Art\\
+Department of Computer Science, SCE --- Shamoon College of Engineering
+
+\newpage
+
+% ── DECLARATIONS PAGE ─────────────────────────────────────────────────────────
+\begin{center}
+  {\large\bfseries Declarations}
+\end{center}
+
+\bigskip
+
+\textbf{Funding}
+
+This research received no specific grant from any funding agency in the public,
+commercial, or not-for-profit sectors.
+
+\bigskip
+
+\textbf{Conflict of interest}
+
+The author declares no conflicts of interest.
+
+\bigskip
+
+\textbf{Ethics approval}
+
+This study is a secondary analysis of a publicly available, fully anonymised dataset
+(Fehring et al., 2013, archived at Marquette University). No new data collection
+was conducted. No ethical approval was required.
+
+\bigskip
+
+\textbf{Patient consent}
+
+Not applicable. No new data were collected. The original dataset was collected under
+the ethical oversight of the original investigators (Fehring et al., 2013).
+
+\bigskip
+
+\textbf{Data availability}
+
+The filtered dataset and all analysis code used in this study are publicly available
+at \url{https://github.com/dvirross/VessetVectorTest}. The original NFP dataset is
+archived at Marquette University:
+\url{https://epublications.marquette.edu/data_nfp/7/}.
+
+\bigskip
+
+\textbf{Author contributions}
+
+Dvir Ross: Conceptualization, Methodology, Software, Formal analysis, Investigation,
+Writing --- original draft, Writing --- review \& editing, Visualization.
+
+\bigskip
+
+\textbf{Artificial intelligence use disclosure}
+
+Portions of the written text in this article were drafted and edited with the assistance
+of Claude (Anthropic, 2024), a large language model AI assistant. All scientific
+content, mathematical derivations, statistical analyses, and intellectual contributions
+are solely the work of the author. The AI tool was used exclusively for language
+editing, structural organisation of the manuscript, and generation of \LaTeX{} and
+Python code under the author's direct supervision and verification. The author takes
+full responsibility for the accuracy and integrity of all content presented in this
+article.
+
+\bigskip
+
+\textbf{ORCID}
+
+Dvir Ross: \href{https://orcid.org/0000-0001-8217-3359}{0000-0001-8217-3359}
+
+\end{document}
