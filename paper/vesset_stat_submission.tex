@@ -608,7 +608,10 @@ Figure~\ref{fig:joint1d} shows the null distance distributions.
 Table~\ref{tab:chisq} presents the pairwise chi-square tests. Two pairs are
 statistically significant: Haflaga $\times$ Week-Dilug ($\chi^2 = 7.26$, $p = .014$, Fisher's exact)
 and Haflaga $\times$ Dilug-in-Dilug ($\chi^2 = 9.99$, $p = .004$, Fisher's exact), both with
-positive direction (co-occurrence substantially exceeds chance expectation). These
+positive direction (co-occurrence substantially exceeds chance expectation).
+Notably, the Haflaga $\times$ Dilug-in-Dilug $p$-value ($0.004$) falls below $0.01$,
+providing strong evidence against the null that co-occurrence arises by chance
+even under non-asymptotic conditions. These
 findings are consistent with --- and explained by --- the mathematical relationships
 derived in Section~2.2. Figure~\ref{fig:chisq} visualises the full dependence matrix.
 
@@ -854,17 +857,19 @@ planned in future work.
 
 \paragraph{Relationship to Hotelling's $T^2$.}
 The permutation-based Mahalanobis test is related to, but more general than,
-Hotelling's $T^2$. Under a Gaussian approximation, $D_M^2$ is asymptotically
-$\chi^2(5)$, which is the same distributional assumption underlying $T^2$; however,
-the exact permutation reference distribution used here replaces that parametric
-assumption with an empirical one, making the test distribution-free. Moreover, the
-Bonferroni--Holm correction applied to the five marginal tests is provably valid but
-conservative under positive correlation (as holds here via the set-theoretic
-containment and polynomial proximity relationships), while the joint Mahalanobis test
-exploits the known positive correlation structure by pooling all five components
-simultaneously. For both reasons --- distribution-free inference and proper treatment
-of dependence --- the permutation-based Mahalanobis test is preferred for this
-application.
+Hotelling's $T^2$. Under a Gaussian approximation (i.e., assuming the count vector
+is approximately multivariate normal, as holds asymptotically for large counts),
+$D_M^2$ is asymptotically $\chi^2(5)$, which is the same distributional assumption
+underlying $T^2$. However, with observed counts as small as 18 (Week-Dilug), this
+approximation may not hold reliably --- motivating the permutation reference
+distribution, which replaces the parametric assumption with an empirical one and
+makes the test fully distribution-free. Moreover, the Bonferroni--Holm correction
+applied to the five marginal tests is provably valid but conservative under positive
+correlation (as holds here via the set-theoretic containment and polynomial proximity
+relationships), while the joint Mahalanobis test exploits the known positive
+correlation structure by pooling all five components simultaneously. For both reasons
+--- distribution-free inference and proper treatment of dependence --- the
+permutation-based Mahalanobis test is preferred for this application.
 
 \subsection{Non-Significant Patterns}
 
@@ -960,7 +965,7 @@ by one day. As a sensitivity check, we verified that all pattern counts are
 identical whether computed on $H_k$ or directly on $L_k$ \emph{with the anchor
 adjusted accordingly} (Week-Dilug at $L=29$ instead of $H=30$; emphasis added).
 This anchor adjustment is critical: computing on $L_k$ with the unadjusted anchor
-($L = 30$) yields only 12 Week-Dilug events instead of 18, which would be incorrect.
+($L = 30$) yields only 12 Week-Dilug events instead of the correct 18.
 Provided the anchor is shifted by the same $-1$ that maps $H_k$ to $L_k$, the counts
 are unchanged (Haflaga: 26, Week-Dilug: 18 under both conventions), confirming
 that the $+1$ transformation is not a substantive modelling choice but a
