@@ -102,7 +102,7 @@ types are testable with cycle-length data: \textit{Haflaga} (fixed interval),
 \textit{Dilug} (arithmetic progression), \textit{Week} (weekly anchor),
 \textit{Week-Dilug} (30-day anchor), and \textit{Dilug-in-Dilug} (second-order
 progression). These form a polynomial hierarchy whose structure generates mathematically
-necessary dependencies, confirmed by pairwise permutation tests ($p_{\text{perm}} < .014$).
+necessary dependencies, confirmed by exploratory pairwise permutation tests ($p_{\text{perm}} < .014$).
 We apply three complementary null models to 1,554 menstrual cycles from 118 women
 \cite{fehring2013}: a global permutation null, a multinomial sampling null, and a
 within-woman permutation null conditioning on each woman's observed
@@ -298,10 +298,13 @@ $n_0 = 69$ and $n_1 = 49$ women in the filtered sample). All cycle lengths were 
 halachic haflaga convention ($H_k = L_k + 1$), yielding $M = 30.3$, $\text{SD} = 3.9$.
 
 The within-person variability structure is relevant to the Haflaga result: women who
-establish a Haflaga vesset have a mean within-person cycle-length SD of 1.54 days,
-compared to 3.17 days for women who establish no vesset. This confirms that Haflaga
-selects the most physiologically regular subgroup of women. Figure~\ref{fig:dist}
-shows the cycle length distribution and per-woman variability.
+establish a Haflaga vesset ($n = 20$) have a mean within-person cycle-length SD of 1.54 days
+(SD$_{\text{between}} = 0.59$), compared to 3.17 days (SD$_{\text{between}} = 1.75$) for women who
+establish no vesset at all ($n = 35$). A Mann--Whitney test confirms this difference is highly
+significant ($U = 133$, $p < .001$, two-sided; Welch $t = -5.05$, $\text{df} = 45.5$, $p < .001$;
+95\% CI for mean difference: $[-2.29, -0.98]$ days; Cohen's $d = -1.13$). This confirms that
+Haflaga selects the most physiologically regular subgroup of women.
+Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variability.
 
 \begin{figure}[H]
   \centering
@@ -658,6 +661,7 @@ Figure~\ref{fig:joint1d} shows the null distance distributions.
 \label{sec:chisq}
 
 Table~\ref{tab:chisq} presents the pairwise dependence tests.
+These analyses are \textbf{exploratory}: the tests were not pre-specified, multiple pairs are tested simultaneously, and the primary scientific contribution of these comparisons is to confirm the mathematical structure derived in Section~2.2 rather than to establish new independent findings.
 Each pair is tested with both Fisher's exact test and a randomisation-based
 permutation test (50,000 random shuffles of the binary column; no distributional
 assumption), addressing the concern that small expected cell counts ($< 5$) may
@@ -779,9 +783,9 @@ simulations reaching or exceeding the observed count of 26 (the simulation ceili
 the result is highly significant under the global null. It is biologically
 interpretable: Haflaga detects the pattern expected in women with lower
 within-person cycle-length variability. The present data confirm this association:
-women who establish Haflaga have within-person SDs of 1.54 days vs.\ 3.17 days for
-women who establish no vesset at all (a descriptive comparison; formal inference on
-this difference is reported in Section~\ref{sec:stratified}). These findings are
+women who establish Haflaga have within-person SDs of 1.54 days ($n = 20$) vs.\ 3.17 days
+for women who establish no vesset at all ($n = 35$; Mann--Whitney $p < .001$, Cohen's $d = -1.13$;
+see Section~\ref{sec:data} for full inference). These findings are
 consistent with the interpretation that Haflaga is empirically characteristic of
 women with lower observed within-woman cycle-length variability.
 
@@ -1203,7 +1207,7 @@ Dilug-in-Dilug & 27 & 39.14 & 5.86 & 49.0 & 54 & $-2.07$ \\
 This study provides, to our knowledge, the first formal statistical test of whether halachic vesset
 patterns are overrepresented in empirical menstrual cycle data. The five patterns
 analysed form a polynomial hierarchy whose structure generates mathematically
-necessary dependencies, confirmed by pairwise randomisation-based dependence tests. Three complementary null
+necessary dependencies, confirmed by exploratory pairwise randomisation-based dependence tests. Three complementary null
 models were applied: a global permutation null, a multinomial null, and the
 scientifically sharper within-woman permutation null ($H_W$).
 
