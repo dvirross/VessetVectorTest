@@ -17,6 +17,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{caption}
 \usepackage{float}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 % ─── Spacing & Layout ─────────────────────────────────────────────────────────
 \doublespacing
@@ -92,8 +94,8 @@ dependence beyond that regularity.
 
 \medskip
 \noindent\textit{Keywords:} menstrual cycle, vesset, Halacha, permutation test,
-multinomial sampling, natural family planning, Jewish law, polynomial hierarchy,
-dependence structure, multivariate randomization test
+within-woman permutation, multinomial sampling, natural family planning, Jewish law,
+polynomial hierarchy, dependence structure, multivariate randomization test
 
 % ─── 1. Introduction ──────────────────────────────────────────────────────────
 \newpage
@@ -367,6 +369,41 @@ Pairwise \textbf{chi-square tests of independence} between pattern types were co
 on the per-woman binary matrix (1 = woman established the pattern at least once).
 $\alpha = .05$ throughout.
 
+\paragraph{Simulation pipeline.}
+For reproducibility, the full simulation pipeline is described in
+Algorithm~\ref{alg:sim}: (1) compute observed counts $\mathbf{O}$; (2) for each
+of $B = 50{,}000$ iterations, generate permuted haflaga sequences under each null
+model and compute the 5-dimensional count vector $\mathbf{S}^{(r)}$; (3) estimate
+the $5 \times 5$ null covariance matrix $\hat{\Sigma}$ from the simulated vectors;
+(4) compute the Mahalanobis statistic $D_M^2 = (\mathbf{O}-\boldsymbol{\mu})^\top
+\hat{\Sigma}^{-1}(\mathbf{O}-\boldsymbol{\mu})$ and empirical p-values.
+The three null models differ only in step (2): $H_G$ permutes all 1,554 haflaga
+values globally; $H_{iid}$ samples iid from the marginal distribution; $H_W$
+permutes each woman's sequence independently within her own values (without
+replacement). All permutations used NumPy's Fisher--Yates shuffle; seed 17.
+
+\begin{algorithm}[H]
+\caption{Simulation pipeline (all three null models)}
+\label{alg:sim}
+\begin{algorithmic}[1]
+\Require Dataset $\mathcal{D} = \{(H_{i,1},\ldots,H_{i,n_i})\}_{i=1}^{N}$,
+         patterns $j=1,\ldots,5$, iterations $B$, seed
+\State Compute $\mathbf{O} = (O_1,\ldots,O_5)$ via pattern detection on $\mathcal{D}$
+\For{$r = 1$ to $B$}
+  \State $H_G$: globally permute all haflagot; $H_{iid}$: sample iid; $H_W$:
+         per-woman shuffle (without replacement)
+  \State $\mathbf{S}^{(m,r)} \leftarrow \operatorname{Count}(\text{permuted data})$
+         for each $m \in \{G, \textit{iid}, W\}$
+\EndFor
+\State $\hat{\Sigma}^{(m)} \leftarrow \operatorname{SampleCov}(\{\mathbf{S}^{(m,r)}\}_{r=1}^B)$;
+       $\boldsymbol{\mu}^{(m)} \leftarrow B^{-1}\sum_r \mathbf{S}^{(m,r)}$
+\State $D_M^{(m)} \leftarrow \sqrt{(\mathbf{O}-\boldsymbol{\mu}^{(m)})^\top
+       (\hat{\Sigma}^{(m)})^{-1}(\mathbf{O}-\boldsymbol{\mu}^{(m)})}$
+\State $p_j^{(m)} \leftarrow (|\{r : S_j^{(m,r)} \geq O_j\}|+1)/(B+1)$
+       for each $j$ \Comment{one-sided}
+\end{algorithmic}
+\end{algorithm}
+
 % ─── 4. Results ───────────────────────────────────────────────────────────────
 \section{Results}
 
@@ -477,9 +514,16 @@ For each of the 118 women independently, her haflaga sequence is permuted unifor
 \paragraph{Results.}
 Table~\ref{tab:stratified} presents the results. Under the within-woman null,
 \emph{no pattern is individually significant}. All five observed counts fall
-\emph{below} their within-woman null means (all $z < 0$), meaning that given each
-woman's own cycle distribution, the temporal arrangements are not unusually structured.
+\emph{below} their within-woman null means (all $z < 0$). The most negative z-score
+belongs to Dilug-in-Dilug ($z = -2.07$, $p = .988$); because all tests are one-sided
+upper-tail, this large negative z indicates that the count is well below the null mean
+--- not that it is unexpectedly low.
 The joint test is also non-significant: Mahalanobis $D_M = 2.95$ ($p = .121$), Euclidean $D_E = 15.2$ ($p = .145$).
+Note that the $z$ values in Table~\ref{tab:stratified} and Table~\ref{tab:power} may
+differ slightly (e.g., Haflaga: $-1.25$ here vs.\ $-1.24$ in Table~\ref{tab:power})
+because Table~\ref{tab:stratified} uses the primary 50,000-run simulation (seed 17)
+while Table~\ref{tab:power} uses an independent 50,000-run simulation for power
+computations; the differences are within Monte Carlo variability.
 
 \begin{table}[H]
 \centering
@@ -541,6 +585,7 @@ present analysis. A companion study examining the practical forecasting efficien
 vesset rules --- how accurately they predict the next menstruation onset, and\nat what cost in unnecessary abstinence days --- is in preparation \cite{ross_planned}.
 
 \subsection{Joint Multivariate Test}
+\label{sec:joint}
 
 The joint multivariate test (Eq.~\ref{eq:distance}) was significant under both models.
 The observed Euclidean distance was $D = 19.74$, exceeding 99.1\% of permutation
@@ -807,6 +852,20 @@ null mean --- requiring no density estimation, pairwise distances, or asymptotic
 approximations. The p-value is purely empirical. A formal theoretical treatment is
 planned in future work.
 
+\paragraph{Relationship to Hotelling's $T^2$.}
+The permutation-based Mahalanobis test is related to, but more general than,
+Hotelling's $T^2$. Under a Gaussian approximation, $D_M^2$ is asymptotically
+$\chi^2(5)$, which is the same distributional assumption underlying $T^2$; however,
+the exact permutation reference distribution used here replaces that parametric
+assumption with an empirical one, making the test distribution-free. Moreover, the
+Bonferroni--Holm correction applied to the five marginal tests is provably valid but
+conservative under positive correlation (as holds here via the set-theoretic
+containment and polynomial proximity relationships), while the joint Mahalanobis test
+exploits the known positive correlation structure by pooling all five components
+simultaneously. For both reasons --- distribution-free inference and proper treatment
+of dependence --- the permutation-based Mahalanobis test is preferred for this
+application.
+
 \subsection{Non-Significant Patterns}
 
 Week, Week-Dilug, and Dilug-in-Dilug were not individually significant. These results
@@ -816,6 +875,16 @@ particularly notable given its large z-score at the sequence level in the joint 
 it is the dependence with Haflaga (via the polynomial hierarchy) that elevates its
 collective contribution to $D$, even when its individual count is exactly at the null
 mean. This illustrates why joint and individual tests can differ.
+
+For the Week pattern, it is worth noting that the weekly anchor set
+$\mathcal{W} = \{22, 29, 36, 43, 50\}$ (in haflaga units) corresponds to cycle lengths
+$\{21, 28, 35, 42, 49\}$. Since cycles of 35 days or longer are well outside the
+normal range for the Fehring dataset (mean $L = 29.3$, SD $= 3.9$), nearly all
+Week patterns in this sample arise from haflagot of 22 (cycle length 21) or 29
+(cycle length 28). The 28-day cycle is the mode of the dataset and the most
+biologically common length, so the Week pattern in this dataset effectively captures
+women with near-28-day cycles who also show the requisite two-consecutive-cycle
+consistency.
 
 \subsection{Medical and Clinical Relevance}
 
@@ -888,8 +957,11 @@ the systematic assessment in \cite{ross2022phd}.
 \paragraph{Sensitivity to the haflaga transformation.}
 The haflaga convention $H_k = L_k + 1$ is a relabelling that shifts all values
 by one day. As a sensitivity check, we verified that all pattern counts are
-identical whether computed on $H_k$ or directly on $L_k$ with the anchor
-adjusted accordingly (Week-Dilug at $L=29$ instead of $H=30$). The counts
+identical whether computed on $H_k$ or directly on $L_k$ \emph{with the anchor
+adjusted accordingly} (Week-Dilug at $L=29$ instead of $H=30$; emphasis added).
+This anchor adjustment is critical: computing on $L_k$ with the unadjusted anchor
+($L = 30$) yields only 12 Week-Dilug events instead of 18, which would be incorrect.
+Provided the anchor is shifted by the same $-1$ that maps $H_k$ to $L_k$, the counts
 are unchanged (Haflaga: 26, Week-Dilug: 18 under both conventions), confirming
 that the $+1$ transformation is not a substantive modelling choice but a
 conventional relabelling consistent with halachic convention~\cite{ross2021statistical,ross2022phd}.
@@ -989,6 +1061,46 @@ The requirement for minimum run lengths (3 cycles for Haflaga and Dilug; 4 for
 Dilug-in-Dilug) limits the number of testable windows, particularly for women with
 few recorded cycles.  With a mean of 13.2 cycles per woman, longer patterns such as
 Dilug-in-Dilug are likely underpowered.
+To quantify this, we computed a minimum detectable count (MDC) for each pattern
+under $H_W$ at 80\% power and $\alpha = .05$ (one-sided):
+\begin{equation}
+  \text{MDC} = \mu_W + (z_{0.05} + z_{0.80})\,\sigma_W
+             = \mu_W + 2.487\,\sigma_W,
+\end{equation}
+where $\mu_W$ and $\sigma_W$ are the mean and standard deviation of the within-woman
+permutation null distribution (Table~\ref{tab:power}).
+All five observed counts fall below their respective MDC, confirming that the
+current sample ($N = 118$ women, 1,554 cycles) is underpowered for individual
+pattern detection under $H_W$.  Note that the joint Mahalanobis test under
+$H_W$ is also non-significant ($D_M = 2.95$, $p = .121$), so underpowerment
+applies at the multivariate level as well. The significant Mahalanobis test
+($D_M = 5.10$, $p < .001$) reported in Section~\ref{sec:joint} refers to the
+\emph{global} permutation null ($H_G$), not the within-woman null ($H_W$);
+both results are genuine, but they answer different scientific questions.
+
+\begin{table}[ht]
+\centering
+\caption{Power analysis under $H_W$ (within-woman permutation null).
+  $\mu_W$: null mean; $\sigma_W$: null SD; 95th pct: empirical 95th percentile
+  of null (rejection threshold at $\alpha = .05$); MDC: minimum detectable count
+  at 80\% power ($\text{MDC} = \mu_W + 2.487\,\sigma_W$, where
+  $z_{0.05} + z_{0.80} = 1.645 + 0.842 = 2.487$); $z_{\text{obs}}$: standardised
+  observed count.
+  All observed counts fall below the MDC, indicating individually underpowered tests
+  at $N = 118$.}
+\label{tab:power}
+\begin{tabular}{lrrrrrrr}
+\hline
+Pattern & Obs.\ & $\mu_W$ & $\sigma_W$ & 95th pct & MDC & $z_{\text{obs}}$ \\
+\hline
+Haflaga        & 26 & 31.86 & 4.71 & 40.0 & 44 & $-1.24$ \\
+Dilug          & 61 & 67.08 & 7.39 & 79.0 & 86 & $-0.82$ \\
+Week           & 32 & 33.83 & 3.87 & 40.0 & 44 & $-0.47$ \\
+Week-Dilug     & 18 & 20.93 & 3.22 & 26.0 & 29 & $-0.91$ \\
+Dilug-in-Dilug & 27 & 39.13 & 5.84 & 49.0 & 54 & $-2.08$ \\
+\hline
+\end{tabular}
+\end{table}
 
 % ─── 6. Conclusion ────────────────────────────────────────────────────────────
 \section{Conclusion}
