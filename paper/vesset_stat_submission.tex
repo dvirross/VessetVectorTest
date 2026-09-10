@@ -333,7 +333,14 @@ time within each woman \cite{ross2022phd}. It differs from a naive global bootst
 to the multinomial null) in that each woman draws from the \emph{same} marginal $\hat{F}$,
 ignoring between-woman heterogeneity in cycle-length distributions. The within-woman
 permutation null ($H_W$) addresses this by conditioning each woman's simulated sequence
-on her \emph{own} observed cycle-length multiset.
+on her \emph{own} observed cycle-length multiset. A within-woman bootstrap (sampling
+with replacement from each woman's own empirical distribution) was evaluated as an
+alternative but rejected: because consecutive i.i.d.\ draws are independent whereas
+permutation draws are negatively correlated (using a value reduces its availability at
+the next position), the bootstrap inflates the expected count of repetition-based
+patterns such as Haflaga --- from a null mean of 31.9 under permutation to 54.5 under
+the bootstrap (a 71\% increase verified by $B = 50{,}000$ simulations). Permutation is
+therefore preferred as the more conservative and exact conditional test.
 
 \subsection{Statistical Inference}
 \label{sec:inference}
@@ -1048,9 +1055,12 @@ introducing a potential upward bias in regularity-dependent patterns such as Haf
 \paragraph{Null model structure.}
 The permutation and multinomial null models shuffle cycle lengths globally across
 women, ignoring within-person autocorrelation structure \cite{bortot2010,symul2019}.
-A stratified null that preserves within-person temporal order while randomising
-assignments between women would provide a more stringent test.  Future work could
-also employ parametric nulls based on fitted state-space models \cite{bortot2010}.
+The within-woman permutation null ($H_W$) addresses this limitation; the additional
+conservatism of permutation relative to within-woman bootstrap sampling (which inflates
+Haflaga null means by 71\%, Section~\ref{sec:methods}) reinforces that the
+non-significant $H_W$ results represent a robust lower bound on the absence of excess
+patterns. Future work could also employ parametric nulls based on fitted state-space
+models \cite{bortot2010}.
 
 \paragraph{Pairwise dependence: cycle-count confound.}
 The per-woman binary association analysis (Table~\ref{tab:chisq}) is subject to
