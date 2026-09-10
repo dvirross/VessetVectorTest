@@ -328,9 +328,12 @@ At each iteration, for each woman $i$ with $n_i$ cycles, a fresh sequence
 $\tilde{H}_{i,1}, \ldots, \tilde{H}_{i,n_i} \overset{\text{i.i.d.}}{\sim} \hat{F}$
 is drawn, where $\hat{F}$ is the empirical CDF of all 1,554 observed haflaga values.
 This null directly encodes the hypothesis that cycles are \textit{independent} across
-time within each woman \cite{ross2022phd}. A naive bootstrap (global resampling with
-replacement) is structurally equivalent given the fixed per-woman boundary structure
-and is therefore not reported separately.
+time within each woman \cite{ross2022phd}. It differs from a naive global bootstrap
+(resampling with replacement from the pooled distribution, which is similar in spirit
+to the multinomial null) in that each woman draws from the \emph{same} marginal $\hat{F}$,
+ignoring between-woman heterogeneity in cycle-length distributions. The within-woman
+permutation null ($H_W$) addresses this by conditioning each woman's simulated sequence
+on her \emph{own} observed cycle-length multiset.
 
 \subsection{Statistical Inference}
 \label{sec:inference}
