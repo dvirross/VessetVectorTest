@@ -112,9 +112,9 @@ reflecting concentration of patterns among intrinsically regular women.
 Under the within-woman null --- the scientifically sharper test --- no pattern
 is significant (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed
 counts fall \emph{below} their within-woman null means. These complementary results
-establish that halachic vesset rules function primarily as empirical detectors of
-individual cycle regularity, rather than as rules exploiting serial temporal
-dependence beyond that regularity.
+suggest that halachic vesset rules function primarily as empirical detectors of
+individual cycle regularity, rather than as rules exploiting temporal ordering
+beyond individual cycle-length distributions.
 
 \medskip
 \noindent\textit{Keywords:} menstrual cycle, vesset, Halacha, permutation test,
@@ -167,10 +167,11 @@ a permutation test \cite{edgington2007} and a multinomial sampling null
 \cite{ross2022phd} --- to a longitudinal NFP dataset \cite{fehring2013}. We derive
 per-pattern p-values, effect sizes, and a joint multivariate test that accommodates
 the dependence structure among pattern counts without assuming independence. The joint
-test is an original methodological contribution \cite{ross2022phd}, inspired by the
+test represents a methodological contribution \cite{ross2022phd}, inspired by the
 simulation-based testing philosophy of King et al.\ \cite{king2018} though distinct
-from their density-based approach; a formal theoretical treatment is planned in future
-work. We also characterise the mathematical dependence structure through pairwise
+from their density-based approach; related ideas appear in multivariate permutation
+tests using quadratic forms \cite{pesarin2010}; a formal theoretical treatment is
+planned in future work. We also characterise the mathematical dependence structure through pairwise
 chi-square tests and derive the dependencies analytically from the pattern definitions.
 
 This study extends a line of quantitative halachic scholarship \cite{ross2022markov,
@@ -377,7 +378,11 @@ permutation draws are negatively correlated (using a value reduces its availabil
 the next position), the bootstrap inflates the expected count of repetition-based
 patterns such as Haflaga --- from a null mean of 31.9 under permutation to 54.5 under
 the bootstrap (a 71\% increase verified by $B = 50{,}000$ simulations). Permutation is
-therefore preferred as the more conservative and exact conditional test.
+therefore preferred as the exact conditional randomisation test for the stated
+exchangeability null; the bootstrap corresponds to a different iid-within-woman null,
+and the two procedures are not directly comparable as more or less conservative in
+general --- their different expected counts reflect the different scientific questions
+they encode.
 
 \subsection{Statistical Inference}
 \label{sec:inference}
@@ -530,9 +535,9 @@ finding requiring replication. Week, Week-Dilug, and Dilug-in-Dilug are not sign
 The permutation and multinomial null models are in close agreement across all five
 patterns (maximum difference in p-values: 0.055). Figure~\ref{fig:cdfs} shows the
 empirical CDFs, confirming the two nulls produce nearly identical distributions for
-each pattern. This robustness is expected: for a well-behaved empirical distribution,
-the two nulls converge as $n \to \infty$ under regularity conditions
-\cite{edgington2007}.
+each pattern. The close agreement is a numerical observation; whether and under what
+conditions the two procedures converge asymptotically depends on the specific sampling
+model and is not formally established here.
 
 \begin{figure}[H]
   \centering
@@ -568,12 +573,9 @@ Table~\ref{tab:stratified} presents the results. Under the within-woman null,
 \emph{no pattern is individually significant}. All five observed counts fall
 \emph{below} their within-woman null means (all $z < 0$). The most negative z-score belongs to Dilug-in-Dilug ($z = -2.07$, $p = .988$); because all tests are one-sided upper-tail, this large negative z indicates that the count is well below the null mean --- not that it is unexpectedly low --- and should not be interpreted as evidence of underrepresentation.
 The joint test is also non-significant: Mahalanobis $D_M = 2.95$ ($p = .121$), Euclidean $D_E = 15.2$ ($p = .145$).
-Note that the $z$ values in Table~\ref{tab:stratified} and Table~\ref{tab:power} may
-differ slightly (e.g., Haflaga: $-1.25$ here vs.\ $-1.24$ in Table~\ref{tab:power})
-because Table~\ref{tab:stratified} uses the primary 50,000-run simulation (seed 17)
-while Table~\ref{tab:power} uses an independent 50,000-run simulation for power
-computations; the differences are within Monte Carlo variability and do not affect
-any conclusion.
+Tables~\ref{tab:stratified} and~\ref{tab:power} both use the primary 50,000-run
+simulation (seed 17) to ensure full numerical consistency of $\mu_W$, $\sigma_W$,
+and $z_{\text{obs}}$ across all results.
 
 \begin{table}[H]
 \centering
@@ -622,8 +624,9 @@ The two nulls answer different scientific questions and are both valid:
     are concentrated among women who are intrinsically more regular.
   \item The \textbf{within-woman null} tests: \emph{given each woman's own level of
     cycle regularity, are the temporal arrangements unusually structured?} The answer
-    is no --- patterns arise naturally from individual cycle regularity without
-    additional temporal dependence.
+    is no --- under the within-woman exchangeability null, this dataset provides
+    no detectable evidence that temporal ordering adds structure beyond each
+    woman's own cycle-length distribution.
 \end{itemize}
 Together, these results suggest that halachic vesset rules --- particularly Haflaga
 --- constitute an empirical codification of individual menstrual regularity: the rules
@@ -753,30 +756,45 @@ conveying the full 5D displacement at the cost of some interpretive complexity.
 \section{Discussion}
 
 This study provides the first formal statistical test of whether halachic vesset
-patterns are overrepresented in empirical menstrual cycle data. Using $N = 50{,}000$
-iterations of permutation and multinomial null models, we found strong and consistent
-evidence for two of the five patterns analysed: \textit{Haflaga} ($z = 4.51$,
-$p < .001$) and \textit{Dilug} ($z = 1.83$, $p = .043$). The joint multivariate test
-confirmed significant displacement of the observed count vector from the null distribution ($D_M = 5.10$, $p < .001$), driven primarily by the Haflaga component; the focused test on the three mathematically dependent patterns (Haflaga, Week-Dilug, Dilug-in-Dilug) was similarly significant ($p < .01$).
+patterns are overrepresented in empirical menstrual cycle data. The central result is
+from the within-woman permutation null ($H_W$): no pattern is individually significant
+(all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed counts fall
+below their within-woman null means. This dataset provides no detectable evidence that
+temporal ordering within each woman's cycle sequence creates vesset patterns beyond
+her own level of cycle-length regularity.
+
+Under the global permutation null, which pools cycles across all 118 women,
+\textit{Haflaga} is strongly overrepresented ($z = 4.51$, $p < .001$ after
+Holm correction) and \textit{Dilug} is nominally overrepresented ($p = .043$, does not
+survive Holm correction). The joint Mahalanobis test under the global null confirms
+significant displacement ($D_M = 5.10$, $p < .001$), driven primarily by Haflaga.
+The global overrepresentation reflects concentration of patterns among women who are
+intrinsically more regular --- a population-level heterogeneity effect, not evidence
+of within-woman temporal structure.
 
 \subsection{Haflaga}
 
 The Haflaga finding is the most striking result. With only 2 of 50,000 permutation
 simulations reaching or exceeding the observed count of 26 (the simulation ceiling),
-the empirical evidence is essentially unambiguous. The result is biologically
-interpretable: Haflaga detects exactly the pattern expected in women with high
-within-person cycle regularity. The present data confirm this: women who establish
-Haflaga have within-person SDs of 1.54 days vs.\ 3.17 days for women who establish no
-vesset at all. These findings are consistent with the interpretation that Haflaga formalises an empirically detectable physiological regularity in cycle timing.
+the result is highly significant under the global null. It is biologically
+interpretable: Haflaga detects the pattern expected in women with lower
+within-person cycle-length variability. The present data confirm this association:
+women who establish Haflaga have within-person SDs of 1.54 days vs.\ 3.17 days for
+women who establish no vesset at all (a descriptive comparison; formal inference on
+this difference is reported in Section~\ref{sec:stratified}). These findings are
+consistent with the interpretation that Haflaga is empirically characteristic of
+women with lower observed within-woman cycle-length variability.
 
 \subsection{Dilug}
 
-The Dilug finding ($p = .043$) is more modest but consistent across both null models.
-Arithmetic progressions in cycle length may arise from gradual physiological trends
-within a woman's cycle history, e.g., gradual lengthening or shortening associated
-with hormonal change, ageing, or weight change. The significance of Dilug suggests
-that such directional trends are more common than random arrangements would produce,
-warranting replication in larger samples. These biological explanations are speculative and await independent confirmation in datasets with longitudinal physiological measurements.
+The Dilug finding ($p = .043$ under the global null) is nominally significant but
+does not survive Holm--Bonferroni correction (adjusted $p = .173$) and should be
+treated as a hypothesis-generating result requiring pre-registered replication in
+larger samples. The direction is consistent with arithmetic progressions in cycle
+length arising from gradual physiological trends (e.g., gradual lengthening or
+shortening associated with hormonal change, ageing, or weight change), but the
+evidence is insufficient to establish a population-level excess beyond chance.
+These biological explanations are speculative and await independent confirmation.
 
 \subsection{Mathematical Dependence Structure as a Unifying Observation}
 
@@ -871,10 +889,14 @@ these conditions are contradictory:
 \]
 cannot both hold.  A cycle pair that satisfies Week-Dilug ($\Delta^1 H = 0$) is
 therefore excluded from contributing to a Dilug run ($\Delta^1 H \neq 0$), and vice
-versa.  This mutual exclusion at the window level predicts a negative co-occurrence
-tendency at the woman level.  Although the pair did not reach significance in our
-sample ($\chi^2 = 1.46$, $p_{\text{perm}} = .300$), the direction is negative (5 observed
-co-occurrences vs.\ 7.3 expected), consistent with the prediction from the algebra.
+versa.  This mutual exclusion applies strictly at the \emph{sequence window level}: a single
+cycle pair cannot contribute to both patterns simultaneously. A woman can, however,
+exhibit Dilug in one portion of her cycle history and Week-Dilug in another, so
+window-level mutual exclusion does not imply a deterministic negative association
+between the woman-level ever/never indicators. The observed direction is negative
+(5 co-occurrences vs.\ 7.3 expected under independence, $\chi^2 = 1.46$,
+$p_{\text{perm}} = .300$), which is consistent with the algebraic prediction but is
+not a statistical consequence of it.
 
 \paragraph{Implication for inference.}
 The three relationships derived above --- containment, limiting convergence, and
@@ -890,19 +912,36 @@ the dependence structure that the finite-difference hierarchy imposes.
 
 \subsection{The Joint Multivariate Test}
 
-The joint test (Eq.~\ref{eq:distance}) is an original methodological contribution
+The joint test (Eq.~\ref{eq:distance}) represents a methodological contribution
 \cite{ross2022phd}. We adopt the \textbf{Mahalanobis distance} as the primary
 test statistic after confirming that the null covariance matrices are well-conditioned
 (condition numbers 4.4--5.4; all pairwise correlations $|r| < 0.16$, so inversion is
-numerically stable). The Mahalanobis distance correctly standardises each component
-by its null variance --- making a 1-unit excess in Haflaga (null SD $= 3.26$)
-appropriately more influential than a 1-unit excess in Dilug (null SD $= 6.60$) ---
-and is the natural multivariate generalisation of the univariate z-score.
+numerically stable). The Mahalanobis statistic is
+$D_M^2 = (\mathbf{O} - \boldsymbol{\mu})^\top \hat{\Sigma}^{-1} (\mathbf{O} - \boldsymbol{\mu})$,
+which standardises deviations by the full null covariance matrix $\hat{\Sigma}$,
+including off-diagonal cross-product terms. Because $\hat{\Sigma}$ is estimated as
+approximately (though not exactly) diagonal here (all pairwise $|r| < 0.16$), the
+statistic is numerically close to $\sum_j (O_j - \mu_j)^2/\sigma_j^2$ in this
+application, giving components with smaller null variance proportionally greater weight.
+Haflaga has the smallest null SD of the five (3.26 vs.\ 6.60 for Dilug), so its
+deviation of $(26 - 11.30) = 14.7$ units yields the largest standardised contribution.
+Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that
+inversion of $\hat{\Sigma}$ is numerically stable.
 
 The result is striking: $D_M = 5.10$ ($p < .001$) under the permutation null and
-$D_M = 4.84$ ($p < .001$) under the multinomial null. These yield approximately 100-fold smaller p-values than the Euclidean counterparts ($p = .009$ and $.014$),
-because Haflaga --- with null SD $= 3.26$, the smallest of the five --- receives
-its correctly up-weighted contribution. More precisely, $D_M^2 = (\mathbf{O} - \boldsymbol{\mu})^\top \hat{\Sigma}^{-1} (\mathbf{O} - \boldsymbol{\mu})$ standardises deviations by the full null covariance matrix; in the approximately diagonal case, this reduces to $\sum_j (O_j - \mu_j)^2/\sigma_j^2$, so components with smaller null variance receive proportionally greater weight. Haflaga has the smallest null SD of the five (3.26 vs.\ 6.60 for Dilug), so its deviation of $(26 - 11.30) = 14.7$ units receives the largest standardised contribution.
+$D_M = 4.84$ ($p < .001$) under the multinomial null. These yield approximately
+100-fold smaller p-values than the Euclidean counterparts ($p = .009$ and $.014$),
+because Haflaga receives its correctly up-weighted contribution via the
+Mahalanobis metric.
+
+\paragraph{Simulation algorithm.}
+The covariance matrix $\hat{\Sigma}$ is estimated once per null model from the same
+$B = 50{,}000$ simulated count vectors. The same fixed $\hat{\mu}$ and
+$\hat{\Sigma}$ are then used to evaluate the Mahalanobis statistic for every null
+replicate (a fully Monte Carlo reference distribution, not a leave-one-out
+procedure). The observed count vector is not included in $\hat{\mu}$ or
+$\hat{\Sigma}$. This procedure is computationally equivalent for all three null models
+and yields a purely empirical p-value without parametric assumptions.
 
 This approach is inspired by King et al.\ \cite{king2018} and related to
 energy-distance tests \cite{szekely2013} and multivariate permutation tests
@@ -949,55 +988,37 @@ biologically common length, so the Week pattern in this dataset effectively capt
 women with near-28-day cycles who also show the requisite two-consecutive-cycle
 consistency.
 
-\subsection{Medical and Clinical Relevance}
+\subsection{Clinical and Halachic Implications}
 
-The findings have several implications for reproductive health and fertility awareness,
-even within the scope of this dataset and without the companion forecasting study.
+The findings carry several implications, all of which should be understood as
+hypotheses for future study rather than clinical guidance: none of the outcomes
+discussed below is directly evaluated in the present analysis.
 
-\paragraph{Fertility awareness and achieving pregnancy.}
-Accurate anticipation of the next menstruation onset allows backward estimation of the
-fertile window (approximately 14 days prior). Women with established Haflaga --- identified
-by the present analysis as the most intrinsically regular subgroup (within-person SD:
-1.54 days vs.\ 3.17 days for non-vesset women) --- are the prime candidates for
-calendar-based fertile window estimation, since their cycle regularity makes such
-estimates most reliable. This is relevant for both natural family planning for pregnancy
-achievement and for infertility management, where timing of intercourse relative to
-the fertile window is critical \cite{bortot2010}.
+\paragraph{Fertility awareness.}
+Women with established Haflaga represent the most cycle-regular subgroup in this
+dataset (within-person SD: 1.54 days vs.\ 3.17 days for non-vesset women). For such
+women, backward estimation of the fertile window (approximately 14 days prior to
+anticipated onset) is most reliable, making Haflaga a candidate marker for
+calendar-based fertility planning \cite{bortot2010}. Whether this marker improves
+on statistical cycle-length prediction methods will be examined in the companion
+forecasting study \cite{ross_planned}.
 
 \paragraph{Halachic family purity compliance.}
 For observant Jewish women, the vesset system governs the timing of ritual abstinence
-before the anticipated menstrual onset (\textit{taharat hamishpacha}). Accurate
-anticipation reduces unnecessary abstinence days while fulfilling the halachic obligation.
-In the present dataset (non-Jewish NFP users as a proxy sample), vesset-based forecasting
-yielded 451 correct anticipations out of 3,415 total forecasting opportunities (13.2\%),
-with a 2.49:1 ratio of unnecessary abstinences to correct anticipations \cite{ross2022phd}.
-The companion study in preparation \cite{ross_planned} will quantify whether this ratio improves for the Haflaga-established subgroup and how it compares to modern statistical forecasting methods.
+(\textit{taharat hamishpacha}). The present empirical grounding of Haflaga as a
+statistically detectable regularity pattern provides independent support for its
+continued role in halachic anticipation, while the non-significance under the
+within-woman null is consistent with the halachic position that vesset rules codify
+observed regularity rather than impose structure beyond it.
 
-\paragraph{Cycle regularity monitoring and health surveillance.}
-Menstrual cycle irregularity is associated with decreased fertility and increased risk
-of chronic conditions including breast cancer, cardiovascular disease, and diabetes
-\cite{bortot2010}. The present finding that Haflaga selects for women with within-person
-SD below 1.6 days suggests it could serve as a simple rule-based screen for cycle
-regularity --- potentially useful as a low-cost indicator of reproductive health status
-in settings where laboratory or hormonal assessment is unavailable.
-
-\paragraph{Detecting change in individual regularity.}
-The within-woman null finding --- that patterns arise from individual regularity rather
-than additional temporal structure --- implies a useful clinical corollary: a change in
-vesset status (failure to re-establish a previously established Haflaga, or establishment
-of a new pattern after a period of irregularity) could serve as a sensitive indicator
-of disruption to baseline regularity, whether from hormonal change, weight change,
-stress, or perimenopausal transition. This is a clinical hypothesis for future study.
-
-\paragraph{Digital health and cycle-tracking applications.}
-Menstrual cycle tracking apps are now widely used for fertility awareness and cycle
-monitoring \cite{symul2019}. Vesset rules, as formalised pattern-detection algorithms
-operating on cycle-length sequences, could be implemented in such applications to
-automatically classify women by cycle regularity type, flag pattern establishment or
-breakdown, and provide personalised anticipation estimates. The present empirical
-validation of Haflaga as the statistically grounded pattern provides a principled
-basis for prioritising it in algorithmic implementations over patterns that do not
-survive statistical scrutiny.
+\paragraph{Cycle regularity as a health indicator.}
+Menstrual cycle irregularity is associated with decreased fertility and elevated risk
+of chronic conditions \cite{bortot2010}. The finding that Haflaga marks women with
+low within-person cycle-length variability (SD $< 1.6$ days) suggests it could
+function as a simple regularity indicator --- a clinical hypothesis to be evaluated
+in datasets with longitudinal physiological measurements and defined clinical endpoints.
+Changes in vesset status (loss or gain of Haflaga) may also serve as a signal of
+disruption to baseline regularity, warranting prospective investigation.
 
 \subsection{Scope and Generalizability}
 
@@ -1105,7 +1126,7 @@ women, ignoring within-person autocorrelation structure \cite{bortot2010,symul20
 The within-woman permutation null ($H_W$) addresses this by conditioning on each woman's
 own cycle distribution and is therefore the more stringent test; future work could
 also employ parametric nulls based on fitted state-space models \cite{bortot2010}.
-Additionally, the within-woman permutation null assumes cycles within a woman are exchangeable (all orderings of her observed cycle-length multiset are equally probable under $H_0$), whereas a Markov chain model for cycle lengths would introduce temporal autocorrelation among successive cycles. If autocorrelation is present, certain orderings are more probable than others, and the permutation null overestimates the count expected under the true data-generating process; this makes $H_W$ conservative relative to a Markov null, so the non-significant $H_W$ results may partly reflect residual autocorrelation structure rather than the absence of pattern excess. The conservatism of permutation relative to within-woman bootstrap (Section~\ref{sec:methods}) further reinforces this direction: both considerations push $H_W$ toward over-coverage, making the non-significant results a robust lower bound on the absence of excess patterns.
+Additionally, the within-woman permutation null ($H_W$) tests the specific exchangeability null that all orderings of a woman's observed cycle-length multiset are equally probable. This is narrower than a general test of serial independence, stationarity, or absence of autocorrelation: a process with Markov-type autocorrelation or changing latent states could still fail to produce enough exact pattern excess to reject this particular randomisation null. The non-significant $H_W$ result should therefore be stated as a failure to detect excess under within-woman exchangeability, not as the absence of all forms of temporal dependence. Future work could employ parametric nulls based on fitted state-space models \cite{bortot2010,symul2019} to assess robustness to this limitation.
 
 \paragraph{Pairwise dependence: cycle-count confound.}
 The per-woman binary association analysis (Table~\ref{tab:chisq}) is subject to
@@ -1124,17 +1145,25 @@ The requirement for minimum run lengths (3 cycles for Haflaga and Dilug; 4 for
 Dilug-in-Dilug) limits the number of testable windows, particularly for women with
 few recorded cycles.  With a mean of 13.2 cycles per woman, longer patterns such as
 Dilug-in-Dilug are likely underpowered.
-To quantify this, we computed a minimum detectable count (MDC) for each pattern
-under $H_W$ at 80\% power and $\alpha = .05$ (one-sided):
+As an approximate sensitivity analysis, we computed a minimum detectable count (MDC)
+for each pattern under $H_W$ at nominal 80\% power and $\alpha = .05$ (one-sided),
+using a normal-theory location-shift approximation:
 \begin{equation}
-  \text{MDC} = \mu_W + (z_{0.05} + z_{0.80})\,\sigma_W
+  \text{MDC} \approx \mu_W + (z_{0.05} + z_{0.80})\,\sigma_W
              = \mu_W + 2.487\,\sigma_W,
 \end{equation}
 where $\mu_W$ and $\sigma_W$ are the mean and standard deviation of the within-woman
-permutation null distribution (Table~\ref{tab:power}).
-All five observed counts fall below their respective MDC, confirming that the
-current sample ($N = 118$ women, 1,554 cycles) is underpowered for individual
-pattern detection under $H_W$.  Note that the joint Mahalanobis test under
+permutation null distribution (Table~\ref{tab:power}). This formula assumes that
+the alternative distribution is a location-shifted version of the null (same SD,
+different mean) and that both are approximately normal --- assumptions that are not
+verified for this discrete pattern-count statistic. The MDC values should therefore be
+interpreted as approximate normal-theory benchmarks, not as exact power guarantees.
+A simulation-based power analysis under explicit temporal alternatives (e.g., a Markov
+model with specified lag-1 transition strength) is deferred to future work with a
+larger dataset.
+All five observed counts fall below their respective MDC, consistent with the
+current sample ($N = 118$ women, 1,554 cycles) having limited power to detect
+individual pattern excess under $H_W$.  Note that the joint Mahalanobis test under
 $H_W$ is also non-significant ($D_M = 2.95$, $p = .121$), so underpowerment
 applies at the multivariate level as well. The significant Mahalanobis test
 ($D_M = 5.10$, $p < .001$) reported in Section~\ref{sec:joint} refers to the
@@ -1159,11 +1188,11 @@ overrepresentation beyond her individual cycle-length distribution.
 \hline
 Pattern & Obs.\ & $\mu_W$ & $\sigma_W$ & 95th pct & MDC & $z_{\text{obs}}$ \\
 \hline
-Haflaga        & 26 & 31.86 & 4.71 & 40.0 & 44 & $-1.24$ \\
-Dilug          & 61 & 67.08 & 7.39 & 79.0 & 86 & $-0.82$ \\
-Week           & 32 & 33.83 & 3.87 & 40.0 & 44 & $-0.47$ \\
-Week-Dilug     & 18 & 20.93 & 3.22 & 26.0 & 29 & $-0.91$ \\
-Dilug-in-Dilug & 27 & 39.13 & 5.84 & 49.0 & 54 & $-2.08$ \\
+Haflaga        & 26 & 31.85 & 4.68 & 40.0 & 44 & $-1.25$ \\
+Dilug          & 61 & 67.07 & 7.36 & 79.0 & 86 & $-0.83$ \\
+Week           & 32 & 33.81 & 3.88 & 40.0 & 44 & $-0.47$ \\
+Week-Dilug     & 18 & 20.94 & 3.22 & 26.0 & 29 & $-0.91$ \\
+Dilug-in-Dilug & 27 & 39.14 & 5.86 & 49.0 & 54 & $-2.07$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -1184,15 +1213,17 @@ all observed counts fall below their within-woman null means. These findings pro
 temporal ordering within each woman's cycle sequence creates vesset patterns
 beyond what her own level of cycle regularity predicts.
 
-Under the global null, Haflaga ($p < .001$) and Dilug ($p = .043$) are significantly
-overrepresented, with a joint Mahalanobis test confirming significant displacement
-from the null distribution ($D_M = 5.10$, $p < .001$). Only 2 of 50,000 permutation
-simulations reached the observed Haflaga count. A focused joint test on the three
-mathematically dependent patterns (Haflaga, Week-Dilug, Dilug-in-Dilug) is similarly
-significant ($p < .01$). Together, these results establish that halachic vesset rules
-function primarily as empirical detectors of individual cycle regularity: the rules
-identify the subset of women whose cycles are intrinsically stable and formalise that
-stability as an anticipatory pattern. The joint distance-based permutation test
+Under the global null, Haflaga is significantly overrepresented ($p < .001$ after
+Holm correction); Dilug is nominally overrepresented ($p = .043$) but does not
+survive Holm correction and should be treated as hypothesis-generating pending
+replication. The joint Mahalanobis test confirms significant displacement from the
+global null ($D_M = 5.10$, $p < .001$). Only 2 of 50,000 permutation simulations
+reached the observed Haflaga count. A focused joint test on the three mathematically
+dependent patterns (Haflaga, Week-Dilug, Dilug-in-Dilug) is similarly significant
+($p < .01$). Together, these results suggest that halachic vesset rules function
+primarily as empirical detectors of individual cycle regularity: the rules identify
+the subset of women whose cycles are intrinsically stable and formalise that stability
+as an anticipatory pattern. The joint distance-based permutation test
 introduced here is a methodological contribution with potential applications beyond
 the halachic context. In particular, the Mahalanobis formulation offers a principled
 approach for composite hypothesis testing when multiple correlated count outcomes
