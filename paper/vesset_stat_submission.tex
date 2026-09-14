@@ -62,8 +62,28 @@
   in Natural Menstrual Cycle Data:\\[4pt]
   A Study of Jewish Religious Law and Menstrual Cycle Regularity\\[4pt]
   \normalfont\large A Permutation and Multinomial Sampling Analysis\par}
-  \vspace{2cm}
-  {\normalsize\itshape [Author details removed for peer review]\par}
+  \vspace{1.5cm}
+  {[Author details removed for peer review]}
+  \vspace{0.4cm}
+  {\normalsize\itshape
+    Department of Software Engineering, Shenkar College of Engineering,
+    Design and Art, Ramat Gan, Israel\\[4pt]
+    Department of Computer Science, SCE --- Shamoon College of Engineering,
+    Beer Sheva, Israel\par}
+  \vspace{3cm}
+  {\normalsize\bfseries Author Note\par}
+  \vspace{0.5cm}
+  \begin{flushleft}
+  [Affiliation removed for peer review]\medskip
+  The dataset analyzed in this study was originally collected by
+  Fehring et al.~\cite{fehring2013} and is publicly archived at Marquette
+  University \cite{marquette2013data}. The author declares no conflicts of interest.
+  Analysis code is publicly available at \url{[URL removed for peer review]}.
+
+  \medskip
+  Correspondence:
+  [Contact removed for peer review]
+  \end{flushleft}
 \end{titlepage}
 
 % ─── Abstract ─────────────────────────────────────────────────────────────────
@@ -167,14 +187,6 @@ day of menstruation $k$ to the first day of menstruation $k+1$, following halach
 convention \cite{anon2021statistical}). The five vesset pattern types are:
 
 \begin{description}
-  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$ (two or more consecutive haflagot
-    both equal to 30). Degree-0 polynomial (constant) at the canonical 30-day anchor.
-    Minimum run: 2 cycles.
-
-  \item[\textit{Week.}] $H_k = H_{k-1}$, $H_k \in \mathcal{W}$ where
-    $\mathcal{W} = \{H_{\min}+3, H_{\min}+10, \ldots\}$ (values spaced 7 apart).
-    Degree-0 polynomial anchored to weekly values. Minimum run: 2 cycles.
-
   \item[\textit{Haflaga.}] $H_k = H_{k-1} = H_{k-2}$ (three or more consecutive
     equal haflagot, any value). Degree-0 polynomial (constant, unrestricted).
     Minimum run: 3 cycles.
@@ -186,28 +198,34 @@ convention \cite{anon2021statistical}). The five vesset pattern types are:
   \item[\textit{Dilug-in-Dilug.}] $(H_k - H_{k-1}) - (H_{k-1} - H_{k-2}) =
     (H_{k-1} - H_{k-2}) - (H_{k-2} - H_{k-3}) = d \neq 0$ (constant non-zero second
     difference). Degree-2 polynomial (quadratic). Minimum run: 4 cycles.
+
+  \item[\textit{Week.}] $H_k = H_{k-1}$, $H_k \in \mathcal{W}$ where
+    $\mathcal{W} = \{H_{\min}+3, H_{\min}+10, \ldots\}$ (values spaced 7 apart,
+    corresponding to the same weekday at each menstruation).
+    Degree-0 polynomial anchored to weekly values. Minimum run: 2 cycles.
+
+  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$ (two or more consecutive haflagot
+    both equal to 30). The value $H = 30$ (29 actual days $= 4$ weeks $+ 1$ day) is
+    the unique haflaga for which each successive menstruation falls one weekday later,
+    producing an arithmetic progression of onset weekdays --- hence the name
+    \textit{Week-Dilug} (Hebrew: \textit{shavu'a be-dilug}, week with arithmetic
+    progression; \cite{anon2022phd}). Week-Dilug thus
+    combines the constant-interval property of Haflaga with the arithmetic-progression
+    concept of Dilug, applied to the weekday domain rather than the cycle-length domain.
+    Degree-0 polynomial (constant) at the canonical 30-day anchor. Minimum run: 2 cycles.
 \end{description}
 
 The hierarchy Haflaga (degree 0) $\to$ Dilug (degree 1) $\to$ Dilug-in-Dilug
 (degree 2) mirrors the classical Taylor expansion: a constant function is the
 zeroth-order approximation, a linear function the first-order, and a quadratic the
-second-order.
+second-order. Week and Week-Dilug are specialisations of the degree-0 (constant)
+case anchored to calendar values.
 
 \subsection{Mathematical Dependence Structure}
 
-The polynomial hierarchy generates three analytically derivable dependence
-relationships, which we verify empirically in Section~\ref{sec:chisq}:
-
-\paragraph{Haflaga and Week-Dilug --- set-theoretic inclusion.}
-Week-Dilug requires $H_k = H_{k-1} = 30$; Haflaga-30 requires $H_k = H_{k-1} =
-H_{k-2} = 30$. Therefore:
-\[
-  \{\text{Haflaga-30 sequence}\} \;\subseteq\; \{\text{Week-Dilug sequence}\}.
-\]
-Every Haflaga sequence with value 30 automatically generates a Week-Dilug event in
-its first two cycles. This is set-theoretic inclusion, not merely statistical
-correlation. In the present data, 3 of the 26 observed Haflaga sequences have value
-$H = 30$, each contributing directly to the Week-Dilug count of 18.
+The polynomial hierarchy generates two analytically derivable dependence
+relationships between the remaining pattern pairs, which we verify empirically in
+Section~\ref{sec:chisq}:
 
 \paragraph{Haflaga and Dilug-in-Dilug --- proximity in the hierarchy.}
 When the second difference $|d|$ of a Dilug-in-Dilug sequence is small, its first
@@ -234,7 +252,7 @@ prediction of cycle lengths, exploiting within-woman temporal dependence; their 
 provides a benchmark for cycle-length predictability.
 
 \paragraph{Quantitative halachic analysis.}
-[Author] \cite{anon2022markov} modelled cycle transitions with Markov chains;
+Ross \cite{anon2022markov} modelled cycle transitions with Markov chains;
 \cite{anon2019reliability} evaluated reliability of self-reported menstrual data in
 a halachic context; \cite{anon2021statistical} applied statistical analysis to
 abstinence laws. The present study adds the first formal hypothesis test of whether
@@ -315,8 +333,24 @@ Pattern counting was performed within each woman's sequence independently; seque
 were never merged across women. Patient boundary pairs $(s_i, f_i)$ were encoded
 explicitly and all counting loops were constrained to $[s_i, f_i]$. Extended runs of
 the same pattern were counted as a single occurrence to avoid double-counting (e.g.,
-four consecutive equal haflagot constitute one Haflaga, not two). All five functions
-were validated against manually annotated examples and are available in the supplementary materials [URL removed for peer review].
+four consecutive equal haflagot constitute one Haflaga, not two). If a qualifying
+run was interrupted by a discordant cycle and a new qualifying run of the same type
+began later in the same woman's sequence, that resumed run was counted as a separate
+event; the counts therefore reflect all distinct qualifying runs across each woman's
+full history, not only the initial fixation event. All five functions
+were validated against manually annotated examples and are available at
+\url{[URL removed for peer review]}.
+
+One counting implication follows directly from the definitions: Week-Dilug requires
+$H_k = H_{k-1} = 30$ (two consecutive haflagot equal to 30), whereas Haflaga-30
+requires three consecutive haflagot equal to 30. Therefore every Haflaga-30 sequence
+automatically generates a Week-Dilug event in its first two cycles:
+\[
+  \{\text{Haflaga-30 sequence}\} \;\subseteq\; \{\text{Week-Dilug sequence}\}.
+\]
+This is set-theoretic inclusion, not merely statistical correlation, and it means
+the Haflaga and Week-Dilug counts are not independent: the 3 Haflaga sequences with
+$H = 30$ each contribute directly to the Week-Dilug count of 18.
 
 \subsection{Null Models}
 \label{sec:nullmodels}
