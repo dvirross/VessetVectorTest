@@ -135,7 +135,7 @@ v_arrow(ENR_VB, INCL_VT)
 
 # 4. Applied inclusion criteria
 draw_main_box(INCL_CY, INCL_BH,
-    'Applied inclusion criteria:\nCycle length ≥ 18 and ≤ 60 days;\nComplete cycle-length records')
+    'Applied inclusion criteria:\nCycle length ≥ 18 and ≤ 54 days;\nComplete cycle-length records')
 
 # Exclusion 2
 draw_excl_box(EXCL2_Y, 0.90,
@@ -147,7 +147,7 @@ v_arrow(INCL_VB, ANA_VT)
 
 # 5. Analysed (final)
 draw_main_box(ANA_CY, ANA_BH,
-    'Analysed: N = 118 women\n1,554 cycles (mean 13.2, SD 8.7, range 1–45)',
+    'Analysed: N = 118 women\n1,554 cycles (mean 13.2, SD 6.1, range 5–45)',
     bold=True, fc=C_FF, ec=C_FE)
 
 v_arrow(ANA_VB, PAT_VT)

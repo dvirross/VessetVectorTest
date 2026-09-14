@@ -201,7 +201,19 @@ The paper has been revised in response to three AI-generated peer reviews. Key c
 - ✅ "Conservative" language removed; permutation vs bootstrap framing corrected
 - ✅ Exchangeability-narrower-than-independence explained
 - ✅ Simulation algorithm pseudocode added
-- ✅ Submission file synced and anonymised
+- ✅ §4.1 absorbed into §4.2 (section merged)
+- ✅ §5.1+§5.2 merged into single "Pattern-Specific Findings" section
+- ✅ §5.3 trimmed from ~1,000 → ~300 words
+- ✅ Limitations condensed from 9 paragraphs to 4
+- ✅ R1 #4: Added condition-number caveat in §3.4 (Mahalanobis power note)
+- ✅ R1 #8: "selects" → "is associated with"; added cycle-count precision caveat in SD section
+- ✅ R1 minor (tied values): permutation tie-handling note added
+- ✅ R2 3.3: Marginal results framed as complementary summaries
+- ✅ R1 minor (cycles ≥ 35 days): replaced "well outside normal range" with data-supported frequency (9.6%)
+- ✅ R3 #3: Conclusion novelty claim softened; Mahalanobis test framed as adapted approach
+- ✅ CONSORT figure: fixed ≤ 60 → ≤ 54 days; SD 8.7 → SD 6.1; range 1–45 → range 5–45
+- ✅ fig:chisq caption: updated to reflect only Haflaga×DiD surviving Holm (adj p = .040)
+- ✅ Submission file synced and anonymised (0 non-anonymized occurrences)
 - ✅ Both PDFs compiled and in repo
 - ✅ Both Overleaf zips rebuilt
 

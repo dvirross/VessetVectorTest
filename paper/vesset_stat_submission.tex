@@ -301,8 +301,10 @@ establish a Haflaga vesset ($n = 20$) have a mean within-person cycle-length SD 
 (SD$_{\text{between}} = 0.59$), compared to 3.17 days (SD$_{\text{between}} = 1.75$) for women who
 establish no vesset at all ($n = 35$). A Mann--Whitney test confirms this difference is highly
 significant ($U = 133$, $p < .001$, two-sided; Welch $t = -5.05$, $\text{df} = 45.5$, $p < .001$;
-95\% CI for mean difference: $[-2.29, -0.98]$ days; Cohen's $d = -1.13$). This confirms that
-Haflaga selects the subgroup of women with the lowest observed cycle-length variability.
+95\% CI for mean difference: $[-2.29, -0.98]$ days; Cohen's $d = -1.13$). These results suggest that
+Haflaga is associated with lower observed cycle-length variability. Note that within-person SD
+estimates depend on the number of observed cycles per woman (dataset range: 5--45), so estimates
+for women with few recorded cycles carry greater sampling uncertainty.
 Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variability.
 
 \begin{figure}[H]
@@ -363,7 +365,7 @@ Three null models address distinct scientific questions:
 \begin{description}
   \item[$H_G$ \textnormal{(global exchangeability):}] All 1,554 cycle lengths exchangeable
     across women. Tests whether patterns exceed population-level chance.
-  \item[$H_W$ \textnormal{(within-woman permutation):}] Each woman\'s cycles permuted uniformly at random within her own sequence (without replacement). Tests whether temporal \emph{ordering} creates excess
+  \item[$H_W$ \textnormal{(within-woman permutation):}] Each woman\'s cycles permuted uniformly at random within her own sequence (without replacement; observation indices are permuted, not unique values, so ties are handled correctly). Tests whether temporal \emph{ordering} creates excess
     patterns beyond individual regularity.
   \item[$H_{iid}$ \textnormal{(multinomial i.i.d.):}] Each woman\'s cycles drawn i.i.d.
     from $\hat{F}$. Stronger than $H_G$: replaces observed values, not just ordering.
@@ -423,7 +425,7 @@ respecting the dependence structure. Note that this is a single global test of
 the multivariate null, not an FWER procedure across the five component tests. Inspired by King et al.\ \cite{king2018} but using distance rather
 than density as the test statistic, this approach is, to our knowledge, the first
 application of a distance-based joint permutation test to sequentially-defined
-pattern count vectors in longitudinal medical data. We adopt the \textbf{Mahalanobis distance} $D_M^2 = (\mathbf{O}-\boldsymbol{\mu})^\top \hat{\Sigma}^{-1}(\mathbf{O}-\boldsymbol{\mu})$ as the primary statistic, as it correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal (Euclidean) standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable. The Euclidean distance $D$ (Eq.~\ref{eq:distance}) is retained as a secondary statistic for geometric interpretability.
+pattern count vectors in longitudinal medical data. We adopt the \textbf{Mahalanobis distance} $D_M^2 = (\mathbf{O}-\boldsymbol{\mu})^\top \hat{\Sigma}^{-1}(\mathbf{O}-\boldsymbol{\mu})$ as the primary statistic, as it correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal (Euclidean) standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for the scientific alternative of joint overrepresentation (which the statistic detects in any direction, not specifically the positive direction). The Euclidean distance $D$ (Eq.~\ref{eq:distance}) is retained as a secondary statistic for geometric interpretability.
 
 The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Week-Dilug $\subseteq$ Haflaga by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:distance} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
 
@@ -541,6 +543,9 @@ across the five pattern tests, only Haflaga remains significant after FWER contr
 (Holm-adjusted $p = .0003$). Dilug is nominally significant ($p = .043$) but does not
 survive Holm correction (adjusted $p = .173$) and should be regarded as an exploratory
 finding requiring replication. Week, Week-Dilug, and Dilug-in-Dilug are not significant.
+These marginal results are complementary summaries; the primary multivariate inference is
+the joint Mahalanobis test (Section~\ref{sec:joint}), which operates on the full count
+vector simultaneously without multiple-comparison correction.
 
 \subsection{Agreement Between Null Models}
 
@@ -909,8 +914,8 @@ mean. This illustrates why joint and individual tests can differ.
 
 For the Week pattern, it is worth noting that the weekly anchor set
 $\mathcal{W} = \{22, 29, 36, 43, 50\}$ (in haflaga units) corresponds to cycle lengths
-$\{21, 28, 35, 42, 49\}$. Since cycles of 35 days or longer are well outside the
-normal range for the Fehring dataset (mean $L = 29.3$, SD $= 3.9$), nearly all
+$\{21, 28, 35, 42, 49\}$. Since cycles of 35 days or longer are uncommon in the Fehring dataset
+(9.6\% of all cycles; mean $L = 29.3$, SD $= 3.9$), nearly all
 Week patterns in this sample arise from haflaga values of 22 (cycle length 21) or 29
 (cycle length 28). The 28-day cycle is the mode of the dataset and the most
 biologically common length, so the Week pattern in this dataset effectively captures
@@ -1083,14 +1088,16 @@ $p < .001$. The 5-pattern robustness check ($D_M = 5.10$, $p < .001$) confirms
 the result is not sensitive to pattern-subset choice. Together, these results suggest that halachic vesset rules function
 primarily as empirical detectors of individual cycle regularity: the rules identify
 the subset of women whose cycles are intrinsically stable and formalise that stability
-as an anticipatory pattern. The joint distance-based permutation test
-introduced here is a methodological contribution with potential applications beyond
-the halachic context. In particular, the Mahalanobis formulation offers a principled
-approach for composite hypothesis testing when multiple correlated count outcomes
-arise from shared biological structure: rather than applying multiple corrections
-to individually underpowered tests, it aggregates evidence into a single joint
-statistic that respects inter-pattern correlations. This may prove useful for
-similar hypothesis-testing problems in cyclic biological processes more broadly.
+as an anticipatory pattern. The joint distance-based permutation test, adapted here for dependent count vectors
+in sequential menstrual-cycle data (conceptually related to quadratic-form and
+energy-distance permutation tests; see Section~\ref{sec:joint}), provides a way to
+aggregate correlated count evidence without multiple-comparison correction. When
+multiple count outcomes arise from shared biological structure --- as they do here
+via the finite-difference hierarchy --- aggregating into a single Mahalanobis
+statistic avoids the conservatism of FWER correction under positive dependence.
+This approach may prove useful for composite hypothesis testing in other cyclic
+biological settings (e.g., multitype rhythm patterns, circadian or hormonal cycle data)
+where structurally related outcomes are tested jointly.
 
 
 % ─── AI Disclosure ────────────────────────────────────────────────────────────
