@@ -102,7 +102,8 @@ anticipated). Five of the 17 documented vesset rule types are testable with cycl
 \textit{Week-Dilug} (30-day anchor), and \textit{Dilug-in-Dilug} (second-order
 progression). These form a polynomial hierarchy whose structure generates algebraic structural
 relationships --- one a strict logical containment, one an algebraic approximation ---
-examined by exploratory pairwise permutation tests ($p_{\text{perm}} < .014$).
+explored through exploratory pairwise Spearman rate-based correlation tests
+(Haflaga $\times$ Dilug-in-Dilug: $r_s = 0.27$, $p_{\text{perm}} = .003$, Holm-adj $p = .030$).
 We apply three complementary null models to 1,554 menstrual cycles from 118 women
 \cite{fehring2013}: a global permutation null, a multinomial sampling null, and a
 within-woman permutation null conditioning on each woman's observed
@@ -172,7 +173,7 @@ simulation-based testing philosophy of King et al.\ \cite{king2018} though disti
 from their density-based approach; related ideas appear in multivariate permutation
 tests using quadratic forms \cite{pesarin2010}; a formal theoretical treatment is
 planned in future work. We also characterise the mathematical dependence structure through pairwise
-chi-square tests and derive the dependencies analytically from the pattern definitions.
+rate-based Spearman correlation tests and derive the dependencies analytically from the pattern definitions.
 
 This study extends a line of quantitative halachic scholarship \cite{anon2022markov,
 anon2019reliability,anon2021statistical}. To our knowledge it is the first to test vesset pattern frequencies against
@@ -436,9 +437,13 @@ the largest standardised excess ($z = 4.51$) and --- after variance standardisat
 by the Mahalanobis metric --- the largest weight. Under the global permutation null,
 the observed $D_M = 5.10$ exceeds the 99.9th percentile of the null distribution.
 
-Pairwise \textbf{chi-square tests of independence} between pattern types were computed
-on the per-woman binary matrix (1 = woman established the pattern at least once).
-$\alpha = .05$ throughout.
+Pairwise \textbf{Spearman rank correlations} were computed between per-woman
+pattern rates (number of pattern events divided by number of cycles). Using rates
+rather than binary indicators addresses the cycle-count exposure confound: women
+with more cycles have more opportunities to satisfy any pattern, and normalising
+by cycle count places all women on equal footing. Two-sided permutation $p$-values
+(50,000 permutations of one variable's rate vector) with Holm--Bonferroni correction
+across the 10 pairs were used for inference. $\alpha = .05$ throughout.
 
 \paragraph{Simulation pipeline.}
 Algorithm~\ref{alg:sim} provides a formal pseudocode description of the full
@@ -692,47 +697,56 @@ Haflaga $\times$ Week-Dilug (set-theoretic containment: every Week-Dilug sequenc
 No positive association is analytically predicted for the remaining eight pairs.
 These pairwise tests therefore serve as a \textbf{consistency check} against the mathematical structure: the question is not whether we can discover new associations, but whether the data are consistent with associations that are independently derivable from the pattern definitions.
 
-Each pair is tested with both Fisher's exact test and a randomisation-based
-permutation test (50,000 random shuffles of the binary column; no distributional
-assumption), addressing the concern that small expected cell counts ($< 5$) may
-inflate asymptotic $\chi^2$ $p$-values. Holm--Bonferroni correction is applied
-across all 10 pairs. Table~\ref{tab:chisq} presents the results.
+Each pair is assessed via Spearman rank correlation between per-woman pattern
+rates, with two-sided permutation $p$-values (50,000 permutations) and
+Holm--Bonferroni correction across all 10 pairs (see Section~\ref{sec:methods}
+for the rationale for using rates). Table~\ref{tab:chisq} presents the results.
 
-The data are consistent with the analytical predictions: both predicted pairs show positive direction.
-After Holm correction, Haflaga $\times$ Dilug-in-Dilug survives ($p_{\text{perm}} = .004$, adj $p = .040$), confirming the polynomial-hierarchy relationship.
-Haflaga $\times$ Week-Dilug does not survive correction ($p_{\text{perm}} = .013$, adj $p = .117$), consistent with limited power for a relationship involving the rarest pattern (Week-Dilug: 18 women) --- only 3 women have both a Haflaga sequence and a Week-Dilug sequence, compared to 7 expected under independence.
-All eight remaining pairs are non-significant, consistent with the absence of structural predictions for those pairs.
-Figure~\ref{fig:chisq} visualises the full dependence matrix.
+The data are consistent with the analytical predictions: both structurally predicted
+pairs show positive correlation. After Holm correction, Haflaga $\times$
+Dilug-in-Dilug survives ($r_s = 0.27$, $p_{\text{perm}} = .003$, adj $p = .030$),
+confirming the polynomial-hierarchy proximity relationship. Haflaga $\times$
+Week-Dilug shows a positive association ($r_s = 0.23$, $p_{\text{perm}} = .010$)
+consistent with the structural prediction, but does not survive Holm correction
+(adj $p = .090$). All eight remaining pairs are non-significant
+(all adj $p \geq .206$), consistent with the absence of analytical predictions
+for those pairs. Figure~\ref{fig:chisq} visualises the full correlation structure.\footnote{A
+robustness check using a binary co-occurrence analysis --- coding each woman
+1/0 for whether she ever established each pattern, and testing all 10 pairs with
+Fisher's exact test plus permutation $p$-values --- yielded the same two lowest
+$p$-values (Haflaga $\times$ Dilug-in-Dilug: $p_{\text{perm}} = .004$,
+Holm adj $p = .040$; Haflaga $\times$ Week-Dilug: $p_{\text{perm}} = .013$,
+Holm adj $p = .117$) and the same pattern of non-significance for all remaining
+pairs, confirming that the rate-based results are not sensitive to the choice
+of metric.}
 
 \begin{table}[H]
 \centering
-\caption{Pairwise dependence tests between vesset types (per-woman binary, $N = 118$).
-  Pairs are sorted by $p_{\text{perm}}$. $\chi^2$: Pearson chi-square statistic;
-  $p_{\text{F}}$: Fisher's exact $p$-value (two-sided);
-  $p_{\text{perm}}$: randomisation-based $p$-value (50,000 permutations);
+\caption{Pairwise Spearman rate-based correlation tests between vesset types ($N = 118$ women).
+  Each woman's pattern rate = event count / number of cycles.
+  Pairs are sorted by $p_{\text{perm}}$.
+  $r_s$: Spearman rank correlation;
+  $p_{\text{perm}}$: two-sided permutation $p$-value (50,000 permutations);
   $p_{\text{Holm}}$: Holm--Bonferroni adjusted $p$-value across all 10 pairs.
-  Direction: $+$ = co-occur more than expected; $-$ = less than expected.
+  Direction: $+$ = positive correlation; $-$ = negative correlation.
   \dag: analytically predicted positive pair (Section~\ref{sec:mathdep}).
-  Bold: survives Holm correction ($p_{\text{Holm}} < .05$).
-  The Haflaga $\times$ Dilug-in-Dilug permutation $p$-value (.004) falls below .01,
-  providing strong evidence against the null that co-occurrence arises by chance
-  even under non-asymptotic conditions.}
+  Bold: survives Holm correction ($p_{\text{Holm}} < .05$).}
 \label{tab:chisq}
 \smallskip
-\begin{tabular}{L{4.8cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.1cm} C{0.7cm}}
+\begin{tabular}{L{4.8cm} C{1.2cm} C{1.2cm} C{1.2cm} C{0.7cm}}
 \toprule
-\textbf{Pair} & \textbf{$\chi^2$} & \textbf{$p_{\text{F}}$} & \textbf{$p_{\text{perm}}$} & \textbf{$p_{\text{Holm}}$} & \textbf{Dir.} \\
+\textbf{Pair} & \textbf{$r_s$} & \textbf{$p_{\text{perm}}$} & \textbf{$p_{\text{Holm}}$} & \textbf{Dir.} \\
 \midrule
-\textbf{Haflaga $\times$ Dilug-in-Dilug}\dag & \textbf{9.99} & \textbf{.004} & \textbf{.004} & \textbf{.040} & $+$ \\
-Haflaga $\times$ Week-Dilug\dag  & 7.26 & .014 & .013 & .117 & $+$ \\
-Dilug $\times$ Week              & 2.40 & .174 & .173 & .817 & $+$ \\
-Dilug $\times$ Week-Dilug        & 1.46 & .300 & .300 & .817 & $-$ \\
-Haflaga $\times$ Week            & 0.89 & .379 & .381 & .817 & $+$ \\
-Week $\times$ Dilug-in-Dilug     & 1.17 & .276 & .398 & .817 & $+$ \\
-Haflaga $\times$ Dilug           & 0.87 & .455 & .459 & .817 & $+$ \\
-Week-Dilug $\times$ Dilug-in-Dilug & 0.93 & .342 & .518 & .817 & $+$ \\
-Week $\times$ Week-Dilug         & 0.41 & .542 & .546 & .817 & $+$ \\
-Dilug $\times$ Dilug-in-Dilug    & 0.09 & .815 & .817 & .817 & $+$ \\
+\textbf{Haflaga $\times$ Dilug-in-Dilug}\dag & \textbf{0.27} & \textbf{.003} & \textbf{.030} & $+$ \\
+Haflaga $\times$ Week-Dilug\dag   & 0.23 & .010 & .090 & $+$ \\
+Dilug $\times$ Week-Dilug         & $-$0.12 & .206 & 1.000 & $-$ \\
+Haflaga $\times$ Week             & 0.10 & .272 & 1.000 & $+$ \\
+Dilug $\times$ Week               & 0.09 & .325 & 1.000 & $+$ \\
+Week $\times$ Dilug-in-Dilug      & 0.09 & .326 & 1.000 & $+$ \\
+Week $\times$ Week-Dilug          & 0.07 & .474 & 1.000 & $+$ \\
+Week-Dilug $\times$ Dilug-in-Dilug & 0.07 & .483 & 1.000 & $+$ \\
+Haflaga $\times$ Dilug            & 0.04 & .676 & 1.000 & $+$ \\
+Dilug $\times$ Dilug-in-Dilug     & $-$0.02 & .815 & 1.000 & $-$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -740,12 +754,14 @@ Dilug $\times$ Dilug-in-Dilug    & 0.09 & .815 & .817 & .817 & $+$ \\
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{fig5_chisq_heatmap}
-  \caption{Pairwise dependence structure between vesset pattern types. \textit{Left}:
-    chi-square statistic; \textit{right}: signed $\chi^2$ (positive = co-occurrence
-    exceeds expectation; negative = below expectation). Both analytically predicted pairs
+  \caption{Pairwise Spearman correlation structure between vesset pattern types.
+    Each cell shows $r_s$ (rate-based Spearman correlation); darker shading
+    indicates stronger positive association; lighter shading indicates weaker or
+    negative association. Both analytically predicted pairs
     (Haflaga $\times$ Dilug-in-Dilug and Haflaga $\times$ Week-Dilug, marked \dag)
-    are positive; Haflaga $\times$ Dilug-in-Dilug survives Holm correction ($p_\text{adj}=.040$),
-    consistent with the mathematical structure in Section~\ref{sec:mathdep}.}
+    show positive correlation; Haflaga $\times$ Dilug-in-Dilug survives
+    Holm correction ($r_s = 0.27$, adj $p = .030$),
+    consistent with the polynomial-hierarchy structure in Section~\ref{sec:mathdep}.}
   \label{fig:chisq}
 \end{figure}
 
@@ -1011,13 +1027,13 @@ woman's own cycle-length distribution, but tests only the specific exchangeabili
 null that all orderings of a woman's observed multiset are equally probable --- not
 a general test of serial independence or stationarity. Future work could employ
 parametric nulls based on fitted state-space models \cite{bortot2010,symul2019}.
-The pairwise association analysis (Table~\ref{tab:chisq}) is subject to a
-cycle-count confound: women with more cycles have more opportunities to establish
-any pattern; associations involving rare patterns (Week-Dilug: 18 women;
-Dilug-in-Dilug: 23 women) should be interpreted with particular caution. The
-Haflaga $\times$ Dilug-in-Dilug association that survives Holm correction is at least
-partly mathematically entailed (polynomial proximity), providing structural
-justification beyond the empirical association.
+The pairwise rate-based analysis mitigates the cycle-count exposure confound by
+normalising event counts by the number of cycles per woman; associations involving
+rare patterns (Week-Dilug: 18 events; Dilug-in-Dilug: 27 events) should nonetheless
+be interpreted as exploratory, given the limited number of women establishing those
+patterns. The Haflaga $\times$ Dilug-in-Dilug association that survives Holm correction
+is further supported by the polynomial-proximity argument (Section~\ref{sec:mathdep}),
+providing structural justification beyond the empirical correlation.
 With a mean of 13.2 cycles per woman, longer patterns such as Dilug-in-Dilug are
 likely underpowered. As an approximate sensitivity analysis, we computed a minimum
 detectable count (MDC) for each pattern under $H_W$ at nominal 80\% power and
