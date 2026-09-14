@@ -712,7 +712,10 @@ Figure~\ref{fig:chisq} visualises the full dependence matrix.
   $p_{\text{Holm}}$: Holm--Bonferroni adjusted $p$-value across all 10 pairs.
   Direction: $+$ = co-occur more than expected; $-$ = less than expected.
   \dag: analytically predicted positive pair (Section~\ref{sec:mathdep}).
-  Bold: survives Holm correction ($p_{\text{Holm}} < .05$).}
+  Bold: survives Holm correction ($p_{\text{Holm}} < .05$).
+  The Haflaga $\times$ Dilug-in-Dilug permutation $p$-value (.004) falls below .01,
+  providing strong evidence against the null that co-occurrence arises by chance
+  even under non-asymptotic conditions.}
 \label{tab:chisq}
 \smallskip
 \begin{tabular}{L{4.8cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.1cm} C{0.7cm}}
@@ -970,8 +973,10 @@ statistical findings to their halachic application context.
 
 \paragraph{Data quality and coding.}
 The haflaga convention $H_k = L_k + 1$ is a conventional relabelling; pattern counts
-are identical whether computed on $H_k$ or $L_k$ provided the anchor shifts by the
-same $-1$ (verified: Haflaga 26, Week-Dilug 18 under both conventions).
+are identical whether computed on $H_k$ or $L_k$ \emph{provided the anchor shifts by the
+same $-1$} (verified: Haflaga 26, Week-Dilug 18 under both conventions).
+Computing on $L_k$ with the unadjusted anchor ($L = 30$ instead of $L = 29$) yields
+only 12 Week-Dilug events instead of the correct 18.
 The raw haflaga distribution shows no heaping artefact at round numbers: counts
 decline smoothly from the mode ($H = 29$: 225 cycles) through the Week-Dilug anchor
 ($H = 30$: 175) to $H = 31$ (141), consistent with the known biological mode rather
