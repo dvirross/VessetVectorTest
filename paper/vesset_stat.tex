@@ -192,7 +192,7 @@ convention \cite{ross2021statistical}). The five vesset pattern types are:
 
 \begin{description}
   \item[\textit{Haflaga.}] $H_k = H_{k-1} = H_{k-2}$ (three or more consecutive
-    equal haflagot, any value). Degree-0 polynomial (constant, unrestricted).
+    equal haflaga values, any value). Degree-0 polynomial (constant, unrestricted).
     Minimum run: 3 cycles.
 
   \item[\textit{Dilug.}] $H_k - H_{k-1} = H_{k-1} - H_{k-2} = d \neq 0$ (constant
@@ -208,7 +208,7 @@ convention \cite{ross2021statistical}). The five vesset pattern types are:
     corresponding to the same weekday at each menstruation).
     Degree-0 polynomial anchored to weekly values. Minimum run: 2 cycles.
 
-  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$ (two or more consecutive haflagot
+  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$ (two or more consecutive haflaga values
     both equal to 30). The value $H = 30$ (29 actual days $= 4$ weeks $+ 1$ day) is
     the unique haflaga for which each successive menstruation falls one weekday later,
     producing an arithmetic progression of onset weekdays --- hence the name
@@ -337,7 +337,7 @@ Pattern counting was performed within each woman's sequence independently; seque
 were never merged across women. Patient boundary pairs $(s_i, f_i)$ were encoded
 explicitly and all counting loops were constrained to $[s_i, f_i]$. Extended runs of
 the same pattern were counted as a single occurrence to avoid double-counting (e.g.,
-four consecutive equal haflagot constitute one Haflaga, not two). If a qualifying
+four consecutive equal haflaga values constitute one Haflaga, not two). If a qualifying
 run was interrupted by a discordant cycle and a new qualifying run of the same type
 began later in the same woman's sequence, that resumed run was counted as a separate
 event; the counts therefore reflect all distinct qualifying runs across each woman's
@@ -346,8 +346,8 @@ were validated against manually annotated examples and are available at
 \url{https://github.com/dvirross/VessetVectorTest}.
 
 One counting implication follows directly from the definitions: Week-Dilug requires
-$H_k = H_{k-1} = 30$ (two consecutive haflagot equal to 30), whereas Haflaga-30
-requires three consecutive haflagot equal to 30. Therefore every Haflaga-30 sequence
+$H_k = H_{k-1} = 30$ (two consecutive haflaga values equal to 30), whereas Haflaga-30
+requires three consecutive haflaga values equal to 30. Therefore every Haflaga-30 sequence
 automatically generates a Week-Dilug event in its first two cycles:
 \[
   \{\text{Haflaga-30 sequence}\} \;\subseteq\; \{\text{Week-Dilug sequence}\}.
@@ -857,9 +857,9 @@ This graded structure generates three mathematically necessary relationships bet
 the patterns.
 
 \paragraph{Haflaga and Week-Dilug: containment.}
-Week-Dilug requires two consecutive \textit{haflagot} (pl.\ of \textit{haflaga}) both equal to 30, i.e.\
+Week-Dilug requires two consecutive haflaga values both equal to 30, i.e.\
 $\Delta^0 H_{k-1} = \Delta^0 H_k = 30$.  Haflaga-30 requires three consecutive
-haflagot all equal to 30, i.e.\ $\Delta^0 H_{k-2} = \Delta^0 H_{k-1} = \Delta^0
+haflaga values all equal to 30, i.e.\ $\Delta^0 H_{k-2} = \Delta^0 H_{k-1} = \Delta^0
 H_k = 30$, which strictly contains the Week-Dilug condition.  Algebraically,
 \[
   \bigl\{H_{k-2} = H_{k-1} = H_k = 30\bigr\}
@@ -1000,7 +1000,7 @@ For the Week pattern, it is worth noting that the weekly anchor set
 $\mathcal{W} = \{22, 29, 36, 43, 50\}$ (in haflaga units) corresponds to cycle lengths
 $\{21, 28, 35, 42, 49\}$. Since cycles of 35 days or longer are well outside the
 normal range for the Fehring dataset (mean $L = 29.3$, SD $= 3.9$), nearly all
-Week patterns in this sample arise from haflagot of 22 (cycle length 21) or 29
+Week patterns in this sample arise from haflaga values of 22 (cycle length 21) or 29
 (cycle length 28). The 28-day cycle is the mode of the dataset and the most
 biologically common length, so the Week pattern in this dataset effectively captures
 women with near-28-day cycles who also show the requisite two-consecutive-cycle
