@@ -114,8 +114,8 @@ Under the within-woman null --- the scientifically sharper test --- no pattern
 is significant (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed
 counts fall \emph{below} their within-woman null means. These complementary results
 suggest that halachic vesset rules function primarily as empirical detectors of
-individual cycle regularity, rather than as rules exploiting temporal ordering
-beyond individual cycle-length distributions.
+individual cycle regularity, with no detectable evidence, under within-woman exchangeability,
+that temporal ordering adds structure beyond each woman's own cycle-length distribution.
 
 \medskip
 \noindent\textit{Keywords:} menstrual cycle, vesset, Halacha, permutation test,
@@ -302,7 +302,7 @@ establish a Haflaga vesset ($n = 20$) have a mean within-person cycle-length SD 
 establish no vesset at all ($n = 35$). A Mann--Whitney test confirms this difference is highly
 significant ($U = 133$, $p < .001$, two-sided; Welch $t = -5.05$, $\text{df} = 45.5$, $p < .001$;
 95\% CI for mean difference: $[-2.29, -0.98]$ days; Cohen's $d = -1.13$). This confirms that
-Haflaga selects the most physiologically regular subgroup of women.
+Haflaga selects the subgroup of women with the lowest observed cycle-length variability.
 Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variability.
 
 \begin{figure}[H]
@@ -777,9 +777,9 @@ This study provides the first formal statistical test of whether halachic vesset
 patterns are overrepresented in empirical menstrual cycle data. The central result is
 from the within-woman permutation null ($H_W$): no pattern is individually significant
 (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed counts fall
-below their within-woman null means. This dataset provides no detectable evidence that
+below their within-woman null means. This dataset provides no detectable evidence, under within-woman exchangeability, that
 temporal ordering within each woman's cycle sequence creates vesset patterns beyond
-her own level of cycle-length regularity.
+her own cycle-length distribution.
 
 Under the global permutation null, which pools cycles across all 118 women,
 \textit{Haflaga} is strongly overrepresented ($z = 4.51$, $p < .001$ after
@@ -809,9 +809,9 @@ The Dilug finding ($p = .043$ under the global null) is nominally significant bu
 does not survive Holm--Bonferroni correction (adjusted $p = .173$) and should be
 treated as a hypothesis-generating result requiring pre-registered replication in
 larger samples. The direction is consistent with arithmetic progressions in cycle
-length arising from gradual physiological trends (e.g., gradual lengthening or
+length arising from gradual biological trends (e.g., gradual lengthening or
 shortening associated with hormonal change, ageing, or weight change), but the
-evidence is insufficient to establish a population-level excess beyond chance.
+evidence is insufficient to provide evidence for a population-level excess beyond chance.
 These biological explanations are speculative and await independent confirmation.
 
 \subsection{Mathematical Dependence Structure as a Unifying Observation}
@@ -934,7 +934,10 @@ The joint test (Eq.~\ref{eq:distance}) represents a methodological contribution
 \cite{ross2022phd}. We adopt the \textbf{Mahalanobis distance} as the primary
 test statistic after confirming that the null covariance matrices are well-conditioned
 (condition numbers 4.4--5.4; all pairwise correlations $|r| < 0.16$, so inversion is
-numerically stable). The Mahalanobis statistic is
+numerically stable). Because $\hat{\Sigma}$ is estimated entirely from the Monte Carlo
+null replicates (not from the observed data) and all pairwise correlations are small,
+a robust sandwich-type estimator was not required; the simulation-based estimate is
+consistent by construction. The Mahalanobis statistic is
 $D_M^2 = (\mathbf{O} - \boldsymbol{\mu})^\top \hat{\Sigma}^{-1} (\mathbf{O} - \boldsymbol{\mu})$,
 which standardises deviations by the full null covariance matrix $\hat{\Sigma}$,
 including off-diagonal cross-product terms. Because $\hat{\Sigma}$ is estimated as
@@ -1023,18 +1026,18 @@ forecasting study \cite{ross_planned}.
 
 \paragraph{Halachic family purity compliance.}
 For observant Jewish women, the vesset system governs the timing of ritual abstinence
-(\textit{taharat hamishpacha}). The present empirical grounding of Haflaga as a
-statistically detectable regularity pattern provides independent support for its
-continued role in halachic anticipation, while the non-significance under the
+(\textit{taharat hamishpacha}). The finding that Haflaga is statistically detectable as a regularity pattern
+is consistent with its role in halachic anticipation, while the non-significance under the
 within-woman null is consistent with the halachic position that vesset rules codify
-observed regularity rather than impose structure beyond it.
+observed regularity rather than impose structure beyond it. Whether these empirical
+findings bear on the legal-theological validity of vesset rules is a question outside the scope of this analysis.
 
 \paragraph{Cycle regularity as a health indicator.}
 Menstrual cycle irregularity is associated with decreased fertility and elevated risk
 of chronic conditions \cite{bortot2010}. The finding that Haflaga marks women with
 low within-person cycle-length variability (SD $< 1.6$ days) suggests it could
 function as a simple regularity indicator --- a clinical hypothesis to be evaluated
-in datasets with longitudinal physiological measurements and defined clinical endpoints.
+in datasets with longitudinal clinical measurements and defined clinical endpoints.
 Changes in vesset status (loss or gain of Haflaga) may also serve as a signal of
 disruption to baseline regularity, warranting prospective investigation.
 
@@ -1095,7 +1098,9 @@ data on onset timing: sequences counted as established patterns may not qualify
 halachically (upward bias), while sequences that do qualify halachically may be
 missed (downward bias). The two effects partially cancel, but their relative
 magnitude cannot be assessed from the present data, and the limitation applies
-equally to all five pattern types.
+equally to all five pattern types. The misclassification bias is expected to be
+approximately uniform across women and across pattern types, since the NFP
+dataset provides no information about individual variation in onset-period timing.
 
 \paragraph{Calendar dates.}
 The dataset does not record calendar dates, making it impossible to test the 10
@@ -1193,13 +1198,14 @@ overrepresentation beyond her individual cycle-length distribution.
 
 \begin{table}[ht]
 \centering
-\caption{Power analysis under $H_W$ (within-woman permutation null).
+\caption{Approximate detectable-count benchmarks under $H_W$ (within-woman permutation null),
+  based on a normal-theory location-shift approximation.
   $\mu_W$: null mean; $\sigma_W$: null SD; 95th pct: empirical 95th percentile
   of null (rejection threshold at $\alpha = .05$); MDC: minimum detectable count
-  at 80\% power ($\text{MDC} = \mu_W + 2.487\,\sigma_W$, where
-  $z_{0.05} + z_{0.80} = 1.645 + 0.842 = 2.487$); $z_{\text{obs}}$: standardised
+  at nominal 80\% sensitivity ($\text{MDC} \approx \mu_W + 2.487\,\sigma_W$, where
+  $z_{0.05} + z_{0.80} = 1.645 + 0.842 = 2.487$; approximate normal-theory benchmark, not an exact power guarantee); $z_{\text{obs}}$: standardised
   observed count.
-  All observed counts fall below the MDC, indicating individually underpowered tests
+  All observed counts fall below the MDC, consistent with limited sensitivity
   at $N = 118$.}
 \label{tab:power}
 \begin{tabular}{lrrrrrrr}
@@ -1227,9 +1233,9 @@ scientifically sharper within-woman permutation null ($H_W$).
 
 The primary result is from the within-woman null: under $H_W$, \emph{no pattern is
 individually significant} (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and
-all observed counts fall below their within-woman null means. These findings provide no evidence that
+all observed counts fall below their within-woman null means. These findings provide no evidence, under within-woman exchangeability, that
 temporal ordering within each woman's cycle sequence creates vesset patterns
-beyond what her own level of cycle regularity predicts.
+beyond what her own cycle-length distribution predicts.
 
 Under the global null, Haflaga is significantly overrepresented ($p < .001$ after
 Holm correction); Dilug is nominally overrepresented ($p = .043$) but does not
