@@ -60,7 +60,36 @@ Rebuild zips whenever tex or figures change.
 
 ---
 
-## 4. LaTeX: always compile and check
+## 4. Notebook: keep in sync with the paper
+
+The single source of truth for all analyses and figures is `notebooks/analysis.ipynb`.
+**After every paper change that affects an analysis or figure, update the notebook too.**
+
+### Figure generators
+
+| Paper figure | Source |
+|---|---|
+| `fig1_cycle_distribution` | notebook cell (cycle length histogram + per-woman scatter) |
+| `fig2_consort_flow` | `paper/figures/gen_consort_flow.py` — run directly |
+| `fig3_null_distributions` | notebook cell (global perm + multinomial PMF bars) |
+| `fig4_zscores` | notebook cell (z-score grouped bar chart) |
+| `fig5_cdfs` | notebook cell (empirical CDFs) |
+| `fig6_stratified_comparison` | notebook cell (H_G / H_iid / H_W KDE overlay) |
+| `fig7_dm_nulldist` | notebook cell (3-panel Mahalanobis D_M null histograms) |
+| `fig8_chisq_heatmap` | `paper/figures/regen_heatmap.py` — run directly (§ markers, hardcoded values) |
+| `fig9_joint_3panels` | notebook cell (3-panel 3D scatter, focused 3-pattern joint test) |
+| `figA1_heaping_diagnostic` | notebook cell (haflaga bar chart, heaping sensitivity check) |
+
+### Notebook invariants
+
+- All `plt.savefig` calls must use the **current** figure filename (fig1…figA1); never old names.
+- New analyses added to the paper must have a corresponding notebook cell.
+- Stale cells (superseded analyses/figures) should be clearly marked `# STALE` or removed.
+
+---
+
+## 5. LaTeX: always compile and check
+
 
 After every LaTeX change:
 ```bash
@@ -82,7 +111,7 @@ Non-fatal warnings to ignore: `titlesec` "entered in horizontal mode", `rerunfil
 
 ---
 
-## 5. Terminology — get these right
+## 6. Terminology — get these right
 
 | Wrong | Correct |
 |---|---|
@@ -105,7 +134,7 @@ H_W is a valid conditional Monte Carlo test. Not a bootstrap.
 
 ---
 
-## 6. Primary vs secondary results
+## 7. Primary vs secondary results
 
 **PRIMARY — Within-woman null H_W (all n = 118 women, seed 17, B = 50,000):**
 
@@ -139,7 +168,7 @@ Abstract and conclusion **must foreground H_W** as the central result.
 
 ---
 
-## 7. MDC / Power section
+## 8. MDC / Power section
 
 The MDC values are **approximate normal-theory sensitivity benchmarks**, not exact power guarantees.  
 Formula: MDC = μ_W + 2.487σ_W (normal-theory, 97.5th percentile approximation).  
@@ -148,7 +177,7 @@ Do not claim exact power without simulation-based curves. Future work caveat req
 
 ---
 
-## 8. Self-citations — keep them low
+## 9. Self-citations — keep them low
 
 - `ross2022phd` / `anon2022phd` → ≤ 5 total occurrences
 - `ross2021statistical` / `anon2021statistical` → ≤ 2 total occurrences
@@ -156,7 +185,7 @@ Do not claim exact power without simulation-based curves. Future work caveat req
 
 ---
 
-## 9. Figures — colour-free captions
+## 10. Figures — colour-free captions
 
 SMMR requires figures comprehensible in black-and-white.  
 Captions must **not** mention: blue, red, green, orange, dashed red, solid blue, etc.  
@@ -164,7 +193,7 @@ Use instead: solid, dashed, dotted, filled circle, open circle, arrow — not co
 
 ---
 
-## 10. Key file paths
+## 11. Key file paths
 
 ```
 data/FilteredData.csv          1,554 cycles, 118 women (filtered)
@@ -186,7 +215,7 @@ Analysis repo: `github.com/dvirross/VessetVectorTest`
 
 ---
 
-## 11. Current paper status
+## 12. Current paper status
 
 The paper has been revised in response to three rounds of AI-generated peer reviews (SMMR). All critiques resolved.
 
@@ -276,6 +305,16 @@ The paper has been revised in response to three rounds of AI-generated peer revi
 - ✅ Figure cross-reference audit completed: fig:consort had no in-text \ref — added pointer; H_W table caption p-value formula updated to two-sided
 - ✅ \dag (†, cross shape) replaced with $^*$ (asterisk) in pairwise table and caption
 - ✅ Both PDFs recompiled, anonymisation verified (0 non-anon occurrences), both Overleaf zips rebuilt
+
+### Round 6 additions (2026-09-15) — notebook audit + sync
+- ✅ Notebook audit: identified all 10 paper figures and their generators
+- ✅ Fixed all savefig filenames in notebook to match current paper figure names (fig0→fig1, fig_stratified→fig6, fig1_null→fig3, fig2_zscores→fig4, fig4_cdfs→fig5, fig5_chisq→fig8)
+- ✅ Cell 29 (stale Euclidean joint figure) replaced with fig7_dm_nulldist (Mahalanobis D_M, 3-panel)
+- ✅ Cell 38 (stale old 3D scatters fig6/fig7) replaced with fig9_joint_3panels generator
+- ✅ Added figA1_heaping_diagnostic notebook cell (haflaga distribution bar chart)
+- ✅ Added note cell listing standalone scripts (fig2_consort_flow, fig8_chisq_heatmap)
+- ✅ regen_heatmap.py added to paper/figures/ (permanent location, previously only in scratchpad)
+- ✅ CLAUDE.md §4 added: Notebook requirements and figure generator table
 
 **Outstanding (require author decisions):**
 - [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (text response added this session; may need simulation if reviewer insists)
