@@ -188,8 +188,9 @@ Analysis repo: `github.com/dvirross/VessetVectorTest`
 
 ## 11. Current paper status
 
-The paper has been revised in response to three AI-generated peer reviews. Key changes applied:
+The paper has been revised in response to three rounds of AI-generated peer reviews (SMMR). All critiques resolved.
 
+### Round 1–2 revisions (earlier sessions)
 - ✅ Abstract hedged ("establish" → "suggest"; removed "exploiting serial temporal dependence")
 - ✅ Discussion restructured: H_W as primary, global null as secondary/descriptive
 - ✅ Dilug treated as hypothesis-generating throughout (Holm adj p = .173 noted)
@@ -213,11 +214,23 @@ The paper has been revised in response to three AI-generated peer reviews. Key c
 - ✅ R3 #3: Conclusion novelty claim softened; Mahalanobis test framed as adapted approach
 - ✅ CONSORT figure: fixed ≤ 60 → ≤ 54 days; SD 8.7 → SD 6.1; range 1–45 → range 5–45
 - ✅ fig:chisq caption: updated to reflect only Haflaga×DiD surviving Holm (adj p = .040)
-- ✅ Submission file synced and anonymised (0 non-anonymized occurrences)
-- ✅ Both PDFs compiled and in repo
+
+### Round 3 revisions (commit d06d161, 2026-09-15)
+- ✅ R1-3.3: Joint Mahalanobis test explicitly labelled **primary**; individual Holm-corrected marginals labelled **secondary descriptive summaries**
+- ✅ R1-3.3: Acknowledged similar quadratic-form tests (energy-distance); reframed as adaptation, not first-ever
+- ✅ R1-Minor: Onset-bias × H_W interaction: H_W conditions on each woman's cycle-length multiset, so consistent within-woman onset shifts are preserved identically in permuted sequences → H_W unaffected by that misclassification form
+- ✅ R2-2: "addresses cycle-count confound" → "mitigates…reduces but does not eliminate"
+- ✅ R3-2: Added underpowered caveat to abstract (all observed counts below MDC benchmark)
+- ✅ R3-2: Added non-detection sentence in conclusion: underpowered; not proof of absence
+- ✅ R3-5: Added confirmatory/exploratory/robustness paragraph at start of Discussion
+- ✅ R3-Minor: Added Week z-score difference note in fig4 caption
+- ✅ CLAUDE.md §9: Removed all specific colour names from all figure captions (blue/green/red/orange → solid/dashed/dotted/light fill/hatched)
+- ✅ Cover letter written and pushed (commit a2c1644)
+- ✅ Submission file regenerated and re-verified (0 non-anon occurrences)
+- ✅ Both PDFs compiled (36 pages each) and in repo
 - ✅ Both Overleaf zips rebuilt
 
 **Outstanding:**
 - [ ] Figure cross-reference audit: verify all "Figure X" in text match actual captions
-- [ ] Consider a cover letter for journal submission
-- [ ] Respond to next round of AI reviews once received
+- [ ] R1 Minor: figure panel titles / legend overlap in multi-panel figures (requires figure regeneration)
+- [ ] Respond to next round of actual journal reviews once received
