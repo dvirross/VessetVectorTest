@@ -460,6 +460,11 @@ For each pattern $j$ and null model $m$ we computed: the observed count $O_j$; t
 null mean $\bar{S}_j^{(m)}$ and SD $\sigma_j^{(m)}$; the z-score $z_j^{(m)} =
 (O_j - \bar{S}_j^{(m)}) / \sigma_j^{(m)}$; and the one-sided empirical p-value
 $p_j^{(m)} = (b_j+1)/(B+1)$, where $b_j = \#\{S_{j,r}^{(m)} \geq O_j\}$ and $B = 50{,}000$, following the Monte Carlo convention of Davison \& Hinkley~\cite{davison1997}.
+The marginal tests are one-sided (upper-tail), testing the directional hypothesis that
+each pattern is \emph{overrepresented} relative to the null. The joint Mahalanobis
+distance is inherently two-sided --- it measures displacement from the null centre in
+any direction --- and serves as an omnibus test of whether the observed count vector
+is jointly unusual, regardless of direction.
 
 The \textbf{joint multivariate test} uses the \textbf{Mahalanobis distance} as the test statistic:
 \begin{equation}
@@ -1032,14 +1037,21 @@ null mean --- requiring no density estimation, pairwise distances, or asymptotic
 approximations. The p-value is purely empirical. A formal theoretical treatment is
 planned in future work.
 
-\paragraph{Relationship to Hotelling's $T^2$.}
+\paragraph{Relationship to Hotelling's $T^2$ and max-$T$.}
 The test statistic $D_M^2$ uses the same quadratic form as Hotelling's $T^2$, but
 the observed value is evaluated against the empirical null distribution of $D_M$
 under permutation, not against a parametric reference distribution. Asymptotic
 arguments (e.g., $D_M^2 \approx \chi^2(5)$ under Gaussian approximation) serve as
 heuristic background only; the actual inference is entirely distribution-free. With
 observed counts as small as 18 (Week-Dilug), the asymptotic approximation is not
-relied upon. The Bonferroni--Holm correction and the joint Mahalanobis test answer
+relied upon; moreover, Hotelling's $T^2$ additionally assumes multivariate normality
+of the test statistic --- an assumption violated by small integer counts such as those
+here --- so the parametric form is inappropriate for this application.
+The max-$T$ procedure, which bases inference on the single most extreme component
+z-score, is less sensitive than Mahalanobis when multiple patterns are simultaneously
+displaced from the null; in our data, the two approaches lead to the same substantive
+conclusion under both null models.
+The Bonferroni--Holm correction and the joint Mahalanobis test answer
 different inferential questions: Holm provides family-wise error rate control across
 five separate component hypotheses; the Mahalanobis statistic tests a single global
 multivariate null. The joint test does not replace Holm, nor is it uniformly more
