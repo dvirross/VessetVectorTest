@@ -1,177 +1,105 @@
 # VessetVectorTest
 
-**Statistical Evidence for Halachic Vesset Patterns in Natural Menstrual Cycle Data:
-A Study of Jewish Religious Law and Menstrual Cycle Regularity**
+**Null-Model Choice for Rule-Defined Pattern Counts in Clustered Longitudinal Sequences:
+A Case Study of Halachic Menstrual Anticipation Rules**
 
 Dvir Ross — Department of Software Engineering, Shenkar College of Engineering, Design and Art, Ramat Gan, Israel;
 Department of Computer Science, SCE — Shamoon College of Engineering, Beer Sheva, Israel
+
+Target: *Biometrical Journal* (Case Study).
 
 ---
 
 ## Overview
 
-This repository contains all code, data, and paper sources for the above article.
-The study tests whether halachic *vesset* patterns (rules for anticipating menstruation
-in Jewish law) occur in real menstrual cycle data at rates significantly exceeding
-chance, using three complementary null models: a global permutation test, a multinomial
-sampling null, and a within-woman permutation null (each woman's cycle sequence
-permuted independently within her own observed cycle-length multiset).
+Halachic *vesset* rules define exact arithmetic events in a woman's sequence of
+menstrual intervals (three equal consecutive intervals, a constant first or second
+difference, a repeated weekly anchor). This repository asks whether such events occur
+in 1,554 cycles from 118 women (Fehring et al., 2013) more often than chance, and shows
+that the answer depends on which exchangeability null defines "chance":
 
-**Key findings:**
+| Null | What is randomised | Joint Mahalanobis test |
+|---|---|---|
+| `H_G` global permutation | all cycle lengths across women | D_M = 5.08, p < .001 |
+| `H_iid` multinomial | i.i.d. draws from the pooled distribution | D_M = 4.87, p < .001 |
+| `H_W` within-woman permutation | order of each woman's own cycles only | D_M = 2.93, p = .13 |
 
-*Primary result (within-woman null — the scientifically sharper test):*
-- Under H_W, **no pattern is individually significant** (all p > .72; joint D_M = 2.95, p = .121)
-- All observed counts fall *below* their within-woman null means
-- Vesset patterns arise from individual cycle regularity, not additional temporal structure
+Under `H_W` no pattern is individually significant after Holm correction (smallest
+Holm-adjusted p = .19) and all observed counts fall at or below their null means. The
+global signal is driven by Haflaga (26 observed vs 11.3 expected under `H_G`, z = 4.5).
 
-*Secondary result (global null):*
-- *Haflaga* (fixed interval): z = 4.51, p < .001 — only 2 of 50,000 simulations
-  reached or exceeded the observed count (Holm-adjusted p = .0003)
-- *Dilug* (arithmetic progression): z = 1.83, p = .043 (exploratory; does not survive Holm)
-- Joint Mahalanobis test (all 5 patterns): D_M = 5.10, p < .001 under permutation null
-- Focused joint test (mathematically dependent sub-vector): p < .01
+A simulation study checks the empirical size of every test (including a split-batch
+check of the covariance estimate used by the joint statistic), the power of the `H_W`
+tests against AR(1) and exact-repetition alternatives, and the sensitivity of the
+conclusions to unequal follow-up.
 
-## Repository Structure
+## Repository structure
 
 ```
 VessetVectorTest/
-├── README.md
-├── requirements.txt
-├── sim_results.npz              # Pre-computed simulation results (50,000 × 2 iterations)
-│
+├── data/FilteredData.csv        1,554 cycles, 118 women; CycleNumber contiguous within every woman
+├── scripts/
+│   ├── patterns.py              counting rules (vectorised + reference loop; equivalence test), null generators,
+│   │                            two-sided Monte Carlo p, Holm, Mahalanobis test
+│   ├── rerun_nulls.py           B = 50,000 replicates under H_G, H_iid, H_W (seed 17) -> results/null_replicates.npz
+│   ├── sim_validation.py        size calibration, power vs alternatives, truncation -> results/sim_validation.npz
+│   ├── postprocess.py           every number reported in the paper -> results/summary.json
+│   └── build_notebook.py        generates notebooks/analysis.ipynb
+├── results/                     cached Monte Carlo output (see above)
+├── notebooks/analysis.ipynb     single source of truth for all analyses and figures (fig1, fig3-fig10, figA1)
 ├── paper/
-│   ├── vesset_stat.tex          # LaTeX source — full manuscript with author info
-│   ├── vesset_stat_submission.tex  # Anonymous version for journal submission
-│   ├── references.bib           # BibTeX bibliography
-│   ├── vesset_stat.pdf          # Compiled PDF
-│   ├── cover_letter.tex         # Cover letter (LaTeX source)
-│   ├── cover_letter.pdf         # Cover letter (compiled)
-│   └── figures/                 # All publication figures (PDF)
-│       ├── fig0_cycle_distribution.pdf
-│       ├── fig1_null_distributions.pdf
-│       ├── fig2_zscores.pdf
-│       ├── fig3_joint_test.pdf
-│       ├── fig4_cdfs.pdf
-│       ├── fig5_chisq_heatmap.pdf
-│       ├── fig6_5d_permutation.pdf   # 5D joint test, permutation null
-│       ├── fig7_5d_multinomial.pdf   # 5D joint test, multinomial null
-│       ├── fig_stratified_comparison.pdf  # All three null models side by side
-│       └── fig_heaping_diagnostic.pdf     # Haflaga value distribution (heaping check)
-│
-├── notebooks/
-│   ├── analysis.ipynb           # Main analysis: permutation & multinomial tests,
-│   │                            # within-woman stratified randomisation, chi-square
-│   │                            # dependence, Mahalanobis joint test, all figures
-│   └── visualization_3d.ipynb  # Interactive & static 3D joint test visualization
-│
-└── data/
-    └── FilteredData.csv         # Filtered NFP dataset (1,554 cycles, 118 women)
+│   ├── vesset_stat.tex          manuscript (LaTeX, author-year references)
+│   ├── references.bib
+│   ├── cover_letter.tex
+│   └── figures/                 PDF + PNG figures; gen_consort_flow.py generates fig2
+├── revision_reports/            reviewer reports, author responses, triage matrices
+├── sim_results.npz, strat_full_118.pkl   legacy replicate files (superseded; computed on 1,553 cycles)
+└── requirements.txt
 ```
 
 ## Data
 
-The dataset was originally collected by Fehring et al. (2013) in a randomised trial
-comparing two internet-supported natural family planning methods, and is publicly
-archived at Marquette University:
-https://epublications.marquette.edu/data_nfp/7/
+The dataset was collected by Fehring et al. (2013) in a randomised trial comparing two
+internet-supported natural family planning methods and is archived at Marquette
+University: https://epublications.marquette.edu/data_nfp/7/
 
-`FilteredData.csv` is the filtered version (cycles outside 18–54 days removed;
-duplicate records resolved) used in the analysis.
+`data/FilteredData.csv` is the filtered file used in the analysis (cycle lengths 18–54
+days; complete records). Every retained woman's `CycleNumber` runs 1, 2, …, n_i without
+gaps, so no pattern window bridges an excluded cycle; `scripts/patterns.load_data`
+asserts this. The script that produced the filtered file from the raw archive is not
+included in this repository.
 
-## Reproducing the Analysis
-
-### Setup
+## Reproducing the analysis
 
 ```bash
-git clone https://github.com/dvirross/VessetVectorTest.git
-cd VessetVectorTest
 pip install -r requirements.txt
+python scripts/patterns.py data/FilteredData.csv      # verifies counting code, prints observed counts
+python scripts/rerun_nulls.py 50000 17                # ~1 min: replicates under the three nulls
+python scripts/sim_validation.py                      # ~20 min on 4 cores: size / power / truncation
+python scripts/postprocess.py                         # all reported statistics -> results/summary.json
+python scripts/build_notebook.py
+(cd notebooks && jupyter nbconvert --to notebook --execute --inplace analysis.ipynb)   # regenerates figures
+python paper/figures/gen_consort_flow.py              # fig2
 ```
 
-### Running the notebooks
-
-```bash
-jupyter notebook notebooks/analysis.ipynb
-```
-
-The main notebook (`analysis.ipynb`) loads pre-computed simulation results from
-`sim_results.npz` for speed. To re-run the full 50,000-iteration simulations
-from scratch, replace the "Load pre-computed results" cell with the commented-out
-simulation loop (takes approximately 15 minutes).
-
-The within-woman permutation null results (118 women, 50,000 iterations)
-are regenerated by running Section 4.4 of `analysis.ipynb`. The `.pkl` output
-is not committed to the repo due to file size.
+Pattern order everywhere: Haflaga, Dilug, Week, Week-Dilug, Dilug-in-Dilug.
+Observed counts: 26, 61, 32, 18, 27.
 
 ### Compiling the paper
 
-Upload the contents of `paper/` to [Overleaf](https://overleaf.com) as a new project,
-set `vesset_stat.tex` as the main file, and compile. All figures are included in
-`paper/figures/`. For the anonymous submission version use `vesset_stat_submission.tex`.
-
-Compile sequence:
-```
+```bash
+cd paper
 pdflatex -interaction=nonstopmode vesset_stat.tex
 bibtex vesset_stat
 pdflatex -interaction=nonstopmode vesset_stat.tex
 pdflatex -interaction=nonstopmode vesset_stat.tex
 ```
 
-Known non-fatal warnings: `titlesec` "entered in horizontal mode" — these arise from
-the `\paragraph[runin]` format and do not affect output.
-
-## Pre-computed Simulation Results
-
-`sim_results.npz` contains the results of 50,000 permutation iterations and 50,000
-multinomial sampling iterations (random seed 17), stored as NumPy arrays:
-
-```python
-import numpy as np
-d = np.load('sim_results.npz')
-# d['perm']     — shape (50000, 5): permutation null counts
-# d['multi']    — shape (50000, 5): multinomial null counts
-# d['observed'] — shape (5,): observed pattern counts [26, 61, 32, 18, 27]
-```
-
-Pattern order: Haflaga, Dilug, Week, Week-Dilug, Dilug-in-Dilug.
+Known non-fatal warnings: `titlesec` "entered in horizontal mode" (from the run-in
+`\paragraph` format).
 
 ## Citation
 
-If you use this code or data in your own work, please cite:
-
-```bibtex
-@article{ross2024vessetstat,
-  author  = {Dvir Ross},
-  title   = {Statistical Evidence for Halachic Vesset Patterns in Natural
-             Menstrual Cycle Data: A Permutation and Multinomial Sampling Analysis},
-  journal = {Statistical Methods in Medical Research},
-  year    = {2024},
-  note    = {Under review}
-}
-```
-
-The PhD dissertation on which this work is based:
-
-```bibtex
-@phdthesis{ross2022phd,
-  author  = {Dvir Ross},
-  title   = {Probabilistic and Statistical Analysis of the Menstrual Cycle
-             in a Halachic Context},
-  school  = {Ariel University in Samaria, Ariel, Israel},
-  year    = {2022},
-  note    = {In Hebrew. Supervisors: Prof. E. Merzbach, Dr. E. Shmerling,
-             Prof. A. Domoshnitsky}
-}
-```
-
-## License
-
-Code: MIT License.
-Data: subject to the terms of the original Marquette University data archive
-(https://epublications.marquette.edu/data_nfp/7/).
-
-## Contact
-
-Dvir Ross
-- dvirross@shenkar.ac.il
-- RossDv@sce.ac.il
+If you use this code or data, please cite the manuscript above and the original dataset
+(Fehring, R. J., Schneider, M., & Barron, K. (2013). Randomized comparison of two
+Internet-supported methods of natural family planning. *Contraception*, 88(1), 24–30).

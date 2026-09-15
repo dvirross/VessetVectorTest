@@ -1,0 +1,444 @@
+{
+ "B": 50000,
+ "seed": 17,
+ "n_cycles": 1554,
+ "n_women": 118,
+ "observed": [
+  26,
+  61,
+  32,
+  18,
+  27
+ ],
+ "G": {
+  "mean": [
+   11.31,
+   48.92,
+   27.02,
+   16.25,
+   27.17
+  ],
+  "sd": [
+   3.27,
+   6.57,
+   4.01,
+   3.25,
+   5.0
+  ],
+  "z": [
+   4.5,
+   1.84,
+   1.24,
+   0.54,
+   -0.03
+  ],
+  "p_two": [
+   0.0002,
+   0.085,
+   0.2647,
+   0.6882,
+   1.0
+  ],
+  "p_upper": [
+   0.0001,
+   0.0425,
+   0.13236,
+   0.34409,
+   0.54359
+  ],
+  "n_ge_obs": [
+   4,
+   2124,
+   6617,
+   17204,
+   27179
+  ],
+  "holm": [
+   0.001,
+   0.34,
+   0.7941,
+   1.0,
+   1.0
+  ],
+  "DM": 5.08,
+  "p_DM": 0.0001,
+  "n_exceed_DM": 6,
+  "DM_split": 5.073,
+  "p_DM_split": 0.0002,
+  "DM3": 4.501,
+  "p_DM3": 0.0002,
+  "n_exceed_DM3": 11,
+  "cond": 4.62,
+  "max_abs_corr": 0.123,
+  "pct95": [
+   17.0,
+   60.0,
+   34.0,
+   22.0,
+   36.0
+  ],
+  "pct975": [
+   18.0,
+   62.0,
+   35.0,
+   23.0,
+   37.0
+  ]
+ },
+ "iid": {
+  "mean": [
+   11.48,
+   48.86,
+   27.09,
+   16.35,
+   27.3
+  ],
+  "sd": [
+   3.31,
+   6.59,
+   5.0,
+   3.94,
+   5.07
+  ],
+  "z": [
+   4.39,
+   1.84,
+   0.98,
+   0.42,
+   -0.06
+  ],
+  "p_two": [
+   0.0003,
+   0.082,
+   0.3732,
+   0.7428,
+   1.0
+  ],
+  "p_upper": [
+   0.00014,
+   0.04102,
+   0.18658,
+   0.37139,
+   0.55275
+  ],
+  "n_ge_obs": [
+   6,
+   2050,
+   9328,
+   18569,
+   27637
+  ],
+  "holm": [
+   0.0014,
+   0.3282,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "DM": 4.867,
+  "p_DM": 0.0004,
+  "n_exceed_DM": 17,
+  "DM_split": 4.87,
+  "p_DM_split": 0.0003,
+  "DM3": 4.389,
+  "p_DM3": 0.0005,
+  "n_exceed_DM3": 24,
+  "cond": 4.36,
+  "max_abs_corr": 0.164,
+  "pct95": [
+   17.0,
+   60.0,
+   36.0,
+   23.0,
+   36.0
+  ],
+  "pct975": [
+   18.0,
+   62.0,
+   37.0,
+   24.0,
+   38.0
+  ]
+ },
+ "W": {
+  "mean": [
+   31.84,
+   67.04,
+   33.79,
+   20.91,
+   39.12
+  ],
+  "sd": [
+   4.68,
+   7.38,
+   3.88,
+   3.22,
+   5.84
+  ],
+  "z": [
+   -1.25,
+   -0.82,
+   -0.46,
+   -0.9,
+   -2.07
+  ],
+  "p_two": [
+   0.2536,
+   0.4596,
+   0.7489,
+   0.4597,
+   0.0383
+  ],
+  "p_upper": [
+   0.91396,
+   0.80946,
+   0.72147,
+   0.8562,
+   0.98818
+  ],
+  "n_ge_obs": [
+   45698,
+   40473,
+   36073,
+   42810,
+   49409
+  ],
+  "holm": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   0.1916
+  ],
+  "DM": 2.933,
+  "p_DM": 0.1257,
+  "n_exceed_DM": 6285,
+  "DM_split": 2.954,
+  "p_DM_split": 0.1186,
+  "DM3": 2.679,
+  "p_DM3": 0.0666,
+  "n_exceed_DM3": 3327,
+  "cond": 5.41,
+  "max_abs_corr": 0.14,
+  "pct95": [
+   40.0,
+   79.0,
+   40.0,
+   26.0,
+   49.0
+  ],
+  "pct975": [
+   41.0,
+   82.0,
+   42.0,
+   27.0,
+   51.0
+  ]
+ },
+ "max_p_diff_G_iid": 0.108,
+ "haflaga_runs_at_30": 3,
+ "did_runs_abs_d_1": 16,
+ "sd_comparison": {
+  "n_haf": 20,
+  "mean_sd_haf": 1.54,
+  "sd_between_haf": 0.59,
+  "n_none": 35,
+  "mean_sd_none": 3.17,
+  "sd_between_none": 1.75,
+  "U": 133.0,
+  "p_U": 0.00015188873059744057,
+  "t": -5.05,
+  "df": 45.5,
+  "p_t": 7.654072836367327e-06,
+  "ci": [
+   -2.29,
+   -0.98
+  ],
+  "cohen_d": -1.13
+ },
+ "women_with_pattern": {
+  "Haflaga": 20,
+  "Dilug": 48,
+  "Week": 26,
+  "Week-Dilug": 18,
+  "Dilug-in-Dilug": 23
+ },
+ "influence": {
+  "n_women_ge20": 11,
+  "share_cycles_ge20": 0.201,
+  "share_events_ge20": [
+   0.346,
+   0.213,
+   0.281,
+   0.111,
+   0.296
+  ],
+  "spearman_n_vs_events": [
+   0.28,
+   0.18,
+   0.18,
+   0.03,
+   0.16
+  ]
+ },
+ "loo": {
+  "joint_p_min": 0.0546,
+  "joint_p_max": 0.2244,
+  "n_joint_p_below_05": 0,
+  "marginal_p_min": [
+   0.1206,
+   0.3427,
+   0.5338,
+   0.3073,
+   0.0142
+  ],
+  "marginal_p_max": [
+   0.3867,
+   0.6004,
+   0.9298,
+   0.689,
+   0.073
+  ],
+  "n_marg_below_05": [
+   0,
+   0,
+   0,
+   0,
+   114
+  ]
+ },
+ "pairwise_rate_spearman": [
+  {
+   "pair": "Haflaga x Dilug-in-Dilug",
+   "r": 0.27,
+   "p_perm": 0.0038,
+   "p_holm": 0.038
+  },
+  {
+   "pair": "Haflaga x Week-Dilug",
+   "r": 0.23,
+   "p_perm": 0.0113,
+   "p_holm": 0.102
+  },
+  {
+   "pair": "Dilug x Week-Dilug",
+   "r": -0.12,
+   "p_perm": 0.2059,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Haflaga x Week",
+   "r": 0.1,
+   "p_perm": 0.277,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Week x Dilug-in-Dilug",
+   "r": 0.09,
+   "p_perm": 0.3262,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Dilug x Week",
+   "r": 0.09,
+   "p_perm": 0.3374,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Week x Week-Dilug",
+   "r": 0.06,
+   "p_perm": 0.4755,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Week-Dilug x Dilug-in-Dilug",
+   "r": 0.07,
+   "p_perm": 0.4802,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Haflaga x Dilug",
+   "r": 0.04,
+   "p_perm": 0.668,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Dilug x Dilug-in-Dilug",
+   "r": -0.02,
+   "p_perm": 0.819,
+   "p_holm": 1.0
+  }
+ ],
+ "pairwise_binary": [
+  {
+   "pair": "Haflaga x Dilug-in-Dilug",
+   "chi2": 9.99,
+   "p_perm": 0.0042,
+   "p_fisher": 0.0038,
+   "p_holm": 0.042
+  },
+  {
+   "pair": "Haflaga x Week-Dilug",
+   "chi2": 7.26,
+   "p_perm": 0.0131,
+   "p_fisher": 0.0137,
+   "p_holm": 0.118
+  },
+  {
+   "pair": "Dilug x Week",
+   "chi2": 2.4,
+   "p_perm": 0.1727,
+   "p_fisher": 0.1743,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Dilug x Week-Dilug",
+   "chi2": 1.46,
+   "p_perm": 0.2992,
+   "p_fisher": 0.3002,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Haflaga x Week",
+   "chi2": 0.89,
+   "p_perm": 0.3793,
+   "p_fisher": 0.3788,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Week x Dilug-in-Dilug",
+   "chi2": 1.17,
+   "p_perm": 0.3968,
+   "p_fisher": 0.2761,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Haflaga x Dilug",
+   "chi2": 0.87,
+   "p_perm": 0.4535,
+   "p_fisher": 0.4547,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Week-Dilug x Dilug-in-Dilug",
+   "chi2": 0.93,
+   "p_perm": 0.5183,
+   "p_fisher": 0.3417,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Week x Week-Dilug",
+   "chi2": 0.41,
+   "p_perm": 0.5448,
+   "p_fisher": 0.5425,
+   "p_holm": 1.0
+  },
+  {
+   "pair": "Dilug x Dilug-in-Dilug",
+   "chi2": 0.09,
+   "p_perm": 0.8137,
+   "p_fisher": 0.8152,
+   "p_holm": 1.0
+  }
+ ]
+}

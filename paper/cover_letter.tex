@@ -38,74 +38,52 @@ Dear Editors,
 
 \medskip
 
-I am pleased to submit the manuscript \textbf{``Are Halachic Vesset Patterns
-Overrepresented in Empirical Menstrual Cycle Data? A Permutation Test''} for
-consideration as a Research Article in \textit{Biometrical Journal}.
+I am pleased to submit the manuscript \textbf{``Null-Model Choice for Rule-Defined
+Pattern Counts in Clustered Longitudinal Sequences: A Case Study of Halachic Menstrual
+Anticipation Rules''} for consideration as a \textbf{Case Study} in
+\textit{Biometrical Journal}.
 
 \medskip
-\textbf{What this paper does.}
-Jewish religious law (\textit{Halacha}) prescribes that women anticipate menstruation
-based on recurring patterns in their cycle history, collectively known as
-\textit{vesset}. Despite their centuries-long practical application, no published study
-has formally tested whether these patterns occur in real menstrual cycle data at rates
-exceeding chance. This paper fills that gap using three complementary null models applied
-to a publicly archived dataset of 1,554 cycles from 118 women (Fehring et al.,
-\textit{Contraception}, 2013): a global permutation null ($H_G$), a multinomial sampling
-null ($H_{iid}$), and --- as the primary scientific test --- a within-woman permutation
-null ($H_W$) that conditions on each woman's observed cycle-length multiset.
+\textbf{The problem.}
+Jewish religious law prescribes that a woman anticipate her next menstruation from
+recurring arithmetic patterns in her cycle history (the \textit{vesset} rules). Each rule
+defines an exact event --- three equal consecutive intervals, a constant first or second
+difference, a repeated weekly anchor --- and the natural question is whether such events
+occur in real cycle data more often than a suitable notion of chance predicts. The
+statistical difficulty is that the answer depends entirely on what ``chance'' is taken
+to mean: the data are 1,554 cycles from 118 women (5--45 cycles each; Fehring et al.,
+\textit{Contraception}, 2013), the pattern counts are integer-valued, structurally
+dependent by definition (one rule's event set is contained in another's), and both
+between-woman heterogeneity in regularity and within-woman ordering can generate them.
 
 \medskip
-\textbf{Methodological contributions.}
-The paper makes three methodological contributions:
-
-\begin{enumerate}
-  \item \textbf{A permutation-based Mahalanobis joint test for dependent count vectors.}
-    We introduce a distribution-free joint test ($D_M$) that evaluates whether a vector
-    of sequentially computed pattern counts departs from the null distribution without
-    assuming multivariate normality or independence among components. The test is applicable
-    to any setting where multiple sequential pattern types are counted in time-series or
-    longitudinal biological data.
-
-  \item \textbf{A within-woman permutation null as a design-adapted exchangeability block.}
-    $H_W$ permutes each woman's cycle-length sequence within her own record, conditioning on
-    her personal cycle-length multiset. This block-randomization design controls for
-    individual variation in cycle regularity and tests only whether temporal patterns exceed
-    within-person chance levels --- a more targeted scientific question than the global null.
-
-  \item \textbf{A polynomial hierarchy of pattern types.}
-    The five vesset pattern types form a hierarchy based on the order of the
-    finite-difference operator. We derive three mathematically necessary dependence
-    relationships (set-theoretic inclusion, limiting convergence, logical incompatibility)
-    and confirm each with pairwise Spearman correlation tests, motivating the joint test.
-\end{enumerate}
+\textbf{What the paper does.}
+We compare three exchangeability nulls for the same five-count vector: a global
+permutation null (cycle lengths exchangeable across women), a multinomial i.i.d.\ null,
+and a within-woman permutation null that conditions on each woman's observed multiset of
+cycle lengths and randomises only their order. All three are analysed with the same
+marginal Monte Carlo tests and a joint quadratic-form (Mahalanobis) permutation statistic
+whose covariance is estimated from the null replicates. The two global nulls reject
+strongly (joint $p < .001$); the within-woman null does not (joint $p = .13$), and all
+five observed counts fall at or below their within-woman null means. The paper shows
+why this contrast arises and what each null does and does not test. A compact
+simulation study reports the empirical size of every test used (including a split-batch
+check on the covariance estimate), the power of the within-woman tests against
+autoregressive and exact-repetition alternatives, and the sensitivity of the
+conclusions to unequal follow-up (truncation and leave-one-woman-out).
 
 \medskip
-\textbf{Main findings.}
-The primary result is that no vesset pattern is individually or jointly significant under
-the within-woman null ($H_W$): all Holm-corrected individual $p \geq .198$ and the joint
-Mahalanobis test is non-significant ($D_M = 2.95$, $p = .121$). This shows that observed
-pattern counts are consistent with within-person randomness once each woman's personal
-cycle-length distribution is controlled for, and provides the first formal permutation-based
-test of halachic vesset patterns in empirical data.
-
-Under the global permutation null ($H_G$), Haflaga departs significantly from chance
-($z = 4.51$, $p < .001$; only 2 of 50,000 simulated datasets exceeded the observed count),
-and the primary 5-pattern Mahalanobis joint test detects significant multivariate departure
-($D_M = 5.10$, $p < .001$). The contrast between $H_G$ and $H_W$ is itself informative:
-Haflaga overrepresentation relative to the population pool reflects partly the composition
-of individual women's cycle-length distributions, not purely within-sequence patterning.
-
-\medskip
-\textbf{Fit with \textit{Biometrical Journal}.}
-This paper fits \textit{Biometrical Journal}'s scope as a methodological contribution
-motivated by a real biological problem. The central development --- a permutation-based
-Mahalanobis joint test for correlated count vectors arising from sequential pattern
-detection --- is a distribution-free alternative to Hotelling's $T^2$ with broad
-applicability to cyclic biological settings (circadian rhythms, hormonal cycle data,
-episodic clinical event sequences). The within-woman permutation null exemplifies
-design-adapted exchangeability-block randomization (following Winkler et al., 2014;
-Nichols et al., 2002) in a novel longitudinal context. The menstrual cycle application
-provides concrete, publicly archived data for reproducibility.
+\textbf{Why a Case Study.}
+The statistical tools are established --- conditional randomisation, exchangeability
+blocks, quadratic-form permutation statistics --- and the manuscript does not claim a
+new method. Its contribution is the careful construction and contrast of scientifically
+distinct conditional nulls for rule-defined pattern counts in clustered longitudinal
+sequences, the demonstration that the same data give diametrically different answers
+under population-level and within-subject exchangeability, and the validation of the
+procedures by simulation. The lesson transfers to other settings in which deterministic
+rules are applied to recurrent-event sequences (for example, exact inter-seizure or
+inter-episode intervals), and this is the first formal randomisation-based test of the
+halachic rules on empirical data of which we are aware.
 
 \medskip
 \textbf{Required declarations.}
@@ -126,24 +104,23 @@ were collected and there was no direct patient contact in this study.
 
 \textit{Conflicts of interest:} The author declares no conflicts of interest.
 
-\textit{Closely related work:} A preliminary analysis appears in the author's PhD
-dissertation (Ariel University, 2022, in Hebrew). The dissertation examined vesset
-patterns descriptively; the present paper is a substantial extension introducing the joint
-multivariate test, the multinomial null model, the polynomial hierarchy with mathematical
-derivations, the within-woman permutation null as primary test, and the pairwise Spearman
-dependence analysis, none of which appeared in the dissertation. The dissertation is
-submitted as supplementary material for review only.
+\textit{Closely related work:} A descriptive examination of vesset patterns appears in
+the author's PhD dissertation (Ariel University, 2022, in Hebrew), which also introduced
+the multinomial null. The within-woman permutation null, the joint quadratic-form test,
+the simulation validation, and the pairwise dependence analysis did not appear there.
+The dissertation is submitted as supplementary material for review only.
 
 \medskip
 \textbf{Data and code availability.}
-All analysis code and the filtered dataset are publicly available at
-\url{https://github.com/dvirross/VessetVectorTest}.
-The original dataset is archived at Marquette University
-(\url{https://epublications.marquette.edu/data_nfp/7/}).
+All analysis code, the filtered dataset, and the cached Monte Carlo replicates needed to
+reproduce every number in the paper without re-simulation are publicly available at
+\url{https://github.com/dvirross/VessetVectorTest}. The original dataset is archived at
+Marquette University (\url{https://epublications.marquette.edu/data_nfp/7/}). A
+Reproducible Research ZIP will be supplied at the revision stage.
 
 \bigskip
 
-I believe this manuscript will be of genuine interest to the readership of
+I believe this manuscript will be of interest to the readership of
 \textit{Biometrical Journal}, and I look forward to the editorial team's consideration.
 
 \bigskip
@@ -196,35 +173,9 @@ ethical oversight of the original investigators (Fehring et al., 2013).
 
 \textbf{Data availability}
 
-The filtered dataset and all analysis code used in this study are publicly available at
-\url{https://github.com/dvirross/VessetVectorTest}. The original NFP dataset is archived
-at Marquette University:
-\url{https://epublications.marquette.edu/data_nfp/7/}.
-
-\bigskip
-
-\textbf{Author contributions}
-
-Dvir Ross: Conceptualization, Methodology, Software, Formal analysis, Investigation,
-Writing --- original draft, Writing --- review \& editing, Visualization.
-
-\bigskip
-
-\textbf{Artificial intelligence use disclosure}
-
-Portions of the written text in this article were drafted and edited with the assistance
-of Claude (Anthropic, 2024), a large language model AI assistant. All scientific
-content, mathematical derivations, statistical analyses, and intellectual contributions
-are solely the work of the author. The AI tool was used exclusively for language
-editing, structural organisation of the manuscript, and generation of \LaTeX{} and
-\texttt{Python} code under the author's direct supervision and verification. The author
-takes full responsibility for the accuracy and integrity of all content presented in
-this article.
-
-\bigskip
-
-\textbf{ORCID}
-
-Dvir Ross: \href{https://orcid.org/0000-0001-8217-3359}{0000-0001-8217-3359}
+The filtered dataset, all analysis code, and cached simulation replicates are publicly
+available at \url{https://github.com/dvirross/VessetVectorTest}. The original NFP dataset
+is archived at Marquette University
+(\url{https://epublications.marquette.edu/data_nfp/7/}).
 
 \end{document}
