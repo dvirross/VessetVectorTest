@@ -232,5 +232,6 @@ The paper has been revised in response to three rounds of AI-generated peer revi
 
 **Outstanding:**
 - [ ] Figure cross-reference audit: verify all "Figure X" in text match actual captions
-- [ ] R1 Minor: figure panel titles / legend overlap in multi-panel figures (requires figure regeneration)
 - [ ] Respond to next round of actual journal reviews once received
+
+**Note:** R1 Minor figure legend/title overlap was raised against the old two-panel 3D scatter figures (fig6_5d_permutation, fig7_5d_multinomial). Those were replaced by the combined 3-panel figure (fig9_joint_3panels) and the D_M null distribution figure (fig7_dm_nulldist), which were redesigned to fix those layout issues. The reviewer never saw the new figures — this concern is resolved.
