@@ -22,14 +22,15 @@ Department of Computer Science\\
 SCE --- Shamoon College of Engineering\\
 Beer Sheva, Israel\\[2pt]
 \texttt{dvirross@shenkar.ac.il}\\
-\texttt{RossDv@sce.ac.il}\\[6pt]
+\texttt{RossDv@sce.ac.il}\\
+ORCID: \href{https://orcid.org/0000-0001-8217-3359}{0000-0001-8217-3359}\\[6pt]
 \today
 \end{flushright}
 
 \bigskip
 
 The Editors\\
-\textit{Statistical Methods in Medical Research}
+\textit{Biometrical Journal}
 
 \bigskip
 
@@ -37,91 +38,101 @@ Dear Editors,
 
 \medskip
 
-I am pleased to submit the manuscript \textbf{``Statistical Evidence for Halachic Vesset
-Patterns in Natural Menstrual Cycle Data: A Study of Jewish Religious Law and Menstrual
-Cycle Regularity --- A Permutation and Multinomial Sampling Analysis''} for consideration
-for publication in \textit{Statistical Methods in Medical Research}.
+I am pleased to submit the manuscript \textbf{``Are Halachic Vesset Patterns
+Overrepresented in Empirical Menstrual Cycle Data? A Permutation Test''} for
+consideration as a Research Article in \textit{Biometrical Journal}.
 
 \medskip
 \textbf{What this paper does.}
 Jewish religious law (\textit{Halacha}) prescribes that women anticipate menstruation
-based on recurring patterns in their cycle history, collectively known as \textit{vesset}.
-Despite their centuries-long practical application, no published study has formally tested
-whether these patterns occur in real menstrual cycle data at rates exceeding chance.
-This paper fills that gap using three complementary null models --- a global permutation
-null ($H_G$), a multinomial sampling null ($H_{iid}$), and a within-woman permutation
-null ($H_W$) that conditions on each woman's observed cycle-length multiset --- applied
-to a publicly available dataset of 1,554 cycles from 118 women
-(Fehring et al., \textit{Contraception}, 2013).
+based on recurring patterns in their cycle history, collectively known as
+\textit{vesset}. Despite their centuries-long practical application, no published study
+has formally tested whether these patterns occur in real menstrual cycle data at rates
+exceeding chance. This paper fills that gap using three complementary null models applied
+to a publicly archived dataset of 1,554 cycles from 118 women (Fehring et al.,
+\textit{Contraception}, 2013): a global permutation null ($H_G$), a multinomial sampling
+null ($H_{iid}$), and --- as the primary scientific test --- a within-woman permutation
+null ($H_W$) that conditions on each woman's observed cycle-length multiset.
 
 \medskip
 \textbf{Methodological contributions.}
-The paper makes three methodological contributions that we believe are of broad interest
-to readers of this journal:
+The paper makes three methodological contributions:
 
 \begin{enumerate}
-  \item \textbf{A joint multivariate test for dependent count vectors.}
-    We introduce a Mahalanobis-distance-based joint test ($D_M$) that evaluates whether a
-    vector of sequentially computed pattern counts departs from the null distribution,
-    without assuming independence among the counts. This test is applicable to any setting
-    where multiple sequential pattern types are counted in time-series or longitudinal data.
+  \item \textbf{A permutation-based Mahalanobis joint test for dependent count vectors.}
+    We introduce a distribution-free joint test ($D_M$) that evaluates whether a vector
+    of sequentially computed pattern counts departs from the null distribution without
+    assuming multivariate normality or independence among components. The test is applicable
+    to any setting where multiple sequential pattern types are counted in time-series or
+    longitudinal biological data.
+
+  \item \textbf{A within-woman permutation null as a design-adapted exchangeability block.}
+    $H_W$ permutes each woman's cycle-length sequence within her own record, conditioning on
+    her personal cycle-length multiset. This block-randomization design controls for
+    individual variation in cycle regularity and tests only whether temporal patterns exceed
+    within-person chance levels --- a more targeted scientific question than the global null.
 
   \item \textbf{A polynomial hierarchy of pattern types.}
-    We show that the five vesset pattern types form a hierarchy based on the order of the
-    finite-difference operator --- degree-0 (constant), degree-1 (linear), degree-2 (quadratic)
-    sequences. We derive three mathematically necessary dependence relationships between
-    the patterns (set-theoretic inclusion, limiting convergence, logical incompatibility) and
-    confirm each with pairwise chi-square tests. This motivates the joint test and explains
-    why Bonferroni correction would be logically inappropriate.
-
-  \item \textbf{A within-woman permutation null as the primary scientific test.}
-    We introduce a within-woman null ($H_W$) that permutes each woman's cycle-length
-    sequence within her own record, conditioning on her observed cycle-length multiset.
-    $H_W$ is the most scientifically conservative of the three nulls: it controls for
-    each woman's personal cycle-length distribution and tests only whether patterns arise
-    more often than chance within her own sequence. Under $H_W$, no pattern is individually
-    significant (all $p \geq .722$) and the joint Mahalanobis test is non-significant
-    ($D_M = 2.95$, $p = .121$). A supplementary multinomial null ($H_{iid}$) draws each
-    woman's cycle sequence from the fitted empirical distribution; the close agreement of
-    $H_G$ and $H_{iid}$ across all five patterns provides a robustness check on the global
-    permutation results.
+    The five vesset pattern types form a hierarchy based on the order of the
+    finite-difference operator. We derive three mathematically necessary dependence
+    relationships (set-theoretic inclusion, limiting convergence, logical incompatibility)
+    and confirm each with pairwise Spearman correlation tests, motivating the joint test.
 \end{enumerate}
 
 \medskip
 \textbf{Main findings.}
 The primary result is that no vesset pattern is individually or jointly significant under
-the within-woman null ($H_W$): all individual $p \geq .722$ and the joint Mahalanobis
-test yields $D_M = 2.95$, $p = .121$. This shows that the observed pattern counts are
-consistent with within-woman randomness once each woman's personal cycle-length distribution
-is controlled for.
+the within-woman null ($H_W$): all Holm-corrected individual $p \geq .198$ and the joint
+Mahalanobis test is non-significant ($D_M = 2.95$, $p = .121$). This shows that observed
+pattern counts are consistent with within-person randomness once each woman's personal
+cycle-length distribution is controlled for, and provides the first formal permutation-based
+test of halachic vesset patterns in empirical data.
 
 Under the global permutation null ($H_G$), Haflaga departs significantly from chance
-($z = 4.51$, $p < .001$; only 2 of 50,000 simulations reaching the observed count).
-Dilug is nominally significant ($p = .043$) but does not survive Holm correction
-($p_{\text{Holm}} = .173$) and should be treated as hypothesis-generating only.
-A focused 3-pattern Mahalanobis test detects significant multivariate departure from
-the global null ($D_M = 4.52$, $p < .001$). The contrast between $H_G$ and $H_W$
-is itself informative: it shows that Haflaga overrepresentation relative to the population
-pool reflects partly the composition of individual women's cycle-length distributions,
-rather than purely within-sequence patterning.
+($z = 4.51$, $p < .001$; only 2 of 50,000 simulated datasets exceeded the observed count),
+and the primary 5-pattern Mahalanobis joint test detects significant multivariate departure
+($D_M = 5.10$, $p < .001$). The contrast between $H_G$ and $H_W$ is itself informative:
+Haflaga overrepresentation relative to the population pool reflects partly the composition
+of individual women's cycle-length distributions, not purely within-sequence patterning.
 
 \medskip
-\textbf{Fit with \textit{Statistical Methods in Medical Research}.}
-This paper sits squarely within the scope of the journal: it develops and applies
-novel statistical methodology --- randomization testing, multivariate distance tests,
-and null model comparison --- to a medical dataset with direct clinical and public-health
-relevance (menstrual cycle regularity). The interdisciplinary context (Jewish religious
-law) is unusual, but the statistical methodology and its contributions are entirely
-general and applicable beyond the halachic setting.
+\textbf{Fit with \textit{Biometrical Journal}.}
+This paper fits \textit{Biometrical Journal}'s scope as a methodological contribution
+motivated by a real biological problem. The central development --- a permutation-based
+Mahalanobis joint test for correlated count vectors arising from sequential pattern
+detection --- is a distribution-free alternative to Hotelling's $T^2$ with broad
+applicability to cyclic biological settings (circadian rhythms, hormonal cycle data,
+episodic clinical event sequences). The within-woman permutation null exemplifies
+design-adapted exchangeability-block randomization (following Winkler et al., 2014;
+Nichols et al., 2002) in a novel longitudinal context. The menstrual cycle application
+provides concrete, publicly archived data for reproducibility.
 
 \medskip
-\textbf{Originality and prior publication.}
-This manuscript has not been submitted elsewhere and is not under review at any other
-journal. A preliminary analysis appears in the author's PhD dissertation (Ariel University,
-2022, in Hebrew), but the present paper extends that work substantially: it introduces the
-joint multivariate test, the multinomial null model, the polynomial hierarchy with
-mathematical derivations, the chi-square dependence analysis, and the 5-dimensional
-geometric visualization, none of which appeared in the dissertation.
+\textbf{Required declarations.}
+
+\textit{Author concurrence:} The sole author concurs with this submission.
+
+\textit{Funding:} This research received no specific grant from any funding agency in
+the public, commercial, or not-for-profit sectors. No funding is listed in the
+Acknowledgements.
+
+\textit{Prior submission:} This manuscript has not been submitted elsewhere and is not
+under review at any other journal.
+
+\textit{Ethics:} This study is a secondary analysis of a publicly archived, fully
+anonymised dataset (Fehring et al., 2013, archived at Marquette University). IRB approval
+was obtained for the original data collection by the original investigators. No new data
+were collected and there was no direct patient contact in this study.
+
+\textit{Conflicts of interest:} The author declares no conflicts of interest.
+
+\textit{Closely related work:} A preliminary analysis appears in the author's PhD
+dissertation (Ariel University, 2022, in Hebrew). The dissertation examined vesset
+patterns descriptively; the present paper is a substantial extension introducing the joint
+multivariate test, the multinomial null model, the polynomial hierarchy with mathematical
+derivations, the within-woman permutation null as primary test, and the pairwise Spearman
+dependence analysis, none of which appeared in the dissertation. The dissertation is
+submitted as supplementary material for review only.
 
 \medskip
 \textbf{Data and code availability.}
@@ -130,17 +141,10 @@ All analysis code and the filtered dataset are publicly available at
 The original dataset is archived at Marquette University
 (\url{https://epublications.marquette.edu/data_nfp/7/}).
 
-\medskip
-\textbf{Suggested reviewers.}
-Given the interdisciplinary nature of this work, I suggest reviewers with expertise in
-both statistical methodology and reproductive medicine or longitudinal biological data.
-I am happy to suggest specific names if the editors find this helpful.
-
-\medskip
+\bigskip
 
 I believe this manuscript will be of genuine interest to the readership of
-\textit{Statistical Methods in Medical Research}, and I look forward to the
-editorial team's consideration.
+\textit{Biometrical Journal}, and I look forward to the editorial team's consideration.
 
 \bigskip
 
@@ -177,23 +181,24 @@ The author declares no conflicts of interest.
 \textbf{Ethics approval}
 
 This study is a secondary analysis of a publicly available, fully anonymised dataset
-(Fehring et al., 2013, archived at Marquette University). No new data collection
-was conducted. No ethical approval was required.
+(Fehring et al., 2013, archived at Marquette University). IRB approval was obtained for
+the original data collection by the original investigators. No new data were collected and
+no direct patient contact was involved in this study.
 
 \bigskip
 
 \textbf{Patient consent}
 
-Not applicable. No new data were collected. The original dataset was collected under
-the ethical oversight of the original investigators (Fehring et al., 2013).
+Not applicable. No new data were collected. The original dataset was collected under the
+ethical oversight of the original investigators (Fehring et al., 2013).
 
 \bigskip
 
 \textbf{Data availability}
 
-The filtered dataset and all analysis code used in this study are publicly available
-at \url{https://github.com/dvirross/VessetVectorTest}. The original NFP dataset is
-archived at Marquette University:
+The filtered dataset and all analysis code used in this study are publicly available at
+\url{https://github.com/dvirross/VessetVectorTest}. The original NFP dataset is archived
+at Marquette University:
 \url{https://epublications.marquette.edu/data_nfp/7/}.
 
 \bigskip
@@ -212,9 +217,9 @@ of Claude (Anthropic, 2024), a large language model AI assistant. All scientific
 content, mathematical derivations, statistical analyses, and intellectual contributions
 are solely the work of the author. The AI tool was used exclusively for language
 editing, structural organisation of the manuscript, and generation of \LaTeX{} and
-Python code under the author's direct supervision and verification. The author takes
-full responsibility for the accuracy and integrity of all content presented in this
-article.
+\texttt{Python} code under the author's direct supervision and verification. The author
+takes full responsibility for the accuracy and integrity of all content presented in
+this article.
 
 \bigskip
 
