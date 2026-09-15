@@ -416,23 +416,23 @@ null mean $\bar{S}_j^{(m)}$ and SD $\sigma_j^{(m)}$; the z-score $z_j^{(m)} =
 (O_j - \bar{S}_j^{(m)}) / \sigma_j^{(m)}$; and the one-sided empirical p-value
 $p_j^{(m)} = (b_j+1)/(B+1)$, where $b_j = \#\{S_{j,r}^{(m)} \geq O_j\}$ and $B = 50{,}000$, following the Monte Carlo convention of Davison \& Hinkley~\cite{davison1997}.
 
-The \textbf{joint multivariate test} uses the Euclidean distance of the observed
-count vector from the null mean vector as the test statistic:
+The \textbf{joint multivariate test} uses the \textbf{Mahalanobis distance} as the test statistic:
 \begin{equation}
-  D^{(m)} = \bigl\|\mathbf{O} - \bar{\mathbf{S}}^{(m)}\bigr\|_2
-  = \sqrt{\sum_{j=1}^{5}\bigl(O_j - \bar{S}_j^{(m)}\bigr)^2},
-  \label{eq:distance}
+  D_M^{(m)} = \sqrt{\bigl(\mathbf{O}-\boldsymbol{\mu}^{(m)}\bigr)^\top
+               \bigl(\hat{\Sigma}^{(m)}\bigr)^{-1}
+               \bigl(\mathbf{O}-\boldsymbol{\mu}^{(m)}\bigr)},
+  \label{eq:mahalanobis}
 \end{equation}
-with p-value equal to the fraction of iterations where the simulated distance exceeded
-$D^{(m)}$. Unlike Bonferroni--Holm correction --- which, while valid under arbitrary
+with p-value equal to the fraction of null replicates where the simulated $D_M$ exceeded
+the observed value. Unlike Bonferroni--Holm correction --- which, while valid under arbitrary
 dependence, is conservative when tests are positively correlated --- this joint permutation test operates on the full count vector simultaneously,
 respecting the dependence structure. Note that this is a single global test of
 the multivariate null, not an FWER procedure across the five component tests. Inspired by King et al.\ \cite{king2018} but using distance rather
 than density as the test statistic, this approach is, to our knowledge, the first
 application of a distance-based joint permutation test to sequentially-defined
-pattern count vectors in longitudinal medical data. We adopt the \textbf{Mahalanobis distance} $D_M^2 = (\mathbf{O}-\boldsymbol{\mu})^\top \hat{\Sigma}^{-1}(\mathbf{O}-\boldsymbol{\mu})$ as the primary statistic, as it correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal (Euclidean) standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean distance $D$ (Eq.~\ref{eq:distance}) is retained as a secondary statistic for geometric interpretability.
+pattern count vectors in longitudinal medical data. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
 
-The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Week-Dilug $\subseteq$ Haflaga by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:distance} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
+The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Week-Dilug $\subseteq$ Haflaga by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
 
 \paragraph{Sensitivity.}
 The joint test is sensitive primarily to the Haflaga component, which contributes
@@ -601,7 +601,7 @@ For each of the 118 women independently, her cycle-length sequence is permuted u
 Table~\ref{tab:stratified} presents the results. Under the within-woman null,
 \emph{no pattern is individually significant}. All five observed counts fall
 \emph{below} their within-woman null means (all $z < 0$). The most negative z-score belongs to Dilug-in-Dilug ($z = -2.07$, $p = .988$); because all tests are one-sided upper-tail, this large negative z indicates that the count is well below the null mean --- not that it is unexpectedly low --- and should not be interpreted as evidence of underrepresentation.
-The joint test is also non-significant: Mahalanobis $D_M = 2.95$ ($p = .121$), Euclidean $D_E = 15.2$ ($p = .145$).
+The joint test is also non-significant: Mahalanobis $D_M = 2.95$ ($p = .121$).
 Tables~\ref{tab:stratified} and~\ref{tab:power} both use the primary 50,000-run
 simulation (seed 17) to ensure full numerical consistency of $\mu_W$, $\sigma_W$,
 and $z_{\text{obs}}$ across all results.
@@ -622,7 +622,7 @@ Week            & 32 & 33.81 & 3.88 & $-0.47$ & $.722$ \\
 Week-Dilug      & 18 & 20.94 & 3.22 & $-0.91$ & $.857$ \\
 Dilug-in-Dilug  & 27 & 39.14 & 5.86 & $-2.07$ & $.988$ \\
 \midrule
-\multicolumn{6}{l}{Joint: $D_M = 2.95$ ($p = .121$); Euclidean $D = 15.2$ ($p = .145$)} \\
+\multicolumn{6}{l}{Joint: $D_M = 2.95$ ($p = .121$)} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -673,25 +673,27 @@ The primary joint test operates on the structurally dependent subvector
 (Haflaga, Week-Dilug, Dilug-in-Dilug), justified on analytical grounds prior to
 data inspection (Section~\ref{sec:inference}). The 3-pattern Mahalanobis statistic
 was $D_M = 4.52$ ($p < .001$) under the permutation null and $D_M = 4.36$ ($p < .001$)
-under the multinomial null. Figures~\ref{fig:5dperm} and \ref{fig:5dmulti} illustrate
-the displacement of the observed 3-pattern vector from the respective null clouds,
-using these three patterns as the coordinate axes.
+under the multinomial null. Figure~\ref{fig:joint3panels} illustrates
+the displacement of the observed 3-pattern vector from the respective null clouds
+under all three null models, using these three patterns as the coordinate axes.
 
 \paragraph{Robustness: 5-pattern Mahalanobis.}
 Extending the joint test to all five patterns yields $D_M = 5.10$ ($p < .001$, permutation)
-and $D_M = 4.84$ ($p < .001$, multinomial). The Euclidean 5-pattern distance was
-$D = 19.74$ ($p = .009$, permutation; $p = .014$, multinomial).
-Figure~\ref{fig:joint1d} shows the 5-pattern Euclidean null distributions.
-The agreement between all four variants confirms that the primary result is robust
-to the choice of pattern subset and distance metric.
+and $D_M = 4.84$ ($p < .001$, multinomial).
+Figure~\ref{fig:joint1d} shows the 5-pattern Mahalanobis null distributions for all three null models.
+The agreement across all variants confirms that the primary result is robust
+to the choice of pattern subset and null model.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig3_joint_test}
-  \caption{Robustness check: null distribution of 5-pattern Euclidean distances
-    $D = \|\mathbf{S} - \bar{\mathbf{S}}\|_2$ under the permutation (left) and
-    multinomial (right) nulls. The dashed line marks the observed $D = 19.74$;
-    the shaded region is the p-value area. Both models yield $p < .01$.}
+  \includegraphics[width=\textwidth]{fig3_dm_nulldist}
+  \caption{Robustness check: null distributions of the 5-pattern Mahalanobis distance
+    $D_M$ (Eq.~\ref{eq:mahalanobis}) under the permutation ($H_G$, left),
+    multinomial ($H_{iid}$, centre), and within-woman ($H_W$, right) nulls.
+    The dashed line marks the observed $D_M$; the shaded region is the upper-tail
+    area corresponding to the empirical p-value.
+    Under $H_G$ and $H_{iid}$ the observed vector lies far in the tail ($p < .001$);
+    under $H_W$ the displacement is non-significant ($D_M = 2.95$, $p = .121$).}
   \label{fig:joint1d}
 \end{figure}
 
@@ -789,34 +791,26 @@ Dilug $\times$ Dilug-in-Dilug     & $-$0.02 & .815 & 1.000 & $-$ \\
 \end{figure}
 
 The primary 3-pattern Mahalanobis joint test is reported in Section~\ref{sec:joint}.
-Figures~\ref{fig:5dperm} and \ref{fig:5dmulti} provide complementary geometric
-illustrations of the displacement of the observed count vector in the
-(Haflaga, Week-Dilug, Dilug-in-Dilug) subspace, under the permutation and
-multinomial nulls respectively. Both use these three patterns as coordinate axes;
+Figure~\ref{fig:joint3panels} provides a geometric illustration of the displacement
+of the observed count vector in the (Haflaga, Week-Dilug, Dilug-in-Dilug) subspace
+under all three null models. The three patterns serve as coordinate axes;
 the remaining two patterns (Dilug, Week) are encoded by marker size and colour.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig6_5d_permutation}
-  \caption{Geometric illustration of the focused 3-pattern joint test under the \textbf{permutation} null.
+  \includegraphics[width=\textwidth]{fig_joint_3panels}
+  \caption{Geometric illustration of the focused 3-pattern joint test under the
+    \textbf{permutation} ($H_G$, top left), \textbf{multinomial} ($H_{iid}$, top right),
+    and \textbf{within-woman} ($H_W$, bottom centre) nulls.
     Axes: Haflaga, Week-Dilug, Dilug-in-Dilug --- the three structurally dependent patterns.
-    Marker size encodes Dilug count; marker shape encodes Week count.
-    The filled circle marks the null mean; the arrow and label
-    identify the observed vector $(26, 18, 27)$. The observed vector lies at the periphery of
-    the null cloud, displaced primarily along the Haflaga axis.
-    Primary result: $D_M = 4.52$, $p < .001$.}
-  \label{fig:5dperm}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{fig7_5d_multinomial}
-  \caption{Geometric illustration of the focused 3-pattern joint test under the \textbf{multinomial} null.
-    Encoding identical to Figure~\ref{fig:5dperm}.
-    Primary result: $D_M = 4.36$, $p < .001$.
-    The close agreement between the two null clouds confirms that the result
-    is robust to the choice of null model.}
-  \label{fig:5dmulti}
+    Marker size encodes Dilug count; marker colour encodes Week count.
+    The filled circle marks the null mean; the dashed line and arrow identify
+    the observed vector $(26, 18, 27)$.
+    Under $H_G$ and $H_{iid}$ the observed vector lies at the periphery of the null cloud,
+    displaced primarily along the Haflaga axis ($D_M = 4.52$ and $4.36$, both $p < .001$).
+    Under $H_W$ the observed vector falls within the null cloud and the displacement
+    is non-significant ($D_M = 2.68$, $p = .066$), consistent with the primary result.}
+  \label{fig:joint3panels}
 \end{figure}
 
 % ─── 5. Discussion ────────────────────────────────────────────────────────────
@@ -892,7 +886,7 @@ correction entirely and exploiting the positive dependence among the three patte
 
 \subsection{The Joint Multivariate Test}
 
-The joint test (Eq.~\ref{eq:distance}) represents a methodological contribution
+The joint test (Eq.~\ref{eq:mahalanobis}) represents a methodological contribution
 \cite{ross2022phd}. We adopt the \textbf{Mahalanobis distance} as the primary
 test statistic after confirming that the null covariance matrices are well-conditioned
 (condition numbers 4.4--5.4; all pairwise correlations $|r| < 0.16$, so inversion is
@@ -915,9 +909,9 @@ The primary result --- the focused 3-pattern Mahalanobis test --- yields $D_M = 
 ($p < .001$) under the permutation null and $D_M = 4.36$ ($p < .001$) under the
 multinomial null. The 5-pattern robustness check yields $D_M = 5.10$ ($p < .001$,
 permutation) and $D_M = 4.84$ ($p < .001$, multinomial). All four variants yield
-highly significant results. The 5-pattern values yield approximately 100-fold smaller
-p-values than the Euclidean counterparts ($p = .009$ and $.014$), because Haflaga
-receives its correctly up-weighted contribution via the Mahalanobis metric.
+highly significant results, confirming that the primary finding is robust to the choice
+of pattern subset. Haflaga receives appropriately up-weighted contribution via the
+Mahalanobis metric, reflecting its larger standardised excess ($z = 4.51$).
 
 \paragraph{Simulation algorithm.}
 The covariance matrix $\hat{\Sigma}$ is estimated once per null model from the same
