@@ -155,7 +155,7 @@ sequence that follows a polynomial of a specific degree in cycle index. Haflaga,
 Week, and Week-Dilug are all degree-0 (constant) sequences; Dilug is degree-1
 (linear); Dilug-in-Dilug is degree-2 (quadratic). This hierarchy generates
 algebraic structural relationships between the patterns --- one of which
-(Week-Dilug $\subseteq$ Haflaga-30) is a strict logical containment, and
+(Haflaga-30 $\subseteq$ Week-Dilug) is a strict logical containment, and
 another (Haflaga--Dilug-in-Dilug proximity) an algebraic approximation rather
 than a logical implication --- with implications for how their joint frequencies
 should be tested.
@@ -264,8 +264,9 @@ provides a benchmark for cycle-length predictability.
 Ross \cite{ross2022markov} modelled cycle transitions with Markov chains;
 \cite{ross2019reliability} evaluated reliability of self-reported menstrual data in
 a halachic context; \cite{ross2021statistical} applied statistical analysis to
-abstinence laws. The present study adds the first formal hypothesis test of whether
-vesset patterns occur at rates distinguishable from chance in real data.
+abstinence laws. The present study adds, to our knowledge, the first formal hypothesis test of whether
+vesset patterns occur at rates distinguishable from chance in real data (no
+systematic literature search was performed to confirm priority).
 
 \paragraph{Randomization-based testing.}
 Permutation tests \cite{edgington2007,good2005} provide exact finite-sample p-values
@@ -282,6 +283,7 @@ work \cite{ross2022phd}.
 
 % ─── 3. Methods ───────────────────────────────────────────────────────────────
 \section{Methods}
+\label{sec:methods}
 
 \subsection{Dataset}
 \label{sec:data}
@@ -297,9 +299,15 @@ Raw cycle lengths ranged from 18 to 54 days ($M = 29.3$, $\text{SD} = 3.9$,
 $\text{Mdn} = 28.5$, skewness $= 1.29$). The distribution is approximately
 bell-shaped with a right tail, consistent with the literature
 \cite{munster1992,creinin2004}. Women ranged in age from 21 to 43 years
-($M = 30.6$, $\text{SD} = 5.7$). The dataset originates from two charting cohorts
+($M = 30.6$, $\text{SD} = 5.7$); parity data were not recorded in the archived
+dataset. The dataset originates from two charting cohorts
 ($n_0 = 92$ and $n_1 = 67$ women in the raw data prior to exclusions;
-$n_0 = 69$ and $n_1 = 49$ women in the filtered sample). All cycle lengths were incremented by 1 to conform to the
+$n_0 = 69$ and $n_1 = 49$ women in the filtered sample; cohort membership
+was not used as a sensitivity variable in the primary analysis, though it is
+available for future subgroup investigations). The minimum of 5 cycles
+per woman in the analysed dataset reflects the observed minimum after the
+cycle-length exclusion criteria were applied (18--54 days; complete records);
+no additional minimum-cycle-count exclusion was imposed. All cycle lengths were incremented by 1 to conform to the
 halachic haflaga convention ($H_k = L_k + 1$), yielding $M = 30.3$, $\text{SD} = 3.9$.
 
 The within-person variability structure is relevant to the Haflaga result: women who
@@ -328,7 +336,7 @@ Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variabil
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{fig2_consort_flow}
-  \caption{Participant flow and analysis design (CONSORT-style). The source dataset
+  \caption{Participant and data flow diagram. The source dataset
     (Fehring et al., 2013) comprises data from a multi-centre NFP cohort. After applying
     inclusion criteria (cycle length 18--54 days; complete cycle-length records), the
     analysed dataset comprised 118 women contributing 1,554 cycles. Five pattern types
@@ -473,9 +481,9 @@ of pattern-specific effect sizes and should not be used in place of the joint te
 for global inference. Conceptually related quadratic-form permutation tests exist
 (e.g., energy-distance statistics; \citealp{king2018}) --- the contribution here is
 an adaptation of this framework to dependent, sequentially-defined count vectors
-in longitudinal cycle data; to our knowledge this specific application is new. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
+in longitudinal cycle data; to our knowledge this specific application is new. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Haflaga-30 within Week-Dilug and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model: $\hat{\Sigma}^{(m)} = \frac{1}{B-1}\sum_{r=1}^{B}(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})^\top$, where $\mathbf{S}^{(m,r)}$ is the count vector from replicate $r$ and $\bar{\mathbf{S}}^{(m)}$ is the Monte Carlo mean; this is the sample covariance of the null replicates, not the sample covariance of the observations. The result is a $5 \times 5$ matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
 
-The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Week-Dilug $\subseteq$ Haflaga by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
+The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Haflaga-30 $\subseteq$ Week-Dilug by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
 
 \paragraph{Sensitivity.}
 The joint test is sensitive primarily to the Haflaga component, which contributes
@@ -570,8 +578,11 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{fig3_null_distributions}
-  \caption{Null distributions (KDE) vs.\ observed counts for each vesset pattern
+  \caption{Empirical null distributions (shown as smoothed density estimates) vs.\ observed counts for each vesset pattern
     under the permutation (solid curve) and multinomial (dashed curve) null models.
+    The underlying null distributions are discrete; the smoothed curves are shown for
+    visual comparison only, with the primary inference based on the empirical PMF (fraction
+    of $B = 50{,}000$ simulations meeting or exceeding the observed count).
     The vertical dotted line marks the observed count; the shaded region is the
     one-sided p-value area. Haflaga and Dilug show clearly right-displaced observed
     values; Dilug-in-Dilug falls on its null mean.}
@@ -771,15 +782,23 @@ rates, with two-sided permutation $p$-values (50,000 permutations) and
 Holm--Bonferroni correction across all 10 pairs (see Section~\ref{sec:methods}
 for the rationale for using rates). Table~\ref{tab:chisq} presents the results.
 
-The data are consistent with the analytical predictions: both structurally predicted
-pairs show positive correlation. After Holm correction, Haflaga $\times$
-Dilug-in-Dilug survives ($r_s = 0.27$, $p_{\text{perm}} = .003$, adj $p = .030$),
-confirming the polynomial-hierarchy proximity relationship. Haflaga $\times$
-Week-Dilug shows a positive association ($r_s = 0.23$, $p_{\text{perm}} = .010$)
-consistent with the structural prediction, but does not survive Holm correction
-(adj $p = .090$). All eight remaining pairs are non-significant
-(all adj $p \geq .206$), consistent with the absence of analytical predictions
-for those pairs. Figure~\ref{fig:chisq} visualises the full correlation structure.\footnote{A
+The data are compatible with the analytical predictions: both structurally predicted
+pairs show positive correlation. It is important to distinguish what these results
+establish. The set-theoretic containment (Haflaga-30 $\subseteq$ Week-Dilug) is a
+deterministic logical consequence of the pattern definitions --- it does not require
+empirical verification, and a positive association here merely confirms the
+counting arithmetic, not an additional stochastic mechanism. The algebraic proximity
+between Haflaga and Dilug-in-Dilug, by contrast, is a probabilistic plausibility
+argument: the observed association is \emph{compatible} with the proposed proximity
+mechanism, but a formal prediction requires an explicit stochastic model for the
+data-generating process, which is beyond the scope of this paper.
+
+After Holm correction, Haflaga $\times$ Dilug-in-Dilug survives ($r_s = 0.27$,
+$p_{\text{perm}} = .003$, adj $p = .030$). Haflaga $\times$ Week-Dilug shows a
+positive association ($r_s = 0.23$, $p_{\text{perm}} = .010$) consistent with the
+structural prediction, but does not survive Holm correction (adj $p = .090$). All
+eight remaining pairs are non-significant (all adj $p \geq .206$), consistent with
+the absence of analytical predictions for those pairs. Figure~\ref{fig:chisq} visualises the full correlation structure.\footnote{A
 robustness check using a binary co-occurrence analysis --- coding each woman
 1/0 for whether she ever established each pattern, and testing all 10 pairs with
 Fisher's exact test plus permutation $p$-values --- yielded the same two lowest
@@ -829,8 +848,9 @@ Dilug $\times$ Dilug-in-Dilug     & $-$0.02 & .815 & 1.000 & $-$ \\
     negative association. Both analytically predicted pairs
     (Haflaga $\times$ Dilug-in-Dilug and Haflaga $\times$ Week-Dilug, marked \dag)
     show positive correlation; Haflaga $\times$ Dilug-in-Dilug survives
-    Holm correction ($r_s = 0.27$, adj $p = .030$),
-    consistent with the polynomial-hierarchy structure in Section~\ref{sec:mathdep}.}
+    Holm correction ($r_s = 0.27$, adj $p = .030$), compatible with the
+    polynomial-hierarchy proximity argument of Section~\ref{sec:mathdep}
+    (all pairwise tests are exploratory).}
   \label{fig:chisq}
 \end{figure}
 
@@ -895,11 +915,13 @@ of within-woman temporal structure.
 
 The Haflaga finding is the most striking result. With only 2 of 50,000 permutation
 simulations reaching or exceeding the observed count of 26 (the simulation ceiling),
-the result is highly significant under the global null and biologically
-interpretable: Haflaga detects the pattern expected in women with lower
-within-person cycle-length variability. Women who establish Haflaga have within-person
-SDs of 1.54 days ($n = 20$) vs.\ 3.17 days for women who establish no vesset at all
-($n = 35$; Mann--Whitney $p < .001$, Cohen's $d = -1.13$; see Section~\ref{sec:data}).
+the result is highly significant under the global null and consistent with the
+expectation that Haflaga would be concentrated among women with lower within-person
+cycle-length variability in this single non-Jewish NFP dataset. Women who establish
+Haflaga have within-person SDs of 1.54 days ($n = 20$) vs.\ 3.17 days for women
+who establish no vesset at all ($n = 35$; Mann--Whitney $p < .001$, Cohen's
+$d = -1.13$; see Section~\ref{sec:data}). Forecasting performance and
+generalisability to other populations remain to be evaluated in future work.
 
 The Dilug finding ($p = .043$ under the global null) is nominally significant but
 does not survive Holm--Bonferroni correction (adjusted $p = .173$) and should be
@@ -959,11 +981,12 @@ Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm t
 inversion of $\hat{\Sigma}$ is numerically stable.
 
 The primary result --- the focused 3-pattern Mahalanobis test --- yields $D_M = 4.52$
-($p < .001$) under the permutation null and $D_M = 4.36$ ($p < .001$) under the
+($p < .001$; 1 of 50,000 null replicates exceeded the observed $D_M$) under the
+permutation null and $D_M = 4.36$ ($p < .001$; 0 of 50,000 exceeded) under the
 multinomial null. The 5-pattern robustness check yields $D_M = 5.10$ ($p < .001$,
-permutation) and $D_M = 4.84$ ($p < .001$, multinomial). All four variants yield
-highly significant results, confirming that the primary finding is robust to the choice
-of pattern subset. Haflaga receives appropriately up-weighted contribution via the
+permutation; 0 of 50,000 exceeded) and $D_M = 4.84$ ($p < .001$, multinomial; 0 of
+50,000 exceeded). All four variants yield highly significant results, confirming that
+the primary finding is robust to the choice of pattern subset. Haflaga receives appropriately up-weighted contribution via the
 Mahalanobis metric, reflecting its larger standardised excess ($z = 4.51$).
 
 \paragraph{Simulation algorithm.}
@@ -983,22 +1006,18 @@ approximations. The p-value is purely empirical. A formal theoretical treatment 
 planned in future work.
 
 \paragraph{Relationship to Hotelling's $T^2$.}
-The permutation-based Mahalanobis test is related to, but more general than,
-Hotelling's $T^2$. Under a Gaussian approximation (i.e., assuming the count vector
-is approximately multivariate normal, as holds asymptotically via the central limit
-theorem for large counts), $D_M^2$ is asymptotically $\chi^2(5)$, which is the same
-distributional assumption underlying $T^2$. However, with observed counts as small as
-18 (Week-Dilug), this approximation may not hold reliably --- motivating the
-permutation reference distribution, which replaces the parametric assumption with an
-empirical one and makes the test fully distribution-free. Hotelling's $T^2$ is an
-exact test under multivariate Gaussian sampling but requires this distributional
-assumption for validity. Moreover, the Bonferroni--Holm correction applied to the
-five marginal tests is provably valid but conservative under positive correlation (as
-holds here via the set-theoretic containment and polynomial proximity relationships),
-while the joint Mahalanobis test exploits the known positive correlation structure by
-pooling the five components simultaneously. For both reasons --- distribution-free
-inference and proper treatment of dependence --- the permutation-based Mahalanobis
-test is the preferred approach for this application.
+The test statistic $D_M^2$ uses the same quadratic form as Hotelling's $T^2$, but
+the observed value is evaluated against the empirical null distribution of $D_M$
+under permutation, not against a parametric reference distribution. Asymptotic
+arguments (e.g., $D_M^2 \approx \chi^2(5)$ under Gaussian approximation) serve as
+heuristic background only; the actual inference is entirely distribution-free. With
+observed counts as small as 18 (Week-Dilug), the asymptotic approximation is not
+relied upon. The Bonferroni--Holm correction and the joint Mahalanobis test answer
+different inferential questions: Holm provides family-wise error rate control across
+five separate component hypotheses; the Mahalanobis statistic tests a single global
+multivariate null. The joint test does not replace Holm, nor is it uniformly more
+powerful; it aggregates correlated evidence into one distance measure that is
+sensitive to departure in any direction from the null centre.
 
 \subsection{Non-Significant Patterns}
 
@@ -1068,6 +1087,7 @@ Such validation within an observant Jewish demographic would directly bridge the
 statistical findings to their halachic application context.
 
 \subsection{Limitations}
+\label{sec:limitations}
 
 \paragraph{Data quality and coding.}
 The haflaga convention $H_k = L_k + 1$ is a conventional relabelling; pattern counts
@@ -1075,10 +1095,12 @@ are identical whether computed on $H_k$ or $L_k$ \emph{provided the anchor shift
 same $-1$} (verified: Haflaga 26, Week-Dilug 18 under both conventions).
 Computing on $L_k$ with the unadjusted anchor ($L = 30$ instead of $L = 29$) yields
 only 12 Week-Dilug events instead of the correct 18.
-The raw haflaga distribution shows no heaping artefact at round numbers: counts
-decline smoothly from the mode ($H = 29$: 225 cycles) through the Week-Dilug anchor
-($H = 30$: 175) to $H = 31$ (141), consistent with the known biological mode rather
-than rounding (Figure~\ref{fig:heaping}).
+As a sensitivity diagnostic, the raw haflaga distribution was inspected for heaping
+artefacts at round numbers. Counts decline smoothly from the mode ($H = 29$: 225
+cycles) through the Week-Dilug anchor ($H = 30$: 175) to $H = 31$ (141); this
+pattern is consistent with the known biological mode at 29--30 days rather than
+digit rounding (Figure~\ref{fig:heaping}). This diagnostic is descriptive; a formal
+statistical test for digit preference is not performed.
 The NFP dataset records cycle length in whole days but not onset time of day, creating
 potential misclassification relative to the halachic requirement that all pattern
 onsets occur in the same onset period (daytime or nighttime). Both upward and downward
@@ -1167,9 +1189,10 @@ Dilug-in-Dilug & 27 & 39.14 & 5.86 & 49.0 & 54 & $-2.07$ \\
 \section{Conclusion}
 
 This study provides, to our knowledge, the first formal statistical test of whether halachic vesset
-patterns occur at rates distinguishable from chance in empirical menstrual cycle data. The five patterns
+patterns occur at rates distinguishable from chance in empirical menstrual cycle data (no
+systematic literature search was performed to confirm priority). The five patterns
 analysed form a polynomial hierarchy whose structure generates algebraic structural
-relationships --- one a strict logical containment (Week-Dilug $\subseteq$ Haflaga-30),
+relationships --- one a strict logical containment (Haflaga-30 $\subseteq$ Week-Dilug),
 one an algebraic approximation (Haflaga--Dilug-in-Dilug proximity) --- explored
 through exploratory pairwise randomisation-based tests. Three complementary null
 models were applied: a global permutation null, a multinomial null, and the
@@ -1185,8 +1208,12 @@ Under the global null, Haflaga is significantly overrepresented ($p < .001$ afte
 Holm correction); Dilug is nominally overrepresented ($p = .043$) but does not
 survive Holm correction and should be treated as hypothesis-generating pending
 replication. The joint Mahalanobis test confirms significant displacement from the
-global null ($D_M = 5.10$, $p < .001$). Only 2 of 50,000 permutation simulations
-reached the observed Haflaga count. The primary focused joint test on the three structurally dependent patterns
+global null ($D_M = 5.10$, $p < .001$; only 2 of 50,000 permutation simulations
+reached the observed Haflaga count). This global result is best interpreted as a
+descriptive decomposition: it demonstrates that women who establish Haflaga are
+drawn from a subpopulation with lower cycle-length variability, a population-level
+heterogeneity effect that does not, by itself, constitute evidence of within-woman
+temporal predictability. The primary focused joint test on the three structurally dependent patterns
 (Haflaga, Week-Dilug, Dilug-in-Dilug) --- justified by set-theoretic containment
 and polynomial-hierarchy proximity prior to data inspection --- yields $D_M = 4.52$,
 $p < .001$. The 5-pattern robustness check ($D_M = 5.10$, $p < .001$) confirms
@@ -1196,13 +1223,14 @@ the subset of women with lower observed cycle-length variability and formalise t
 regularity as an anticipatory pattern. The joint distance-based permutation test, adapted here for dependent count vectors
 in sequential menstrual-cycle data (conceptually related to quadratic-form and
 energy-distance permutation tests; see Section~\ref{sec:joint}), provides a way to
-aggregate correlated count evidence without multiple-comparison correction. When
-multiple count outcomes arise from shared biological structure --- as they do here
-via the finite-difference hierarchy --- aggregating into a single Mahalanobis
-statistic avoids the conservatism of FWER correction under positive dependence.
-This approach may prove useful for composite hypothesis testing in other cyclic
-biological settings (e.g., multitype rhythm patterns, circadian or hormonal cycle data)
-where structurally related outcomes are tested jointly.
+aggregate correlated count evidence into a single global multivariate null test.
+The Holm--Bonferroni correction and the joint Mahalanobis test answer different
+inferential questions --- Holm controls FWER across five separate hypotheses, while
+the Mahalanobis statistic tests one global null --- and the two procedures are
+complementary rather than competing. This adapted approach may prove useful for
+composite hypothesis testing in other cyclic biological settings (e.g., multitype
+rhythm patterns, circadian or hormonal cycle data, episodic clinical event sequences)
+where structurally related count outcomes are tested jointly.
 
 
 % ─── AI Disclosure ────────────────────────────────────────────────────────────

@@ -230,8 +230,32 @@ The paper has been revised in response to three rounds of AI-generated peer revi
 - ✅ Both PDFs compiled (36 pages each) and in repo
 - ✅ Both Overleaf zips rebuilt
 
-**Outstanding:**
-- [ ] Figure cross-reference audit: verify all "Figure X" in text match actual captions
-- [ ] Respond to next round of actual journal reviews once received
-
 **Note:** R1 Minor figure legend/title overlap was raised against the old two-panel 3D scatter figures (fig6_5d_permutation, fig7_5d_multinomial). Those were replaced by the combined 3-panel figure (fig9_joint_3panels) and the D_M null distribution figure (fig7_dm_nulldist), which were redesigned to fix those layout issues. The reviewer never saw the new figures — this concern is resolved.
+
+### Round 4 revisions (2026-09-15) — responding to next reviewer batch
+- ✅ **CRITICAL MATH FIX**: Set inclusion direction corrected in 4 locations (lines 158, 476, 478, 1172): "Week-Dilug ⊆ Haflaga-30" → "Haflaga-30 ⊆ Week-Dilug". Methods section (lines 361, 751-752) was already correct.
+- ✅ CONSORT figure caption renamed: "CONSORT-style" → "Participant and data flow diagram"
+- ✅ fig3 null-distributions caption: KDE described as "smoothed density estimates for visual comparison only; primary inference from empirical PMF"
+- ✅ Hotelling's T² paragraph rewritten: asymptotic/parametric framing removed; Holm vs Mahalanobis correctly framed as answering different questions (FWER vs global null), not competing
+- ✅ Conclusion "avoids conservatism" → "Holm and Mahalanobis are complementary, not competing"
+- ✅ Dataset section: added 5-cycle minimum explanation, parity-not-recorded note, two-cohort disclosure
+- ✅ Heaping diagnostic rewritten as sensitivity diagnostic; added "formal test not performed" caveat
+- ✅ Global null Haflaga result tempered: "biologically interpretable" → "consistent with expectation"; generalisability caveat added
+- ✅ Pairwise section: added deterministic vs stochastic distinction paragraph (set-containment is arithmetic, not stochastic evidence)
+- ✅ fig:chisq caption: "consistent with polynomial-hierarchy" → "compatible with proximity argument (all pairwise tests exploratory)"
+- ✅ Exact exceedance counts added for joint tests (e.g., "1 of 50,000 null replicates exceeded")
+- ✅ Σ̂ formula added explicitly: sample covariance of null replicates, not observations
+- ✅ "First formal test" qualifier added to Introduction and Conclusion (with "no systematic literature search" caveat)
+- ✅ Broken cross-reference labels added: \label{sec:methods}, \label{sec:limitations}
+- ✅ Submission file anonymised (0 non-anon occurrences)
+- ✅ Both PDFs recompiled (37 pages each)
+- ✅ Both Overleaf zips rebuilt
+
+**Outstanding (require author decisions):**
+- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (substantial new analysis)
+- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates
+- [ ] R2-2.2: Formulate explicit global null/alternative for 3-pattern focused test; justify excluding Dilug and Week from primary
+- [ ] R2-2.5: Pairwise Spearman sensitivity analysis (rate-based vs count-based with cycle-count exposure)
+- [ ] R3 Major 4: Move one figure to supplement; shorten finite-difference derivations
+- [ ] R2 Minor 3.1: Pseudocode examples for min run lengths (2, 3, 4 cycles)
+- [ ] Figure cross-reference audit: verify all "Figure X" in text match actual captions
