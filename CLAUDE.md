@@ -81,7 +81,7 @@ python scripts/build_notebook.py
 | fig5_cdfs | notebook |
 | fig6_stratified_comparison | notebook — H_W two-sided p per panel computed from data |
 | fig7_dm_nulldist | notebook |
-| fig8_chisq_heatmap | notebook (values computed, not hardcoded; `regen_heatmap.py` retired) |
+| fig8_chisq_heatmap | notebook — now **Figure S1 in the SI** (values computed, not hardcoded) |
 | fig9_joint_3panels | notebook (exploratory 3-pattern subspace) |
 | fig10_power | notebook (from `results/sim_validation.npz`) |
 | figA1_heaping_diagnostic | notebook — frequency of H values |
@@ -158,23 +158,25 @@ data/FilteredData.csv          1,554 cycles, 118 women; CycleNumber contiguous w
 results/                       cached Monte Carlo output (see §1)
 scripts/                       all analysis code (see §1)
 paper/vesset_stat.tex          manuscript (Case Study framing, author–year refs)
+paper/vesset_stat_SI.tex       Supporting Information (exploratory pairwise analysis; compile separately)
 paper/references.bib           bibliography
 paper/cover_letter.tex         BJ cover letter + declarations
 paper/figures/                 figures as PDF + PNG
 notebooks/analysis.ipynb       generated notebook; single source of truth for figures
-revision_reports/              SMMR rounds 1–3; bj_round1_triage.md; bj_round1_changelog.md
+revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md
 ```
 
 Raw Marquette archive (not reachable from the remote sandbox): https://epublications.marquette.edu/data_nfp/7/ — the raw→filtered script is **not** in the repo (documented limitation).
 
 ---
 
-## 10. Status (2026-09-15, BJ pre-submission round 1)
+## 10. Status (2026-09-15, BJ pre-submission rounds 1–2)
 
-Responded to three AI pre-submission reviews (statistical, journal-fit, literature). Key changes: Case Study reframing and new title; H_W/autocorrelation misstatement corrected; MDC section removed and replaced by simulation validation (size, power, truncation, LOO); Algorithm 1 and Fig 3 made two-sided; Table 2 one-sided values corrected; boundary bug fixed and all nulls rerun on 1,554 cycles; literature on permutation for clustered data and menstrual variability added; claims softened. Full list in `revision_reports/bj_round1_changelog.md`.
+Responded to three AI pre-submission reviews (statistical, journal-fit, literature). Key changes: Case Study reframing and new title; H_W/autocorrelation misstatement corrected; MDC section removed and replaced by simulation validation (size, power, truncation, LOO); Algorithm 1 and Fig 3 made two-sided; Table 2 one-sided values corrected; boundary bug fixed and all nulls rerun on 1,554 cycles; literature on permutation for clustered data and menstrual variability added; claims softened. Full list in `revision_reports/bj_round1_changelog.md`. **Round 2 (targeted):** fourfold→2.3-fold; age statement corrected (trial eligibility 18–42; analysed sample 99/118 with age, 21–43, M 31.8 SD 5.4); 7→5 wording made truthful (no degeneracy claim); size wording 'at/below nominal'; power statements DGP-specific; pairwise analysis moved to SI with follow-up-stratified robustness; abstract opens with the statistical problem; Edgington/Good cited; reproducibility boundary + SHA-256 in DAS. Verdict: READY TO SUBMIT (`bj_round2_changelog.md`).
 
 **Outstanding (author decisions):**
 - [ ] Verify bibliographic details of `fehring2006` (JOGNN 35(3):376–384) and `schmalenberger2021` (Psychoneuroendocrinology 123:104895) — added offline, not checked against Crossref
-- [ ] Decide whether to implement the two zero-count rules (Dilug/Haflaga Chozer Chalila) under H_W to make the 7-rule family explicit
-- [ ] Word count (~4,900 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 and Fig 9 are candidates for a supplement
+- [ ] Optional (not required for submission): implement the two zero-count rules under the three nulls for the SI
+- [ ] Confirm that 18–42 years is the enrolment eligibility stated in Fehring et al. (2013)
+- [ ] Word count (~4,800 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 is a candidate for the SI
 - [ ] Locate or re-derive the raw→filtered data script for the Reproducible Research ZIP

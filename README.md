@@ -63,11 +63,16 @@ The dataset was collected by Fehring et al. (2013) in a randomised trial compari
 internet-supported natural family planning methods and is archived at Marquette
 University: https://epublications.marquette.edu/data_nfp/7/
 
-`data/FilteredData.csv` is the filtered file used in the analysis (cycle lengths 18–54
-days; complete records). Every retained woman's `CycleNumber` runs 1, 2, …, n_i without
-gaps, so no pattern window bridges an excluded cycle; `scripts/patterns.load_data`
-asserts this. The script that produced the filtered file from the raw archive is not
-included in this repository.
+`data/FilteredData.csv` is the filtered file used in the analysis (inclusion criteria:
+cycle length 18–54 days inclusive; complete cycle-length record). SHA-256:
+`508ee88efb18bcd29c7ed6f841827377bb8d72a8c7dd38fdeb40cf08691f7811`. Every retained
+woman's `CycleNumber` runs 1, 2, …, n_i without gaps, so no pattern window bridges an
+excluded cycle; `scripts/patterns.load_data` asserts this.
+
+**Reproducibility boundary.** All analyses in the paper are reproducible from this file
+and the scripts below. The original script that derived the filtered file from the raw
+Marquette archive was not preserved, so that preprocessing step cannot be reproduced
+exactly, and the raw women/cycle counts before filtering are not available here.
 
 ## Reproducing the analysis
 

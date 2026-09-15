@@ -159,6 +159,31 @@ out["pairwise_rate_spearman"] = pairs
 print("\nPairwise rate-based Spearman:")
 for q in pairs: print(f"  {q['pair']:<32} r={q['r']:+.2f}  p_perm={q['p_perm']:.4f}  Holm={q['p_holm']:.3f}")
 
+# follow-up robustness for the two structurally expected pairs: partial Spearman given n_i,
+# and permutation restricted to follow-up quintiles (breaks association, preserves rate~n_i)
+rng = np.random.default_rng(17)
+strata = np.digitize(n_i, np.quantile(n_i, [.2, .4, .6, .8]))
+def strat_perm(y):
+    out = y.copy()
+    for k in np.unique(strata):
+        idx = np.flatnonzero(strata == k); out[idx] = rng.permutation(y[idx])
+    return out
+def partial_spearman(x, y, z):
+    rx, ry, rz = stats.rankdata(x), stats.rankdata(y), stats.rankdata(z)
+    ex = rx - np.polyval(np.polyfit(rz, rx, 1), rz); ey = ry - np.polyval(np.polyfit(rz, ry, 1), rz)
+    return float(np.corrcoef(ex, ey)[0, 1])
+fu = {"spearman_n_vs_rate": [round(float(stats.spearmanr(n_i, rates[:, j])[0]), 2) for j in range(5)],
+      "strata_sizes": np.bincount(strata).tolist(), "pairs": []}
+for ja, jb, lab in [(0, 4, "Haflaga x Dilug-in-Dilug"), (0, 3, "Haflaga x Week-Dilug")]:
+    x, y = rates[:, ja], rates[:, jb]
+    r = float(stats.spearmanr(x, y)[0])
+    perms = np.array([stats.spearmanr(x, strat_perm(y))[0] for _ in range(Bp)])
+    p_s = (np.count_nonzero(np.abs(perms) >= abs(r) - 1e-12) + 1) / (Bp + 1)
+    fu["pairs"].append(dict(pair=lab, r=round(r, 3), partial_r_given_n=round(partial_spearman(x, y, n_i), 3),
+                            p_perm_stratified_by_followup_quintile=round(float(p_s), 4)))
+out["pairwise_followup_robustness"] = fu
+print("\nFollow-up robustness:", fu)
+
 # binary robustness: Fisher exact + permutation of binary flags
 flags = (pw > 0).astype(int)
 binp = []

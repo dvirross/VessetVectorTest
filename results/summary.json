@@ -369,6 +369,36 @@
    "p_holm": 1.0
   }
  ],
+ "pairwise_followup_robustness": {
+  "spearman_n_vs_rate": [
+   0.25,
+   0.02,
+   0.13,
+   -0.0,
+   0.1
+  ],
+  "strata_sizes": [
+   24,
+   8,
+   31,
+   27,
+   28
+  ],
+  "pairs": [
+   {
+    "pair": "Haflaga x Dilug-in-Dilug",
+    "r": 0.269,
+    "partial_r_given_n": 0.254,
+    "p_perm_stratified_by_followup_quintile": 0.0046
+   },
+   {
+    "pair": "Haflaga x Week-Dilug",
+    "r": 0.231,
+    "partial_r_given_n": 0.239,
+    "p_perm_stratified_by_followup_quintile": 0.0097
+   }
+  ]
+ },
  "pairwise_binary": [
   {
    "pair": "Haflaga x Dilug-in-Dilug",
