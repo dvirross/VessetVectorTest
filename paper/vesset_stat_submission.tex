@@ -85,9 +85,7 @@
 
 % ─── Abstract ─────────────────────────────────────────────────────────────────
 \newpage
-\begin{center}
-  {\large\bfseries [Author details removed for peer review]\par}
-\end{center}
+\begin{center}{\bfseries Abstract}\end{center}
 
 \noindent
 Jewish religious law (\textit{Halacha}) prescribes that women anticipate menstruation
@@ -221,10 +219,8 @@ convention \cite{anon2021statistical}). The five vesset pattern types are:
 \end{description}
 
 The hierarchy Haflaga (degree 0) $\to$ Dilug (degree 1) $\to$ Dilug-in-Dilug
-(degree 2) mirrors the classical Taylor expansion: a constant function is the
-zeroth-order approximation, a linear function the first-order, and a quadratic the
-second-order. Week and Week-Dilug are specialisations of the degree-0 (constant)
-case anchored to calendar values.
+(degree 2) follows increasing polynomial order in cycle index. Week and Week-Dilug
+are specialisations of the degree-0 case anchored to calendar values.
 
 \subsection{Mathematical Dependence Structure}
 \label{sec:mathdep}
@@ -480,7 +476,42 @@ for global inference. Conceptually related quadratic-form permutation tests exis
 an adaptation of this framework to dependent, sequentially-defined count vectors
 in longitudinal cycle data; to our knowledge this specific application is new. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Haflaga-30 within Week-Dilug and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model: $\hat{\Sigma}^{(m)} = \frac{1}{B-1}\sum_{r=1}^{B}(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})^\top$, where $\mathbf{S}^{(m,r)}$ is the count vector from replicate $r$ and $\bar{\mathbf{S}}^{(m)}$ is the Monte Carlo mean; this is the sample covariance of the null replicates, not the sample covariance of the observations. The result is a $5 \times 5$ matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
 
-The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Haflaga-30 $\subseteq$ Week-Dilug by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
+The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. This choice is justified on purely structural grounds, established before inspecting the data:
+
+\begin{itemize}
+  \item \textbf{Structural basis for inclusion.} Haflaga-30 $\subseteq$ Week-Dilug by
+    set-theoretic containment (Section~\ref{sec:mathdep}), creating a deterministic
+    co-occurrence dependency. Dilug-in-Dilug is the degree-2 polynomial neighbour of
+    degree-0 Haflaga in the hierarchy, creating an algebraic proximity. These three
+    patterns therefore form a natural analytical unit with prior structural predictions
+    for their joint behaviour.
+  \item \textbf{Structural basis for exclusion.} Dilug (degree-1) and Week (degree-0
+    anchored to a calendar grid) have no structural containment or polynomial proximity
+    relationship with the three included patterns. Dilug yields only a nominally
+    significant marginal result (Holm adj $p = .173$) with no analytical prediction
+    for its relationship to the primary triad; including it would conflate
+    structurally motivated testing with a pattern that is only hypothesis-generating
+    at this stage.
+\end{itemize}
+
+\textbf{Null and alternative.} The 3-pattern null hypothesis $H_0^{(3)}$ states that the
+observed count vector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ follows the
+joint null distribution of the corresponding 3-pattern subvector under $H_W$ (or $H_G$
+for the global variant) --- that is, $D_M^{(3)} \leq D_M^{(3,r)}$ for the fraction of
+null replicates that determines the $p$-value. The alternative $H_1^{(3)}$ is that the
+observed vector is displaced from the null centre in some direction --- at least one count
+exceeds its null expectation once inter-pattern correlations are accounted for via
+$\hat{\Sigma}^{(3)}$ (the $3\times3$ submatrix of the full null covariance). The statistic
+is sensitive to displacement in any direction, with Haflaga receiving greater weight due to
+its smaller null variance. The Mahalanobis test is particularly apt here because the three
+patterns are non-independent by construction (Section~\ref{sec:mathdep}), and the test
+accounts for this dependence structure through $\hat{\Sigma}^{(3)}$ rather than requiring
+independence.
+
+The 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector
+$(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix
+(condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is
+reported as a robustness check.
 
 \paragraph{Sensitivity.}
 The joint test is sensitive primarily to the Haflaga component, which contributes
@@ -500,6 +531,18 @@ across the 10 pairs were used for inference. $\alpha = .05$ throughout.
 \paragraph{Simulation pipeline.}
 Algorithm~\ref{alg:sim} provides a formal pseudocode description of the full
 simulation pipeline for reproducibility.
+
+\paragraph{Minimum run-length examples.}
+To clarify the counting convention, consider a single woman's haflaga sequence.
+A run of length 2: $(29, 29)$ qualifies as Week-Dilug (if $H = 30$) or Week but
+\emph{not} as Haflaga (which requires at least 3). A run of length 3: $(28, 28, 28)$
+qualifies as Haflaga (and as Week if 28 $\in \mathcal{W}$). A run of length 4:
+$(27, 29, 31, 33)$ qualifies as Dilug ($d = +2$, constant first difference, $\geq 3$ cycles)
+but also as Dilug-in-Dilug only if a second constant non-zero difference exists ---
+this sequence has second differences $(2-2, 2-2) = (0, 0)$, so it does \emph{not}
+qualify as Dilug-in-Dilug (which requires $d \neq 0$ in the second differences).
+Instead $(27, 28, 30, 33)$ has first differences $(1, 2, 3)$ and second differences
+$(1, 1)$, giving $d = 1 \neq 0$, so it qualifies as Dilug-in-Dilug (minimum 4 cycles).
 
 \begin{algorithm}[H]
 \caption{Full simulation pipeline}
@@ -949,33 +992,15 @@ window level} --- a cycle pair cannot simultaneously satisfy Dilug ($\Delta^1 H 
 and Week-Dilug ($\Delta^1 H = 0$), producing the observed negative direction for
 that pair ($p = .300$, non-significant at the woman level).
 
-These structural constraints have a direct implication for inference. The five pattern
-counts are non-independent by construction, so Bonferroni--Holm correction --- though
-valid under any dependence --- is conservative when tests are positively correlated.
-The focused 3-pattern joint Mahalanobis test (Section~\ref{sec:joint}) evaluates the
-structurally linked count vector as a single entity, avoiding multiple-comparison
-correction entirely and exploiting the positive dependence among the three patterns.
+The five pattern counts are therefore non-independent by construction. The Holm--Bonferroni and joint Mahalanobis procedures answer different inferential questions (FWER control vs.\ a single global null), and the focused 3-pattern Mahalanobis test accounts for the inter-pattern covariance structure through $\hat{\Sigma}^{(3)}$.
 
 \subsection{The Joint Multivariate Test}
 
-The joint test (Eq.~\ref{eq:mahalanobis}) represents a methodological contribution
-\cite{anon2022phd}. We adopt the \textbf{Mahalanobis distance} as the primary
-test statistic after confirming that the null covariance matrices are well-conditioned
-(condition numbers 4.4--5.4; all pairwise correlations $|r| < 0.16$, so inversion is
-numerically stable). Because $\hat{\Sigma}$ is estimated entirely from the Monte Carlo
-null replicates (not from the observed data) and all pairwise correlations are small,
-a robust sandwich-type estimator was not required; the simulation-based estimate is
-consistent by construction. The Mahalanobis statistic is
-$D_M^2 = (\mathbf{O} - \boldsymbol{\mu})^\top \hat{\Sigma}^{-1} (\mathbf{O} - \boldsymbol{\mu})$,
-which standardises deviations by the full null covariance matrix $\hat{\Sigma}$,
-including off-diagonal cross-product terms. Because $\hat{\Sigma}$ is estimated as
-approximately (though not exactly) diagonal here (all pairwise $|r| < 0.16$), the
-statistic is numerically close to $\sum_j (O_j - \mu_j)^2/\sigma_j^2$ in this
-application, giving components with smaller null variance proportionally greater weight.
-Haflaga has the smallest null SD of the five (3.26 vs.\ 6.60 for Dilug), so its
-deviation of $(26 - 11.30) = 14.7$ units yields the largest standardised contribution.
-Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that
-inversion of $\hat{\Sigma}$ is numerically stable.
+The joint test (Eq.~\ref{eq:mahalanobis}) standardises deviations by the full null
+covariance $\hat{\Sigma}$, accounting for inter-pattern correlations (condition numbers
+4.4--5.4; all pairwise $|r| < 0.16$; see Section~\ref{sec:methods} for full details).
+Haflaga has the smallest null SD (3.26 vs.\ 6.60 for Dilug), so its deviation
+$(26 - 11.30) = 14.7$ units yields the largest standardised contribution.
 
 The primary result --- the focused 3-pattern Mahalanobis test --- yields $D_M = 4.52$
 ($p < .001$; 1 of 50,000 null replicates exceeded the observed $D_M$) under the

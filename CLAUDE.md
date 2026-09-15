@@ -251,11 +251,18 @@ The paper has been revised in response to three rounds of AI-generated peer revi
 - ✅ Both PDFs recompiled (37 pages each)
 - ✅ Both Overleaf zips rebuilt
 
+### Round 4 continued (same session)
+- ✅ R2-2.2: Explicit H_0/H_1 added for 3-pattern primary test; structural basis for inclusion (containment + polynomial proximity) and exclusion (Dilug hypothesis-generating; Week no structural link) stated formally
+- ✅ R2-2.5: Rate-based Spearman analysis already in paper; code added to notebook (cell 33, before chi-square section); seed 17, B=50,000 permutations
+- ✅ R3 Major 4 (derivations): sec:mathdep prose shortened; Discussion "Joint Multivariate Test" subsection condensed (~40% shorter); Taylor expansion analogy compressed
+- ✅ R2 Minor 3.1: Min run-length examples added to Methods (before Algorithm 1): lengths 2, 3, 4 with concrete sequences
+- ✅ Notebook: rate-based Spearman analysis code added as cell 33
+- ✅ Both PDFs recompiled (38 pages each, no errors)
+- ✅ Submission re-anonymised (0 non-anon occurrences)
+- ✅ Both Overleaf zips rebuilt
+
 **Outstanding (require author decisions):**
-- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (substantial new analysis)
-- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates
-- [ ] R2-2.2: Formulate explicit global null/alternative for 3-pattern focused test; justify excluding Dilug and Week from primary
-- [ ] R2-2.5: Pairwise Spearman sensitivity analysis (rate-based vs count-based with cycle-count exposure)
-- [ ] R3 Major 4: Move one figure to supplement; shorten finite-difference derivations
-- [ ] R2 Minor 3.1: Pseudocode examples for min run lengths (2, 3, 4 cycles)
+- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (substantial new analysis — needs author understanding first)
+- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates (needs author understanding first)
+- [ ] R3 Major 4 (figure): Move one figure to supplement (deferred)
 - [ ] Figure cross-reference audit: verify all "Figure X" in text match actual captions
