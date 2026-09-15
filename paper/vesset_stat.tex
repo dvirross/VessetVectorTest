@@ -315,7 +315,7 @@ Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variabil
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig0_cycle_distribution}
+  \includegraphics[width=\textwidth]{fig1_cycle_distribution}
   \caption{Cycle length distribution (filtered dataset). \textit{Left}: histogram
     and kernel density estimate of raw cycle lengths $L_k$, with mean (dashed) and
     median (dotted) marked. The distribution is right-skewed (skewness $= 1.29$).
@@ -327,7 +327,7 @@ Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variabil
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{fig_consort_flow}
+  \includegraphics[width=0.75\textwidth]{fig2_consort_flow}
   \caption{Participant flow and analysis design (CONSORT-style). The source dataset
     (Fehring et al., 2013) comprises data from a multi-centre NFP cohort. After applying
     inclusion criteria (cycle length 18--54 days; complete cycle-length records), the
@@ -378,6 +378,45 @@ Three null models address distinct scientific questions:
 
 $H_G$ and $H_{iid}$ are the global nulls (permutation and multinomial respectively);
 $H_W$ is the within-woman null. All three were run for $N = 50{,}000$ iterations (seed 17).
+Table~\ref{tab:nullmodels} summarises the three null models side by side.
+
+\begin{table}[H]
+\centering
+\caption{Comparison of the three null models. Each model preserves some aspects of the data
+  structure while randomising others, encoding a distinct scientific question.}
+\label{tab:nullmodels}
+\small
+\begin{tabular}{L{3.2cm} L{3.6cm} L{3.6cm} L{3.6cm}}
+\toprule
+& \textbf{$H_G$} (global perm.) & \textbf{$H_{iid}$} (multinomial) & \textbf{$H_W$} (within-woman) \\
+\midrule
+\textbf{Unit randomised} &
+  Individual cycle records, pooled across all women &
+  Pattern occurrence per cycle, drawn i.i.d.\ &
+  Cycle order within each woman's own sequence \\[4pt]
+\textbf{What is preserved} &
+  Total cycle count; marginal haflaga distribution &
+  Total count; observed marginal proportions &
+  Each woman's multiset of cycle lengths and cycle count \\[4pt]
+\textbf{What is destroyed} &
+  Woman identity; within-woman ordering &
+  All dependence; temporal structure &
+  Within-woman temporal ordering only \\[4pt]
+\textbf{Independence assumed} &
+  None &
+  Full i.i.d.\ (across time and women) &
+  None (conditional permutation) \\[4pt]
+\textbf{Scientific null} &
+  Patterns arise from random assignment of cycles to women &
+  Patterns arise from independent random events &
+  Patterns arise from random ordering of each woman's own cycles \\[4pt]
+\textbf{Implementation} &
+  \texttt{np.random.permutation} on pooled haflaga values &
+  Multinomial draw with observed proportions &
+  Per-woman \texttt{np.random.permutation} (without replacement) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Permutation test.}
 At each iteration, the $n = 1{,}554$ haflaga values are randomly permuted without
@@ -525,7 +564,7 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig1_null_distributions}
+  \includegraphics[width=\textwidth]{fig3_null_distributions}
   \caption{Null distributions (KDE) vs.\ observed counts for each vesset pattern
     under the permutation (blue solid) and multinomial (green dashed) null models.
     The vertical dotted red line marks the observed count; the shaded region is the
@@ -536,7 +575,7 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.88\textwidth]{fig2_zscores}
+  \includegraphics[width=0.88\textwidth]{fig4_zscores}
   \caption{Effect sizes ($z$-scores) under permutation (blue) and multinomial (green)
     null models. Dashed and dotted lines mark $\alpha = .05$ ($z = 1.645$) and
     $\alpha = .01$ ($z = 2.326$) thresholds. Only Haflaga and Dilug exceed the
@@ -567,7 +606,7 @@ model and is not formally established here.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig4_cdfs}
+  \includegraphics[width=\textwidth]{fig5_cdfs}
   \caption{Empirical CDFs of null distributions for each pattern under permutation
     (blue solid) and multinomial (green dashed) nulls. The vertical dotted red line
     marks the observed count; horizontal dotted lines indicate $1-p$. The close
@@ -634,7 +673,7 @@ centred around 27 --- far above the observed count of 26 (all 118 women).
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig_stratified_comparison}
+  \includegraphics[width=\textwidth]{fig6_stratified_comparison}
   \caption{Null distributions ($H_G$, $H_{iid}$, $H_W$) for each pattern under three null models:
     global permutation (blue, 118 women), global multinomial (green, 118 women),
     and within-woman permutation (orange, 118 women).
@@ -686,7 +725,7 @@ to the choice of pattern subset and null model.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig3_dm_nulldist}
+  \includegraphics[width=\textwidth]{fig7_dm_nulldist}
   \caption{Robustness check: null distributions of the 5-pattern Mahalanobis distance
     $D_M$ (Eq.~\ref{eq:mahalanobis}) under the permutation ($H_G$, left),
     multinomial ($H_{iid}$, centre), and within-woman ($H_W$, right) nulls.
@@ -778,7 +817,7 @@ Dilug $\times$ Dilug-in-Dilug     & $-$0.02 & .815 & 1.000 & $-$ \\
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig5_chisq_heatmap}
+  \includegraphics[width=\textwidth]{fig8_chisq_heatmap}
   \caption{Pairwise Spearman correlation structure between vesset pattern types.
     Each cell shows $r_s$ (rate-based Spearman correlation); darker shading
     indicates stronger positive association; lighter shading indicates weaker or
@@ -798,7 +837,7 @@ the remaining two patterns (Dilug, Week) are encoded by marker size and colour.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{fig_joint_3panels}
+  \includegraphics[width=\textwidth]{fig9_joint_3panels}
   \caption{Geometric illustration of the focused 3-pattern joint test under the
     \textbf{permutation} ($H_G$, top left), \textbf{multinomial} ($H_{iid}$, top right),
     and \textbf{within-woman} ($H_W$, bottom centre) nulls.
@@ -809,7 +848,8 @@ the remaining two patterns (Dilug, Week) are encoded by marker size and colour.
     Under $H_G$ and $H_{iid}$ the observed vector lies at the periphery of the null cloud,
     displaced primarily along the Haflaga axis ($D_M = 4.52$ and $4.36$, both $p < .001$).
     Under $H_W$ the observed vector falls within the null cloud and the displacement
-    is non-significant ($D_M = 2.68$, $p = .066$), consistent with the primary result.}
+    is non-significant (3-pattern $D_M = 2.68$, $p = .066$), consistent with the
+    primary result ($H_W$ 5-pattern: $D_M = 2.95$, $p = .121$; Table~\ref{tab:stratified}).}
   \label{fig:joint3panels}
 \end{figure}
 
@@ -1077,7 +1117,7 @@ $N = 118$; the joint $H_W$ test is likewise non-significant ($D_M = 2.95$, $p = 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.88\textwidth]{fig_heaping_diagnostic}
+  \includegraphics[width=0.88\textwidth]{figA1_heaping_diagnostic}
   \caption{Distribution of haflaga values $H_k$ around $H = 28$ and $H = 30$.
     The distribution is smooth with no heaping artefact at $H = 30$
     ($H = 29$: 225 cycles; $H = 30$: 175; $H = 31$: 141), confirming that the
