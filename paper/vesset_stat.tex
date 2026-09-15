@@ -47,6 +47,8 @@
 \graphicspath{{figures/}}
 \captionsetup{font=small, labelfont=bf, width=0.92\textwidth}
 
+\providecommand{\doi}{}
+\renewcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
 \newcommand{\HG}{H_{G}}
 \newcommand{\HI}{H_{iid}}
 \newcommand{\HW}{H_{W}}
@@ -717,14 +719,15 @@ $\HI$ and $\HW$ respectively, consistent with the five-pattern analysis
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig9_joint_3panels}
-  \caption{Exploratory three-pattern subspace: 3,000 of the 50,000 null replicates
-    (points) and the observed vector $(26, 18, 27)$ in the (Haflaga, Week-Dilug,
-    Dilug-in-Dilug) space under $\HG$ (top left), $\HI$ (top right) and $\HW$ (bottom),
-    so that all five counts are visible at once: marker size encodes the Dilug count
-    (size legend in each panel) and marker shade the Week count (colour bar). The filled
-    circle is the null mean; the dashed segment is the displacement to the observed
-    vector, with its Euclidean length $D_E$ and Mahalanobis length $D_M$ in the legend.
-    Primary inference uses all five patterns (Table~\ref{tab:stratified}).}
+  \caption{Five-pattern count vectors under the three null models: 3,000 of the 50,000
+    null replicates (points) and the observed vector under $\HG$ (top left), $\HI$ (top
+    right) and $\HW$ (bottom). All five counts are shown for every replicate: Haflaga,
+    Week-Dilug and Dilug-in-Dilug on the axes, Dilug as marker size (size legend in each
+    panel) and Week as marker shade (colour bar). The filled circle is the null mean and
+    the dashed segment the displacement to the observed vector $(26, 18, 27)$ on the
+    three axes; the $D_E$ and $D_M$ values in the legends and titles are those of the
+    exploratory three-axis subspace test (Section~\ref{sec:joint}). Primary inference
+    uses the five-pattern $\DM$ (Table~\ref{tab:stratified}).}
   \label{fig:joint3panels}
 \end{figure}
 

@@ -396,7 +396,7 @@ ax.set_title('Pairwise Spearman correlations of per-woman pattern rates\n§ anal
 plt.tight_layout(); save('fig8_chisq_heatmap'); plt.show()
 """)
 code(r"""
-# fig9_joint_3panels: exploratory 3-pattern subspace (Haflaga, Week-Dilug, DiD); Dilug -> size, Week -> shade
+# fig9_joint_3panels: all five counts per replicate; Haflaga/Week-Dilug/DiD on axes, Dilug -> size, Week -> shade; D_M of the 3-axis subspace
 import matplotlib.gridspec as gridspec, matplotlib.colors as mcolors
 IDX3 = [0, 3, 4]; obs3 = obs[IDX3]; NS = 3000
 def stats3(arr):
@@ -438,8 +438,9 @@ def panel(ax, arr, label, cmap, color, off):
 panel(ax1, perm_arr, 'Global permutation ($H_G$)', 'Blues', C_PERM, np.array([4., 3.5, 6.]))
 panel(ax2, multi_arr, 'Multinomial ($H_{iid}$)', 'Blues', C_PERM, np.array([4., 3.5, 6.]))
 panel(ax3, hw_arr, 'Within-woman ($H_W$)', 'Oranges', C_STRAT, np.array([-16., -7., 9.]))
-fig.suptitle('Exploratory 3-pattern subspace: null clouds vs observed vector under three null models\n'
-             '(primary inference uses all five patterns; Dilug and Week are encoded as point size and shade)', fontsize=12, fontweight='bold', y=0.985)
+fig.suptitle('Five-pattern count vectors under three null models: null clouds vs observed vector\n'
+             '(Haflaga, Week-Dilug, Dilug-in-Dilug on the axes; Dilug as point size; Week as point shade. '
+             '$D_M$ and $p$ refer to the exploratory 3-axis subspace test)', fontsize=12, fontweight='bold', y=0.985)
 save('fig9_joint_3panels'); plt.show()
 """)
 
