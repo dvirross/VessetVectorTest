@@ -62,6 +62,8 @@
   \normalfont\large Application to Jewish Halachic Anticipatory Rules\par}
   \vspace{1.5cm}
   {Dvir Ross\par}
+  \vspace{0.2cm}
+  {\small ORCID: [to be inserted]\par}
   \vspace{0.4cm}
   {\normalsize\itshape
     Department of Software Engineering, Shenkar College of Engineering,
@@ -119,9 +121,7 @@ individual cycle regularity, with no detectable evidence, under within-woman exc
 that temporal ordering adds structure beyond each woman's own cycle-length distribution.
 
 \medskip
-\noindent\textit{Keywords:} menstrual cycle, vesset, Halacha, permutation test,
-within-woman permutation, multinomial sampling, natural family planning, Jewish law,
-polynomial hierarchy, dependence structure, multivariate randomization test
+\noindent\textit{Keywords:} Halacha, Mahalanobis joint test, menstrual cycle, permutation test, within-woman permutation
 
 % ─── 1. Introduction ──────────────────────────────────────────────────────────
 \newpage
@@ -847,18 +847,18 @@ $p_{\text{perm}} = .003$, adj $p = .030$). Haflaga $\times$ Week-Dilug shows a
 positive association ($r_s = 0.23$, $p_{\text{perm}} = .010$) consistent with the
 structural prediction, but does not survive Holm correction (adj $p = .090$). All
 eight remaining pairs are non-significant (all adj $p \geq .206$), consistent with
-the absence of analytical predictions for those pairs. Figure~\ref{fig:chisq} visualises the full correlation structure.\footnote{A
-robustness check using a binary co-occurrence analysis --- coding each woman
+the absence of analytical predictions for those pairs. Figure~\ref{fig:chisq} visualises the full correlation structure.
+
+As a robustness check, a binary co-occurrence analysis was conducted --- coding each woman
 1/0 for whether she ever established each pattern, and testing all 10 pairs with
-Fisher's exact test plus permutation $p$-values --- yielded the same two lowest
+Fisher's exact test plus permutation $p$-values --- and yielded the same two lowest
 $p$-values (Haflaga $\times$ Dilug-in-Dilug: $p_{\text{perm}} = .004$,
 Holm adj $p = .040$; Haflaga $\times$ Week-Dilug: $p_{\text{perm}} = .013$,
 Holm adj $p = .117$) and the same pattern of non-significance for all remaining
 pairs, confirming that the rate-based results are not sensitive to the choice
-of metric.
-The Haflaga $\times$ Dilug-in-Dilug binary permutation $p$-value (0.004) falls below 0.01,
+of metric. The Haflaga $\times$ Dilug-in-Dilug binary permutation $p$-value (0.004) falls below 0.01,
 providing strong evidence against the null that co-occurrence arises by chance
-even under non-asymptotic conditions.}
+even under non-asymptotic conditions.
 
 \begin{table}[H]
 \centering
@@ -1273,6 +1273,31 @@ rhythm patterns, circadian or hormonal cycle data, episodic clinical event seque
 where structurally related count outcomes are tested jointly.
 
 
+% ─── Ethics Statement ─────────────────────────────────────────────────────────
+\section*{Ethics Statement}
+
+This study is a secondary analysis of a publicly archived dataset (Fehring, Schneider,
+\& Raviele, 2006; Fehring, Schneider, Raviele, \& Barron, 2013). The original data
+collection was approved by the Institutional Review Board at Marquette University. No
+new data were collected for the present study, and no individual participant can be
+identified from the publicly released dataset. Separate ethics approval for secondary
+analysis of this dataset was not required under the applicable regulations.
+
+% ─── Conflict of Interest ─────────────────────────────────────────────────────
+\section*{Conflict of Interest}
+
+The author declares no conflicts of interest.
+
+% ─── Data Availability Statement ──────────────────────────────────────────────
+\section*{Data Availability Statement}
+
+The menstrual cycle dataset analysed in this study is publicly available from the
+Marquette University Natural Family Planning repository (Fehring et al., 2013). The
+analysis code, simulation scripts, and figure generators are available at
+\url{https://github.com/dvirross/VessetVectorTest}. Pre-computed simulation results
+(50,000 permutations per null model) are archived in the repository to support
+exact reproducibility without re-running computationally intensive simulations.
+
 % ─── AI Disclosure ────────────────────────────────────────────────────────────
 \section*{AI Assistance Disclosure}
 
@@ -1281,7 +1306,7 @@ assistance of Claude (Anthropic, 2024), a large language model AI assistant.
 All scientific content, mathematical derivations, statistical analyses, and
 intellectual contributions are solely the work of the author. The AI tool was
 used exclusively for language editing, structural organisation of the manuscript,
-and generation of \LaTeX{} and Python code under the author's direct supervision
+and generation of \LaTeX{} and \texttt{Python} code under the author's direct supervision
 and verification. The author takes full responsibility for the accuracy and
 integrity of all content presented in this article.
 
