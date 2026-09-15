@@ -106,7 +106,7 @@ overrepresented ($z = 4.51$, $p < .001$); the focused 3-pattern Mahalanobis test
 detects significant multivariate departure ($D_M = 4.52$, $p < .001$),
 reflecting concentration of patterns among women with lower cycle-length variability.
 Under the within-woman null --- the scientifically sharper test --- no pattern
-is significant (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed
+is significant (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$), and all observed
 counts fall \emph{below} their within-woman null means; the sample is underpowered
 for individual within-woman tests. These complementary results
 suggest that halachic vesset rules function primarily as empirical detectors of
@@ -453,8 +453,10 @@ they encode.
 
 For each pattern $j$ and null model $m$ we computed: the observed count $O_j$; the
 null mean $\bar{S}_j^{(m)}$ and SD $\sigma_j^{(m)}$; the z-score $z_j^{(m)} =
-(O_j - \bar{S}_j^{(m)}) / \sigma_j^{(m)}$; and the one-sided empirical p-value
-$p_j^{(m)} = (b_j+1)/(B+1)$, where $b_j = \#\{S_{j,r}^{(m)} \geq O_j\}$ and $B = 50{,}000$, following the Monte Carlo convention of Davison \& Hinkley~\cite{davison1997}.
+(O_j - \bar{S}_j^{(m)}) / \sigma_j^{(m)}$; and the two-sided empirical p-value
+$p_j^{(m)} = 2\min\!\left(\tfrac{b_j^++1}{B+1},\,\tfrac{b_j^-+1}{B+1}\right)$,
+where $b_j^+ = \#\{S_{j,r}^{(m)} \geq O_j\}$, $b_j^- = \#\{S_{j,r}^{(m)} \leq O_j\}$,
+and $B = 50{,}000$, following the Monte Carlo convention of Davison \& Hinkley~\cite{davison1997}.
 
 The \textbf{joint multivariate test} uses the \textbf{Mahalanobis distance} as the test statistic:
 \begin{equation}
@@ -487,8 +489,7 @@ The \textbf{primary joint test} is the focused Mahalanobis test restricted to th
     for their joint behaviour.
   \item \textbf{Structural basis for exclusion.} Dilug (degree-1) and Week (degree-0
     anchored to a calendar grid) have no structural containment or polynomial proximity
-    relationship with the three included patterns. Dilug yields only a nominally
-    significant marginal result (Holm adj $p = .173$) with no analytical prediction
+    relationship with the three included patterns. Dilug yields a non-significant marginal result (Holm adj $p = .346$) with no analytical prediction
     for its relationship to the primary triad; including it would conflate
     structurally motivated testing with a pattern that is only hypothesis-generating
     at this stage.
@@ -573,8 +574,8 @@ $(1, 1)$, giving $d = 1 \neq 0$, so it qualifies as Dilug-in-Dilug (minimum 4 cy
   \State Mahalanobis statistic:
          $D_M^{(m)} \leftarrow \sqrt{(\mathbf{O}-\boldsymbol{\mu}^{(m)})^\top
          (\hat{\Sigma}^{(m)})^{-1}(\mathbf{O}-\boldsymbol{\mu}^{(m)})}$
-  \State $p_j^{(m)} \leftarrow (|\{r : S_j^{(m,r)} \geq O_j\}|+1)/(B+1)$
-         for each pattern $j$ \Comment{one-sided}
+  \State $p_j^{(m)} \leftarrow 2\min\!\bigl((|\{r : S_j^{(m,r)} \geq O_j\}|+1)/(B+1),\;(|\{r : S_j^{(m,r)} \leq O_j\}|+1)/(B+1)\bigr)$
+         for each pattern $j$ \Comment{two-sided}
   \State $p_{D_M}^{(m)} \leftarrow (|\{r : D_M^{(m,r)} \geq D_M^{(m)}\}|+1)/(B+1)$
 \EndFor
 \end{algorithmic}
@@ -597,7 +598,7 @@ effect sizes.
 \centering
 \caption{Permutation and multinomial null-model results ($N = 50{,}000$ iterations).
   \textit{Null Mean} and \textit{Null SD} are from the permutation null. Bold
-  $p$-values are significant at $\alpha = .05$ (one-sided).}
+  $p$-values are significant at $\alpha = .05$ (two-sided).}
 \label{tab:results}
 \smallskip
 \begin{tabular}{L{3.0cm} C{1.2cm} C{1.6cm} C{1.4cm} C{1.4cm} C{1.6cm} C{1.6cm}}
@@ -607,7 +608,7 @@ effect sizes.
   & \textbf{Perm.~$p$} & \textbf{Multi.~$p$} \\
 \midrule
 Haflaga         & 26 & 11.30 & 3.26 & $+4.51$ & $\mathbf{<.001}$ & $\mathbf{<.001}$ \\
-Dilug           & 61 & 48.93 & 6.60 & $+1.83$ & $\mathbf{.043}$  & $\mathbf{.043}$  \\
+Dilug           & 61 & 48.93 & 6.60 & $+1.83$ & $.087$           & $.086$           \\
 Week            & 32 & 27.00 & 4.03 & $+1.24$ & $.133$           & $.188$           \\
 Week-Dilug      & 18 & 16.27 & 3.28 & $+0.53$ & $.345$           & $.366$           \\
 Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$           \\
@@ -623,9 +624,9 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
     The underlying null distributions are discrete; the smoothed curves are shown for
     visual comparison only, with the primary inference based on the empirical PMF (fraction
     of $B = 50{,}000$ simulations meeting or exceeding the observed count).
-    The vertical dotted line marks the observed count; the shaded region is the
-    one-sided p-value area. Haflaga and Dilug show clearly right-displaced observed
-    values; Dilug-in-Dilug falls on its null mean.}
+    The vertical dotted line marks the observed count; the shaded regions indicate
+    departure from the null in either direction. Only Haflaga shows clearly displaced
+    observed value; Dilug-in-Dilug falls below its null mean.}
   \label{fig:nulldists}
 \end{figure}
 
@@ -644,8 +645,7 @@ than 4.5 standard deviations above chance ($z = 4.51$, exact Monte Carlo $p = 3/
 the permutation null only \textbf{2 of 50,000} simulations reached or exceeded 26 ---
 the observed count ties the simulation maximum. Applying Holm--Bonferroni correction
 across the five pattern tests, only Haflaga remains significant after FWER control
-(Holm-adjusted $p = .0003$). Dilug is nominally significant ($p = .043$) but does not
-survive Holm correction (adjusted $p = .173$) and should be regarded as an exploratory
+(Holm-adjusted $p = .0003$). Dilug is not significant ($p = .087$, Holm adj $p = .346$) and should be regarded as an exploratory
 finding requiring replication. Week, Week-Dilug, and Dilug-in-Dilug are not significant.
 These marginal results are complementary summaries; the primary multivariate inference is
 the joint Mahalanobis test (Section~\ref{sec:joint}), which operates on the full count
@@ -695,7 +695,7 @@ For each of the 118 women independently, her cycle-length sequence is permuted u
 \paragraph{Results.}
 Table~\ref{tab:stratified} presents the results. Under the within-woman null,
 \emph{no pattern is individually significant}. All five observed counts fall
-\emph{below} their within-woman null means (all $z < 0$). The most negative z-score belongs to Dilug-in-Dilug ($z = -2.07$, $p = .988$); because all tests are one-sided upper-tail, this large negative z indicates that the count is well below the null mean --- not that it is unexpectedly low --- and should not be interpreted as evidence of underrepresentation.
+\emph{below} their within-woman null means (all $z < 0$). Dilug-in-Dilug has the most extreme z-score ($z = -2.07$, two-sided $p = .040$, Holm-corrected $p = .198$); this does not survive multiple-comparison control and should be regarded as exploratory. The negative direction --- the observed count (27) is well below the within-woman null mean (39.1) --- indicates that real temporal ordering of cycles produces fewer DiD events than random shuffling of the same cycle lengths would predict, which is consistent with DiD detecting genuine second-order cycle regularity rather than chance co-occurrence of lengths.
 The joint test is also non-significant: Mahalanobis $D_M = 2.95$ ($p = .121$).
 Tables~\ref{tab:stratified} and~\ref{tab:power} both use the primary 50,000-run
 simulation (seed 17) to ensure full numerical consistency of $\mu_W$, $\sigma_W$,
@@ -711,11 +711,11 @@ and $z_{\text{obs}}$ across all results.
 \textbf{Pattern} & \textbf{Obs.} & \textbf{Null Mean} & \textbf{Null SD}
   & \textbf{$z$} & \textbf{$p$} \\
 \midrule
-Haflaga         & 26 & 31.85 & 4.68 & $-1.25$ & $.916$ \\
-Dilug           & 61 & 67.07 & 7.36 & $-0.83$ & $.813$ \\
-Week            & 32 & 33.81 & 3.88 & $-0.47$ & $.722$ \\
-Week-Dilug      & 18 & 20.94 & 3.22 & $-0.91$ & $.857$ \\
-Dilug-in-Dilug  & 27 & 39.14 & 5.86 & $-2.07$ & $.988$ \\
+Haflaga         & 26 & 31.85 & 4.68 & $-1.25$ & $.249$ \\
+Dilug           & 61 & 67.07 & 7.36 & $-0.83$ & $.455$ \\
+Week            & 32 & 33.81 & 3.88 & $-0.47$ & $.741$ \\
+Week-Dilug      & 18 & 20.94 & 3.22 & $-0.91$ & $.454$ \\
+Dilug-in-Dilug  & 27 & 39.14 & 5.86 & $-2.07$ & $.040$ \\
 \midrule
 \multicolumn{6}{l}{Joint: $D_M = 2.95$ ($p = .121$)} \\
 \bottomrule
@@ -924,7 +924,7 @@ the remaining two patterns (Dilug, Week) are encoded by marker size and point sh
 This study provides the first formal statistical test of whether halachic vesset
 patterns occur at rates distinguishable from chance in empirical menstrual cycle data. The central result is
 from the within-woman permutation null ($H_W$): no pattern is individually significant
-(all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed counts fall
+(all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$), and all observed counts fall
 below their within-woman null means. We found no evidence that the temporal ordering
 of cycles produces excess vesset-pattern occurrences beyond those expected under
 within-woman exchangeability, conditional on each woman's observed cycle-length
@@ -937,15 +937,14 @@ events.
 \paragraph{Summary of confirmatory vs exploratory results.}
 For clarity, we distinguish three categories. \textbf{Pre-specified confirmatory:}
 (i) Haflaga overrepresentation under the global null ($p < .001$ after Holm correction);
-(ii) the non-significant $H_W$ result (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$);
+(ii) the non-significant $H_W$ result (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$);
 (iii) the primary 3-pattern Mahalanobis joint test under the global null ($D_M = 4.52$, $p < .001$).
-\textbf{Exploratory:} Dilug ($p = .043$, Holm adj $p = .173$; hypothesis-generating only), pairwise dependence tests, and the focused joint test (motivated structurally but secondary).
+\textbf{Exploratory:} Dilug ($p = .087$, Holm adj $p = .346$; hypothesis-generating only), pairwise dependence tests, and the focused joint test (motivated structurally but secondary).
 \textbf{Robustness checks:} 5-pattern joint test and multinomial null, confirming the global results are not sensitive to null model or pattern-subset choice.
 
 Under the global permutation null, which pools cycles across all 118 women,
 \textit{Haflaga} is strongly overrepresented ($z = 4.51$, $p < .001$ after
-Holm correction) and \textit{Dilug} is nominally overrepresented ($p = .043$, does not
-survive Holm correction). The joint Mahalanobis test under the global null confirms
+Holm correction) and \textit{Dilug} is not significant ($p = .087$, Holm adj $p = .346$). The joint Mahalanobis test under the global null confirms
 significant displacement ($D_M = 5.10$, $p < .001$), driven primarily by Haflaga.
 The global overrepresentation reflects concentration of patterns among women who are
 intrinsically more regular --- a population-level heterogeneity effect, not evidence
@@ -963,8 +962,8 @@ who establish no vesset at all ($n = 35$; Mann--Whitney $p < .001$, Cohen's
 $d = -1.13$; see Section~\ref{sec:data}). Forecasting performance and
 generalisability to other populations remain to be evaluated in future work.
 
-The Dilug finding ($p = .043$ under the global null) is nominally significant but
-does not survive Holm--Bonferroni correction (adjusted $p = .173$) and should be
+The Dilug finding ($p = .087$ under the global null) does not approach significance
+and does not survive Holm--Bonferroni correction (adjusted $p = .346$); it should be
 treated as hypothesis-generating, requiring pre-registered replication in larger
 samples. The direction is consistent with arithmetic progressions arising from
 gradual biological trends (e.g., hormonal change, ageing, or weight change), but
@@ -1162,10 +1161,10 @@ providing structural justification beyond the empirical correlation.
 With a mean of 13.2 cycles per woman, longer patterns such as Dilug-in-Dilug are
 likely underpowered. As an approximate sensitivity analysis, we computed a minimum
 detectable count (MDC) for each pattern under $H_W$ at nominal 80\% power and
-$\alpha = .05$ (one-sided), using a normal-theory location-shift approximation:
+$\alpha = .05$ (two-sided), using a normal-theory location-shift approximation:
 \begin{equation}
-  \text{MDC} \approx \mu_W + (z_{0.05} + z_{0.80})\,\sigma_W
-             = \mu_W + 2.487\,\sigma_W.
+  \text{MDC} \approx \mu_W + (z_{0.025} + z_{0.80})\,\sigma_W
+             = \mu_W + 2.802\,\sigma_W.
 \end{equation}
 MDC values are approximate normal-theory benchmarks, not exact power guarantees
 (Table~\ref{tab:power}); a simulation-based power analysis is deferred to future work.
@@ -1188,8 +1187,8 @@ $N = 118$; the joint $H_W$ test is likewise non-significant ($D_M = 2.95$, $p = 
   based on a normal-theory location-shift approximation.
   $\mu_W$: null mean; $\sigma_W$: null SD; 95th pct: empirical 95th percentile
   of null (rejection threshold at $\alpha = .05$); MDC: minimum detectable count
-  at nominal 80\% sensitivity ($\text{MDC} \approx \mu_W + 2.487\,\sigma_W$, where
-  $z_{0.05} + z_{0.80} = 1.645 + 0.842 = 2.487$; approximate normal-theory benchmark, not an exact power guarantee); $z_{\text{obs}}$: standardised
+  at nominal 80\% sensitivity ($\text{MDC} \approx \mu_W + 2.802\,\sigma_W$, where
+  $z_{0.025} + z_{0.80} = 1.960 + 0.842 = 2.802$; approximate normal-theory benchmark, not an exact power guarantee); $z_{\text{obs}}$: standardised
   observed count.
   All observed counts fall below the MDC, consistent with limited sensitivity
   at $N = 118$.}
@@ -1198,11 +1197,11 @@ $N = 118$; the joint $H_W$ test is likewise non-significant ($D_M = 2.95$, $p = 
 \hline
 Pattern & Obs.\ & $\mu_W$ & $\sigma_W$ & 95th pct & MDC & $z_{\text{obs}}$ \\
 \hline
-Haflaga        & 26 & 31.85 & 4.68 & 40.0 & 44 & $-1.25$ \\
-Dilug          & 61 & 67.07 & 7.36 & 79.0 & 86 & $-0.83$ \\
-Week           & 32 & 33.81 & 3.88 & 40.0 & 44 & $-0.47$ \\
-Week-Dilug     & 18 & 20.94 & 3.22 & 26.0 & 29 & $-0.91$ \\
-Dilug-in-Dilug & 27 & 39.14 & 5.86 & 49.0 & 54 & $-2.07$ \\
+Haflaga        & 26 & 31.85 & 4.68 & 40.0 & 45 & $-1.25$ \\
+Dilug          & 61 & 67.07 & 7.36 & 79.0 & 88 & $-0.83$ \\
+Week           & 32 & 33.81 & 3.88 & 40.0 & 45 & $-0.47$ \\
+Week-Dilug     & 18 & 20.94 & 3.22 & 26.0 & 30 & $-0.91$ \\
+Dilug-in-Dilug & 27 & 39.14 & 5.86 & 49.0 & 56 & $-2.07$ \\
 \hline
 \end{tabular}
 \end{table}
@@ -1221,14 +1220,13 @@ models were applied: a global permutation null, a multinomial null, and the
 scientifically sharper within-woman permutation null ($H_W$).
 
 The primary result is from the within-woman null: under $H_W$, \emph{no pattern is
-individually significant} (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and
+individually significant} (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$), and
 all observed counts fall below their within-woman null means. These findings provide no evidence, under within-woman exchangeability, that
 temporal ordering within each woman's cycle sequence creates vesset patterns
 beyond what her own cycle-length distribution predicts. This is a non-detection of excess under the exchangeability null with acknowledged limited power (all five observed counts fall below the normal-theory MDC; Table~\ref{tab:power}); it should be interpreted as no detectable evidence of within-woman temporal structure under this null, not as proof of its absence.
 
 Under the global null, Haflaga is significantly overrepresented ($p < .001$ after
-Holm correction); Dilug is nominally overrepresented ($p = .043$) but does not
-survive Holm correction and should be treated as hypothesis-generating pending
+Holm correction); Dilug is not significant ($p = .087$, Holm adj $p = .346$) and should be treated as hypothesis-generating pending
 replication. The joint Mahalanobis test confirms significant displacement from the
 global null ($D_M = 5.10$, $p < .001$; only 2 of 50,000 permutation simulations
 reached the observed Haflaga count). This global result is best interpreted as a
