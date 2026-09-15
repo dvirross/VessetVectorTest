@@ -176,5 +176,5 @@ Responded to three AI pre-submission reviews (statistical, journal-fit, literatu
 **Outstanding (author decisions):**
 - [ ] Verify bibliographic details of `fehring2006` (JOGNN 35(3):376–384) and `schmalenberger2021` (Psychoneuroendocrinology 123:104895) — added offline, not checked against Crossref
 - [ ] Decide whether to implement the two zero-count rules (Dilug/Haflaga Chozer Chalila) under H_W to make the 7-rule family explicit
-- [ ] Word count (~6,500) exceeds BJ's recommended 4,500 for a Case Study; consider moving §2.2, Fig 5 and Fig 9 to supplement
+- [ ] Word count (~4,900 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 and Fig 9 are candidates for a supplement
 - [ ] Locate or re-derive the raw→filtered data script for the Reproducible Research ZIP

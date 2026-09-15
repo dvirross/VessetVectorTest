@@ -247,8 +247,7 @@ and hierarchical models for sequential prediction exist \citep{bortot2010}. Quan
 halachic analyses have modelled cycle transitions with Markov chains
 \citep{ross2022markov}, examined the reliability of self-reported cycle data in a
 halachic setting \citep{ross2019reliability}, and analysed abstinence rules
-statistically \citep{ross2021statistical}; none tested pattern frequencies against a
-randomisation null.
+statistically; none tested pattern frequencies against a randomisation null.
 
 \citet{ecochard2024} report evidence of an internal circamonthly oscillator using
 multi-cohort data that include a North American cohort collected by Fehring and
@@ -737,7 +736,110 @@ Dilug $\times$ Dilug-in-Dilug      & $-0.02$ & $.819$ & $1.00$ \\
 \subsection{Simulation Validation and Sensitivity}
 \label{sec:simresults}
 
-% == VALIDATION RESULTS ==
+\paragraph{Size.}
+Table~\ref{tab:size} reports empirical rejection rates under each null for 10,000 fresh
+pseudo-observed datasets (Monte Carlo standard error about 0.002 at $\alpha = .05$).
+Every procedure holds its nominal level: the two-sided marginal tests reject between
+2.9\% and 4.8\% of the time (below nominal because the counts are discrete), the Holm
+family between 3.2\% and 3.7\%, and the joint test between 4.8\% and 5.3\% at
+$\alpha = .05$ and between 0.7\% and 1.1\% at $\alpha = .01$. The plug-in and
+split-batch versions of the joint test are indistinguishable, so re-using the replicates
+for $\hat\Sigma$ has no detectable effect at $B \geq 20{,}000$.
+
+\begin{table}[H]
+\centering
+\caption{Empirical size at nominal $\alpha = .05$ (10,000 pseudo-observed datasets per
+  null, each tested against an independent batch of 20,000 replicates). Joint test shown
+  in plug-in form ($\hat\Sigma$ and reference distribution from the same batch) and
+  split-batch form; values at $\alpha = .01$ in parentheses.}
+\label{tab:size}
+\smallskip
+\small
+\begin{tabular}{l C{1.1cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.3cm} C{1.9cm} C{1.9cm}}
+\toprule
+& \multicolumn{5}{c}{Marginal two-sided tests} & Holm & \multicolumn{2}{c}{Joint $\DM$} \\
+\cmidrule(lr){2-6}\cmidrule(lr){8-9}
+Null & Haf. & Dilug & Week & W-D & DiD & family & plug-in & split-batch \\
+\midrule
+$\HG$  & .029 & .047 & .034 & .031 & .046 & .033 & .048 (.011) & .052 (.010) \\
+$\HI$  & .048 & .038 & .040 & .038 & .046 & .032 & .049 (.007) & .047 (.007) \\
+$\HW$  & .043 & .041 & .043 & .042 & .040 & .037 & .053 (.009) & .053 (.010) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Power of the within-woman tests.}
+Table~\ref{tab:power} and Figure~\ref{fig:power} give rejection rates of the $\HW$ tests
+for datasets with genuine within-woman ordering (400 datasets per scenario; Monte Carlo
+SE $\leq 0.025$). At $\rho = 0$ and $q = 0$, which are exchangeable within woman, all
+tests reject at nominal rates under these heterogeneous marginals (joint 6.2\%, SE 1.2\%).
+Autoregressive dependence with $\rho = 0.25$ --- which raises the expected Haflaga count
+by about five events over its conditional null mean --- is detected by the joint test in
+51\% of datasets and by the Holm family in 26\%; at $\rho = 0.5$ the joint test rejects
+in 99.5\% and at $\rho = 0.75$ always. Exact-repetition persistence is detected far more
+readily: when one cycle in ten copies its predecessor ($q = 0.1$) the joint test rejects
+in 98\% of datasets and the Haflaga marginal test in 96\%; at $q \geq 0.2$ detection is
+certain. The Dilug-in-Dilug marginal has no power against persistence (repetition
+suppresses second-order progressions), and Week-Dilug has the least power against
+autoregression, as expected from their definitions.
+
+\begin{table}[H]
+\centering
+\caption{Power of the $\HW$ tests at $\alpha = .05$ against within-woman
+  temporal-dependence alternatives (400 datasets per scenario, each analysed with its own
+  2,000 within-woman permutations). $\Delta$Haf.: mean observed Haflaga count minus its
+  mean conditional null expectation. The $\rho = 0$ and $q = 0$ rows are exchangeable
+  within woman and serve as size checks.}
+\label{tab:power}
+\smallskip
+\small
+\begin{tabular}{l C{1.0cm} C{1.2cm} C{1.0cm} C{1.0cm} C{1.0cm} C{1.0cm} C{1.0cm} C{1.2cm} C{1.2cm}}
+\toprule
+Alternative & Level & $\Delta$Haf. & Haf. & Dilug & Week & W-D & DiD & Holm & Joint \\
+\midrule
+AR(1) $\rho$       & 0    & $-0.1$ & .04 & .05 & .04 & .04 & .04 & .03 & .06 \\
+                   & 0.25 & $+5.0$ & .19 & .24 & .10 & .06 & .18 & .26 & .51 \\
+                   & 0.50 & $+13.8$ & .76 & .74 & .35 & .31 & .44 & .89 & .995 \\
+                   & 0.75 & $+33.3$ & 1.00 & .97 & .78 & .67 & .73 & 1.00 & 1.00 \\
+\midrule
+Persistence $q$    & 0    & $+0.2$ & .04 & .04 & .04 & .04 & .06 & .05 & .06 \\
+                   & 0.1  & $+24.2$ & .96 & .19 & .61 & .41 & .04 & .94 & .98 \\
+                   & 0.2  & $+52.7$ & 1.00 & .60 & .96 & .86 & .04 & 1.00 & 1.00 \\
+                   & 0.3  & $+80.4$ & 1.00 & .93 & .99 & .96 & .17 & 1.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{fig10_power}
+  \caption{Rejection rates of the $\HW$ tests at $\alpha = .05$ against within-woman
+    AR(1) alternatives (left) and exact-repetition alternatives (right); the leftmost
+    point of each panel is a size check. Solid: joint five-pattern $\DM$; dashed: any
+    Holm-corrected marginal; dotted: selected marginal tests. Dash-dotted horizontal line
+    at 0.05.}
+  \label{fig:power}
+\end{figure}
+
+These results calibrate the main finding. Had within-woman ordering produced an excess
+of roughly five Haflaga events in this sample, the joint test would have detected it
+about half the time; an excess of 14 or more would almost certainly have been detected.
+The observed Haflaga count is six \emph{below} its conditional null mean. Serial
+dependence weaker than $\rho \approx 0.25$, or dependence that does not manifest as
+whole-day autoregression or exact repetition, may go undetected by these statistics.
+
+\paragraph{Sensitivity to unequal follow-up.}
+Eleven women with 20 or more cycles contribute 20\% of cycles and 35\% of Haflaga events
+(21\%, 28\%, 11\% and 30\% of Dilug, Week, Week-Dilug and Dilug-in-Dilug events); the
+Spearman correlation between a woman's cycle count and her Haflaga events is 0.28. When
+every woman is truncated to her first 12 cycles (1,289 cycles), the observed counts are
+$(19, 51, 21, 16, 21)$, all $z$ remain negative ($-1.18$, $-0.32$, $-0.89$, $-0.68$,
+$-1.78$), no marginal test approaches significance (smallest two-sided $p = .080$, for
+Dilug-in-Dilug), and the joint test gives $\DM = 2.49$, $p = .29$. Leaving out any single
+woman moves the joint $\HW$ p-value within $.055$--$.224$ and never below $.05$
+(Table~\ref{tab:stratified}); the nominal Dilug-in-Dilug marginal stays below $.05$ in
+114 of 118 leave-one-out analyses, so it is not driven by one woman, but it remains
+non-significant after Holm correction throughout.
 
 % ─── 5. Discussion ────────────────────────────────────────────────────────────
 \section{Discussion}
@@ -858,10 +960,12 @@ population need not transfer to observant Jewish women \citep{ross2022phd}. Resu
 should not be generalised without replication in the target population.
 
 \paragraph{Statistical.}
-$\HW$ tests exchangeability of each woman's observed values and nothing more general;
-its power against autoregressive alternatives is modest at realistic coefficients
-(Section~\ref{sec:simresults}), so the non-rejection is informative about
-exact-repetition mechanisms and much less so about smooth serial dependence. The
+$\HW$ tests exchangeability of each woman's observed values and nothing more general.
+The simulations (Section~\ref{sec:simresults}) show high power against exact-repetition
+mechanisms and against whole-day autoregression of moderate strength ($\rho \geq 0.5$),
+but only about 50\% power at $\rho = 0.25$ and, necessarily, none against dependence that
+leaves the distribution of these exact count statistics unchanged; the non-rejection
+should be read with those limits. The
 aggregate-count estimand weights women by follow-up; the truncation and
 leave-one-woman-out analyses indicate that this does not drive the conclusions. Sensitivity
 to the 18--54 day inclusion window could not be assessed because the excluded cycles are
@@ -884,9 +988,10 @@ patterns in 1,554 cycles from 118 women. Under population-level nulls the count 
 far in the tail, driven by a fourfold excess of Haflaga events; under a within-woman
 permutation null conditional on each woman's own cycle-length values it is not, and all
 counts lie at or below their conditional means. Simulation confirms that every test used
-holds its nominal size, that the within-woman tests have substantial power against
-exact-repetition alternatives and modest power against smooth autoregressive ones, and
-that the conclusions are insensitive to unequal follow-up. The results are consistent with
+holds its nominal size, that the within-woman tests have high power against
+exact-repetition alternatives and against autoregressive dependence of moderate strength
+(about 50\% at $\rho = 0.25$, near-certain at $\rho \geq 0.5$), and that the conclusions
+are insensitive to unequal follow-up. The results are consistent with
 between-woman heterogeneity in regularity generating the global excess and provide no
 evidence that within-woman ordering adds rule-defined events; they do not establish the
 absence of serial dependence, and they say nothing about the forecasting value of the
