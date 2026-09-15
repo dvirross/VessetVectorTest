@@ -113,7 +113,7 @@ detects significant multivariate departure from the null ($D_M = 4.52$, $p < .00
 reflecting concentration of patterns among women with lower observed cycle-length variability.
 Under the within-woman null --- the scientifically sharper test --- no pattern
 is significant (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and all observed
-counts fall \emph{below} their within-woman null means. These complementary results
+counts fall \emph{below} their within-woman null means; the sample is underpowered for individual within-woman tests (all observed counts fall below the approximate sensitivity benchmark). These complementary results
 suggest that halachic vesset rules function primarily as empirical detectors of
 individual cycle regularity, with no detectable evidence, under within-woman exchangeability,
 that temporal ordering adds structure beyond each woman's own cycle-length distribution.
@@ -319,7 +319,7 @@ Figure~\ref{fig:dist} shows the cycle length distribution and per-woman variabil
   \caption{Cycle length distribution (filtered dataset). \textit{Left}: histogram
     and kernel density estimate of raw cycle lengths $L_k$, with mean (dashed) and
     median (dotted) marked. The distribution is right-skewed (skewness $= 1.29$).
-    \textit{Right}: per-woman mean vs.\ within-person SD, coloured by cycle count.
+    \textit{Right}: per-woman mean vs.\ within-person SD, shaded by cycle count.
     Women with more cycles tend to show lower variability, consistent with selection
     of naturally regular chartists.}
   \label{fig:dist}
@@ -466,10 +466,14 @@ with p-value equal to the fraction of null replicates where the simulated $D_M$ 
 the observed value. Unlike Bonferroni--Holm correction --- which, while valid under arbitrary
 dependence, is conservative when tests are positively correlated --- this joint permutation test operates on the full count vector simultaneously,
 respecting the dependence structure. Note that this is a single global test of
-the multivariate null, not an FWER procedure across the five component tests. Inspired by King et al.\ \cite{king2018} but using distance rather
-than density as the test statistic, this approach is, to our knowledge, the first
-application of a distance-based joint permutation test to sequentially-defined
-pattern count vectors in longitudinal medical data. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
+the multivariate null, not an FWER procedure across the five component tests.
+The joint Mahalanobis test is the \textbf{primary multivariate inferential procedure};
+the individual Holm-corrected marginal tests are reported as \textbf{secondary descriptive summaries}
+of pattern-specific effect sizes and should not be used in place of the joint test
+for global inference. Conceptually related quadratic-form permutation tests exist
+(e.g., energy-distance statistics; \citealp{king2018}) --- the contribution here is
+an adaptation of this framework to dependent, sequentially-defined count vectors
+in longitudinal cycle data; to our knowledge this specific application is new. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Week-Dilug within Haflaga-30 and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model, yielding a $5 \times 5$ sample covariance matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
 
 The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. The justification is purely structural, established before inspecting the data: Week-Dilug $\subseteq$ Haflaga by set-theoretic containment (Section~\ref{sec:mathdep}), and Dilug-in-Dilug is the degree-2 polynomial neighbour of the degree-0 Haflaga in the hierarchy. These three therefore form a natural analytical unit, and the 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix (condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is reported as a robustness check.
 
@@ -481,9 +485,10 @@ the observed $D_M = 5.10$ exceeds the 99.9th percentile of the null distribution
 
 Pairwise \textbf{Spearman rank correlations} were computed between per-woman
 pattern rates (number of pattern events divided by number of cycles). Using rates
-rather than binary indicators addresses the cycle-count exposure confound: women
+rather than binary indicators mitigates the cycle-count exposure confound: women
 with more cycles have more opportunities to satisfy any pattern, and normalising
-by cycle count places all women on equal footing. Two-sided permutation $p$-values
+by cycle count reduces but does not eliminate this exposure difference (the permutation
+randomises the rate vector rather than conditioning on cycle count). Two-sided permutation $p$-values
 (50,000 permutations of one variable's rate vector) with Holm--Bonferroni correction
 across the 10 pairs were used for inference. $\alpha = .05$ throughout.
 
@@ -566,8 +571,8 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
   \centering
   \includegraphics[width=\textwidth]{fig3_null_distributions}
   \caption{Null distributions (KDE) vs.\ observed counts for each vesset pattern
-    under the permutation (blue solid) and multinomial (green dashed) null models.
-    The vertical dotted red line marks the observed count; the shaded region is the
+    under the permutation (solid curve) and multinomial (dashed curve) null models.
+    The vertical dotted line marks the observed count; the shaded region is the
     one-sided p-value area. Haflaga and Dilug show clearly right-displaced observed
     values; Dilug-in-Dilug falls on its null mean.}
   \label{fig:nulldists}
@@ -576,9 +581,9 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.88\textwidth]{fig4_zscores}
-  \caption{Effect sizes ($z$-scores) under permutation (blue) and multinomial (green)
+  \caption{Effect sizes ($z$-scores) under permutation (solid bars) and multinomial (hatched bars)
     null models. Dashed and dotted lines mark $\alpha = .05$ ($z = 1.645$) and
-    $\alpha = .01$ ($z = 2.326$) thresholds. Only Haflaga and Dilug exceed the
+    $\alpha = .01$ ($z = 2.326$) thresholds. $z$-scores differ between nulls (e.g., Week: 1.24 vs.\ 0.98) because each null has its own mean and SD. Only Haflaga and Dilug exceed the
     $\alpha = .05$ threshold; both null models are in close agreement.}
   \label{fig:zscores}
 \end{figure}
@@ -608,7 +613,7 @@ model and is not formally established here.
   \centering
   \includegraphics[width=\textwidth]{fig5_cdfs}
   \caption{Empirical CDFs of null distributions for each pattern under permutation
-    (blue solid) and multinomial (green dashed) nulls. The vertical dotted red line
+    (solid curve) and multinomial (dashed curve) nulls. The vertical dotted line
     marks the observed count; horizontal dotted lines indicate $1-p$. The close
     overlap confirms robustness to the choice of null model.}
   \label{fig:cdfs}
@@ -675,9 +680,9 @@ centred around 27 --- far above the observed count of 26 (all 118 women).
   \centering
   \includegraphics[width=\textwidth]{fig6_stratified_comparison}
   \caption{Null distributions ($H_G$, $H_{iid}$, $H_W$) for each pattern under three null models:
-    global permutation (blue, 118 women), global multinomial (green, 118 women),
-    and within-woman permutation (orange, 118 women).
-    Dashed vertical line: observed count (118 women). The joint panel shows Mahalanobis $D_M$
+    global permutation (light fill), global multinomial (medium fill),
+    and within-woman permutation (dark fill), all $N = 118$ women.
+    Dashed vertical line: observed count. The joint panel shows Mahalanobis $D_M$
     histograms; both global nulls are highly significant ($p < .001$)
     while the within-woman null is non-significant ($D_M = 2.95$, $p = .121$).}
   \label{fig:stratified}
@@ -833,7 +838,7 @@ The primary 3-pattern Mahalanobis joint test is reported in Section~\ref{sec:joi
 Figure~\ref{fig:joint3panels} provides a geometric illustration of the displacement
 of the observed count vector in the (Haflaga, Week-Dilug, Dilug-in-Dilug) subspace
 under all three null models. The three patterns serve as coordinate axes;
-the remaining two patterns (Dilug, Week) are encoded by marker size and colour.
+the remaining two patterns (Dilug, Week) are encoded by marker size and point shading.
 
 \begin{figure}[H]
   \centering
@@ -842,7 +847,7 @@ the remaining two patterns (Dilug, Week) are encoded by marker size and colour.
     \textbf{permutation} ($H_G$, top left), \textbf{multinomial} ($H_{iid}$, top right),
     and \textbf{within-woman} ($H_W$, bottom centre) nulls.
     Axes: Haflaga, Week-Dilug, Dilug-in-Dilug --- the three structurally dependent patterns.
-    Marker size encodes Dilug count; marker colour encodes Week count.
+    Marker size encodes Dilug count; marker shading encodes Week count.
     The filled circle marks the null mean; the dashed line and arrow identify
     the observed vector $(26, 18, 27)$.
     Under $H_G$ and $H_{iid}$ the observed vector lies at the periphery of the null cloud,
@@ -868,6 +873,14 @@ demonstration that serial dependence is absent: a process with autocorrelation,
 latent states, or gradual trends could still fail to reject this particular
 permutation null if such structure does not translate into additional exact vesset
 events.
+
+\paragraph{Summary of confirmatory vs exploratory results.}
+For clarity, we distinguish three categories. \textbf{Pre-specified confirmatory:}
+(i) Haflaga overrepresentation under the global null ($p < .001$ after Holm correction);
+(ii) the non-significant $H_W$ result (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$);
+(iii) the primary 3-pattern Mahalanobis joint test under the global null ($D_M = 4.52$, $p < .001$).
+\textbf{Exploratory:} Dilug ($p = .043$, Holm adj $p = .173$; hypothesis-generating only), pairwise dependence tests, and the focused joint test (motivated structurally but secondary).
+\textbf{Robustness checks:} 5-pattern joint test and multinomial null, confirming the global results are not sensitive to null model or pattern-subset choice.
 
 Under the global permutation null, which pools cycles across all 118 women,
 \textit{Haflaga} is strongly overrepresented ($z = 4.51$, $p < .001$ after
@@ -1070,7 +1083,7 @@ The NFP dataset records cycle length in whole days but not onset time of day, cr
 potential misclassification relative to the halachic requirement that all pattern
 onsets occur in the same onset period (daytime or nighttime). Both upward and downward
 biases are possible; their relative magnitude cannot be assessed, but the effect is
-expected to be approximately uniform across women and pattern types.
+expected to be approximately uniform across women and pattern types. If menstruation onset timing varies systematically with individual physiology, misclassification could differ across women; however, the within-woman null ($H_W$) conditions on each woman's observed cycle-length multiset, so any consistent within-woman shift in recorded lengths is preserved identically across observed and permuted sequences, leaving the $H_W$ test unaffected by this form of individual-level misclassification.
 
 \paragraph{Dataset scope.}
 Calendar dates are absent, precluding analysis of the 10 date-dependent vesset types;
@@ -1166,7 +1179,7 @@ The primary result is from the within-woman null: under $H_W$, \emph{no pattern 
 individually significant} (all $p \geq .722$; joint $D_M = 2.95$, $p = .121$), and
 all observed counts fall below their within-woman null means. These findings provide no evidence, under within-woman exchangeability, that
 temporal ordering within each woman's cycle sequence creates vesset patterns
-beyond what her own cycle-length distribution predicts.
+beyond what her own cycle-length distribution predicts. This is a non-detection of excess under the exchangeability null with acknowledged limited power (all five observed counts fall below the normal-theory MDC; Table~\ref{tab:power}); it should be interpreted as no detectable evidence of within-woman temporal structure under this null, not as proof of its absence.
 
 Under the global null, Haflaga is significantly overrepresented ($p < .001$ after
 Holm correction); Dilug is nominally overrepresented ($p = .043$) but does not
