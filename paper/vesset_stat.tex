@@ -17,6 +17,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{caption}
 \usepackage{float}
+\usepackage[section]{placeins}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 
@@ -57,7 +58,7 @@
 % ─── Title Page ───────────────────────────────────────────────────────────────
 \begin{titlepage}
   \centering
-  \vspace*{3cm}
+  \vspace*{1.2cm}
   {\large\bfseries Null-Model Choice for Rule-Defined Pattern Counts in Clustered
   Longitudinal Sequences:\\[4pt]
   \normalfont\large A Case Study of Jewish Halachic Menstrual Anticipation Rules\par}
@@ -71,9 +72,9 @@
     Design and Art, Ramat Gan, Israel\\[4pt]
     Department of Computer Science, SCE --- Shamoon College of Engineering,
     Beer Sheva, Israel\par}
-  \vspace{3cm}
+  \vspace{1.2cm}
   {\normalsize\bfseries Author Note\par}
-  \vspace{0.5cm}
+  \vspace{0.3cm}
   \begin{flushleft}
   Dvir Ross, Department of Software Engineering, Shenkar College of Engineering,
   Design and Art, Ramat Gan, Israel; Department of Computer Science, SCE ---
@@ -87,10 +88,7 @@
   \url{https://github.com/dvirross/VessetVectorTest}.
 
   \medskip
-  Article type: Case Study.
-
-  \medskip
-  Correspondence: \texttt{dvirross@shenkar.ac.il} or \texttt{RossDv@sce.ac.il}
+  Article type: Case Study. Correspondence: \texttt{dvirross@shenkar.ac.il} or \texttt{RossDv@sce.ac.il}
   \end{flushleft}
 \end{titlepage}
 
@@ -313,7 +311,7 @@ rule. Within-woman SD estimates also depend on the number of cycles observed (5-
 Figure~\ref{fig:dist} shows the distribution and per-woman variability;
 Figure~\ref{fig:consort} summarises the data flow.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig1_cycle_distribution}
   \caption{Cycle length distribution (filtered dataset). \textit{Left}: histogram and
@@ -322,7 +320,7 @@ Figure~\ref{fig:consort} summarises the data flow.
   \label{fig:dist}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.75\textwidth]{fig2_consort_flow}
   \caption{Participant and data flow. Source dataset \citep{fehring2013}; inclusion
@@ -357,14 +355,14 @@ available at \url{https://github.com/dvirross/VessetVectorTest}.
 
 Three nulls encode three scientific questions (Table~\ref{tab:nullmodels}).
 \begin{description}
-  \item[$\HG$ \textnormal{(global exchangeability).}] All 1,554 haflaga values are
+  \item[$\HG$ \textnormal{(global).}] All 1,554 haflaga values are
     exchangeable across women: the pooled values are permuted without replacement and
     re-assigned to women preserving each $n_i$. Tests whether the counts exceed what a
     homogeneous population would produce.
-  \item[$\HI$ \textnormal{(multinomial i.i.d.).}] Each woman's $n_i$ values are drawn
+  \item[$\HI$ \textnormal{(multinomial).}] Each woman's $n_i$ values are drawn
     independently from the pooled empirical distribution $\hat F$ \citep{ross2022phd}.
     Stronger than $\HG$ in that observed values, not only their ordering, are replaced.
-  \item[$\HW$ \textnormal{(within-woman exchangeability).}] Conditional on each woman's
+  \item[$\HW$ \textnormal{(within-woman).}] Conditional on each woman's
     observed multiset $\{H_{i,1}, \ldots, H_{i,n_i}\}$ and on $n_i$, all $n_i!$ orderings
     are equally likely. Each woman's sequence is permuted uniformly at random without
     replacement (indices are permuted, so ties are handled exactly). This is a
@@ -375,7 +373,7 @@ Three nulls encode three scientific questions (Table~\ref{tab:nullmodels}).
     process that does not produce additional exact events will not reject it.
 \end{description}
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{The three null models.}
 \label{tab:nullmodels}
@@ -410,10 +408,9 @@ the standardised departure $z_j^{(m)} = (O_j - \bar S_j^{(m)})/\sigma_j^{(m)}$, 
 two-sided Monte Carlo p-value
 \begin{equation}
   p_j^{(m)} = \min\Bigl\{1,\; 2\min\Bigl(\tfrac{b_j^+ + 1}{B+1},\, \tfrac{b_j^- + 1}{B+1}\Bigr)\Bigr\},
-  \quad b_j^+ = \#\{r : S_j^{(m,r)} \geq O_j\},\;
-  b_j^- = \#\{r : S_j^{(m,r)} \leq O_j\},
   \label{eq:ptwo}
 \end{equation}
+where $b_j^+ = \#\{r : S_j^{(m,r)} \geq O_j\}$ and $b_j^- = \#\{r : S_j^{(m,r)} \leq O_j\}$,
 following the $(b+1)/(B+1)$ convention \citep{davison1997,phipson2010}. The same
 convention is used everywhere (tables, figures, algorithm). Two-sided tests are used
 because departures in either direction are informative for these rules. Across the five
@@ -453,12 +450,63 @@ displacement geometry in three dimensions (Figure~\ref{fig:joint3panels}); the
 restriction was not pre-registered and the three-pattern result is not used for
 inference.
 
-\paragraph{Pairwise dependence (exploratory).}
-Spearman rank correlations were computed between per-woman pattern \emph{rates}
-(events divided by cycles), which reduce but do not remove the exposure difference
-between women with few and many cycles. Two-sided permutation p-values ($50{,}000$
-permutations of one rate vector) with Holm correction over the 10 pairs are reported;
-a binary (ever/never) version with Fisher's exact test serves as a robustness check.
+\subsection{Pairwise Dependence Analysis (Exploratory)}
+\label{sec:pairmethods}
+
+The joint test treats the five counts as one vector; the pairwise analysis asks a
+different and secondary question --- whether women who produce one pattern type tend to
+produce another --- as a consistency check against the relationships derived in
+Section~\ref{sec:mathdep}. Each design choice below follows from a specific feature of
+the data.
+
+\paragraph{Unit of analysis: the woman.} Pattern events are defined within a woman's
+sequence and cycles within a woman are not independent, so the woman is the only
+exchangeable unit for an association test. The analysis therefore works with 118
+per-woman summaries, not with 1,554 cycles.
+
+\paragraph{Rates rather than counts.} A woman with 45 cycles has roughly nine times as
+many opportunities to produce \emph{any} pattern as a woman with 5 cycles, so raw
+per-woman counts of two patterns are positively correlated through follow-up length
+alone. Dividing each count by the number of cycles removes the first-order part of this
+exposure effect. It does not remove it entirely --- a rate from 5 cycles is far noisier
+than one from 45, and the minimum run lengths (2, 3 or 4 cycles) mean short sequences
+have proportionally fewer eligible windows --- which is one reason the analysis is
+labelled exploratory.
+
+\paragraph{Spearman rather than Pearson correlation.} Per-woman rates are bounded at
+zero, heavily zero-inflated (most women have no event of a given type) and right-skewed.
+Pearson's coefficient would be dominated by the few women with several events; the rank
+correlation measures monotone association and is insensitive to the magnitude of those
+few values.
+
+\paragraph{Permutation rather than asymptotic p-values.} With 118 women, many tied
+zeros and skewed rates, the usual $t$-approximation for the null distribution of $r_s$
+is unreliable. Instead one rate vector is permuted across women $50{,}000$ times; this
+breaks any association between the two patterns while preserving both marginal
+distributions exactly, giving a two-sided Monte Carlo p-value (proportion of
+permutations with $|r_s^*| \geq |r_s|$, with the $(b+1)/(B+1)$ convention).
+
+\paragraph{Holm correction over ten pairs.} Five patterns yield ten pairs, of which only
+two carry a structural expectation. Holm's step-down procedure controls the family-wise
+error rate at $\alpha = .05$ over all ten and is valid under any dependence among the
+tests, which matters here because the pairs share patterns.
+
+\paragraph{Binary robustness check.} Because the rate metric depends on the exposure
+normalisation and on the few women with several events, the analysis is repeated with
+each woman coded 1/0 for ever having established each pattern. This discards magnitude
+entirely. Each pair is then a $2 \times 2$ table tested with Fisher's exact test
+(conditional on the margins) and with a permutation $\chi^2$ statistic (permuting one
+indicator across women), again Holm-corrected. Agreement between the rate-based and
+binary results indicates that the conclusions do not depend on the choice of metric.
+
+\paragraph{What a positive association can and cannot mean.} For Haflaga $\times$
+Week-Dilug a positive association is partly guaranteed: every Haflaga sequence at
+$H = 30$ contains a Week-Dilug event, so the test partly re-discovers the definitions.
+For Haflaga $\times$ Dilug-in-Dilug the definitions do not entail co-occurrence, so an
+association is an empirical observation about the women in this sample; it is compatible
+with the proximity argument but would require a generative model to attribute to it. In
+neither case does the pairwise result bear on the primary question of whether ordering
+produces excess events.
 
 \subsection{Simulation Validation and Sensitivity Analyses}
 \label{sec:simdesign}
@@ -489,7 +537,7 @@ woman truncated to her first 12 recorded cycles ($20{,}000$ replicates), and a
 leave-one-woman-out analysis recomputed the $\HW$ joint and marginal p-values 118 times
 using per-woman replicate counts.
 
-\begin{algorithm}[H]
+\begin{algorithm}[!htbp]
 \caption{Simulation pipeline}
 \label{alg:sim}
 \begin{algorithmic}[1]
@@ -533,7 +581,7 @@ Week-Dilug and Dilug-in-Dilug lie within their null ranges. The two global nulls
 closely (Figure~\ref{fig:cdfs}; largest difference in two-sided p-values 0.11, for
 Week, whose null SD is larger under $\HI$).
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{Marginal results under the global nulls ($B = 50{,}000$). Null mean and SD are
   from $\HG$; $z$ is the standardised departure under $\HG$; p-values are two-sided
@@ -555,7 +603,7 @@ Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig3_null_distributions}
   \caption{Empirical null probability mass functions under $\HG$ (left bar of each
@@ -566,7 +614,7 @@ Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
   \label{fig:nulldists}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.88\textwidth]{fig4_zscores}
   \caption{Standardised departures $z_j$ under $\HG$ (solid) and $\HI$ (hatched).
@@ -576,7 +624,7 @@ Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
   \label{fig:zscores}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig5_cdfs}
   \caption{Empirical CDFs of the $\HG$ (solid) and $\HI$ (dashed) null distributions;
@@ -592,7 +640,7 @@ counts exceed what a homogeneous population would produce, not whether each woma
 \emph{ordering} produces events beyond what her own values predict. $\HW$ asks the
 latter. Table~\ref{tab:stratified} and Figure~\ref{fig:stratified} give the results.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{Within-woman permutation null $\HW$ ($B = 50{,}000$; all 118 women; each
   woman's sequence permuted without replacement). p-values are two-sided
@@ -611,8 +659,7 @@ Week           & 32 & 33.79 & 3.88 & $-0.46$ & $.749$ & $1.00$ & $.53$--$.93$ \\
 Week-Dilug     & 18 & 20.91 & 3.22 & $-0.90$ & $.460$ & $1.00$ & $.31$--$.69$ \\
 Dilug-in-Dilug & 27 & 39.12 & 5.84 & $-2.07$ & $.038$ & $.192$ & $.014$--$.073$ \\
 \midrule
-\multicolumn{8}{l}{Joint (five patterns): $\DM = 2.93$, $p = .126$ (6,285 of 50,000
-  replicates at or beyond); split-batch $\DM = 2.95$, $p = .119$; LOO range $.055$--$.224$} \\
+\multicolumn{8}{@{}p{14.6cm}@{}}{Joint test (five patterns): $\DM = 2.93$, $p = .126$ (6,285 of 50,000 replicates at or beyond the observed value); split-batch $\DM = 2.95$, $p = .119$; leave-one-woman-out range of $p$: $.055$--$.224$.} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -630,7 +677,7 @@ $\HW$ null at 31.8, above the observed 26. The reason is that women with narrow
 cycle-length multisets generate many exact repetitions under \emph{any} ordering of their
 values; conditioning on the multiset absorbs this.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig6_stratified_comparison}
   \caption{Smoothed null densities (for visual comparison only; inference uses the
@@ -658,7 +705,7 @@ $\DM = 4.50$ ($p < .001$), $4.39$ ($p < .001$) and $2.68$ ($p = .067$) under $\H
 $\HI$ and $\HW$ respectively, consistent with the five-pattern analysis
 (Figure~\ref{fig:joint3panels}).
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig7_dm_nulldist}
   \caption{Null distributions of the five-pattern Mahalanobis distance $\DM$
@@ -667,38 +714,55 @@ $\HI$ and $\HW$ respectively, consistent with the five-pattern analysis
   \label{fig:joint1d}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig9_joint_3panels}
-  \caption{Exploratory three-pattern subspace: 3,000 null replicates (points) and the
-    observed vector $(26, 18, 27)$ in the (Haflaga, Week-Dilug, Dilug-in-Dilug) space
-    under $\HG$ (top left), $\HI$ (top right) and $\HW$ (bottom). Marker size encodes
-    the Dilug count and shade the Week count; the filled circle is the null mean and the
-    dashed segment the displacement. Primary inference uses all five patterns
-    (Table~\ref{tab:stratified}).}
+  \caption{Exploratory three-pattern subspace: 3,000 of the 50,000 null replicates
+    (points) and the observed vector $(26, 18, 27)$ in the (Haflaga, Week-Dilug,
+    Dilug-in-Dilug) space under $\HG$ (top left), $\HI$ (top right) and $\HW$ (bottom),
+    so that all five counts are visible at once: marker size encodes the Dilug count
+    (size legend in each panel) and marker shade the Week count (colour bar). The filled
+    circle is the null mean; the dashed segment is the displacement to the observed
+    vector, with its Euclidean length $D_E$ and Mahalanobis length $D_M$ in the legend.
+    Primary inference uses all five patterns (Table~\ref{tab:stratified}).}
   \label{fig:joint3panels}
 \end{figure}
 
 \subsection{Pairwise Dependence (Exploratory)}
 \label{sec:chisq}
 
-Section~\ref{sec:mathdep} predicts positive association for Haflaga $\times$ Week-Dilug
-(by containment --- an arithmetic consequence of the definitions, not an empirical
-hypothesis) and makes positive association for Haflaga $\times$ Dilug-in-Dilug plausible
-(by proximity). No prediction is made for the other eight pairs. Table~\ref{tab:chisq} and
-Figure~\ref{fig:chisq} give the rate-based Spearman correlations. Haflaga $\times$
-Dilug-in-Dilug is positive and survives Holm correction ($r_s = 0.27$,
-$p_{\text{perm}} = .004$, Holm $p = .038$); Haflaga $\times$ Week-Dilug is positive but
-does not ($r_s = 0.23$, $p_{\text{perm}} = .011$, Holm $p = .10$); the remaining pairs
-are null (all Holm $p = 1$). The binary version gives the same two smallest p-values
+The methods and their rationale are given in Section~\ref{sec:pairmethods}. Section~%
+\ref{sec:mathdep} leads to two expectations: a positive Haflaga $\times$ Week-Dilug
+association, which is partly an arithmetic consequence of containment rather than an
+empirical hypothesis, and a plausible but not entailed positive Haflaga $\times$
+Dilug-in-Dilug association from polynomial proximity. No expectation is held for the
+other eight pairs, so the analysis is a consistency check, not a search.
+
+Table~\ref{tab:chisq} and Figure~\ref{fig:chisq} give the rate-based Spearman
+correlations. Haflaga $\times$ Dilug-in-Dilug is positive and survives Holm correction
+($r_s = 0.27$, $p_{\text{perm}} = .004$, Holm $p = .038$): women with a higher rate of
+exact repetitions also tend to have a higher rate of second-order progressions, most of
+which ($|d| = 1$ in 16 of 27) are near-constant sequences. Haflaga $\times$ Week-Dilug
+is positive, as containment requires, but does not survive correction ($r_s = 0.23$,
+$p_{\text{perm}} = .011$, Holm $p = .10$); only 3 of the 26 Haflaga sequences are at
+$H = 30$, so the guaranteed part of the association is small. The remaining eight pairs
+are null (all Holm $p = 1$), including Dilug $\times$ Week-Dilug, whose weak negative
+sign ($r_s = -0.12$) is in the direction implied by their mutual exclusion but is not
+distinguishable from zero.
+
+The binary (ever/never) version reproduces the ordering and the two smallest p-values
 (Haflaga $\times$ Dilug-in-Dilug: $\chi^2 = 9.99$, $p_{\text{perm}} = .004$, Holm
 $p = .042$, Fisher $p = .004$; Haflaga $\times$ Week-Dilug: $\chi^2 = 7.26$,
-$p_{\text{perm}} = .013$, Holm $p = .12$). These associations are between per-woman
-rates, are subject to the exposure difference between women with 5 and 45 cycles, and
-are compatible with --- not evidence for --- the proximity mechanism, which would
-require an explicit generative model to test.
+$p_{\text{perm}} = .013$, Holm $p = .12$), so the findings do not depend on the rate
+normalisation or on the few women with multiple events. Three cautions apply. The
+associations are between women, not within sequences, and say nothing about temporal
+ordering. They remain exposed to the residual exposure difference between women with 5
+and 45 cycles (Section~\ref{sec:pairmethods}). And the surviving association is
+compatible with the proximity mechanism but is not evidence for it: attributing
+co-occurrence to a mechanism would require an explicit generative model for the
+sequences, which this paper does not fit.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{Pairwise Spearman correlations between per-woman pattern rates ($N = 118$),
   sorted by $p_{\text{perm}}$ (two-sided, $50{,}000$ permutations); $p_{\text{Holm}}$
@@ -724,7 +788,7 @@ Dilug $\times$ Dilug-in-Dilug      & $-0.02$ & $.819$ & $1.00$ \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{fig8_chisq_heatmap}
   \caption{Spearman correlations between per-woman pattern rates. \S: analytically
@@ -746,7 +810,7 @@ $\alpha = .05$ and between 0.7\% and 1.1\% at $\alpha = .01$. The plug-in and
 split-batch versions of the joint test are indistinguishable, so re-using the replicates
 for $\hat\Sigma$ has no detectable effect at $B \geq 20{,}000$.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{Empirical size at nominal $\alpha = .05$ (10,000 pseudo-observed datasets per
   null, each tested against an independent batch of 20,000 replicates). Joint test shown
@@ -783,7 +847,7 @@ certain. The Dilug-in-Dilug marginal has no power against persistence (repetitio
 suppresses second-order progressions), and Week-Dilug has the least power against
 autoregression, as expected from their definitions.
 
-\begin{table}[H]
+\begin{table}[!htbp]
 \centering
 \caption{Power of the $\HW$ tests at $\alpha = .05$ against within-woman
   temporal-dependence alternatives (400 datasets per scenario, each analysed with its own
@@ -810,7 +874,7 @@ Persistence $q$    & 0    & $+0.2$ & .04 & .04 & .04 & .04 & .06 & .05 & .06 \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig10_power}
   \caption{Rejection rates of the $\HW$ tests at $\alpha = .05$ against within-woman
@@ -972,11 +1036,15 @@ to the 18--54 day inclusion window could not be assessed because the excluded cy
 not in the archived file. Pairwise associations involving rare patterns (18 and 27
 events) rest on few women and are exploratory.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.88\textwidth]{figA1_heaping_diagnostic}
-  \caption{Frequency of each haflaga value $H_k$ in the analysed sample. Counts decline
-    smoothly across the Week-Dilug anchor ($H = 29$: 225; $30$: 175; $31$: 141).}
+  \caption{Frequency of each haflaga value $H_k = L_k + 1$ in the analysed sample.
+    Red bars: $H = 29$ and $H = 31$, the round-number cycle lengths $L = 28$ and
+    $L = 30$ at which digit preference would appear; orange bar: $H = 30$ ($L = 29$),
+    the Week-Dilug anchor. Counts decline smoothly through these values
+    (225, 175, 141), so the Week-Dilug count does not appear to reflect reporting
+    heaping.}
   \label{fig:heaping}
 \end{figure}
 

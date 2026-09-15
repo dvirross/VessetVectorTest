@@ -98,15 +98,21 @@ ax2.set_title('Per-woman variability', fontweight='bold')
 plt.tight_layout(); save('fig1_cycle_distribution'); plt.show()
 """)
 code(r"""
-# figA1_heaping_diagnostic: frequency of each haflaga value H (digit-preference check)
+# figA1_heaping_diagnostic: frequency of each haflaga value H, highlighting round-number cycle lengths
 vals, cnts = np.unique(H, return_counts=True)
-fig, ax = plt.subplots(figsize=(10, 4.5))
-ax.bar(vals, cnts, color=C_PERM, alpha=0.75, edgecolor='white', linewidth=0.5)
-for rnd in [29, 30, 31]:
-    ax.axvline(rnd, color=C_OBS, lw=1.2, ls='--', alpha=0.7)
-    ax.text(rnd, cnts[vals == rnd][0] + 4, f'H={rnd}: {cnts[vals == rnd][0]}', ha='center', fontsize=8, color=C_OBS)
-ax.set_xlabel('Haflaga value $H_k$ (days)'); ax.set_ylabel('Number of cycles')
-ax.set_title('Distribution of haflaga values (heaping diagnostic)', fontweight='bold')
+C_CONCERN, C_ANCHOR = '#C73E1D', '#E8912D'
+colors = [C_CONCERN if v in (29, 31) else (C_ANCHOR if v == 30 else C_PERM) for v in vals]
+fig, ax = plt.subplots(figsize=(10, 4.6))
+ax.bar(vals, cnts, color=colors, alpha=0.9, edgecolor='white', linewidth=0.5)
+for v, c in zip(vals, cnts):
+    if 28 <= v <= 32:
+        ax.text(v, c + 3, str(c), ha='center', va='bottom', fontsize=9, fontweight='bold' if v in (29, 30, 31) else 'normal')
+from matplotlib.patches import Patch
+ax.legend(handles=[Patch(color=C_CONCERN, label='$H = 29$ ($L = 28$) and $H = 31$ ($L = 30$): round-number cycle lengths'),
+                   Patch(color=C_ANCHOR, label='$H = 30$ ($L = 29$): Week-Dilug anchor'),
+                   Patch(color=C_PERM, label='Other values')], loc='upper right', fontsize=9, framealpha=0.95)
+ax.set_xlabel('Haflaga value $H_k = L_k + 1$ (days)'); ax.set_ylabel('Number of cycles')
+ax.set_title('Heaping diagnostic: counts decline smoothly through the round-number lengths and the Week-Dilug anchor', fontweight='bold', fontsize=11)
 plt.tight_layout(); save('figA1_heaping_diagnostic'); plt.show()
 print({int(v): int(c) for v, c in zip(vals, cnts) if 27 <= v <= 32})
 """)
@@ -392,34 +398,48 @@ plt.tight_layout(); save('fig8_chisq_heatmap'); plt.show()
 code(r"""
 # fig9_joint_3panels: exploratory 3-pattern subspace (Haflaga, Week-Dilug, DiD); Dilug -> size, Week -> shade
 import matplotlib.gridspec as gridspec, matplotlib.colors as mcolors
-IDX3 = [0, 3, 4]; obs3 = obs[IDX3]
+IDX3 = [0, 3, 4]; obs3 = obs[IDX3]; NS = 3000
 def stats3(arr):
     sub = arr[:, IDX3]; mu = sub.mean(0); Sinv = np.linalg.inv(np.cov(sub.T)); d = obs3 - mu
     DM = float(np.sqrt(d @ Sinv @ d)); dn = sub - mu; dm = np.sqrt(np.einsum('ni,ij,nj->n', dn, Sinv, dn))
-    return DM, (np.count_nonzero(dm >= DM) + 1)/(len(dm)+1), mu
-rng = np.random.default_rng(42); NS = 3000
-fig = plt.figure(figsize=(17, 16)); gs = gridspec.GridSpec(2, 4, figure=fig)
+    return DM, (np.count_nonzero(dm >= DM) + 1)/(len(dm)+1), mu, float(np.linalg.norm(d))
+rng = np.random.default_rng(42)
+fig = plt.figure(figsize=(17, 13)); gs = gridspec.GridSpec(2, 4, figure=fig)
 ax1 = fig.add_subplot(gs[0, 0:2], projection='3d'); ax2 = fig.add_subplot(gs[0, 2:4], projection='3d'); ax3 = fig.add_subplot(gs[1, 1:3], projection='3d')
-fig.subplots_adjust(top=0.88, bottom=0.04, left=0.02, right=0.98, hspace=0.75, wspace=0.05)
-def panel(ax, arr, label, cmap, off, shift=np.zeros(3)):
-    DM, p, mu3 = stats3(arr); sub = arr[:, IDX3]; idx_s = rng.choice(len(sub), NS, replace=False)
-    sz = 6 + 54*(arr[idx_s, 1]-arr[:, 1].min())/(arr[:, 1].max()-arr[:, 1].min()+1e-9); norm = mcolors.Normalize(arr[:, 2].min(), arr[:, 2].max())
-    ax.scatter(sub[idx_s, 0], sub[idx_s, 1], sub[idx_s, 2], c=arr[idx_s, 2], cmap=cmap, s=sz, alpha=0.28, linewidths=0, norm=norm)
-    ax.scatter(*mu3, color=C_PERM, s=130, edgecolors='white', linewidths=1.2, zorder=10, label=f'Null mean ({mu3[0]:.1f}, {mu3[1]:.1f}, {mu3[2]:.1f})')
+fig.subplots_adjust(top=0.90, bottom=0.03, left=0.02, right=0.98, hspace=0.30, wspace=0.05)
+def panel(ax, arr, label, cmap, color, off):
+    DM, p, mu3, DE = stats3(arr); sub = arr[:, IDX3]; idx_s = rng.choice(len(sub), NS, replace=False)
+    dil = arr[:, 1]; wk = arr[:, 2]
+    size_of = lambda v: 6 + 54*(v - dil.min())/(dil.max() - dil.min() + 1e-9)
+    norm = mcolors.Normalize(wk.min(), wk.max())
+    ax.scatter(sub[idx_s, 0], sub[idx_s, 1], sub[idx_s, 2], c=wk[idx_s], cmap=cmap, s=size_of(dil[idx_s]), alpha=0.28, linewidths=0, norm=norm)
+    ax.scatter(*mu3, color=C_PERM, s=130, edgecolors='white', linewidths=1.2, zorder=10)
     u = (obs3-mu3)/(np.linalg.norm(obs3-mu3)+1e-9); e = obs3 - 1.8*u
-    ax.plot([mu3[0], e[0]], [mu3[1], e[1]], [mu3[2], e[2]], color=C_OBS, lw=1.4, ls='--', label=f'$D_M={DM:.2f}$, $p={p:.3f}$')
-    ax.scatter(*obs3, c=[obs[2]], cmap=cmap, norm=norm, s=60, edgecolors='black', linewidths=1.4, alpha=0.95, zorder=20)
-    ax.text(*(obs3+off+shift), f'Observed\n({int(obs3[0])},{int(obs3[1])},{int(obs3[2])})', color=C_OBS, fontsize=8, fontweight='bold')
-    ax.set_xlabel('Haflaga', labelpad=8, fontsize=9); ax.set_ylabel('Week-Dilug', labelpad=8, fontsize=9); ax.set_zlabel('Dilug-in-Dilug', labelpad=8, fontsize=9)
-    ax.set_title(f"{label} null  $D_M={DM:.2f}$, " + ('$p<.001$' if p < .001 else f'$p={p:.3f}$'), fontsize=9, pad=14)
-    ax.legend(loc='upper left', fontsize=7.5, bbox_to_anchor=(-0.02, 1.02))
-    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm); sm.set_array([]); fig.colorbar(sm, ax=ax, shrink=0.40, pad=0.10).set_label('Week count', fontsize=8)
+    ax.plot([mu3[0], e[0]], [mu3[1], e[1]], [mu3[2], e[2]], color=C_OBS, lw=1.6, ls='--')
+    ax.scatter(*obs3, c=[obs[2]], cmap=cmap, norm=norm, s=70, edgecolors='black', linewidths=1.4, alpha=0.95, zorder=20)
+    tp = obs3 + off
+    ax.text(*tp, f'Observed\n({int(obs3[0])}, {int(obs3[1])}, {int(obs3[2])})', color=C_OBS, fontsize=9, fontweight='bold', zorder=16)
+    # arrow from label towards the observed point (projected 2D annotation)
+    from mpl_toolkits.mplot3d import proj3d
+    x0, y0, _ = proj3d.proj_transform(*obs3, ax.get_proj()); x1, y1, _ = proj3d.proj_transform(*tp, ax.get_proj())
+    ax.annotate('', xy=(x0, y0), xytext=(x1, y1), xycoords='data', textcoords='data',
+                arrowprops=dict(arrowstyle='->', color=C_OBS, lw=1.4))
+    q = np.percentile(dil, [5, 50, 95]).round().astype(int)
+    handles = [Line2D([0], [0], marker='o', ls='', color=color, alpha=0.4, markersize=7, label=f'{label} null ($N$ = {NS:,} of {len(arr):,} shown)'),
+               Line2D([0], [0], marker='o', ls='', color=C_PERM, markersize=11, label=f'Null mean ({mu3[0]:.1f}, {mu3[1]:.1f}, {mu3[2]:.1f})'),
+               Line2D([0], [0], color=C_OBS, ls='--', lw=1.6, label=f'Displacement  $D_E$ = {DE:.2f},  $D_M$ = {DM:.2f}')]
+    handles += [Line2D([0], [0], marker='o', ls='', color=color, alpha=0.5, markersize=np.sqrt(size_of(v)), label=f'Dilug = {v}  (size)') for v in q]
+    ax.legend(handles=handles, loc='upper left', fontsize=8, bbox_to_anchor=(-0.05, 1.04), framealpha=0.9)
+    ax.set_xlabel('Haflaga count', labelpad=8, fontsize=9); ax.set_ylabel('Week-Dilug count', labelpad=8, fontsize=9); ax.set_zlabel('Dilug-in-Dilug count', labelpad=8, fontsize=9)
+    p_str = '$p < .001$' if p < .001 else f'$p = {p:.3f}$'
+    ax.set_title(f'{label} null    $D_M = {DM:.2f}$,  {p_str}\nAxes: Haflaga / Week-Dilug / Dilug-in-Dilug  ·  Size: Dilug  ·  Shade: Week', fontsize=10, fontweight='bold', pad=16)
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm); sm.set_array([]); fig.colorbar(sm, ax=ax, shrink=0.40, pad=0.10).set_label('Week count (point shade)', fontsize=8)
     ax.view_init(elev=22, azim=-50)
-panel(ax1, perm_arr, 'Global permutation ($H_G$)', 'Blues', np.array([4., 3.5, 5.5]))
-panel(ax2, multi_arr, 'Multinomial ($H_{iid}$)', 'Blues', np.array([4., 3.5, 5.5]))
-panel(ax3, hw_arr, 'Within-woman ($H_W$)', 'Oranges', np.array([-12., -7., -14.]), np.array([-5., 0., -2.]))
-fig.suptitle('Exploratory 3-pattern subspace (Haflaga, Week-Dilug, Dilug-in-Dilug): null clouds vs observed vector\n'
-             'Dilug encodes point size; Week encodes point shade. Primary inference uses all five patterns (Section 4).', fontsize=10, fontweight='bold', y=0.97)
+panel(ax1, perm_arr, 'Global permutation ($H_G$)', 'Blues', C_PERM, np.array([4., 3.5, 6.]))
+panel(ax2, multi_arr, 'Multinomial ($H_{iid}$)', 'Blues', C_PERM, np.array([4., 3.5, 6.]))
+panel(ax3, hw_arr, 'Within-woman ($H_W$)', 'Oranges', C_STRAT, np.array([-16., -7., 9.]))
+fig.suptitle('Exploratory 3-pattern subspace: null clouds vs observed vector under three null models\n'
+             '(primary inference uses all five patterns; Dilug and Week are encoded as point size and shade)', fontsize=12, fontweight='bold', y=0.985)
 save('fig9_joint_3panels'); plt.show()
 """)
 
