@@ -316,7 +316,28 @@ The paper has been revised in response to three rounds of AI-generated peer revi
 - ✅ regen_heatmap.py added to paper/figures/ (permanent location, previously only in scratchpad)
 - ✅ CLAUDE.md §4 added: Notebook requirements and figure generator table
 
+### Round 7 revisions (2026-09-15) — strategic reframe + citation correction
+- ✅ **Primary/secondary hierarchy clarified throughout**: 5-pattern Mahalanobis is now unambiguously primary; 3-pattern analysis relabelled "exploratory focused subspace analysis" serving as geometric complement
+- ✅ Abstract: Updated to foreground 5-pattern primary (D_M=5.10, p<.001); removed "underpowered" → "limited sensitivity" framing
+- ✅ Methods §3.4: Rewritten so primary joint test = 5-pattern; 3-pattern = exploratory with rationale for exclusion of Dilug and Week
+- ✅ Results "Joint Multivariate Test": Replaced 3-pattern primary with 5-pattern primary result block; 3-pattern demoted to exploratory
+- ✅ "Confirmatory vs exploratory" paragraph: Fixed item (iii) to 5-pattern D_M=5.10; 3-pattern moved to exploratory list
+- ✅ Conclusion: Updated to 5-pattern primary; 3-pattern described as "exploratory focused analysis"
+- ✅ Figure 9 suptitle + caption: Reframed as exploratory geometric complement to primary 5-pattern analysis
+- ✅ Fig 4 caption: Two-sided z-thresholds (|z|=1.96, |z|=2.576); Dilug no longer described as exceeding threshold
+- ✅ Fig 6: Regenerated with per-panel two-sided H_W p-value annotations
+- ✅ New intro paragraph: Correctly names Ecochard et al. 2024 (not Cortet); notes Fehring/Schneider overlap; discloses probable dataset overlap (Marquette 1,649/159 vs present 1,554/118); explains H_W robustness to autocorrelation
+- ✅ New intro paragraph: Added Winkler 2014 and Nichols 2002 citations for exchangeability-block permutation precedent
+- ✅ Novelty claims softened in 3 locations: "first formal hypothesis test" → "applies a formal permutation-based hypothesis test… to our knowledge the first such test applied to this specific domain"
+- ✅ MDC section: Relabelled as "approximate sensitivity benchmarks"; removed power claim language
+- ✅ references.bib: Added ecochard2024, winkler2014, nichols2002 (replacing incorrect cortet2024)
+- ✅ Notebook cells patched: fig4 two-sided thresholds; fig6 H_W p-value annotations; fig9 exploratory suptitle
+- ✅ Both PDFs recompiled clean (0 errors)
+- ✅ Submission re-anonymised (0 non-anon occurrences)
+- ✅ Both Overleaf zips rebuilt
+
 **Outstanding (require author decisions):**
-- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (text response added this session; may need simulation if reviewer insists)
-- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates (MDC table is normal-theory approximation; full simulation deferred to future work)
+- [ ] Journal targeting: Submit to application journal (Statistics in Medicine, JRSS-C, BMC MRM) rather than SMMR; cover letter revision needed
+- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (text response added; simulation deferred)
+- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates (MDC table is normal-theory approximation; deferred to future work)
 - [ ] R3 Major 4 (figure): Move one figure to supplement (deferred)
