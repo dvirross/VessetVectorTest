@@ -266,15 +266,23 @@ abstinence laws. The present study applies a formal permutation-based hypothesis
 vesset patterns occur at rates distinguishable from chance in real data --- to our
 knowledge the first such test applied to this specific domain.
 
-\paragraph{Cycle-length autocorrelation.}
-Recent large-scale analyses have detected statistically significant autocorrelation in
-menstrual cycle lengths. Cortet et al.\ \cite{cortet2024} identified second- to
-fourth-order autocorrelation in a sample of over 30,000 cycles, establishing that
-cycle lengths are not serially independent at the population level. The within-woman
-exchangeability null ($H_W$) adopted here conditions on each woman's observed
-cycle-length multiset; it does not assume serial independence and remains valid in the
-presence of autocorrelation, provided such autocorrelation does not systematically
-produce additional exact vesset events within the permuted sequences.
+\paragraph{Cycle-length autocorrelation and dataset overlap.}
+Ecochard et al.\ \cite{ecochard2024} provide evidence that the ovarian cycle is
+driven by an internal circamonthly oscillator, using multi-cohort longitudinal data
+that includes a North American dataset collected by Fehring and Schneider --- two of
+whom are co-authors on both that study and the dataset analysed here
+\cite{fehring2013}. The Marquette cohort used in Ecochard et al.\ (1,649 cycles,
+159 women) is likely drawn from the same data-collection infrastructure as the
+present dataset (1,554 cycles, 118 women after exclusion criteria); they are probably
+not independent samples, though the exact overlap cannot be confirmed from the
+archived data. The key methodological consequence is that second- to fourth-order
+autocorrelation in cycle lengths --- documented in that cohort --- is expected to
+be \emph{preserved} under $H_W$: permuting within each woman's sequence preserves
+her observed cycle-length multiset, so any autocorrelation that merely modulates
+cycle lengths within that multiset does not inflate the null distribution.
+$H_W$ thus tests whether temporal \emph{ordering} produces additional exact vesset
+events beyond what the observed cycle-length distribution would predict, regardless
+of whether those lengths are autocorrelated.
 
 \paragraph{Randomization-based testing.}
 Permutation tests \cite{edgington2007,good2005} provide exact finite-sample p-values
