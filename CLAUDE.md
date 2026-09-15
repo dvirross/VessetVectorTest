@@ -1,7 +1,7 @@
 # CLAUDE.md — VessetVectorTest
 
 Statistical analysis of halachic vesset patterns in menstrual cycle data.  
-Paper targeting: **Statistical Methods in Medical Research (SAGE, Q1)**.
+Paper targeting: **Biometrical Journal (Wiley, Q1)** — shifted from SMMR 2026-09-15.
 
 > **Before every session:** ask the user what they want to do. Do not start a series of tasks without explicit instruction. Confirm intent before any chain of edits.
 
@@ -35,7 +35,49 @@ Do **not** rerun simulations unless the counting logic changes.
 
 ---
 
-## 3. Two-file LaTeX strategy
+## 3. Biometrical Journal requirements (target journal)
+
+**Submission portal**: https://authors.wiley.com/journal/BIMJ  
+**Article type**: Research Article (4500 words recommended) or Case Study (4500 words)  
+**Peer review**: Single-blind — reviewers anonymous, authors not. **Submission does NOT need to be anonymous.** The anonymous submission file (`vesset_stat_submission.tex`) is no longer needed for this journal.
+
+### Mandatory formatting constraints
+
+| Requirement | Current status | Action needed |
+|---|---|---|
+| **No footnotes** | ❌ Paper has footnotes | Convert to parenthetical text or appendix |
+| **≤5 keywords, alphabetical** | ❌ Currently 11 keywords | Reduce and sort |
+| **Unstructured abstract** | ✅ Already unstructured | No change |
+| **Data Availability Statement** | ❌ Missing | Add to manuscript |
+| **Conflict of Interest statement** | ❌ Missing | Add (state none) |
+| **IRB/ethics statement** | ❌ Missing | Add (secondary data; IRB per Fehring 2013) |
+| **APA reference style** | ❌ Currently plainnat | Change `\bibliographystyle` to `apalike` |
+| **ORCID** | ❌ Not in manuscript | Add to title page |
+| **Reproducible Research ZIP** | ✅ Code on GitHub; data public | Prepare code+data ZIP at revision |
+| **Figures as separate files** | ✅ Already PDF/PNG | Required at revision stage |
+
+### Scope fit
+
+BJ requires methodological development motivated by a real problem — our paper fits as a **Case Study** (novel application of permutation-based Mahalanobis joint test to sequentially-defined count vectors) or Research Article (the H_W within-woman permutation null + polynomial hierarchy are methodological contributions). Framing should emphasise: (1) the permutation-based Mahalanobis test as a distribution-free method for correlated count vectors, (2) the within-woman permutation null as a design-adapted exchangeability block, (3) the real-world menstrual cycle application as motivation.
+
+### Cover letter required statements (BJ-specific)
+- All authors concur with the submission
+- All funding listed in Acknowledgements (include any funding or state none)
+- The manuscript has not been submitted elsewhere
+- Ethics: secondary analysis of publicly archived dataset (Fehring et al. 2013, Marquette University); IRB approval obtained for original data collection; no direct patient contact in this study
+- Conflicts of interest: none (or disclose)
+- Closely related work (PhD thesis, prior publications): reference in cover letter; submit as "Supplementary material for review only"
+
+### Things NOT required for BJ (vs SMMR)
+- No anonymous submission file needed
+- No 250-word abstract limit (BJ has no stated limit)
+- No colour-free figure requirement (BJ does not mandate B&W figures)
+- Software names in Courier New typeface (NumPy → `NumPy`)
+- Sentences must not start with symbols or numbers
+
+---
+
+## 4. Two-file LaTeX strategy
 
 | File | Purpose |
 |---|---|
@@ -60,7 +102,7 @@ Rebuild zips whenever tex or figures change.
 
 ---
 
-## 4. Notebook: keep in sync with the paper
+## 5. Notebook: keep in sync with the paper
 
 The single source of truth for all analyses and figures is `notebooks/analysis.ipynb`.
 **After every paper change that affects an analysis or figure, update the notebook too.**
@@ -88,7 +130,7 @@ The single source of truth for all analyses and figures is `notebooks/analysis.i
 
 ---
 
-## 5. LaTeX: always compile and check
+## 6. LaTeX: always compile and check
 
 
 After every LaTeX change:
@@ -111,7 +153,7 @@ Non-fatal warnings to ignore: `titlesec` "entered in horizontal mode", `rerunfil
 
 ---
 
-## 6. Terminology — get these right
+## 7. Terminology — get these right
 
 | Wrong | Correct |
 |---|---|
@@ -134,7 +176,7 @@ H_W is a valid conditional Monte Carlo test. Not a bootstrap.
 
 ---
 
-## 7. Primary vs secondary results
+## 8. Primary vs secondary results
 
 **PRIMARY — Within-woman null H_W (all n = 118 women, seed 17, B = 50,000):**
 
@@ -168,7 +210,7 @@ Abstract and conclusion **must foreground H_W** as the central result.
 
 ---
 
-## 8. MDC / Power section
+## 9. MDC / Power section
 
 The MDC values are **approximate normal-theory sensitivity benchmarks**, not exact power guarantees.  
 Formula: MDC = μ_W + 2.487σ_W (normal-theory, 97.5th percentile approximation).  
@@ -177,7 +219,7 @@ Do not claim exact power without simulation-based curves. Future work caveat req
 
 ---
 
-## 9. Self-citations — keep them low
+## 10. Self-citations — keep them low
 
 - `ross2022phd` / `anon2022phd` → ≤ 5 total occurrences
 - `ross2021statistical` / `anon2021statistical` → ≤ 2 total occurrences
@@ -185,15 +227,16 @@ Do not claim exact power without simulation-based curves. Future work caveat req
 
 ---
 
-## 10. Figures — colour-free captions
+## 11. Figures
 
-SMMR requires figures comprehensible in black-and-white.  
-Captions must **not** mention: blue, red, green, orange, dashed red, solid blue, etc.  
-Use instead: solid, dashed, dotted, filled circle, open circle, arrow — not colour names.
+Biometrical Journal does **not** require colour-free figures (unlike SMMR).  
+Figures submitted as separate PDF/EPS/TIFF files at revision stage.  
+Figure legends must appear both beneath each image and as a complete list in the manuscript text.  
+Do not create figures using LaTeX code — use Python (matplotlib) and export as PDF.
 
 ---
 
-## 11. Key file paths
+## 12. Key file paths
 
 ```
 data/FilteredData.csv          1,554 cycles, 118 women (filtered)
@@ -215,7 +258,7 @@ Analysis repo: `github.com/dvirross/VessetVectorTest`
 
 ---
 
-## 12. Current paper status
+## 13. Current paper status
 
 The paper has been revised in response to three rounds of AI-generated peer reviews (SMMR). All critiques resolved.
 
