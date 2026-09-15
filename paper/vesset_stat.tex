@@ -107,13 +107,13 @@ We apply three complementary null models to 1,554 menstrual cycles from 118 wome
 \cite{fehring2013}: a global permutation null, a multinomial sampling null, and a
 within-woman permutation null conditioning on each woman's observed
 cycle-length multiset. Under the global null, \textit{Haflaga} is strongly
-overrepresented ($z = 4.51$, $p < .001$); the focused 3-pattern Mahalanobis test
-detects significant multivariate departure ($D_M = 4.52$, $p < .001$),
+overrepresented ($z = 4.51$, $p < .001$); a 5-pattern Mahalanobis joint test
+detects significant multivariate departure ($D_M = 5.10$, $p < .001$),
 reflecting concentration of patterns among women with lower cycle-length variability.
 Under the within-woman null --- the scientifically sharper test --- no pattern
 is significant (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$), and all observed
-counts fall \emph{below} their within-woman null means; the sample is underpowered
-for individual within-woman tests. These complementary results
+counts fall \emph{below} their within-woman null means (all below the normal-theory
+minimum detectable count; Table~\ref{tab:power}), indicating limited sensitivity. These complementary results
 suggest that halachic vesset rules function primarily as empirical detectors of
 individual cycle regularity, with no detectable evidence, under within-woman exchangeability,
 that temporal ordering adds structure beyond each woman's own cycle-length distribution.
@@ -262,22 +262,34 @@ provides a benchmark for cycle-length predictability.
 Ross \cite{ross2022markov} modelled cycle transitions with Markov chains;
 \cite{ross2019reliability} evaluated reliability of self-reported menstrual data in
 a halachic context; \cite{ross2021statistical} applied statistical analysis to
-abstinence laws. The present study adds, to our knowledge, the first formal hypothesis test of whether
-vesset patterns occur at rates distinguishable from chance in real data (no
-systematic literature search was performed to confirm priority).
+abstinence laws. The present study applies a formal permutation-based hypothesis test to ask whether
+vesset patterns occur at rates distinguishable from chance in real data --- to our
+knowledge the first such test applied to this specific domain.
+
+\paragraph{Cycle-length autocorrelation.}
+Recent large-scale analyses have detected statistically significant autocorrelation in
+menstrual cycle lengths. Cortet et al.\ \cite{cortet2024} identified second- to
+fourth-order autocorrelation in a sample of over 30,000 cycles, establishing that
+cycle lengths are not serially independent at the population level. The within-woman
+exchangeability null ($H_W$) adopted here conditions on each woman's observed
+cycle-length multiset; it does not assume serial independence and remains valid in the
+presence of autocorrelation, provided such autocorrelation does not systematically
+produce additional exact vesset events within the permuted sequences.
 
 \paragraph{Randomization-based testing.}
 Permutation tests \cite{edgington2007,good2005} provide exact finite-sample p-values
-under exchangeability. The multinomial sampling null \cite{ross2022phd} draws each
+under exchangeability. Exchangeability-block permutation --- permuting within groups
+while preserving group structure --- is a well-established technique in neuroimaging
+\cite{winkler2014,nichols2002} and is the statistical foundation of $H_W$ in the
+present study. The multinomial sampling null \cite{ross2022phd} draws each
 woman's cycles independently from the fitted empirical distribution, directly encoding
 the null hypothesis of cycle independence. For the joint test, King et al.\
 \cite{king2018} proposed a general framework for testing a vector of statistics via
 simulation of the joint density, using a multivariate kernel density estimator to
 define a smallest-acceptance-region test. The present joint test differs: we use the
-Euclidean distance from the null mean vector as the test statistic, which is simpler,
-requires no density estimation, and has an intuitive geometric interpretation. A formal
-theoretical comparison and analysis of the distance-based approach is planned in future
-work \cite{ross2022phd}.
+Mahalanobis distance from the null mean vector as the test statistic, which is simpler,
+requires no density estimation, and accounts for inter-pattern covariance. A formal
+theoretical comparison is planned in future work \cite{ross2022phd}.
 
 % ─── 3. Methods ───────────────────────────────────────────────────────────────
 \section{Methods}
@@ -489,41 +501,16 @@ for global inference. Conceptually related quadratic-form permutation tests exis
 an adaptation of this framework to dependent, sequentially-defined count vectors
 in longitudinal cycle data; to our knowledge this specific application is new. Mahalanobis distance correctly standardises each component by its null variance and accounts for inter-component correlations. Non-diagonal terms in $\hat{\Sigma}$ are expected a priori: the set-theoretic containment of Haflaga-30 within Week-Dilug and the polynomial proximity of Dilug-in-Dilug to Haflaga (Section~\ref{sec:mathdep}) imply that the five pattern counts are not marginally independent, so a diagonal standardisation would misrepresent the dependence structure. $\hat{\Sigma}^{(m)}$ is estimated empirically from the $B = 50{,}000$ simulated count vectors under each null model: $\hat{\Sigma}^{(m)} = \frac{1}{B-1}\sum_{r=1}^{B}(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})^\top$, where $\mathbf{S}^{(m,r)}$ is the count vector from replicate $r$ and $\bar{\mathbf{S}}^{(m)}$ is the Monte Carlo mean; this is the sample covariance of the null replicates, not the sample covariance of the observations. The result is a $5 \times 5$ matrix. Condition numbers of 4.4 (permutation null) and 5.4 (multinomial null) confirm that the matrix is well-conditioned and the inversion is numerically stable; note that a low condition number establishes numerical stability of the inversion, not that Mahalanobis distance is the most powerful statistic for every scientific alternative (the statistic detects significant departure in any direction, not specifically the positive direction; the direction of displacement is separately reported via the individual $z$-scores). The Euclidean displacement $D_E^{(m)} = \|\mathbf{O} - \boldsymbol{\mu}^{(m)}\|_2$ is shown geometrically in the figures as the length of the dashed displacement line.
 
-The \textbf{primary joint test} is the focused Mahalanobis test restricted to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug. This choice is justified on purely structural grounds, established before inspecting the data:
+The \textbf{primary joint test} applies Eq.~\ref{eq:mahalanobis} to all five patterns simultaneously, using the full $5\times5$ empirical null covariance $\hat{\Sigma}$ (condition numbers 4.4--5.4; well-conditioned). The null hypothesis $H_0^{(5)}$ states that the observed 5-pattern count vector follows the joint null distribution under $H_W$ (or $H_G$ / $H_{iid}$); the alternative $H_1^{(5)}$ is that the observed vector is displaced from the null centre in any direction.
 
+An \textbf{exploratory focused analysis} restricts the joint test to the three structurally dependent patterns --- Haflaga, Week-Dilug, and Dilug-in-Dilug --- to visualise the displacement geometry in three dimensions (Figure~\ref{fig:joint3panels}). This subspace is motivated by algebraic structure established prior to data inspection:
 \begin{itemize}
-  \item \textbf{Structural basis for inclusion.} Haflaga-30 $\subseteq$ Week-Dilug by
-    set-theoretic containment (Section~\ref{sec:mathdep}), creating a deterministic
-    co-occurrence dependency. Dilug-in-Dilug is the degree-2 polynomial neighbour of
-    degree-0 Haflaga in the hierarchy, creating an algebraic proximity. These three
-    patterns therefore form a natural analytical unit with prior structural predictions
-    for their joint behaviour.
-  \item \textbf{Structural basis for exclusion.} Dilug (degree-1) and Week (degree-0
-    anchored to a calendar grid) have no structural containment or polynomial proximity
-    relationship with the three included patterns. Dilug yields a non-significant marginal result (Holm adj $p = .346$) with no analytical prediction
-    for its relationship to the primary triad; including it would conflate
-    structurally motivated testing with a pattern that is only hypothesis-generating
-    at this stage.
+  \item Haflaga-30 $\subseteq$ Week-Dilug by set-theoretic containment
+    (Section~\ref{sec:mathdep}), creating a deterministic co-occurrence dependency.
+  \item Dilug-in-Dilug is the degree-2 polynomial neighbour of degree-0 Haflaga,
+    creating algebraic proximity.
 \end{itemize}
-
-\textbf{Null and alternative.} The 3-pattern null hypothesis $H_0^{(3)}$ states that the
-observed count vector $(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ follows the
-joint null distribution of the corresponding 3-pattern subvector under $H_W$ (or $H_G$
-for the global variant) --- that is, $D_M^{(3)} \leq D_M^{(3,r)}$ for the fraction of
-null replicates that determines the $p$-value. The alternative $H_1^{(3)}$ is that the
-observed vector is displaced from the null centre in some direction --- at least one count
-exceeds its null expectation once inter-pattern correlations are accounted for via
-$\hat{\Sigma}^{(3)}$ (the $3\times3$ submatrix of the full null covariance). The statistic
-is sensitive to displacement in any direction, with Haflaga receiving greater weight due to
-its smaller null variance. The Mahalanobis test is particularly apt here because the three
-patterns are non-independent by construction (Section~\ref{sec:mathdep}), and the test
-accounts for this dependence structure through $\hat{\Sigma}^{(3)}$ rather than requiring
-independence.
-
-The 3-pattern Mahalanobis statistic applies Eq.~\ref{eq:mahalanobis} to the subvector
-$(O_{\text{Haf}}, O_{\text{WD}}, O_{\text{DiD}})$ with a $3\times3$ covariance submatrix
-(condition number 2.6; well-conditioned). The \textbf{5-pattern test} over all patterns is
-reported as a robustness check.
+This analysis is designated exploratory because the structural motivation does not constitute a pre-registered exclusion of Dilug and Week; the primary inference uses all five patterns.
 
 \paragraph{Sensitivity.}
 The joint test is sensitive primarily to the Haflaga component, which contributes
@@ -645,9 +632,10 @@ Dilug-in-Dilug  & 27 & 27.17 & 5.04 & $-0.03$ & $.543$           & $.544$       
   \centering
   \includegraphics[width=0.88\textwidth]{fig4_zscores}
   \caption{Effect sizes ($z$-scores) under permutation (solid bars) and multinomial (hatched bars)
-    null models. Dashed and dotted lines mark $\alpha = .05$ ($z = 1.645$) and
-    $\alpha = .01$ ($z = 2.326$) thresholds. $z$-scores differ between nulls (e.g., Week: 1.24 vs.\ 0.98) because each null has its own mean and SD. Only Haflaga and Dilug exceed the
-    $\alpha = .05$ threshold; both null models are in close agreement.}
+    null models. Dashed and dotted lines mark two-sided $\alpha = .05$ ($|z| = 1.96$) and
+    $\alpha = .01$ ($|z| = 2.576$) thresholds (two-sided tests; see Table~\ref{tab:results}).
+    $z$-scores differ between nulls (e.g., Week: 1.24 vs.\ 0.98) because each null has its own mean and SD.
+    Only Haflaga exceeds the $\alpha = .05$ threshold; both null models are in close agreement.}
   \label{fig:zscores}
 \end{figure}
 
@@ -774,21 +762,23 @@ vesset rules --- how accurately they predict the next menstruation onset, and at
 \subsection{Joint Multivariate Test}
 \label{sec:joint}
 
-\paragraph{Primary test: focused 3-pattern Mahalanobis.}
-The primary joint test operates on the structurally dependent subvector
-(Haflaga, Week-Dilug, Dilug-in-Dilug), justified on analytical grounds prior to
-data inspection (Section~\ref{sec:inference}). The 3-pattern Mahalanobis statistic
-was $D_M = 4.52$ ($p < .001$) under the permutation null and $D_M = 4.36$ ($p < .001$)
-under the multinomial null. Figure~\ref{fig:joint3panels} illustrates
-the displacement of the observed 3-pattern vector from the respective null clouds
-under all three null models, using these three patterns as the coordinate axes.
-
-\paragraph{Robustness: 5-pattern Mahalanobis.}
-Extending the joint test to all five patterns yields $D_M = 5.10$ ($p < .001$, permutation)
-and $D_M = 4.84$ ($p < .001$, multinomial).
+\paragraph{Primary test: 5-pattern Mahalanobis.}
+The primary joint test applies to all five patterns simultaneously (Section~\ref{sec:inference}).
+Under the global permutation null, $D_M = 5.10$ ($p < .001$; 0 of 50,000 null replicates
+exceeded the observed $D_M$); under the multinomial null, $D_M = 4.84$ ($p < .001$; 0 of 50,000).
+Under the within-woman null --- the primary scientific test --- $D_M = 2.95$ ($p = .121$;
+6,037 of 50,000 null replicates exceeded the observed $D_M$), confirming non-detection of
+excess patterning under within-woman exchangeability.
 Figure~\ref{fig:joint1d} shows the 5-pattern Mahalanobis null distributions for all three null models.
-The agreement across all variants confirms that the primary result is robust
-to the choice of pattern subset and null model.
+
+\paragraph{Exploratory: focused 3-pattern subspace.}
+An exploratory analysis restricts the joint test to the three structurally dependent
+patterns (Haflaga, Week-Dilug, Dilug-in-Dilug; see Section~\ref{sec:inference}).
+Under the global permutation null, $D_M = 4.52$ ($p < .001$); under the multinomial null,
+$D_M = 4.36$ ($p < .001$); under the within-woman null, $D_M = 2.68$ ($p = .066$).
+Figure~\ref{fig:joint3panels} illustrates the displacement geometry in this 3-pattern subspace.
+Results are consistent with the primary 5-pattern analysis; the slight difference
+($D_M^{H_W} = 2.68$ vs.\ $2.95$) reflects exclusion of Dilug and Week from the subspace.
 
 \begin{figure}[H]
   \centering
@@ -905,35 +895,36 @@ Dilug $\times$ Dilug-in-Dilug     & $-$0.02 & .815 & 1.000 & $-$ \\
   \label{fig:chisq}
 \end{figure}
 
-The primary 3-pattern Mahalanobis joint test is reported in Section~\ref{sec:joint}.
+The primary 5-pattern Mahalanobis joint test is reported in Section~\ref{sec:joint}.
 Figure~\ref{fig:joint3panels} provides a geometric illustration of the displacement
-of the observed count vector in the (Haflaga, Week-Dilug, Dilug-in-Dilug) subspace
+of the observed count vector in the exploratory (Haflaga, Week-Dilug, Dilug-in-Dilug) subspace
 under all three null models. The three patterns serve as coordinate axes;
 the remaining two patterns (Dilug, Week) are encoded by marker size and point shading.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{fig9_joint_3panels}
-  \caption{Geometric illustration of the focused 3-pattern joint test under the
+  \caption{Exploratory focused subspace analysis: displacement of the observed count
+    vector $(26, 18, 27)$ in the (Haflaga, Week-Dilug, Dilug-in-Dilug) subspace under the
     \textbf{permutation} ($H_G$, top left), \textbf{multinomial} ($H_{iid}$, top right),
     and \textbf{within-woman} ($H_W$, bottom centre) nulls.
-    Axes: Haflaga, Week-Dilug, Dilug-in-Dilug --- the three structurally dependent patterns.
     Marker size encodes Dilug count; marker shading encodes Week count.
-    The filled circle marks the null mean; the dashed line and arrow identify
-    the observed vector $(26, 18, 27)$.
-    Under $H_G$ and $H_{iid}$ the observed vector lies at the periphery of the null cloud,
-    displaced primarily along the Haflaga axis ($D_M = 4.52$ and $4.36$, both $p < .001$).
-    Under $H_W$ the observed vector falls within the null cloud and the displacement
-    is non-significant (3-pattern $D_M = 2.68$, $p = .066$), consistent with the
-    primary result ($H_W$ 5-pattern: $D_M = 2.95$, $p = .121$; Table~\ref{tab:stratified}).}
+    The filled circle marks the null mean; the dashed line identifies the displacement.
+    Under $H_G$ and $H_{iid}$ the observed vector lies at the periphery of the null cloud
+    (3-pattern $D_M = 4.52$ and $4.36$, both $p < .001$; primary 5-pattern $D_M = 5.10$
+    and $4.84$). Under $H_W$ the observed vector falls within the null cloud (3-pattern
+    $D_M = 2.68$, $p = .066$; primary 5-pattern $D_M = 2.95$, $p = .121$;
+    Table~\ref{tab:stratified}). This figure is an exploratory geometric complement
+    to the primary 5-pattern analysis.}
   \label{fig:joint3panels}
 \end{figure}
 
 % ─── 5. Discussion ────────────────────────────────────────────────────────────
 \section{Discussion}
 
-This study provides the first formal statistical test of whether halachic vesset
-patterns occur at rates distinguishable from chance in empirical menstrual cycle data. The central result is
+This study applies a formal permutation-based statistical framework to ask whether halachic vesset
+patterns occur at rates distinguishable from chance in empirical menstrual cycle data --- to our
+knowledge the first such test applied to this specific domain. The central result is
 from the within-woman permutation null ($H_W$): no pattern is individually significant
 after Holm correction (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$), and all observed counts fall
 below their within-woman null means. We found no evidence that the temporal ordering
@@ -948,10 +939,10 @@ events.
 \paragraph{Summary of confirmatory vs exploratory results.}
 For clarity, we distinguish three categories. \textbf{Pre-specified confirmatory:}
 (i) Haflaga overrepresentation under the global null ($p < .001$ after Holm correction);
-(ii) the non-significant $H_W$ result (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$);
-(iii) the primary 3-pattern Mahalanobis joint test under the global null ($D_M = 4.52$, $p < .001$).
-\textbf{Exploratory:} Dilug ($p = .087$, Holm adj $p = .346$; hypothesis-generating only), pairwise dependence tests, and the focused joint test (motivated structurally but secondary).
-\textbf{Robustness checks:} 5-pattern joint test and multinomial null, confirming the global results are not sensitive to null model or pattern-subset choice.
+(ii) the non-significant $H_W$ result (all Holm-corrected $p \geq .198$; joint 5-pattern $D_M = 2.95$, $p = .121$);
+(iii) the 5-pattern Mahalanobis joint test under the global null ($D_M = 5.10$, $p < .001$).
+\textbf{Exploratory:} Dilug ($p = .087$, Holm adj $p = .346$; hypothesis-generating only), pairwise dependence tests, and the focused 3-pattern subspace analysis (geometric visualization of the structurally dependent triad).
+\textbf{Robustness checks:} multinomial null, confirming the global results are not sensitive to null model choice.
 
 Under the global permutation null, which pools cycles across all 118 women,
 \textit{Haflaga} is strongly overrepresented ($z = 4.51$, $p < .001$ after
@@ -1012,14 +1003,14 @@ covariance $\hat{\Sigma}$, accounting for inter-pattern correlations (condition 
 Haflaga has the smallest null SD (3.26 vs.\ 6.60 for Dilug), so its deviation
 $(26 - 11.30) = 14.7$ units yields the largest standardised contribution.
 
-The primary result --- the focused 3-pattern Mahalanobis test --- yields $D_M = 4.52$
-($p < .001$; 1 of 50,000 null replicates exceeded the observed $D_M$) under the
-permutation null and $D_M = 4.36$ ($p < .001$; 0 of 50,000 exceeded) under the
-multinomial null. The 5-pattern robustness check yields $D_M = 5.10$ ($p < .001$,
-permutation; 0 of 50,000 exceeded) and $D_M = 4.84$ ($p < .001$, multinomial; 0 of
-50,000 exceeded). All four variants yield highly significant results, confirming that
-the primary finding is robust to the choice of pattern subset. Haflaga receives appropriately up-weighted contribution via the
-Mahalanobis metric, reflecting its larger standardised excess ($z = 4.51$).
+The primary 5-pattern Mahalanobis test yields $D_M = 5.10$ ($p < .001$;
+0 of 50,000 null replicates exceeded the observed $D_M$) under the permutation null
+and $D_M = 4.84$ ($p < .001$; 0 of 50,000 exceeded) under the multinomial null.
+An exploratory focused 3-pattern analysis (Haflaga, Week-Dilug, Dilug-in-Dilug)
+yields $D_M = 4.52$ ($p < .001$, permutation; 1 of 50,000 exceeded) and $D_M = 4.36$
+($p < .001$, multinomial; 0 of 50,000 exceeded), consistent with the primary result.
+Haflaga receives appropriately up-weighted contribution via the Mahalanobis metric,
+reflecting its larger standardised excess ($z = 4.51$).
 
 \paragraph{Simulation algorithm.}
 The covariance matrix $\hat{\Sigma}$ is estimated once per null model from the same
@@ -1176,18 +1167,19 @@ be interpreted as exploratory, given the limited number of women establishing th
 patterns. The Haflaga $\times$ Dilug-in-Dilug association that survives Holm correction
 is further supported by the polynomial-proximity argument (Section~\ref{sec:mathdep}),
 providing structural justification beyond the empirical correlation.
-With a mean of 13.2 cycles per woman, longer patterns such as Dilug-in-Dilug are
-likely underpowered. As an approximate sensitivity analysis, we computed a minimum
-detectable count (MDC) for each pattern under $H_W$ at nominal 80\% power and
-$\alpha = .05$ (two-sided), using a normal-theory location-shift approximation:
+As an approximate sensitivity benchmark, we computed a minimum detectable count (MDC)
+for each pattern under $H_W$, quantifying the minimum count that would be detectable
+at $\alpha = .05$ (two-sided) with 80\% sensitivity under a normal-theory location-shift approximation:
 \begin{equation}
   \text{MDC} \approx \mu_W + (z_{0.025} + z_{0.80})\,\sigma_W
              = \mu_W + 2.802\,\sigma_W.
 \end{equation}
-MDC values are approximate normal-theory benchmarks, not exact power guarantees
-(Table~\ref{tab:power}); a simulation-based power analysis is deferred to future work.
-All five observed counts fall below their MDC, consistent with limited sensitivity at
-$N = 118$; the joint $H_W$ test is likewise non-significant ($D_M = 2.95$, $p = .121$).
+MDC values are normal-theory effect-size benchmarks --- approximate positive-shift sensitivity thresholds, not
+exact power guarantees or evidence of the study being underpowered in a prospective sense
+(Table~\ref{tab:power}); a simulation-based sensitivity analysis is deferred to future work.
+All five observed counts fall below their MDC, indicating that effects of the magnitude
+studied here would require a larger dataset to detect reliably at this sensitivity level;
+the joint $H_W$ test is likewise non-significant ($D_M = 2.95$, $p = .121$).
 
 \begin{figure}[H]
   \centering
@@ -1227,9 +1219,9 @@ Dilug-in-Dilug & 27 & 39.14 & 5.86 & 49.0 & 56 & $-2.07$ \\
 % ─── 6. Conclusion ────────────────────────────────────────────────────────────
 \section{Conclusion}
 
-This study provides, to our knowledge, the first formal statistical test of whether halachic vesset
-patterns occur at rates distinguishable from chance in empirical menstrual cycle data (no
-systematic literature search was performed to confirm priority). The five patterns
+This study applies a formal permutation-based statistical framework to ask whether halachic vesset
+patterns occur at rates distinguishable from chance in empirical menstrual cycle data --- to our
+knowledge the first such analysis applied to this specific domain. The five patterns
 analysed form a polynomial hierarchy whose structure generates algebraic structural
 relationships --- one a strict logical containment (Haflaga-30 $\subseteq$ Week-Dilug),
 one an algebraic approximation (Haflaga--Dilug-in-Dilug proximity) --- explored
@@ -1241,7 +1233,7 @@ The primary result is from the within-woman null: under $H_W$, \emph{no pattern 
 individually significant} (all Holm-corrected $p \geq .198$; joint $D_M = 2.95$, $p = .121$), and
 all observed counts fall below their within-woman null means. These findings provide no evidence, under within-woman exchangeability, that
 temporal ordering within each woman's cycle sequence creates vesset patterns
-beyond what her own cycle-length distribution predicts. This is a non-detection of excess under the exchangeability null with acknowledged limited power (all five observed counts fall below the normal-theory MDC; Table~\ref{tab:power}); it should be interpreted as no detectable evidence of within-woman temporal structure under this null, not as proof of its absence.
+beyond what her own cycle-length distribution predicts. This is a non-detection of excess under the exchangeability null; all five observed counts fall below the normal-theory sensitivity benchmark (Table~\ref{tab:power}), indicating that effects of this magnitude would require a larger dataset to detect reliably. This result should be interpreted as no detectable evidence of within-woman temporal structure under this null, not as proof of its absence.
 
 Under the global null, Haflaga is significantly overrepresented ($p < .001$ after
 Holm correction); Dilug is not significant ($p = .087$, Holm adj $p = .346$) and should be treated as hypothesis-generating pending
@@ -1251,11 +1243,10 @@ reached the observed Haflaga count). This global result is best interpreted as a
 descriptive decomposition: it demonstrates that women who establish Haflaga are
 drawn from a subpopulation with lower cycle-length variability, a population-level
 heterogeneity effect that does not, by itself, constitute evidence of within-woman
-temporal predictability. The primary focused joint test on the three structurally dependent patterns
-(Haflaga, Week-Dilug, Dilug-in-Dilug) --- justified by set-theoretic containment
-and polynomial-hierarchy proximity prior to data inspection --- yields $D_M = 4.52$,
-$p < .001$. The 5-pattern robustness check ($D_M = 5.10$, $p < .001$) confirms
-the result is not sensitive to pattern-subset choice. Together, these results suggest that halachic vesset rules function
+temporal predictability. The primary 5-pattern Mahalanobis joint test yields $D_M = 5.10$, $p < .001$
+under the global null, driven primarily by Haflaga. An exploratory focused analysis
+restricted to the three structurally dependent patterns (Haflaga, Week-Dilug,
+Dilug-in-Dilug) yields $D_M = 4.52$, $p < .001$, consistent with the primary result. Together, these results suggest that halachic vesset rules function
 primarily as empirical detectors of individual cycle regularity: the rules identify
 the subset of women with lower observed cycle-length variability and formalise that
 regularity as an anticipatory pattern. The joint distance-based permutation test, adapted here for dependent count vectors
