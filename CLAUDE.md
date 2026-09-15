@@ -111,11 +111,11 @@ H_W is a valid conditional Monte Carlo test. Not a bootstrap.
 
 | Pattern | Obs | μ_W | σ_W | z | p |
 |---|---|---|---|---|---|
-| Haflaga | 26 | 31.85 | 4.68 | −1.25 | .916 |
-| Dilug | 61 | 67.07 | 7.36 | −0.83 | .813 |
-| Week | 32 | 33.81 | 3.88 | −0.47 | .722 |
-| Week-Dilug | 18 | 20.94 | 3.22 | −0.91 | .857 |
-| Dilug-in-Dilug | 27 | 39.14 | 5.86 | −2.07 | .988 |
+| Haflaga | 26 | 31.85 | 4.68 | −1.25 | .249 |
+| Dilug | 61 | 67.07 | 7.36 | −0.83 | .455 |
+| Week | 32 | 33.81 | 3.88 | −0.47 | .741 |
+| Week-Dilug | 18 | 20.94 | 3.22 | −0.91 | .454 |
+| Dilug-in-Dilug | 27 | 39.14 | 5.86 | −2.07 | .040 (Holm adj .198) |
 | **Joint** | — | — | — | D_M = 2.95 | p = .121 |
 
 All patterns non-significant. All observed counts below null means.  
@@ -123,7 +123,7 @@ Abstract and conclusion **must foreground H_W** as the central result.
 
 **SECONDARY — Global null H_G (permutation, seed 17, B = 50,000):**
 - Haflaga: z = 4.511, p < .001 (Holm adj p = .0003) ✓ significant
-- Dilug: z = 1.830, p = .043 — **exploratory only** (Holm adj p = .173, does not survive)
+- Dilug: z = 1.830, p = .087 — **exploratory only** (Holm adj p = .346, does not survive; two-sided)
 - Week: z = 1.238, p = .108
 - Week-Dilug: z = 0.529, p = .305
 - Dilug-in-Dilug: z = −0.033, p = .521
@@ -261,8 +261,23 @@ The paper has been revised in response to three rounds of AI-generated peer revi
 - ✅ Submission re-anonymised (0 non-anon occurrences)
 - ✅ Both Overleaf zips rebuilt
 
+### Round 5 revisions (2026-09-15) — two-sided switch + audit
+- ✅ Abstract trimmed to ~217 words (was ~283; SMMR limit 250)
+- ✅ Hotelling's T² paragraph added: normality assumption violated by small integer counts; parametric form inappropriate
+- ✅ max-T paragraph added: less sensitive to multi-pattern displacement; same conclusion in our data
+- ✅ **All marginal tests switched to two-sided p-values** (scientific rationale: patterns confirm regularity in either direction; DiD underrepresentation is informative)
+- ✅ Two-sided p-value formula added to Methods and Algorithm pseudocode
+- ✅ H_W table p-values updated: .916/.813/.722/.857/.988 → .249/.455/.741/.454/.040
+- ✅ H_G Dilug: p=.043 (bold) → p=.087 (not significant); Holm adj .173 → .346; throughout text
+- ✅ DiD H_W note rewritten: underrepresentation consistent with DiD detecting genuine second-order cycle regularity (was: one-sided dismissal)
+- ✅ "all p ≥ .722" → "all Holm-corrected p ≥ .198" in abstract, results, conclusion
+- ✅ MDC formula: z_{0.025}+z_{0.80}=2.802 (was z_{0.05}+z_{0.80}=2.487, one-sided)
+- ✅ MDC table values updated: Haflaga/Week 44→45, Dilug 86→88, WD 29→30, DiD 54→56
+- ✅ Figure cross-reference audit completed: fig:consort had no in-text \ref — added pointer; H_W table caption p-value formula updated to two-sided
+- ✅ \dag (†, cross shape) replaced with $^*$ (asterisk) in pairwise table and caption
+- ✅ Both PDFs recompiled, anonymisation verified (0 non-anon occurrences), both Overleaf zips rebuilt
+
 **Outstanding (require author decisions):**
-- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (substantial new analysis — needs author understanding first)
-- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates (needs author understanding first)
+- [ ] R1 Major 1: New simulation study — power comparison vs Hotelling's T², max-T, Bonferroni-Holm (text response added this session; may need simulation if reviewer insists)
+- [ ] R1 Major 2 + R2-2.8: Simulation-based power analysis injecting synthetic vesset events at known prevalence rates (MDC table is normal-theory approximation; full simulation deferred to future work)
 - [ ] R3 Major 4 (figure): Move one figure to supplement (deferred)
-- [ ] Figure cross-reference audit: verify all "Figure X" in text match actual captions
