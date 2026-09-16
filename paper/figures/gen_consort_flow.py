@@ -117,11 +117,11 @@ v_arrow(SRC_VB, ELIG_VT)
 
 # 2. Assessed for eligibility
 draw_main_box(ELIG_CY, ELIG_BH,
-    'Assessed for eligibility\n(regularly cycling women of reproductive age)')
+    'Trial eligibility (NCT00843336): women aged 18–42,\nself-reported cycle lengths 21–42 days')
 
 # Exclusion 1
 draw_excl_box(EXCL1_Y, 1.00,
-    'Excluded:\n• Menopausal / perimenopausal\n• Postpartum\n• Hormonal use',
+    'Trial exclusions:\n• Recent hormonal contraception\n• Breastfeeding, pregnancy\n• Known fertility problems, smoking',
     fontsize=8.5)
 h_excl_arrow(EXCL1_Y)
 
