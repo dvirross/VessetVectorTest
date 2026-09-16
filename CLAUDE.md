@@ -31,8 +31,18 @@ scripts/rerun_nulls.py     -> results/null_replicates.npz
 scripts/sim_validation.py  -> results/sim_validation.npz
 scripts/postprocess.py     -> results/summary.json (prints all paper numbers)
 scripts/build_notebook.py  -> notebooks/analysis.ipynb (then execute with nbconvert to regenerate figures)
+scripts/analysis_engine.py dataset-agnostic engine (Dataset container, run_nulls, summarise, Validator,
+                           run_validation, restricted_support); rerun_nulls/postprocess/sim_validation are
+                           thin wrappers around it (verified bit-identical to the cached results, 2026-09-16)
+scripts/run_external.py    one-command external replication: data/external/NAME/sequences.csv ->
+                           results/external/NAME/ (never touches results/*.npz or summary.json)
+scripts/external/prepare_utah.py  Utah Hive deposit (DOI 10.7278/S50d-4gxs-s4hj) -> sequences.csv,
+                           pre-specified rules in the docstring; see data/external/utah/README.md
+scripts/external_figures.py       figE1-E6 for external runs (paper palette)
 ```
 Any change to counting logic goes in `scripts/patterns.py` only; the notebook imports it.
+External replication status and audits: `external_replication/*.md` (the public Clue
+`cycle_lengths.npz` is simulated — do not use it as real data).
 
 ---
 
