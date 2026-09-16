@@ -238,8 +238,10 @@ the first day of menstruation $k+1$, following halachic convention
     $(H_k - H_{k-1}) - (H_{k-1} - H_{k-2}) = (H_{k-1} - H_{k-2}) - (H_{k-2} - H_{k-3})
     = d \neq 0$. Degree-2 (quadratic); minimum run 4.
   \item[\textit{Week.}] $H_k = H_{k-1} \in \mathcal{W}$, where
-    $\mathcal{W} = \{H_{\min}+3, H_{\min}+10, \ldots\}$ are values spaced 7 apart
-    (same weekday at each onset). Degree-0 anchored to weekly values; minimum run 2.
+    $\mathcal{W} = \{7n + 1 : n \in \mathbb{N}^{+}\}$ is the set of haflaga values
+    whose cycle length $L = H - 1$ is a multiple of 7, so that successive onsets fall on
+    the same weekday; in these data $\mathcal{W} \cap [19, 55] = \{22, 29, 36, 43,
+    50\}$. Degree-0 anchored to weekly values; minimum run 2.
   \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$. A haflaga of 30 (29 days, four weeks
     plus one day) is the unique interval for which each successive onset falls one
     weekday later, producing an arithmetic progression of weekdays --- hence the name
@@ -391,7 +393,7 @@ across women, and the woman boundaries $(s_i, f_i)$ are enforced in every counti
 Each function counts \emph{distinct maximal contiguous runs} satisfying its rule: a run
 longer than the minimum counts once (four equal haflaga values are one Haflaga event), and
 a qualifying run that resumes after a discordant cycle counts again. To fix the
-convention: $(29, 29)$ qualifies as Week (if $29 \in \mathcal{W}$) but not as Haflaga;
+convention: $(29, 29)$ qualifies as Week ($29 = 4 \cdot 7 + 1$) but not as Haflaga;
 $(28, 28, 28)$ is a Haflaga; $(27, 29, 31, 33)$ is a Dilug ($d = 2$) with second
 differences $(0, 0)$ and hence not a Dilug-in-Dilug; $(27, 28, 30, 33)$ has first
 differences $(1, 2, 3)$ and second differences $(1, 1)$ and is a Dilug-in-Dilug.

@@ -39,8 +39,10 @@ def load_data(path: str):
 
 
 def weekly_anchor_set(H) -> set:
+    """Haflaga values H = L + 1 whose cycle length L is a multiple of 7 (H = 7n + 1),
+    i.e. successive onsets fall on the same weekday, restricted to the observed range."""
     mn, mx = int(H.min()), int(H.max())
-    return set(range(mn + 3, mx + 1, 7))
+    return {h for h in range(mn, mx + 1) if h % 7 == 1}
 
 
 # ── Vectorised counter ─────────────────────────────────────────────────────────
