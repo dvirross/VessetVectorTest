@@ -37,8 +37,11 @@ conclusions to unequal follow-up.
 
 ```
 VessetVectorTest/
+├── data/RawData.csv             archived source file (Fehring, 2012): 1,665 cycles, 159 women
 ├── data/FilteredData.csv        1,554 cycles, 118 women; CycleNumber contiguous within every woman
 ├── scripts/
+│   ├── filter_raw.py            data/RawData.csv -> data/FilteredData.csv (verified identical)
+│   ├── Filtering_original.ipynb original filtering notebook (from the PhD repository)
 │   ├── patterns.py              counting rules (vectorised + reference loop; equivalence test), null generators,
 │   │                            two-sided Monte Carlo p, Holm, Mahalanobis test
 │   ├── rerun_nulls.py           B = 50,000 replicates under H_G, H_iid, H_W (seed 17) -> results/null_replicates.npz
@@ -51,6 +54,7 @@ VessetVectorTest/
 │   ├── vesset_stat.tex          manuscript (LaTeX, author-year references)
 │   ├── references.bib
 │   ├── cover_letter.tex
+│   ├── supplementary_for_review/  PhD dissertation (2022) and accepted B.D.D. article (2021), Hebrew; for review only
 │   └── figures/                 PDF + PNG figures; gen_consort_flow.py generates fig2
 ├── revision_reports/            reviewer reports, author responses, triage matrices
 ├── sim_results.npz, strat_full_118.pkl   legacy replicate files (superseded; computed on 1,553 cycles)
@@ -64,16 +68,27 @@ collected in a randomised trial of two Internet-supported fertility-awareness-ba
 methods of family planning (Fehring et al., 2013):
 https://epublications.marquette.edu/data_nfp/7/
 
-`data/FilteredData.csv` is the filtered file used in the analysis (inclusion criteria:
-cycle length 18–54 days inclusive; complete cycle-length record). SHA-256:
+`data/FilteredData.csv` is the filtered file used in the analysis. SHA-256:
 `508ee88efb18bcd29c7ed6f841827377bb8d72a8c7dd38fdeb40cf08691f7811`. Every retained
 woman's `CycleNumber` runs 1, 2, …, n_i without gaps, so no pattern window bridges an
 excluded cycle; `scripts/patterns.load_data` asserts this.
 
-**Reproducibility boundary.** All analyses in the paper are reproducible from this file
-and the scripts below. The original script that derived the filtered file from the raw
-Marquette archive was not preserved, so that preprocessing step cannot be reproduced
-exactly, and the raw women/cycle counts before filtering are not available here.
+**Preprocessing.** `scripts/filter_raw.py` derives the filtered file from the archived
+source file (1,665 cycles, 159 women; all cycle lengths already 18–54 days, none
+missing, so no cycle-length criterion is applied):
+
+1. remove 3 women whose cycle records appear twice (nfp8106, nfp8109, nfp8114; 16 rows) → 1,649 cycles, 156 women
+2. keep women with ≥ 5 recorded cycles (38 women, 87 cycles removed) → 1,562 cycles, 118 women
+3. nfp8107's eight cycles appear as two near-identical copies (cycle 2: 27 vs 26 days); the first copy is dropped → 1,554 cycles, 118 women
+
+```bash
+python scripts/filter_raw.py data/RawData.csv     # verifies output == data/FilteredData.csv
+```
+
+`data/RawData.csv` is the author's copy of the archived source file (SHA-256
+`9fa76583129db58af44adb21a0612217b207120fb61d478fb343a61291732a89`);
+`scripts/Filtering_original.ipynb` is the original filtering notebook from
+https://github.com/dvirross/PhD, which `filter_raw.py` re-implements.
 
 ## Reproducing the analysis
 

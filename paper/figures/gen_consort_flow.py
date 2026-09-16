@@ -135,11 +135,11 @@ v_arrow(ENR_VB, INCL_VT)
 
 # 4. Applied inclusion criteria
 draw_main_box(INCL_CY, INCL_BH,
-    'Applied inclusion criteria:\nCycle length ≥ 18 and ≤ 54 days;\nComplete cycle-length records')
+    'Archived file: 159 women, 1,665 cycles\n(all cycle lengths 18–54 days, none missing)')
 
 # Exclusion 2
 draw_excl_box(EXCL2_Y, 0.90,
-    'Excluded:\n• Missing cycle-length data\n• Implausible cycle lengths',
+    'Excluded:\n• 3 women with duplicated records (16 cycles)\n• 38 women with < 5 cycles (87 cycles)\n• 8 duplicated rows of 1 woman',
     fontsize=8.5)
 h_excl_arrow(EXCL2_Y)
 

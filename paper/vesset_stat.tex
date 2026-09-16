@@ -290,8 +290,15 @@ each woman's own values.
 We analysed the publicly archived longitudinal dataset of \citet{fehring2012data},
 collected in a randomised trial of two Internet-supported fertility-awareness-based
 methods of family planning \citep{fehring2013}; we refer to the participants as natural
-family planning (NFP) users. The filtered file released with this article retains cycles
-of 18--54 days with complete cycle-length records; the analysed sample comprises
+family planning (NFP) users. The archived file contains 1,665 cycles from 159 women.
+Every recorded cycle length in it lies between 18 and 54 days and none is missing, so no
+cycle-length criterion was applied by us; whether the archive itself was restricted to
+this range by the original investigators is not documented in the materials available
+to us. Three women whose cycle records appeared twice in the archive (16 rows in total,
+each with at most three distinct cycles) were removed, women with fewer than 5 recorded
+cycles were excluded (38 women, 87 cycles), and for one further woman whose eight cycles
+appeared as two near-identical copies (differing in one recorded length) a single copy
+was retained. The analysed sample comprises
 \textbf{1,554 cycles from 118 women} ($M = 13.2$ cycles per woman, SD $= 6.1$, range
 5--45). Cycle lengths ranged from 18 to 54 days ($M = 29.3$, SD $= 3.9$, Mdn $= 28.5$,
 skewness $= 1.29$); 9.6\% of cycles were 35 days or longer. The source trial enrolled
@@ -303,14 +310,14 @@ in the analysis. All lengths were incremented by 1 to the haflaga convention, gi
 $M = 30.3$, SD $= 3.9$.
 
 Because the pattern detectors operate on \emph{consecutive} cycles, it matters whether
-the cycle exclusions could have created artificial adjacency across a removed cycle. In
-the filtered file every woman's recorded \texttt{CycleNumber} runs $1, 2, \ldots, n_i$
-without gaps (verified programmatically and asserted in the analysis code), so no pattern
-window spans an excluded cycle; the exclusions removed whole women or terminal cycles
-only. The minimum of 5 cycles per woman is the observed minimum after filtering; no
-additional minimum was imposed. The script that produced the filtered file from the raw
-archive was not preserved and is not part of the code release; the filtered file itself
-is archived with the code.
+the exclusions could have created artificial adjacency across a removed cycle. They
+could not: the filtering removed whole women or duplicated rows only, and in the filtered
+file every woman's recorded \texttt{CycleNumber} runs $1, 2, \ldots, n_i$ without gaps
+(verified programmatically and asserted in the analysis code), so no pattern window spans
+an excluded cycle. The five-cycle minimum ensures that every retained woman can in
+principle produce each of the five pattern types, the longest of which requires four
+consecutive intervals. The filtering script is part of the code release and reproduces
+the filtered file exactly from the archived source file (Section~\ref{sec:das}).
 
 Of the seven rule types computable from cycle-length data, the two repeating-cycle rules
 (\textit{Dilug Chozer Chalila}, \textit{Haflaga Chozer Chalila}) had no observed
@@ -344,9 +351,9 @@ Figure~\ref{fig:consort} summarises the data flow.
   \centering
   \includegraphics[width=0.75\textwidth]{fig2_consort_flow}
   \caption{Participant and data flow. Source dataset \citep{fehring2012data}, collected
-    in the trial of \citet{fehring2013}; inclusion
-    criteria (cycle length 18--54 days; complete records); analysed sample of 118 women
-    and 1,554 cycles; five pattern types; three null models, each with
+    in the trial of \citet{fehring2013}; archived file of 159 women and 1,665 cycles;
+    exclusion of women with duplicated cycle records or fewer than 5 cycles; analysed
+    sample of 118 women and 1,554 cycles; five pattern types; three null models, each with
     $B = 50{,}000$ replicates.}
   \label{fig:consort}
 \end{figure}
@@ -955,9 +962,9 @@ strength ($\rho \geq 0.5$), about 50\% power at $\rho = 0.25$, and, necessarily,
 against dependence that leaves the distribution of these exact count statistics
 unchanged; the non-rejection should be read with those limits. The aggregate-count
 estimand weights women by follow-up; the truncation and leave-one-woman-out analyses
-indicate that this does not drive the conclusions. Sensitivity to the 18--54 day
-inclusion window could not be assessed because the excluded cycles are not in the
-archived file. The exploratory pairwise associations (Supporting Information) involve
+indicate that this does not drive the conclusions. The archived file contains no cycle
+shorter than 18 or longer than 54 days, so any restriction of cycle length was applied
+upstream of the released data and its effect cannot be assessed here. The exploratory pairwise associations (Supporting Information) involve
 rare patterns (18 and 27 events), rest on few women, and remain exposed to residual
 dependence of both rates on follow-up length.
 
@@ -1011,16 +1018,12 @@ required under the applicable regulations.
 Not applicable. No new data were collected. The original dataset was collected under the
 ethical oversight of the original investigators.
 
-\section*{Funding}
-
-This research received no specific grant from any funding agency in the public,
-commercial, or not-for-profit sectors.
-
 \section*{Conflict of Interest}
 
 The author declares no conflicts of interest.
 
 \section*{Data Availability Statement}
+\label{sec:das}
 
 The source dataset is publicly available from Marquette University e-Publications
 \citep{fehring2012data}. All analyses reported in this article are
@@ -1032,25 +1035,36 @@ verify file integrity), the pattern-counting code with an equivalence test betwe
 implementations, the null-model generators, the simulation validation, the
 post-processing script that produces every reported number, the notebook that produces
 every figure, and the cached Monte Carlo replicates ($B = 50{,}000$ per null) that allow
-all results to be reproduced without re-simulation.
+all results to be reproduced without re-simulation. Portions of the analysis code were
+generated or refactored with assistance from Claude/Claude Code (Anthropic); all
+AI-assisted code was reviewed and tested by the author, and the pattern-counting code is
+additionally checked by the two-implementation equivalence test of
+Section~\ref{sec:detect}.
 
-The reproducibility boundary should be stated explicitly. The original script used to
-derive the filtered dataset from the archived source data was not preserved, so that
-preprocessing step cannot be reproduced exactly. The inclusion criteria applied were
-(1) cycle length between 18 and 54 days inclusive and (2) a complete cycle-length record;
-women retained in the filtered file have between 5 and 45 consecutive recorded cycles,
-and every retained woman's cycle numbering is contiguous. The numbers of women and cycles
-in the source archive before filtering, and the number removed at each step, are not
-available from the released materials; the analysed sample comprises 118 women and 1,554
-cycles.
+The preprocessing step is also reproducible. The script
+\texttt{scripts/filter\_raw.py} derives the filtered file from the archived source file
+(1,665 cycles, 159 women) by removing three women with duplicated cycle records, women
+with fewer than 5 recorded cycles, and one duplicated copy of one woman's cycles, and
+verifies that its output is identical to the released filtered file; no cycle-length
+criterion is applied, all archived lengths already lying between 18 and 54 days. The
+copy of the archived source file used by the author (\texttt{data/RawData.csv}) and the
+original filtering notebook are included in the code release; the archive itself is
+available from the Marquette repository cited above. Women retained
+in the filtered file have between 5 and 45 consecutive recorded cycles, and every
+retained woman's cycle numbering is contiguous.
 
-\section*{AI Assistance Disclosure}
+\section*{Acknowledgments}
 
-Portions of the text were drafted and edited with the assistance of Claude (Anthropic),
-a large language model, and the tool was also used to generate and refactor \LaTeX{} and
-\texttt{Python} code under the author's direction. All scientific content, analytical
-decisions and interpretations are the author's, who takes full responsibility for the
-accuracy and integrity of the article.
+ChatGPT (OpenAI), Gemini (Google), Perplexity and Claude/Claude Code (Anthropic) were
+used during manuscript preparation for critical review, editorial suggestions, and
+assistance with manuscript and \LaTeX{} preparation. Claude/Claude Code was additionally
+used to generate and refactor portions of the \texttt{Python} and \LaTeX{} code. All
+AI-assisted suggestions and code were reviewed, tested and revised by the author. All
+scientific content, analytical decisions, interpretations and conclusions are the
+author's, who takes full responsibility for the accuracy and integrity of the article.
+
+This research received no specific grant from any funding agency in the public,
+commercial, or not-for-profit sectors.
 
 % ─── References ───────────────────────────────────────────────────────────────
 \newpage

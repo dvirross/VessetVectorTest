@@ -23,6 +23,8 @@ Before writing code or editing LaTeX:
 
 **Code layout:**
 ```
+scripts/filter_raw.py      archived source file -> data/FilteredData.csv (no 18–54 filter: archive already in range;
+                           removes 3 duplicated-record women, women with <5 cycles, 8 duplicate rows of nfp8107)
 scripts/patterns.py        counting rules (vectorised + reference loop, equivalence test), null generators,
                            two-sided Monte Carlo p, Holm, Mahalanobis test, load_data (asserts CycleNumber contiguity)
 scripts/rerun_nulls.py     -> results/null_replicates.npz
@@ -166,6 +168,7 @@ Compile the SI separately: `pdflatex vesset_stat_SI.tex` ×2 (no BibTeX needed).
 ## 9. Key file paths
 
 ```
+data/RawData.csv               author's copy of the Marquette archive file (1,665 cycles, 159 women, 80 columns)
 data/FilteredData.csv          1,554 cycles, 118 women; CycleNumber contiguous within every woman
 results/                       cached Monte Carlo output (see §1)
 scripts/                       all analysis code (see §1)
@@ -173,12 +176,13 @@ paper/vesset_stat.tex          manuscript (Case Study framing, author–year ref
 paper/vesset_stat_SI.tex       Supporting Information (exploratory pairwise analysis; compile separately)
 paper/references.bib           bibliography
 paper/cover_letter.tex         BJ cover letter + declarations
+paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2021_BDD_accepted_article_Hebrew.pdf (review only)
 paper/figures/                 figures as PDF + PNG
 notebooks/analysis.ipynb       generated notebook; single source of truth for figures
 revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md
 ```
 
-Raw Marquette archive (not reachable from the remote sandbox): https://epublications.marquette.edu/data_nfp/7/ — the raw→filtered script is **not** in the repo (documented limitation).
+Raw Marquette archive (not reachable from the remote sandbox): https://epublications.marquette.edu/data_nfp/7/ — the author's copy is `data/RawData.csv` (also in https://github.com/dvirross/PhD with the original `Filtering.ipynb`); `scripts/filter_raw.py` reproduces the filtered file from it. **Provenance wording (2026-09-16):** never say an 18–54-day inclusion criterion was applied by us — the archive already lies in that range; say the script exists.
 
 ---
 
@@ -191,4 +195,4 @@ Responded to three AI pre-submission reviews (statistical, journal-fit, literatu
 - [ ] Optional (not required for submission): implement the two zero-count rules under the three nulls for the SI
 - [ ] Confirm that 18–42 years is the enrolment eligibility stated in Fehring et al. (2013)
 - [ ] Word count (~4,800 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 is a candidate for the SI
-- [ ] Locate or re-derive the raw→filtered data script for the Reproducible Research ZIP
+- [x] Raw→filtered pipeline recovered: `data/RawData.csv` (author's copy of the archive, 1,665 cycles/159 women) + `scripts/Filtering_original.ipynb` (from https://github.com/dvirross/PhD) + `scripts/filter_raw.py` (re-implementation; verified identical output). Dissertation and 2021 B.D.D. article are in `paper/supplementary_for_review/` (Hebrew; upload as "supplementary material for review only")
