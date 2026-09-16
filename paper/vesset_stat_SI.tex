@@ -28,7 +28,9 @@
 \titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection.}{0.5em}{}
 \titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{}{0pt}{}[\ ---]
 \titlespacing*{\paragraph}{0pt}{6pt}{0.5em}
-\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue,
+  pdftitle={Supporting Information: Null-Model Choice for Rule-Defined Pattern Counts in Clustered Longitudinal Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules},
+  pdfauthor={Dvir Ross}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \graphicspath{{figures/}}
@@ -50,16 +52,20 @@ Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules}\\[4pt]
 
 \bigskip
 \noindent This document contains the exploratory between-woman pairwise dependence
-analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article, and the full
-SHA-256 checksum of the released filtered data file \texttt{data/FilteredData.csv}
-(1,554 cycles, 118 women), for verifying file integrity:
+analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article. That analysis is
+secondary to the null-model comparison and does not bear on the primary question of
+whether within-woman ordering produces excess rule-defined events. Notation follows the
+main article; all computations are produced by \texttt{scripts/postprocess.py} and the
+accompanying notebook in the code repository
+(\url{https://github.com/dvirross/VessetVectorTest}).
+
+\medskip
+\noindent The SHA-256 checksum of the released filtered data file
+(\nolinkurl{data/FilteredData.csv}; 1,554 cycles, 118 women), for verifying file
+integrity, is
 \begin{center}
 \small\texttt{508ee88efb18bcd29c7ed6f841827377bb8d72a8c7dd38fdeb40cf08691f7811}
-\end{center} It is secondary
-to the null-model comparison and does not bear on the primary question of whether
-within-woman ordering produces excess rule-defined events. Notation follows the main
-article; all computations are produced by \texttt{scripts/postprocess.py} and the
-accompanying notebook in the code repository.
+\end{center}
 
 \section{Exploratory Pairwise Dependence Between Pattern Types}
 \label{sec:si-pairwise}
@@ -102,11 +108,11 @@ Pearson's coefficient would be dominated by the few women with several events; t
 correlation measures monotone association and is insensitive to the magnitude of those
 few values.
 
-\paragraph{Permutation rather than asymptotic p-values.} With 118 women, many tied zeros
+\paragraph{Permutation rather than asymptotic $p$-values.} With 118 women, many tied zeros
 and skewed rates, the usual $t$-approximation for the null distribution of $r_s$ is
 unreliable. One rate vector is permuted across women $50{,}000$ times (seed 17); this
 breaks any association between the two patterns while preserving both marginal
-distributions exactly, giving a two-sided Monte Carlo p-value (proportion of permutations
+distributions exactly, giving a two-sided Monte Carlo $p$-value (proportion of permutations
 with $|r_s^*| \geq |r_s|$, with the $(b+1)/(B+1)$ convention).
 
 \paragraph{Holm correction over ten pairs.} Five patterns yield ten pairs, of which only
@@ -136,7 +142,7 @@ are null (all Holm $p = 1$), including Dilug $\times$ Week-Dilug, whose weak neg
 ($r_s = -0.12$) is in the direction implied by their mutual exclusion but is not
 distinguishable from zero.
 
-The binary (ever/never) version reproduces the ordering and the two smallest p-values
+The binary (ever/never) version reproduces the ordering and the two smallest $p$-values
 (Haflaga $\times$ Dilug-in-Dilug: $\chi^2 = 9.99$, $p_{\text{perm}} = .004$, Holm
 $p = .042$, Fisher $p = .004$; Haflaga $\times$ Week-Dilug: $\chi^2 = 7.26$,
 $p_{\text{perm}} = .013$, Holm $p = .12$), so the findings do not depend on the rate
@@ -188,7 +194,7 @@ Dilug-in-Dilug (unadjusted $0.269$) and $0.239$ for Haflaga $\times$ Week-Dilug
 (unadjusted $0.231$). Second, restricting the $50{,}000$ permutations to exchange rates
 only among women in the same follow-up quintile (strata of 24, 8, 31, 27 and 28 women)
 preserves each rate's dependence on $n_i$ while breaking the association between
-patterns; the resulting two-sided p-values are $.0046$ for Haflaga $\times$
+patterns; the resulting two-sided $p$-values are $.0046$ for Haflaga $\times$
 Dilug-in-Dilug (unrestricted $.0036$) and $.0097$ for Haflaga $\times$ Week-Dilug
 (unrestricted $.0113$). The exploratory conclusions are therefore not an artefact of
 unequal follow-up. These checks are reported as robustness diagnostics for an

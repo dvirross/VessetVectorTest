@@ -1,7 +1,7 @@
 # VessetVectorTest
 
 **Null-Model Choice for Rule-Defined Pattern Counts in Clustered Longitudinal Sequences:
-A Case Study of Halachic Menstrual Anticipation Rules**
+A Case Study of Jewish Halachic Menstrual Anticipation Rules**
 
 Dvir Ross — Department of Software Engineering, Shenkar College of Engineering, Design and Art, Ramat Gan, Israel;
 Department of Computer Science, SCE — Shamoon College of Engineering, Beer Sheva, Israel
@@ -15,7 +15,7 @@ Target: *Biometrical Journal* (Case Study).
 Halachic *vesset* rules define exact arithmetic events in a woman's sequence of
 menstrual intervals (three equal consecutive intervals, a constant first or second
 difference, a repeated weekly anchor). This repository asks whether such events occur
-in 1,554 cycles from 118 women (Fehring et al., 2013) more often than chance, and shows
+in 1,554 cycles from 118 women (Fehring, 2012) more often than chance, and shows
 that the answer depends on which exchangeability null defines "chance":
 
 | Null | What is randomised | Joint Mahalanobis test |
@@ -59,9 +59,10 @@ VessetVectorTest/
 
 ## Data
 
-The dataset was collected by Fehring et al. (2013) in a randomised trial comparing two
-internet-supported natural family planning methods and is archived at Marquette
-University: https://epublications.marquette.edu/data_nfp/7/
+The dataset is the Marquette University "Menstrual Cycle Data" archive (Fehring, 2012),
+collected in a randomised trial of two Internet-supported fertility-awareness-based
+methods of family planning (Fehring et al., 2013):
+https://epublications.marquette.edu/data_nfp/7/
 
 `data/FilteredData.csv` is the filtered file used in the analysis (inclusion criteria:
 cycle length 18–54 days inclusive; complete cycle-length record). SHA-256:
@@ -106,5 +107,8 @@ Known non-fatal warnings: `titlesec` "entered in horizontal mode" (from the run-
 ## Citation
 
 If you use this code or data, please cite the manuscript above and the original dataset
-(Fehring, R. J., Schneider, M., & Barron, K. (2013). Randomized comparison of two
-Internet-supported methods of natural family planning. *Contraception*, 88(1), 24–30).
+(Fehring, R. J. (2012). Menstrual Cycle Data. Marquette University e-Publications,
+https://epublications.marquette.edu/data_nfp/7/) and the trial article (Fehring, R. J.,
+Schneider, M., Raviele, K., Rodriguez, D., & Pruszynski, J. (2013). Randomized comparison
+of two Internet-supported fertility-awareness-based methods of family planning.
+*Contraception*, 88(1), 24–30. https://doi.org/10.1016/j.contraception.2012.10.010).

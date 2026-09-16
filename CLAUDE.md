@@ -54,7 +54,9 @@ Any change to counting logic goes in `scripts/patterns.py` only; the notebook im
 | ≤5 keywords, alphabetical | ✅ exchangeability, Halacha, menstrual cycle, permutation test, within-subject null |
 | Unstructured abstract | ✅ |
 | Data Availability / CoI / Ethics statements | ✅ |
-| Author–year (APA-like) references | ✅ `natbib[authoryear,round]` + `plainnat` (`apalike.bst` is not natbib-compatible — do not switch to it) |
+| Author–year (APA-like) references | ✅ `natbib[authoryear,round,sort]` + `plainnat` (`apalike.bst` is not natbib-compatible — do not switch to it) |
+| Funding / Patient Consent statements | ✅ separate `\section*` blocks after Ethics |
+| PDF metadata (title/author) | ✅ `pdftitle`/`pdfauthor` in main and SI |
 | ORCID on title page | ✅ |
 | Reproducible Research ZIP | prepare at revision: `scripts/`, `results/`, `data/`, notebook |
 | Figures as separate files | ✅ PDF + PNG in `paper/figures/` |
@@ -75,7 +77,7 @@ python scripts/build_notebook.py
 | Paper figure | Generator |
 |---|---|
 | fig1_cycle_distribution | notebook |
-| fig2_consort_flow | `paper/figures/gen_consort_flow.py` (standalone) |
+| fig2_consort_flow | `paper/figures/gen_consort_flow.py` (standalone; source box cites Fehring 2012 dataset + Fehring et al. 2013 trial) |
 | fig3_null_distributions | notebook — PMF bars, **two-sided** p labels |
 | fig4_zscores | notebook |
 | fig5_cdfs | notebook |
@@ -100,6 +102,15 @@ grep "^!" vesset_stat.log        # must be empty
 ```
 Non-fatal warnings to ignore: `titlesec` "entered in horizontal mode", `rerunfilecheck`.
 Use `\citep{}` / `\citet{}` (author–year), never bare `\cite{}` for parenthetical citations.
+Compile the SI separately: `pdflatex vesset_stat_SI.tex` ×2 (no BibTeX needed).
+
+**Bibliography conventions (final pass 2026-09-16):**
+- `fehring2012data` = the archived dataset (Fehring, 2012, Marquette e-Publications) — cite for *the data*.
+- `fehring2013` = the randomised trial article (Fehring, Schneider, Raviele, Rodriguez & Pruszynski, *Contraception* 88(1):24–30) — cite for *how the data were collected*. Never attribute the 18–54-day filter to Creinin et al.
+- `ross2021statistical` is intentionally "Accepted 3 September 2021" — do not add volume/pages/DOI.
+- `ross_planned` uses `year = {in preparation}` (renders "Ross, in preparation").
+- Ecochard et al. 2024 co-author is **Marie** Schneider; Münster 1992 first author is **Kirstine** Münster.
+- Prose uses `$p$-value` (math-mode p), British spelling throughout.
 
 ---
 
@@ -170,13 +181,14 @@ Raw Marquette archive (not reachable from the remote sandbox): https://epublicat
 
 ---
 
-## 10. Status (2026-09-15, BJ pre-submission rounds 1–2)
+## 10. Status (2026-09-16, BJ pre-submission rounds 1–2 + final editorial pass)
 
-Responded to three AI pre-submission reviews (statistical, journal-fit, literature). Key changes: Case Study reframing and new title; H_W/autocorrelation misstatement corrected; MDC section removed and replaced by simulation validation (size, power, truncation, LOO); Algorithm 1 and Fig 3 made two-sided; Table 2 one-sided values corrected; boundary bug fixed and all nulls rerun on 1,554 cycles; literature on permutation for clustered data and menstrual variability added; claims softened. Full list in `revision_reports/bj_round1_changelog.md`. **Round 2 (targeted):** fourfold→2.3-fold; age statement corrected (trial eligibility 18–42; analysed sample 99/118 with age, 21–43, M 31.8 SD 5.4); 7→5 wording made truthful (no degeneracy claim); size wording 'at/below nominal'; power statements DGP-specific; pairwise analysis moved to SI with follow-up-stratified robustness; abstract opens with the statistical problem; Edgington/Good cited; reproducibility boundary + SHA-256 in DAS. Verdict: READY TO SUBMIT (`bj_round2_changelog.md`).
+Responded to three AI pre-submission reviews (statistical, journal-fit, literature). Key changes: Case Study reframing and new title; H_W/autocorrelation misstatement corrected; MDC section removed and replaced by simulation validation (size, power, truncation, LOO); Algorithm 1 and Fig 3 made two-sided; Table 2 one-sided values corrected; boundary bug fixed and all nulls rerun on 1,554 cycles; literature on permutation for clustered data and menstrual variability added; claims softened. Full list in `revision_reports/bj_round1_changelog.md`. **Round 2 (targeted):** fourfold→2.3-fold; age statement corrected (trial eligibility 18–42; analysed sample 99/118 with age, 21–43, M 31.8 SD 5.4); 7→5 wording made truthful (no degeneracy claim); size wording 'at/below nominal'; power statements DGP-specific; pairwise analysis moved to SI with follow-up-stratified robustness; abstract opens with the statistical problem; Edgington/Good cited; reproducibility boundary + SHA-256 in DAS. Verdict: READY TO SUBMIT (`bj_round2_changelog.md`). **Final editorial pass (2026-09-16):** bibliography corrected (Fehring 2012 dataset vs Fehring et al. 2013 trial, 5 authors + correct title; Marie Schneider; Kirstine Münster; Ross in preparation); dataset provenance made consistent in Author Note, §2.3, §3.1, Fig 2 (script + caption), Ethics, DAS, SI, cover letter, README; Creinin attribution of the filter removed; Funding and Patient Consent statements added; exact title with "Jewish" everywhere incl. PDF metadata; `natbib sort`; `$p$-value` typography; cover letter's duplicate declarations page removed; `gen_consort_flow.py` now writes `fig2_consort_flow.*`. All three PDFs compile with 0 errors/0 overfull/0 undefined.
 
 **Outstanding (author decisions):**
 - [ ] Verify bibliographic details of `fehring2006` (JOGNN 35(3):376–384) and `schmalenberger2021` (Psychoneuroendocrinology 123:104895) — added offline, not checked against Crossref
 - [ ] Optional (not required for submission): implement the two zero-count rules under the three nulls for the SI
 - [ ] Confirm that 18–42 years is the enrolment eligibility stated in Fehring et al. (2013)
+- [ ] Supply a full postal correspondence address if BJ's submission system requires one (not in repo)
 - [ ] Word count (~4,800 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 is a candidate for the SI
 - [ ] Locate or re-derive the raw→filtered data script for the Reproducible Research ZIP

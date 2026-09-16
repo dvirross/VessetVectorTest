@@ -18,7 +18,7 @@ md(r"""
 # Halachic Vesset Pattern Analysis — null-model comparison for clustered longitudinal pattern counts
 
 Companion notebook for the manuscript *Null-Model Choice for Rule-Defined Pattern Counts in
-Clustered Longitudinal Sequences: A Case Study of Halachic Menstrual Anticipation Rules*
+Clustered Longitudinal Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules*
 (D. Ross; submitted to *Biometrical Journal* as a Case Study).
 
 All pattern-counting code lives in `../scripts/patterns.py` (vectorised implementation verified
@@ -59,7 +59,7 @@ def save(name):
 md(r"""
 ## 1. Data
 
-Filtered NFP dataset (Fehring et al., 2013; Marquette University archive). Haflaga convention $H_k = L_k + 1$.
+Filtered file derived from the Marquette University "Menstrual Cycle Data" archive (Fehring, 2012), collected in the NFP trial of Fehring et al. (2013). Haflaga convention $H_k = L_k + 1$.
 `load_data` asserts that every woman's `CycleNumber` runs 1, 2, …, $n_i$ without gaps, so no pattern window
 can bridge an excluded cycle.
 """)

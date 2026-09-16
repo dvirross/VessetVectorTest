@@ -9,7 +9,7 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage[authoryear,round]{natbib}
+\usepackage[authoryear,round,sort]{natbib}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{microtype}
@@ -41,7 +41,9 @@
 \titlespacing*{\subsection}{0pt}{10pt}{4pt}
 \titlespacing*{\paragraph}{0pt}{6pt}{0.5em}
 
-\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue,
+  pdftitle={Null-Model Choice for Rule-Defined Pattern Counts in Clustered Longitudinal Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules},
+  pdfauthor={Dvir Ross}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \graphicspath{{figures/}}
@@ -83,8 +85,9 @@
   Shamoon College of Engineering, Beer Sheva, Israel.
 
   \medskip
-  The dataset analysed in this study was collected by \citet{fehring2013} and is
-  publicly archived at Marquette University \citep{marquette2013data}. The author
+  The dataset analysed in this study is the publicly archived Marquette University
+  menstrual cycle dataset \citep{fehring2012data}, collected in the randomised trial of
+  \citet{fehring2013}. The author
   declares no conflicts of interest. Analysis code, the filtered dataset and cached
   Monte Carlo replicates are available at
   \url{https://github.com/dvirross/VessetVectorTest}.
@@ -255,7 +258,8 @@ statistically; none tested pattern frequencies against a randomisation null.
 
 \citet{ecochard2024} report evidence of an internal circamonthly oscillator using
 multi-cohort data that include a North American cohort collected by Fehring and
-Schneider, two of the investigators of the dataset analysed here \citep{fehring2013}.
+Schneider, two of the investigators of the trial from which the dataset analysed here
+was drawn \citep{fehring2012data,fehring2013}.
 Their Marquette cohort (1,649 cycles, 159 women) and the present sample (1,554 cycles,
 118 women after exclusions) are probably drawn from the same data-collection
 infrastructure and should not be regarded as independent samples. They document second-
@@ -275,10 +279,11 @@ each woman's own values.
 \subsection{Dataset}
 \label{sec:data}
 
-We analysed the publicly archived longitudinal dataset of \citet{fehring2013}, collected
-in a randomised trial of two internet-supported natural family planning (NFP) methods
-\citep{marquette2013data}. The archived filtered file retains cycles of 18--54 days with
-complete cycle-length records \citep{creinin2004}; the analysed sample comprises
+We analysed the publicly archived longitudinal dataset of \citet{fehring2012data},
+collected in a randomised trial of two Internet-supported fertility-awareness-based
+methods of family planning \citep{fehring2013}; we refer to the participants as natural
+family planning (NFP) users. The filtered file released with this article retains cycles
+of 18--54 days with complete cycle-length records; the analysed sample comprises
 \textbf{1,554 cycles from 118 women} ($M = 13.2$ cycles per woman, SD $= 6.1$, range
 5--45). Cycle lengths ranged from 18 to 54 days ($M = 29.3$, SD $= 3.9$, Mdn $= 28.5$,
 skewness $= 1.29$); 9.6\% of cycles were 35 days or longer. The source trial enrolled
@@ -330,7 +335,8 @@ Figure~\ref{fig:consort} summarises the data flow.
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.75\textwidth]{fig2_consort_flow}
-  \caption{Participant and data flow. Source dataset \citep{fehring2013}; inclusion
+  \caption{Participant and data flow. Source dataset \citep{fehring2012data}, collected
+    in the trial of \citet{fehring2013}; inclusion
     criteria (cycle length 18--54 days; complete records); analysed sample of 118 women
     and 1,554 cycles; five pattern types; three null models, each with
     $B = 50{,}000$ replicates.}
@@ -412,7 +418,7 @@ permutation is the exact conditional test for the stated exchangeability null.
 For pattern $j$ and null $m$, with $B = 50{,}000$ replicate count vectors
 $\mathbf{S}^{(m,r)}$, we report the null mean $\bar S_j^{(m)}$ and SD $\sigma_j^{(m)}$,
 the standardised departure $z_j^{(m)} = (O_j - \bar S_j^{(m)})/\sigma_j^{(m)}$, and the
-two-sided Monte Carlo p-value
+two-sided Monte Carlo $p$-value
 \begin{equation}
   p_j^{(m)} = \min\Bigl\{1,\; 2\min\Bigl(\tfrac{b_j^+ + 1}{B+1},\, \tfrac{b_j^- + 1}{B+1}\Bigr)\Bigr\},
   \label{eq:ptwo}
@@ -435,7 +441,7 @@ null mean,
 where $\hat{\boldsymbol{\mu}}^{(m)}$ and $\hat\Sigma^{(m)} = (B-1)^{-1}\sum_r
 (\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})(\mathbf{S}^{(m,r)} - \bar{\mathbf{S}}^{(m)})^\top$
 are the mean and sample covariance of the null replicates (not of the observations).
-The p-value is the fraction of replicates whose own $\DM$, computed with the same
+The $p$-value is the fraction of replicates whose own $\DM$, computed with the same
 $\hat{\boldsymbol{\mu}}$ and $\hat\Sigma$, is at least the observed value, again with the
 $(b+1)/(B+1)$ convention. This is a single global test of the multivariate null and is
 inherently two-sided; it is a standard permutation quadratic form
@@ -460,7 +466,7 @@ inference.
 \paragraph{Exploratory pairwise dependence.} As a secondary consistency check against
 the relationships of Section~\ref{sec:mathdep}, Spearman correlations between per-woman
 pattern \emph{rates} (events per cycle) were computed for the ten pattern pairs, with
-two-sided permutation p-values and Holm correction over the ten pairs, and repeated on
+two-sided permutation $p$-values and Holm correction over the ten pairs, and repeated on
 binary ever/never indicators. Rates reduce but do not remove the dependence of both
 variables on follow-up length. The methods, their rationale, the results and a
 follow-up-stratified robustness check are given in the Supporting Information
@@ -493,7 +499,7 @@ under heterogeneous, realistic marginals.
 
 \paragraph{Sensitivity to unequal follow-up.} The $\HW$ analysis was repeated with every
 woman truncated to her first 12 recorded cycles ($20{,}000$ replicates), and a
-leave-one-woman-out analysis recomputed the $\HW$ joint and marginal p-values 118 times
+leave-one-woman-out analysis recomputed the $\HW$ joint and marginal $p$-values 118 times
 using per-woman replicate counts.
 
 \begin{algorithm}[!htbp]
@@ -537,13 +543,13 @@ mean of 11.31 ($z = 4.50$); only 4 of 50,000 $\HG$ replicates reached 26 (two-si
 $p = .0002$; Holm-adjusted $p = .001$). No other pattern is significant. Dilug
 ($z = 1.84$, $p = .085$, Holm $p = .34$) is at most hypothesis-generating; Week,
 Week-Dilug and Dilug-in-Dilug lie within their null ranges. The two global nulls agree
-closely (Figure~\ref{fig:cdfs}; largest difference in two-sided p-values 0.11, for
+closely (Figure~\ref{fig:cdfs}; largest difference in two-sided $p$-values 0.11, for
 Week, whose null SD is larger under $\HI$).
 
 \begin{table}[!htbp]
 \centering
 \caption{Marginal results under the global nulls ($B = 50{,}000$). Null mean and SD are
-  from $\HG$; $z$ is the standardised departure under $\HG$; p-values are two-sided
+  from $\HG$; $z$ is the standardised departure under $\HG$; $p$-values are two-sided
   (Eq.~\ref{eq:ptwo}); Holm adjustment is across the five patterns within each null.
   Bold: Holm-adjusted $p < .05$.}
 \label{tab:results}
@@ -567,7 +573,7 @@ Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
   \includegraphics[width=\textwidth]{fig3_null_distributions}
   \caption{Empirical null probability mass functions under $\HG$ (left bar of each
     pair) and $\HI$ (right bar) with the observed count (dashed line). Saturated bars mark
-    the tail at or beyond the observed count on the observed side; the two-sided p-value
+    the tail at or beyond the observed count on the observed side; the two-sided $p$-value
     is twice the smaller tail probability (Eq.~\ref{eq:ptwo}) and is printed in each
     panel for both nulls.}
   \label{fig:nulldists}
@@ -602,9 +608,9 @@ latter. Table~\ref{tab:stratified} and Figure~\ref{fig:stratified} give the resu
 \begin{table}[!htbp]
 \centering
 \caption{Within-woman permutation null $\HW$ ($B = 50{,}000$; all 118 women; each
-  woman's sequence permuted without replacement). p-values are two-sided
+  woman's sequence permuted without replacement). $p$-values are two-sided
   (Eq.~\ref{eq:ptwo}); Holm adjustment across the five patterns. LOO range: range of the
-  two-sided p-value over the 118 leave-one-woman-out analyses.}
+  two-sided $p$-value over the 118 leave-one-woman-out analyses.}
 \label{tab:stratified}
 \smallskip
 \begin{tabular}{L{2.9cm} C{1.0cm} C{1.4cm} C{1.2cm} C{1.2cm} C{1.2cm} C{1.2cm} C{2.0cm}}
@@ -643,7 +649,7 @@ feature, whereas the global nulls erase it.
   \caption{Smoothed null densities (for visual comparison only; inference uses the
     empirical PMFs) under $\HG$ (solid), $\HI$ (dashed) and $\HW$ (dash-dotted) for each
     pattern, with the observed count (dotted vertical line) and the two-sided $\HW$
-    p-value in each panel.}
+    $p$-value in each panel.}
   \label{fig:stratified}
 \end{figure}
 
@@ -652,7 +658,7 @@ feature, whereas the global nulls erase it.
 
 Under $\HG$ the five-pattern Mahalanobis distance is $\DM = 5.08$ ($p < .001$; 6 of
 50,000 replicates at or beyond) and under $\HI$ it is $\DM = 4.87$ ($p < .001$; 17 of
-50,000); the split-batch values are $5.07$ and $4.87$ with the same p-values. Under
+50,000); the split-batch values are $5.07$ and $4.87$ with the same $p$-values. Under
 $\HW$, $\DM = 2.93$, $p = .126$ (Table~\ref{tab:stratified};
 Figure~\ref{fig:joint1d}). The displacement under the global nulls is driven by Haflaga,
 which has the smallest null SD (3.27) and the largest standardised departure and
@@ -698,7 +704,7 @@ of the ten pairs, only Haflaga $\times$ Dilug-in-Dilug survives Holm correction
 ($r_s = 0.27$, permutation $p = .004$, Holm $p = .038$), Haflaga $\times$ Week-Dilug is
 positive as containment requires but does not survive ($r_s = 0.23$, Holm $p = .10$),
 and the remaining eight pairs are null. The binary ever/never version and a permutation
-stratified by follow-up length give the same ordering and essentially the same p-values.
+stratified by follow-up length give the same ordering and essentially the same $p$-values.
 These associations are between women, not within sequences; they say nothing about
 temporal ordering and are compatible with, not evidence for, the proximity argument.
 
@@ -809,7 +815,7 @@ every woman is truncated to her first 12 cycles (1,289 cycles), the observed cou
 $(19, 51, 21, 16, 21)$, all $z$ remain negative ($-1.18$, $-0.32$, $-0.89$, $-0.68$,
 $-1.78$), no marginal test approaches significance (smallest two-sided $p = .080$, for
 Dilug-in-Dilug), and the joint test gives $\DM = 2.49$, $p = .29$. Leaving out any single
-woman moves the joint $\HW$ p-value within $.055$--$.224$ and never below $.05$
+woman moves the joint $\HW$ $p$-value within $.055$--$.224$ and never below $.05$
 (Table~\ref{tab:stratified}); the nominal Dilug-in-Dilug marginal stays below $.05$ in
 114 of 118 leave-one-out analyses, so it is not driven by one woman, but it remains
 non-significant after Holm correction throughout.
@@ -985,11 +991,22 @@ be reported alongside any pooled one.
 % ─── Ethics Statement ─────────────────────────────────────────────────────────
 \section*{Ethics Statement}
 
-This study is a secondary analysis of a publicly archived dataset
-\citep{fehring2006,fehring2013}. The original data collection was approved by the
-Institutional Review Board at Marquette University. No new data were collected, and no
-individual participant can be identified from the released dataset. Separate ethics
-approval for secondary analysis was not required under the applicable regulations.
+This study is a secondary analysis of a publicly archived, anonymised dataset
+\citep{fehring2012data} collected in the randomised trial of \citet{fehring2013}. The
+original data collection was approved by the Institutional Review Board at Marquette
+University. No new data were collected, and no individual participant can be identified
+from the released dataset. Separate ethics approval for secondary analysis was not
+required under the applicable regulations.
+
+\section*{Patient Consent Statement}
+
+Not applicable. No new data were collected. The original dataset was collected under the
+ethical oversight of the original investigators.
+
+\section*{Funding}
+
+This research received no specific grant from any funding agency in the public,
+commercial, or not-for-profit sectors.
 
 \section*{Conflict of Interest}
 
@@ -997,8 +1014,8 @@ The author declares no conflicts of interest.
 
 \section*{Data Availability Statement}
 
-The source dataset is publicly available from the Marquette University Natural Family
-Planning repository \citep{marquette2013data}. All analyses reported in this article are
+The source dataset is publicly available from Marquette University e-Publications
+\citep{fehring2012data}. All analyses reported in this article are
 reproducible from the released filtered dataset and analysis code at
 \url{https://github.com/dvirross/VessetVectorTest}: the filtered data file
 (\texttt{data/FilteredData.csv}; SHA-256 fingerprint \texttt{508ee88e\ldots691f7811},

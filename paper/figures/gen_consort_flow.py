@@ -110,7 +110,7 @@ SRC_VT, SRC_VB = SRC_CY + SRC_BH/2 + PAD, SRC_CY - SRC_BH/2 - PAD  # 14.15, 13.0
 
 # 1. Source dataset
 draw_main_box(SRC_CY, SRC_BH,
-    'Source dataset: Fehring et al. (2013)\nNFP multi-centre cohort (USA)',
+    'Source dataset: Fehring (2012), Marquette University archive\nCollected in the NFP trial of Fehring et al. (2013), USA',
     bold=True)
 
 v_arrow(SRC_VB, ELIG_VT)
@@ -184,7 +184,7 @@ ax.set_title('Participant Flow and Analysis Design',
              fontweight='bold', fontsize=13, pad=12)
 
 plt.tight_layout()
-fig.savefig(FIGDIR + 'fig_consort_flow.pdf', bbox_inches='tight')
-fig.savefig(FIGDIR + 'fig_consort_flow.png', bbox_inches='tight', dpi=150)
+fig.savefig(FIGDIR + 'fig2_consort_flow.pdf', bbox_inches='tight')
+fig.savefig(FIGDIR + 'fig2_consort_flow.png', bbox_inches='tight', dpi=150)
 plt.close(fig)
 print("Saved.")
