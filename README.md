@@ -49,7 +49,7 @@ VessetVectorTest/
 │   ├── postprocess.py           every number reported in the paper -> results/summary.json
 │   └── build_notebook.py        generates notebooks/analysis.ipynb
 ├── results/                     cached Monte Carlo output (see above)
-├── notebooks/analysis.ipynb     single source of truth for all analyses and figures (fig1, fig3-fig10, figA1)
+├── notebooks/analysis.ipynb     all analyses and figures fig1, fig3-fig10, figA1 (fig2: paper/figures/gen_consort_flow.py)
 ├── paper/
 │   ├── vesset_stat.tex          manuscript (LaTeX, author-year references)
 │   ├── references.bib

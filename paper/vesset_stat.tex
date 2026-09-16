@@ -63,11 +63,11 @@
 % ─── Title Page ───────────────────────────────────────────────────────────────
 \begin{titlepage}
   \centering
-  \vspace*{1.2cm}
+  \vspace*{0.4cm}
   {\large\bfseries Null-Model Choice for Rule-Defined Pattern Counts in Clustered
   Longitudinal Sequences:\\[4pt]
   \normalfont\large A Case Study of Jewish Halachic Menstrual Anticipation Rules\par}
-  \vspace{1.5cm}
+  \vspace{0.7cm}
   {Dvir Ross\par}
   \vspace{0.2cm}
   {\small ORCID: \href{https://orcid.org/0000-0001-8217-3359}{0000-0001-8217-3359}\par}
@@ -86,9 +86,10 @@
     56 Bialik Street, P.O.B.\ 950\\
     Beer Sheva 8410802, Israel
   \end{minipage}
-  \vspace{1.2cm}
+  \vspace{0.6cm}
+  \begin{spacing}{1.0}
   {\normalsize\bfseries Author Note\par}
-  \vspace{0.3cm}
+  \vspace{0.2cm}
   \begin{flushleft}
   Article type: Case Study.
 
@@ -104,6 +105,25 @@
   College of Engineering, Design and Art, 12 Anne Frank St., Ramat Gan 5252626, Israel.
   Email: \texttt{dvirross@shenkar.ac.il} (additional: \texttt{RossDv@sce.ac.il}).
   \end{flushleft}
+  \vspace{0.4cm}
+  {\normalsize\bfseries Acknowledgments\par}
+  \vspace{0.2cm}
+  \begin{flushleft}\small
+During manuscript preparation in 2026, the author used ChatGPT (OpenAI, GPT-5.6 Sol),
+  Gemini (Google, Deep Research using Gemini 3.1 Pro), Perplexity (Deep Thinking mode; the
+  underlying model was not identified by the interface), and Claude/Claude Code (Anthropic,
+  using Claude Sonnet 4.6 and Claude Fable 5.1). ChatGPT, Gemini and Perplexity were used
+  for critical review, research support, editorial feedback and manuscript preparation.
+  Claude/Claude Code was used for critical review and manuscript editing, and also to
+  generate or refactor portions of the Python and \LaTeX{} code. All AI-assisted
+  suggestions and code were reviewed, tested and revised by the author. All scientific
+  content, analytical decisions, interpretations and conclusions are the author's, who
+  takes full responsibility for the accuracy and integrity of the article.
+  
+    This research received no specific grant from any funding agency in the public,
+  commercial, or not-for-profit sectors.
+  \end{flushleft}
+  \end{spacing}
 \end{titlepage}
 
 % ─── Abstract ─────────────────────────────────────────────────────────────────
@@ -1026,22 +1046,6 @@ archive record of the dataset \citep{fehring2012data}, the human-subject data we
 anonymised for dissemination and data reuse was agreed to by the participants in the
 original consent form.
 
-\section*{Acknowledgments}
-
-During manuscript preparation in 2026, the author used ChatGPT (OpenAI, GPT-5.6 Sol),
-Gemini (Google, Deep Research using Gemini 3.1 Pro), Perplexity (Deep Thinking mode; the
-underlying model was not identified by the interface), and Claude/Claude Code (Anthropic,
-using Claude Sonnet 4.6 and Claude Fable 5.1). ChatGPT, Gemini and Perplexity were used
-for critical review, research support, editorial feedback and manuscript preparation.
-Claude/Claude Code was used for critical review and manuscript editing, and also to
-generate or refactor portions of the Python and \LaTeX{} code. All AI-assisted
-suggestions and code were reviewed, tested and revised by the author. All scientific
-content, analytical decisions, interpretations and conclusions are the author's, who
-takes full responsibility for the accuracy and integrity of the article.
-
-This research received no specific grant from any funding agency in the public,
-commercial, or not-for-profit sectors.
-
 \section*{Conflict of Interest}
 
 The author declares no conflicts of interest.
@@ -1057,8 +1061,9 @@ reproducible from the released filtered dataset and analysis code at
 given in full in the Supporting Information and the repository README so that readers can
 verify file integrity), the pattern-counting code with an equivalence test between two
 implementations, the null-model generators, the simulation validation, the
-post-processing script that produces every reported number, the notebook that produces
-every figure, and the cached Monte Carlo replicates ($B = 50{,}000$ per null) that allow
+post-processing script that produces every reported number, the notebook and the
+standalone Figure~\ref{fig:consort} script that together produce all figures, and the
+cached Monte Carlo replicates ($B = 50{,}000$ per null) that allow
 all results to be reproduced without re-simulation.
 
 The preprocessing step is also reproducible. The script

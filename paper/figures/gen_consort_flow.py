@@ -6,12 +6,14 @@ Fixes:
   • Horizontal exclusion arrows end at visual LEFT boundary of exclusion box
 """
 
+from pathlib import Path
+
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 
-FIGDIR = '/home/user/VessetVectorTest/paper/figures/'
+FIGDIR = Path(__file__).resolve().parent
 
 # ── Palette ──────────────────────────────────────────────────────────────────
 C_MF = '#EAF4FB'; C_ME = '#2E86AB'   # main box
@@ -184,7 +186,7 @@ ax.set_title('Participant Flow and Analysis Design',
              fontweight='bold', fontsize=13, pad=12)
 
 plt.tight_layout()
-fig.savefig(FIGDIR + 'fig2_consort_flow.pdf', bbox_inches='tight')
-fig.savefig(FIGDIR + 'fig2_consort_flow.png', bbox_inches='tight', dpi=150)
+fig.savefig(FIGDIR / 'fig2_consort_flow.pdf', bbox_inches='tight')
+fig.savefig(FIGDIR / 'fig2_consort_flow.png', bbox_inches='tight', dpi=150)
 plt.close(fig)
 print("Saved.")
