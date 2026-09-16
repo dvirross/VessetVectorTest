@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage[authoryear,round,sort]{natbib}
+\setlength{\bibsep}{2pt}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{microtype}
@@ -374,7 +375,11 @@ differences $(1, 2, 3)$ and second differences $(1, 1)$ and is a Dilug-in-Dilug.
 
 Two implementations were written --- a reference loop version and a vectorised version
 used for simulation --- and checked to agree on the observed data and on 9,000 random
-null sequences. The observed count vector is
+null sequences. Portions of the analysis code were generated or refactored with
+assistance from Claude/Claude Code (Anthropic; Claude Sonnet 4.6 and Claude Fable 5.1);
+all AI-assisted code was reviewed and tested by the author, and the pattern-counting code
+is additionally checked by this two-implementation equivalence test. The observed count
+vector is
 $\mathbf{O} = (26, 61, 32, 18, 27)$ for (Haflaga, Dilug, Week, Week-Dilug,
 Dilug-in-Dilug). The code, the filtered data, and all Monte Carlo replicates are
 available at \url{https://github.com/dvirross/VessetVectorTest}.
@@ -1021,6 +1026,22 @@ archive record of the dataset \citep{fehring2012data}, the human-subject data we
 anonymised for dissemination and data reuse was agreed to by the participants in the
 original consent form.
 
+\section*{Acknowledgments}
+
+During manuscript preparation in 2026, the author used ChatGPT (OpenAI, GPT-5.6 Sol),
+Gemini (Google, Deep Research using Gemini 3.1 Pro), Perplexity (Deep Thinking mode; the
+underlying model was not identified by the interface), and Claude/Claude Code (Anthropic,
+using Claude Sonnet 4.6 and Claude Fable 5.1). ChatGPT, Gemini and Perplexity were used
+for critical review, research support, editorial feedback and manuscript preparation.
+Claude/Claude Code was used for critical review and manuscript editing, and also to
+generate or refactor portions of the Python and \LaTeX{} code. All AI-assisted
+suggestions and code were reviewed, tested and revised by the author. All scientific
+content, analytical decisions, interpretations and conclusions are the author's, who
+takes full responsibility for the accuracy and integrity of the article.
+
+This research received no specific grant from any funding agency in the public,
+commercial, or not-for-profit sectors.
+
 \section*{Conflict of Interest}
 
 The author declares no conflicts of interest.
@@ -1038,11 +1059,7 @@ verify file integrity), the pattern-counting code with an equivalence test betwe
 implementations, the null-model generators, the simulation validation, the
 post-processing script that produces every reported number, the notebook that produces
 every figure, and the cached Monte Carlo replicates ($B = 50{,}000$ per null) that allow
-all results to be reproduced without re-simulation. Portions of the analysis code were
-generated or refactored with assistance from Claude/Claude Code (Anthropic); all
-AI-assisted code was reviewed and tested by the author, and the pattern-counting code is
-additionally checked by the two-implementation equivalence test of
-Section~\ref{sec:detect}.
+all results to be reproduced without re-simulation.
 
 The preprocessing step is also reproducible. The script
 \texttt{scripts/filter\_raw.py} derives the filtered file from the archived source file
@@ -1056,21 +1073,7 @@ available from the Marquette repository cited above. Women retained
 in the filtered file have between 5 and 45 consecutive recorded cycles, and every
 retained woman's cycle numbering is contiguous.
 
-\section*{Acknowledgments}
-
-ChatGPT (OpenAI), Gemini (Google), Perplexity and Claude/Claude Code (Anthropic) were
-used during manuscript preparation for critical review, editorial suggestions, and
-assistance with manuscript and \LaTeX{} preparation. Claude/Claude Code was additionally
-used to generate and refactor portions of the \texttt{Python} and \LaTeX{} code. All
-AI-assisted suggestions and code were reviewed, tested and revised by the author. All
-scientific content, analytical decisions, interpretations and conclusions are the
-author's, who takes full responsibility for the accuracy and integrity of the article.
-
-This research received no specific grant from any funding agency in the public,
-commercial, or not-for-profit sectors.
-
 % ─── References ───────────────────────────────────────────────────────────────
-\newpage
 \bibliographystyle{plainnat}
 \bibliography{references}
 
