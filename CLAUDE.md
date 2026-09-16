@@ -58,6 +58,7 @@ Any change to counting logic goes in `scripts/patterns.py` only; the notebook im
 | Funding / Patient Consent statements | ✅ separate `\section*` blocks after Ethics |
 | PDF metadata (title/author) | ✅ `pdftitle`/`pdfauthor` in main and SI |
 | ORCID on title page | ✅ |
+| Full postal addresses (both affiliations) + corresponding address (Shenkar) | ✅ title page and cover letter |
 | Reproducible Research ZIP | prepare at revision: `scripts/`, `results/`, `data/`, notebook |
 | Figures as separate files | ✅ PDF + PNG in `paper/figures/` |
 | Complete list of figure legends in text | ⬜ add at revision if requested |
@@ -189,6 +190,5 @@ Responded to three AI pre-submission reviews (statistical, journal-fit, literatu
 - [ ] Verify bibliographic details of `fehring2006` (JOGNN 35(3):376–384) and `schmalenberger2021` (Psychoneuroendocrinology 123:104895) — added offline, not checked against Crossref
 - [ ] Optional (not required for submission): implement the two zero-count rules under the three nulls for the SI
 - [ ] Confirm that 18–42 years is the enrolment eligibility stated in Fehring et al. (2013)
-- [ ] Supply a full postal correspondence address if BJ's submission system requires one (not in repo)
 - [ ] Word count (~4,800 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 is a candidate for the SI
 - [ ] Locate or re-derive the raw→filtered data script for the Reproducible Research ZIP
