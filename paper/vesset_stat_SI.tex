@@ -52,7 +52,8 @@ Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules}\\[4pt]
 
 \bigskip
 \noindent This document contains the exploratory between-woman pairwise dependence
-analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article. That analysis is
+analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article (Section~S1) and
+the literature search referred to in Section~1 (Section~S2). The pairwise analysis is
 secondary to the null-model comparison and does not bear on the primary question of
 whether within-woman ordering produces excess rule-defined events. Notation follows the
 main article; all computations are produced by \texttt{scripts/postprocess.py} and the
@@ -208,5 +209,33 @@ Dilug-in-Dilug events) and rest on few women. And the surviving association is c
 with the proximity argument but is not evidence for it: attributing co-occurrence to a
 mechanism would require an explicit generative model for the sequences, which the article
 does not fit.
+
+\section{Literature Search for Prior Randomisation-Based Tests}
+\label{sec:si-litsearch}
+
+The main article states that we are not aware of any formal randomisation-based test of
+whether the frequency of vesset-type arithmetic patterns in empirical cycle data departs
+from a chance null. A hit was taken to contradict this only if it used empirical cycle
+data, defined rule-based arithmetic events (equal intervals, constant first or second
+differences, weekly anchors or equivalent) and compared their observed frequency with a
+randomisation, permutation, bootstrap or Monte Carlo null. Descriptive halachic studies,
+forecasting models, Markov models and regularity statistics were not counted.
+
+The search had two stages. First, an unstructured search of the Hebrew and English
+halachic, medical-halachic and biostatistical literatures carried out by the author while
+preparing the dissertation (2019--2022); the quantitative halachic works it located are
+cited in Section~2.3 of the main article and none tests pattern frequencies against a
+randomisation null. Second, a logged web search on 16 September 2026 of twelve queries in
+English and Hebrew combining the halachic terms (\textit{vesset}, \textit{veset},
+\textit{haflaga}, \textit{dilug}, \textit{onah}, \textit{niddah}) with statistical
+terms (permutation, randomisation, Monte Carlo, probability, empirical data), together
+with citation-chasing queries for the author's earlier articles and for re-analyses of the
+Marquette dataset. Every returned item was screened by title and snippet. No publication
+meeting the criterion was found in either stage. The verbatim queries, hit descriptions
+and limitations of the search (general web index rather than bibliographic databases;
+snippet-level screening; possible unindexed Hebrew material) are recorded in
+\texttt{revision\_reports/literature\_search\_log.md} in the code repository. The
+main article therefore retains the wording ``we are not aware of'' rather than asserting
+absence.
 
 \end{document}
