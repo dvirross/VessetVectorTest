@@ -2,7 +2,7 @@
 
 All numbers from `results/external/utah/` (B = 50,000, seed 17; same engine, seeds and
 constants as the Fehring analysis). Preprocessing and deviations:
-`utah_preprocessing_and_deviations.md`. Reproduce with
+`revision_reports/utah_preprocessing_and_deviations.md`. Reproduce with
 
 ```bash
 python scripts/external/prepare_utah.py           # raw deposit -> data/external/utah/sequences.csv
@@ -113,7 +113,7 @@ Created: `scripts/analysis_engine.py`, `scripts/run_external.py`, `scripts/exter
 `scripts/external/prepare_utah.py`, `data/external/utah/{README.md, raw/*, sequences.csv, women.csv,
 preprocessing.json}`, `results/external/utah/{null_replicates.npz, summary.json,
 sensitivity_L18-54.json, sim_validation.npz, comparison.md, comparison.json, provenance.json, run.log,
-figures/figE1–E6.{pdf,png}}`, `external_replication/*.md`.
+figures/figE1–E6.{pdf,png}}`, `revision_reports/utah_*.md`.
 Modified: `scripts/patterns.py` (Week anchors by calendar rule; Fehring unchanged),
 `scripts/rerun_nulls.py`, `scripts/postprocess.py`, `scripts/sim_validation.py` (wrappers),
 `results/summary.json` (three descriptive keys added, all values unchanged), `CLAUDE.md`.

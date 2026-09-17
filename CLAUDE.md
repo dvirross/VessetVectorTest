@@ -41,8 +41,8 @@ scripts/external/prepare_utah.py  Utah Hive deposit (DOI 10.7278/S50d-4gxs-s4hj)
 scripts/external_figures.py       figE1-E6 for external runs (paper palette)
 ```
 Any change to counting logic goes in `scripts/patterns.py` only; the notebook imports it.
-External replication status and audits: `external_replication/*.md` (the public Clue
-`cycle_lengths.npz` is simulated — do not use it as real data).
+External replication (Utah Creighton Model cohort, 2026-09-17): `revision_reports/utah_replication_report.md`,
+`utah_preprocessing_and_deviations.md`, `utah_manuscript_subsection_draft.md` (not yet in the manuscript).
 
 ---
 
@@ -189,7 +189,7 @@ paper/cover_letter.tex         BJ cover letter + declarations
 paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2021_BDD_accepted_article_Hebrew.pdf (review only)
 paper/figures/                 figures as PDF + PNG
 notebooks/analysis.ipynb       generated notebook; produces fig1, fig3–fig10 and figA1 (Fig 2 comes from paper/figures/gen_consort_flow.py)
-revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md
+revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md; utah_*.md (external replication)
 ```
 
 Raw Marquette archive (not reachable from the remote sandbox): https://epublications.marquette.edu/data_nfp/7/ — the author's copy is `data/RawData.csv` (also in https://github.com/dvirross/PhD with the original `Filtering.ipynb`); `scripts/filter_raw.py` reproduces the filtered file from it. **Provenance wording (2026-09-16):** never say an 18–54-day inclusion criterion was applied by us — the archive already lies in that range; say the script exists.

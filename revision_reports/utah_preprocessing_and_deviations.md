@@ -1,4 +1,13 @@
-# Utah external replication — preprocessing record and deviation log (2026-09-17)
+# Utah external replication — dataset selection, preprocessing record and deviation log (2026-09-17)
+
+## Dataset selection
+Requirements: individual-level, per-woman consecutive cycle lengths in whole days with verifiable
+order and gap information; at least 5 cycles per woman for a useful share of women; reproductive-age
+women; provenance independent of the Marquette trial; open or documented access. The University of
+Utah deposit below was the only openly downloadable source meeting all of them (the Colombo
+databases at Padua meet them but require an application; the Tremin/BIMORA calendars are
+perimenopausal; app cohorts are under data-use agreements; mcPHASES has too few cycles per
+participant).
 
 ## Source
 Stanford, J. B., & Najmabadi, S. (2023). *Menstrual Cycles Length of Women in the USA and Canada,
