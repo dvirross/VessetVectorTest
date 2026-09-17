@@ -225,24 +225,27 @@ ross2021statistical,ross2022phd} and is presented as a Case Study.
 \subsection{The Polynomial Hierarchy of Vesset Rules}
 
 Let $L_1, \ldots, L_n$ denote one woman's cycle lengths (days) and define the
-\textit{haflaga} $H_k = L_k + 1$, the interval from the first day of menstruation $k$ to
-the first day of menstruation $k+1$, following halachic convention
-\citep{ross2021statistical}. The five rule types analysed here are:
+\textit{interval} $H_k = L_k + 1$ from the first day of menstruation $k$ to the first
+day of menstruation $k+1$; in halachic terminology this quantity is the \textit{haflaga},
+and we follow that convention for its value \citep{ross2021statistical}. Throughout,
+``interval'' denotes $H_k$, and the capitalised pattern name \textit{Haflaga} below
+denotes the rule that three consecutive intervals are equal. The five rule types analysed
+here are:
 
 \begin{description}
   \item[\textit{Haflaga.}] $H_k = H_{k-1} = H_{k-2}$: three or more consecutive equal
-    haflaga values. Degree-0 (constant) sequence; minimum run 3 cycles.
+    intervals. Degree-0 (constant) sequence; minimum run 3 cycles.
   \item[\textit{Dilug.}] $H_k - H_{k-1} = H_{k-1} - H_{k-2} = d \neq 0$: constant
     non-zero first difference. Degree-1 (linear); minimum run 3.
   \item[\textit{Dilug-in-Dilug.}] Constant non-zero second difference,
     $(H_k - H_{k-1}) - (H_{k-1} - H_{k-2}) = (H_{k-1} - H_{k-2}) - (H_{k-2} - H_{k-3})
     = d \neq 0$. Degree-2 (quadratic); minimum run 4.
   \item[\textit{Week.}] $H_k = H_{k-1} \in \mathcal{W}$, where
-    $\mathcal{W} = \{7n + 1 : n \in \mathbb{N}^{+}\}$ is the set of haflaga values
+    $\mathcal{W} = \{7n + 1 : n \in \mathbb{N}^{+}\}$ is the set of intervals
     whose cycle length $L = H - 1$ is a multiple of 7, so that successive onsets fall on
     the same weekday; in these data $\mathcal{W} \cap [19, 55] = \{22, 29, 36, 43,
     50\}$. Degree-0 anchored to weekly values; minimum run 2.
-  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$. A haflaga of 30 (29 days, four weeks
+  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$. An interval of 30 (29 days, four weeks
     plus one day) is the unique interval for which each successive onset falls one
     weekday later, producing an arithmetic progression of weekdays --- hence the name
     (Hebrew \textit{shavu'a be-dilug}; \citealp{ross2022phd}). Degree-0 at the canonical
@@ -252,7 +255,7 @@ the first day of menstruation $k+1$, following halachic convention
 Haflaga, Dilug and Dilug-in-Dilug follow increasing polynomial order in cycle index;
 Week and Week-Dilug are specialisations of the degree-0 case anchored to calendar
 values. The sixth rule computable from interval lengths alone, \textit{Haflaga Chozer
-Chalila} (a block of at least three haflaga values repeated exactly three times in
+Chalila} (a block of at least three intervals repeated exactly three times in
 succession, hence a window of at least nine cycles), had no observed occurrence; it is
 discussed in Section~\ref{sec:data} and evaluated under the three nulls in the
 Supporting Information (Section~S3).
@@ -264,7 +267,7 @@ Two relationships follow from the definitions and are relevant to how the counts
 be tested jointly.
 
 \paragraph{Haflaga-30 $\subseteq$ Week-Dilug (deterministic containment).}
-Week-Dilug requires two consecutive haflaga values equal to 30; a Haflaga sequence with
+Week-Dilug requires two consecutive intervals equal to 30; a Haflaga sequence with
 value 30 requires three. Every Haflaga-30 sequence therefore generates a Week-Dilug
 event in its first two cycles. This is set-theoretic inclusion, not a stochastic
 association: in the data, the 3 Haflaga sequences with $H = 30$ contribute directly to
@@ -272,7 +275,7 @@ the Week-Dilug count of 18.
 
 \paragraph{Haflaga and Dilug-in-Dilug (algebraic proximity).}
 When the second difference $|d|$ of a Dilug-in-Dilug sequence is 1, its first
-differences change by one day per cycle and the haflaga sequence is nearly constant. In
+differences change by one day per cycle and the interval sequence is nearly constant. In
 the data, 16 of 27 Dilug-in-Dilug sequences have $|d| = 1$. This makes positive
 co-occurrence with Haflaga plausible but does not entail it.
 
@@ -402,7 +405,7 @@ Figure~\ref{fig:consort} summarises the data flow.
 Counting is performed within each woman's sequence; sequences are never concatenated
 across women, and the woman boundaries $(s_i, f_i)$ are enforced in every counting loop.
 Each function counts \emph{distinct maximal contiguous runs} satisfying its rule: a run
-longer than the minimum counts once (four equal haflaga values are one Haflaga event), and
+longer than the minimum counts once (four equal intervals are one Haflaga event), and
 a qualifying run that resumes after a discordant cycle counts again. To fix the
 convention: $(29, 29)$ qualifies as Week ($29 = 4 \cdot 7 + 1$) but not as Haflaga;
 $(28, 28, 28)$ is a Haflaga; $(27, 29, 31, 33)$ is a Dilug ($d = 2$) with second
@@ -425,7 +428,7 @@ available at \url{https://github.com/dvirross/VessetVectorTest}.
 
 Three nulls encode three scientific questions (Table~\ref{tab:nullmodels}).
 \begin{description}
-  \item[$\HG$ \textnormal{(global).}] All 1,554 haflaga values are
+  \item[$\HG$ \textnormal{(global).}] All 1,554 intervals are
     exchangeable across women: the pooled values are permuted without replacement and
     re-assigned to women preserving each $n_i$. Tests whether the counts differ from what
     a homogeneous population would produce.
@@ -549,7 +552,7 @@ $2{,}000$ within-woman permutations (400 datasets per scenario). \emph{AR(1)}: e
 woman's sequence is a Gaussian first-order autoregressive process with her observed mean
 and SD and coefficient $\rho \in \{0, .25, .5, .75\}$, rounded to whole days and clipped
 to the observed range. \emph{Persistence}: each cycle exactly repeats the previous
-haflaga with probability $q \in \{0, .1, .2, .3\}$ and is otherwise drawn from the
+interval with probability $q \in \{0, .1, .2, .3\}$ and is otherwise drawn from the
 woman's own observed values; this is the mechanism the Haflaga rule presupposes. In both
 families the zero level is exchangeable within woman and serves as a further size check
 under heterogeneous, realistic marginals.
@@ -925,7 +928,7 @@ this characterises whom the rule selects rather than validating it. Dilug's glob
 $z = 1.84$ does not survive correction and should be treated as hypothesis-generating;
 gradual trends (age, weight, hormonal change) would produce arithmetic progressions,
 but no such mechanism is tested here. The Week pattern in this sample is almost entirely
-the 28-day cycle (haflaga 29) repeated twice, because longer weekly anchors (35, 42 days)
+the 28-day cycle ($H = 29$) repeated twice, because longer weekly anchors (35, 42 days)
 are rare (9.6\% of cycles are $\geq 35$ days). Week-Dilug events include the 3 Haflaga-30
 sequences by containment.
 
@@ -977,7 +980,7 @@ natural next step.
 Counts are invariant to the $H_k = L_k + 1$ relabelling provided the Week-Dilug anchor is
 shifted accordingly (verified: 26 Haflaga, 18 Week-Dilug under both conventions;
 computing on $L_k$ with an unshifted anchor of 30 gives 12 Week-Dilug events). The
-haflaga distribution declines smoothly through the anchor ($H = 29$: 225 cycles;
+distribution of intervals declines smoothly through the anchor ($H = 29$: 225 cycles;
 $30$: 175; $31$: 141; Figure~\ref{fig:heaping}), so the Week-Dilug count does not appear
 to reflect digit preference; no formal test of heaping was performed. Onset time of day
 is not recorded, so some events may be misclassified relative to the halachic requirement
@@ -1013,7 +1016,7 @@ dependence of both rates on follow-up length.
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.88\textwidth]{figA1_heaping_diagnostic}
-  \caption{Frequency of each haflaga value $H_k = L_k + 1$ in the analysed sample.
+  \caption{Frequency of each interval value $H_k = L_k + 1$ in the analysed sample.
     Red bars: $H = 29$ and $H = 31$, the round-number cycle lengths $L = 28$ and
     $L = 30$ at which digit preference would appear; orange bar: $H = 30$ ($L = 29$),
     the Week-Dilug anchor. Counts decline smoothly through these values

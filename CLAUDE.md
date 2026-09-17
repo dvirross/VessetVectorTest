@@ -138,6 +138,7 @@ Compile the SI separately: `pdflatex vesset_stat_SI.tex` ×2 (no BibTeX needed).
 | Bonferroni assumes independence | Holm valid under any dependence |
 | establish / prove / demonstrate | suggest / consistent with / provide no evidence that |
 | one-sided p in any table/figure | all marginal p are two-sided: min{1, 2·min((b⁺+1)/(B+1), (b⁻+1)/(B+1))} |
+| "haflaga value(s)" for the quantity H_k | **interval(s)** H_k = L_k + 1 (defined once in §2.1 as the halachic *haflaga*; "haflaga convention" for the +1 shift is fine). Capitalised **Haflaga** = the pattern (three equal intervals) only |
 
 ---
 

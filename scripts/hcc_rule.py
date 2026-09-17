@@ -1,6 +1,6 @@
 """Haflaga Chozer Chalila (HCC): the sixth rule computable from cycle lengths alone.
 
-Definition (author, 2026-09-17): a block of m >= 3 consecutive haflaga values repeated
+Definition (author, 2026-09-17): a block of m >= 3 consecutive intervals repeated
 exactly, three times in a row (window 3m >= 9 cycles). (25,27,26,25,27,26,25,27,26) is an
 event; (25,27,25,27,25,27) is not (block of length 2). Blocks may be longer than 3, e.g.
 (25,27,26,28) x 3.

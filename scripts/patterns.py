@@ -20,7 +20,7 @@ WEEK_DILUG_ANCHOR = 30
 
 
 def load_data(path: str):
-    """Return (haflaga values H_k = L_k + 1, woman-id integer array, boundaries).
+    """Return (interval values H_k = L_k + 1 (the halachic haflaga), woman-id integer array, boundaries).
 
     Also asserts that every woman's CycleNumber sequence is contiguous
     (1, 2, ..., n_i) so that no pattern window can bridge an excluded cycle.

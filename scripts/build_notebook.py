@@ -99,7 +99,7 @@ ax2.set_title('Per-woman variability', fontweight='bold')
 plt.tight_layout(); save('fig1_cycle_distribution'); plt.show()
 """)
 code(r"""
-# figA1_heaping_diagnostic: frequency of each haflaga value H, highlighting round-number cycle lengths
+# figA1_heaping_diagnostic: frequency of each interval value H, highlighting round-number cycle lengths
 vals, cnts = np.unique(H, return_counts=True)
 C_CONCERN, C_ANCHOR = '#C73E1D', '#E8912D'
 colors = [C_CONCERN if v in (29, 31) else (C_ANCHOR if v == 30 else C_PERM) for v in vals]
@@ -158,7 +158,7 @@ print('Women establishing each pattern at least once:', dict(zip(PATTERN_LABELS,
 md(r"""
 ## 3. Null models
 
-* $H_G$ — global permutation of all 1,554 haflaga values (population-level exchangeability).
+* $H_G$ — global permutation of all 1,554 intervals (population-level exchangeability).
 * $H_{iid}$ — each woman's $n_i$ cycles drawn i.i.d. from the pooled empirical distribution.
 * $H_W$ — each woman's sequence permuted uniformly at random **without replacement**: conditional on her
   observed multiset and length, all orderings are equally likely. This destroys within-woman ordering
@@ -456,7 +456,7 @@ Produced by `scripts/sim_validation.py`:
   pseudo-observed datasets; joint test evaluated with plug-in (same batch for $\hat\Sigma$ and reference)
   and split-batch procedures.
 * **Part B** — power of the $H_W$ tests against within-woman AR(1) alternatives (each woman's own mean and SD,
-  rounded to days) and "persistence" alternatives (each cycle repeats the previous haflaga exactly with
+  rounded to days) and "persistence" alternatives (each cycle repeats the previous interval exactly with
   probability $q$). Each simulated dataset is analysed with its own 2,000 within-woman permutations.
 * **Part C** — $H_W$ analysis after truncating every woman to her first 12 cycles.
 """)
