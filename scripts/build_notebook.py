@@ -1,6 +1,7 @@
 """Build notebooks/analysis.ipynb programmatically.
 
-The notebook is the single source of truth for all analyses and figures. It
+The notebook produces all analyses and every figure except Fig 2 (see
+paper/figures/gen_consort_flow.py). It
 imports the counting code from scripts/patterns.py and loads the replicate
 matrices written by scripts/rerun_nulls.py and scripts/sim_validation.py.
 Run:  python scripts/build_notebook.py && \
