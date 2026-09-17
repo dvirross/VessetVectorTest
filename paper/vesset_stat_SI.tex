@@ -271,9 +271,43 @@ than 1 in 2,000 replicates; under $\HW$, which preserves each woman's multiset o
 values, a periodic reordering of a woman with few distinct values and many cycles is
 occasionally produced, and at least one event occurs in 2.8\% of replicates. The
 observed zero is the modal outcome under every null and its two-sided Monte Carlo
-$p$-value is 1. Excluding the rule from the five-pattern family, the joint statistic and
-the Holm family therefore cannot affect the conclusions of the main article. The
-replicate counts are stored in \texttt{results/hcc\_null.npz}.
+$p$-value is 1. The replicate counts are stored in \texttt{results/hcc\_null.npz}.
+
+\paragraph{Effect on the joint statistic.} Because a near-degenerate component could in
+principle disturb the estimated covariance of the joint test, the check was made
+directly. The three null streams were regenerated with the seed and call order of the
+main analysis, so that the five primary counts reproduce the stored replicates exactly,
+and the rule was counted on the same permuted sequences, giving paired six-component
+replicate vectors (\texttt{scripts/hcc\_joint.py}; \texttt{results/hcc\_joint.npz}).
+Table~\ref{tab:si-hcc-joint} compares the five- and six-component Mahalanobis tests.
+The observed $D_M$ is unchanged to two decimals under every null, because the observed
+deviation of the sixth component from its null mean is essentially zero. The $p$-values
+increase slightly: every replicate that contains an event lies far beyond the observed
+vector in the sixth coordinate, so such replicates are added to the exceedance count
+(16, 19 and 1,378 replicates under $\HG$, $\HI$ and $\HW$). The split-batch estimate
+agrees. Under the two global nulls the joint test still rejects at $p < .001$; under
+$\HW$ the $p$-value moves from $.126$ to $.150$ and the test still does not reject. The
+condition numbers of the estimated $6 \times 6$ covariance matrices ($1.4 \times 10^5$,
+$1.2 \times 10^5$ and $2.0 \times 10^3$) reflect the near-zero variance of the sixth
+component but caused no numerical difficulty.
+
+\begin{table}[!htbp]
+\centering
+\caption{Joint Mahalanobis test with five components (main article) and with
+  \textit{Haflaga Chozer Chalila} added as a sixth component, on the same $B = 50{,}000$
+  paired replicates per null.}
+\label{tab:si-hcc-joint}
+\smallskip
+\begin{tabular}{L{1.4cm} C{1.4cm} C{1.6cm} C{1.4cm} C{1.6cm} C{2.6cm}}
+\toprule
+\textbf{Null} & $\mathbf{D_M^{(5)}}$ & $\mathbf{p^{(5)}}$ & $\mathbf{D_M^{(6)}}$ & $\mathbf{p^{(6)}}$ & \textbf{Split-batch} $\mathbf{D_M^{(6)}}$, $\mathbf{p^{(6)}}$ \\
+\midrule
+$\HG$  & 5.08 & $.0001$ & 5.08 & $.0005$ & 5.07, $.0005$ \\
+$\HI$  & 4.87 & $.0004$ & 4.87 & $.0007$ & 4.87, $.0007$ \\
+$\HW$  & 2.93 & $.126$  & 2.94 & $.150$  & 2.96, $.143$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{table}[!htbp]
 \centering

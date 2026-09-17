@@ -43,6 +43,7 @@ VessetVectorTest/
 │   ├── filter_raw.py            data/RawData.csv -> data/FilteredData.csv (verified identical)
 │   ├── Filtering_original.ipynb original filtering notebook (from the PhD repository)
 │   ├── hcc_rule.py              sixth interval-computable rule (Haflaga Chozer Chalila): counting + 3 nulls -> results/hcc_null.npz
+│   ├── hcc_joint.py             5- vs 6-component Mahalanobis test on paired replicates -> results/hcc_joint.npz
 │   ├── patterns.py              counting rules (vectorised + reference loop; equivalence test), null generators,
 │   │                            two-sided Monte Carlo p, Holm, Mahalanobis test
 │   ├── rerun_nulls.py           B = 50,000 replicates under H_G, H_iid, H_W (seed 17) -> results/null_replicates.npz
@@ -100,6 +101,7 @@ python scripts/rerun_nulls.py 50000 17                # ~1 min: replicates under
 python scripts/sim_validation.py                      # ~20 min on 4 cores: size / power / truncation
 python scripts/postprocess.py                         # all reported statistics -> results/summary.json
 python scripts/hcc_rule.py 50000 17                   # ~1 min: zero-count rule Haflaga Chozer Chalila under the 3 nulls (SI S3)
+python scripts/hcc_joint.py 50000 17                  # ~2 min: 6-component joint test on paired replicates (SI S3, Table S3)
 python scripts/build_notebook.py
 (cd notebooks && jupyter nbconvert --to notebook --execute --inplace analysis.ipynb)   # regenerates figures
 python paper/figures/gen_consort_flow.py              # fig2
