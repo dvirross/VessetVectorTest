@@ -120,10 +120,12 @@ print({int(v): int(c) for v, c in zip(vals, cnts) if 27 <= v <= 32})
 md(r"""
 ## 2. Pattern definitions and counting
 
-Halachic literature documents 17 vesset types; 10 need calendar/time-of-day data absent here; 7 are
-computable from cycle lengths. Two of the 7 (*Dilug Chozer Chalila*, *Haflaga Chozer Chalila*) require
-multi-value repeating windows of at least 6–9 cycles and had **zero** occurrences; the analysed family of
-five was fixed after this was observed (see paper, Methods). Formal definitions ($H_k = L_k + 1$):
+Halachic literature documents 17 vesset types; 11 need calendar/time-of-day data absent here; 6 are
+computable from cycle lengths. The sixth, *Haflaga Chozer Chalila* (a block of ≥ 3 haflaga values repeated
+exactly three times in succession; window ≥ 9 cycles), had **zero** observed occurrences; its null
+expectation under the three nulls is computed by `scripts/hcc_rule.py` and reported in the SI (Section S3).
+The analysed family of five was fixed after the zero count was observed (see paper, Methods).
+Formal definitions ($H_k = L_k + 1$):
 
 | Pattern | Condition | Degree | Min. run |
 |---|---|---|---|

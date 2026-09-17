@@ -181,8 +181,8 @@ menstruation from patterns in her prior cycle history; the anticipatory rules --
 \textit{halachic vesset rules} (\textit{vesset}: menstruation) --- govern abstinence
 obligations within \textit{taharat hamishpacha}, the laws of family purity. Each rule
 defines an exact arithmetic event in the sequence of inter-menstrual intervals. Of the 17
-rule types in the halachic literature, 10 require calendar or time-of-day data that
-standard cycle records do not contain; 7 are computable from interval lengths alone.
+rule types in the halachic literature, 11 require calendar or time-of-day data that
+standard cycle records do not contain; 6 are computable from interval lengths alone.
 Despite centuries of practical application and the availability of longitudinal cycle
 datasets, we are not aware of any formal randomisation-based test of whether the
 frequency of these events in empirical data departs from what chance would produce; a
@@ -251,9 +251,11 @@ the first day of menstruation $k+1$, following halachic convention
 
 Haflaga, Dilug and Dilug-in-Dilug follow increasing polynomial order in cycle index;
 Week and Week-Dilug are specialisations of the degree-0 case anchored to calendar
-values. Two further computable rules (\textit{Dilug Chozer Chalila} and \textit{Haflaga
-Chozer Chalila}, repeating multi-value cycles of intervals) require windows of at least
-six to nine cycles; they are discussed in Section~\ref{sec:data}.
+values. The sixth rule computable from interval lengths alone, \textit{Haflaga Chozer
+Chalila} (a block of at least three haflaga values repeated exactly three times in
+succession, hence a window of at least nine cycles), had no observed occurrence; it is
+discussed in Section~\ref{sec:data} and evaluated under the three nulls in the
+Supporting Information (Section~S3).
 
 \subsection{Dependence Structure Implied by the Definitions}
 \label{sec:mathdep}
@@ -346,13 +348,18 @@ principle produce each of the five pattern types, the longest of which requires 
 consecutive intervals. The filtering script is part of the code release and reproduces
 the filtered file exactly from the archived source file (Section~\ref{sec:das}).
 
-Of the seven rule types computable from cycle-length data, the two repeating-cycle rules
-(\textit{Dilug Chozer Chalila}, \textit{Haflaga Chozer Chalila}) had no observed
-occurrences. The five-pattern family analysed here was therefore selected after
-inspection of the observed data and should be regarded as data-informed rather than
-pre-specified; the two zero-occurrence rules were not implemented in the analysis code
-and were not included in the multivariate analysis or in the Holm family. The analyses
-reported below are accordingly described as primary rather than confirmatory.
+Of the six rule types computable from cycle-length data, \textit{Haflaga Chozer
+Chalila} had no observed occurrence. Because a zero count is informative only relative
+to what the nulls expect, the rule was implemented and evaluated under the same three
+nulls with $B = 50{,}000$ replicates (Supporting Information, Section~S3): its expected
+count is $0.0003$ under $\HG$, $0.0004$ under $\HI$ and $0.028$ under $\HW$, with at
+least one event in $0.03\%$, $0.04\%$ and $2.8\%$ of replicates respectively, so the
+observed zero is the modal null outcome (two-sided $p = 1$ under each null) and the
+rule's exclusion from the five-pattern family, the joint statistic and the Holm family
+cannot affect the conclusions. The five-pattern family was nevertheless fixed after
+inspection of the observed counts and should be regarded as data-informed rather than
+pre-specified; the analyses reported below are accordingly described as primary rather
+than confirmatory.
 
 As a descriptive characterisation, the 20 women with at least one Haflaga event had a
 mean within-woman SD of cycle length of 1.54 days (between-woman SD 0.59), compared with
@@ -975,10 +982,10 @@ hence the $\HW$ analysis unchanged, but shifts that vary within a woman are not
 addressed.
 
 \paragraph{Scope.}
-Calendar dates are absent, precluding the 10 date-dependent rule types; body-sign
-patterns (\textit{vesset haguf}) are invisible to cycle-length data. The two
-repeating-cycle rules were not analysed after zero occurrences were observed
-(Section~\ref{sec:data}). The sample consists of non-Jewish, regularly cycling, married
+Calendar dates are absent, precluding the 11 date-dependent rule types; body-sign
+patterns (\textit{vesset haguf}) are invisible to cycle-length data. The sixth
+interval-computable rule, Haflaga Chozer Chalila, had no observed occurrence and a
+negligible null expectation (Section~\ref{sec:data}). The sample consists of non-Jewish, regularly cycling, married
 NFP users (trial eligibility 18--42 years; \citealp{fehring2013}), a self-selected,
 cycle-aware group who may be more regular than
 the general population; some halachic authorities hold that regularities in this

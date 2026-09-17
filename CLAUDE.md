@@ -27,6 +27,8 @@ scripts/filter_raw.py      archived source file -> data/FilteredData.csv (no 18�
                            removes 3 duplicated-record women, women with <5 cycles, 8 duplicate rows of nfp8107)
 scripts/patterns.py        counting rules (vectorised + reference loop, equivalence test), null generators,
                            two-sided Monte Carlo p, Holm, Mahalanobis test, load_data (asserts CycleNumber contiguity)
+scripts/hcc_rule.py        Haflaga Chozer Chalila (block of >=3 values repeated 3x; window >=9): loop + vectorised
+                           counter, equivalence test, 3 nulls B=50,000 seed 17 -> results/hcc_null.npz (SI S3)
 scripts/rerun_nulls.py     -> results/null_replicates.npz
 scripts/sim_validation.py  -> results/sim_validation.npz
 scripts/postprocess.py     -> results/summary.json (prints all paper numbers)
@@ -192,7 +194,7 @@ Responded to three AI pre-submission reviews (statistical, journal-fit, literatu
 
 **Outstanding (author decisions):**
 - [x] `fehring2006` (Fehring, Schneider & Raviele; JOGNN 35(3):376–384; DOI 10.1111/j.1552-6909.2006.00051.x; PMID 16700687) and `schmalenberger2021` (10 authors as listed; Psychoneuroendocrinology 123:104895; DOI 10.1016/j.psyneuen.2020.104895; PMID 33113391) verified via web search snippets (Crossref/PubMed themselves are blocked from the sandbox)
-- [ ] Optional (not required for submission): implement the two zero-count rules under the three nulls for the SI
+- [x] Zero-count rule evaluated (2026-09-17): only **one** further rule is interval-computable — *Haflaga Chozer Chalila* (Dilug Chozer Chalila depends on calendar dates → 17 rules = 11 date-dependent + 6 interval-computable). Observed 0; null mean 0.0003 (H_G), 0.0004 (H_iid), 0.028 (H_W); P(≥1) = 0.03%, 0.04%, 2.8%; two-sided p = 1. Reported in §3.1 and SI Section S3; exclusion from the 5-pattern family is inconsequential
 - [x] Trial eligibility confirmed (dissertation p. 22 + ClinicalTrials.gov NCT00843336): women 18–42 years, cycle lengths 21–42 days, no hormonal contraception in prior 3 months; NCT number now cited in §3.1 and Fig 2
 - [x] Patient Consent wording now cites the Marquette archive record: "anonymized for dissemination", "data reuse was agreed to by subjects in the consent form" (data_nfp/7 "Rights, Permissions, & Privacy" field, confirmed verbatim by the author on 2026-09-16). This is reported in the Patient Consent Statement only — do **not** restore the quotation to the `fehring2012data` bib note, which stays `note = {Dataset (.sav/.csv)}`
 - [ ] Word count (~4,800 body) slightly exceeds BJ's recommended 4,500 for a Case Study; Fig 5 is a candidate for the SI
