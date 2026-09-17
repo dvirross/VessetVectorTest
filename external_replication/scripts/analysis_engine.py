@@ -6,9 +6,10 @@ sensitivity) is implemented here as a function of a ``Dataset`` object, so that 
 code runs on the Fehring sequences and on any external set of per-woman cycle-length
 sequences. The counting rules themselves live in ``patterns.py``.
 
-The original scripts (``rerun_nulls.py``, ``postprocess.py``, ``sim_validation.py``) are
-thin wrappers around this module; their random-number streams are consumed in exactly the
-same order as before, so the cached Fehring results are reproduced bit for bit.
+The random-number streams are consumed in exactly the same order as in the original
+scripts (``scripts/rerun_nulls.py``, ``postprocess.py``, ``sim_validation.py``), and the module
+was verified to reproduce every cached Fehring result bit for bit (replicates, summary values,
+validation Parts A, B and C). Counting rules are imported from ``scripts/patterns.py``.
 """
 from __future__ import annotations
 
@@ -21,7 +22,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 
-sys.path.insert(0, os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
 from patterns import (load_data, weekly_anchor_set, Counter, perm_global, perm_within,  # noqa: E402
                       multinomial_iid, two_sided_p, holm_adjust, mahalanobis_test,
                       count_all_loop, PATTERN_LABELS)

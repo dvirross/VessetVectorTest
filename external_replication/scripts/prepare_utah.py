@@ -1,7 +1,7 @@
 """Build the analysed external sequence file from the University of Utah deposit
 "Menstrual Cycles Length of Women in the USA and Canada, 1990-2013"
 (Stanford & Najmabadi 2023; The Hive, DOI 10.7278/S50d-4gxs-s4hj; CC BY-NC).
-Raw file: data/external/utah/raw/CrMcyclelength_share.csv (columns new_id, age, cycle_number,
+Raw file: external_replication/data/raw/CrMcyclelength_share.csv (columns new_id, age, cycle_number,
 cycle_start_date, cycle_end_date, cycle_length, conception_cycle).
 
 Rules (pre-specified 2026-09-16; two refinements fixed on 2026-09-17 after inspecting the file
@@ -26,8 +26,8 @@ structure and before any pattern count was computed):
      LengthofCycle), CycleNumber contiguous within every woman; women.csv gives age and cohort
      era for the retained women.
 
-Usage: python scripts/external/prepare_utah.py [RAW_CSV]
-Writes data/external/utah/sequences.csv, women.csv and preprocessing.json.
+Usage: python external_replication/scripts/prepare_utah.py [RAW_CSV]
+Writes external_replication/data/sequences.csv, women.csv and preprocessing.json.
 """
 import hashlib, json, os, sys
 from collections import Counter
@@ -35,7 +35,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-OUT_DIR = os.path.join(ROOT, "data", "external", "utah")
+OUT_DIR = os.path.join(ROOT, "external_replication", "data")
 RAW = os.path.join(OUT_DIR, "raw", "CrMcyclelength_share.csv")
 MIN_CYCLES = 5
 

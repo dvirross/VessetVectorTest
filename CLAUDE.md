@@ -31,18 +31,9 @@ scripts/rerun_nulls.py     -> results/null_replicates.npz
 scripts/sim_validation.py  -> results/sim_validation.npz
 scripts/postprocess.py     -> results/summary.json (prints all paper numbers)
 scripts/build_notebook.py  -> notebooks/analysis.ipynb (then execute with nbconvert to regenerate figures)
-scripts/analysis_engine.py dataset-agnostic engine (Dataset container, run_nulls, summarise, Validator,
-                           run_validation, restricted_support); rerun_nulls/postprocess/sim_validation are
-                           thin wrappers around it (verified bit-identical to the cached results, 2026-09-16)
-scripts/run_external.py    one-command external replication: data/external/NAME/sequences.csv ->
-                           results/external/NAME/ (never touches results/*.npz or summary.json)
-scripts/external/prepare_utah.py  Utah Hive deposit (DOI 10.7278/S50d-4gxs-s4hj) -> sequences.csv,
-                           pre-specified rules in the docstring; see data/external/utah/README.md
-scripts/external_figures.py       figE1-E6 for external runs (paper palette)
 ```
 Any change to counting logic goes in `scripts/patterns.py` only; the notebook imports it.
-External replication (Utah Creighton Model cohort, 2026-09-17): `revision_reports/utah_replication_report.md`,
-`utah_preprocessing_and_deviations.md`, `utah_manuscript_subsection_draft.md` (not yet in the manuscript).
+External replication on the Utah Creighton Model cohort (2026-09-17) is self-contained in `external_replication/` (see its README).
 
 ---
 
@@ -189,7 +180,7 @@ paper/cover_letter.tex         BJ cover letter + declarations
 paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2021_BDD_accepted_article_Hebrew.pdf (review only)
 paper/figures/                 figures as PDF + PNG
 notebooks/analysis.ipynb       generated notebook; produces fig1, fig3–fig10 and figA1 (Fig 2 comes from paper/figures/gen_consort_flow.py)
-revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md; utah_*.md (external replication)
+revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md
 ```
 
 Raw Marquette archive (not reachable from the remote sandbox): https://epublications.marquette.edu/data_nfp/7/ — the author's copy is `data/RawData.csv` (also in https://github.com/dvirross/PhD with the original `Filtering.ipynb`); `scripts/filter_raw.py` reproduces the filtered file from it. **Provenance wording (2026-09-16):** never say an 18–54-day inclusion criterion was applied by us — the archive already lies in that range; say the script exists.

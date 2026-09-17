@@ -1,11 +1,11 @@
 """One-command external replication of the full analysis on a new set of sequences.
 
-    python scripts/run_external.py NAME [--csv PATH] [--B 50000] [--seed 17] [--nproc 3]
-                                        [--skip-validation] [--quick]
+    python external_replication/scripts/run_external.py [NAME] [--csv PATH] [--B 50000] [--seed 17]
+                                                          [--nproc 3] [--skip-validation] [--quick]
 
-Input : data/external/NAME/sequences.csv (columns ClientID, CycleNumber, LengthofCycle; the
-        same schema and contiguity requirement as data/FilteredData.csv), or --csv PATH.
-Output: results/external/NAME/
+Input : external_replication/data/sequences.csv (columns ClientID, CycleNumber, LengthofCycle;
+        the same schema and contiguity requirement as data/FilteredData.csv), or --csv PATH.
+Output: external_replication/results/ for NAME = utah (default); external_replication/results/NAME otherwise:
         null_replicates.npz      B replicates under H_G, H_iid, H_W (+ per-woman H_W counts)
         summary.json             every statistic reported for Fehring, for this dataset
         sensitivity_L18-54.json  harmonised-support sensitivity (18 <= L <= 54, sequences split at gaps)
@@ -13,18 +13,20 @@ Output: results/external/NAME/
         comparison.json/.md      side-by-side with the cached Fehring results
         figures/                 figE1..figE6
         provenance.json, run.log
-The cached Fehring results in results/ are never touched. --quick runs a tiny smoke test.
+Nothing outside external_replication/ is written. --quick runs a tiny smoke test.
 """
 import argparse, hashlib, json, os, platform, subprocess, sys, time
 
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(__file__))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
 from analysis_engine import (Dataset, run_nulls, summarise, summarise_null, run_validation,  # noqa: E402
                              print_validation, holm_adjust)
 from patterns import PATTERN_LABELS  # noqa: E402
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+EXT = os.path.join(ROOT, "external_replication")
 
 
 def sha256(path):
@@ -128,7 +130,7 @@ def comparison_tables(ref, ext, ref_val, ext_val, sens, out_md):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("name")
+    ap.add_argument("name", nargs="?", default="utah")
     ap.add_argument("--csv")
     ap.add_argument("--B", type=int, default=50_000)
     ap.add_argument("--seed", type=int, default=17)
@@ -137,8 +139,8 @@ def main():
     ap.add_argument("--quick", action="store_true", help="smoke test: tiny B and validation sizes")
     a = ap.parse_args()
 
-    csv = a.csv or os.path.join(ROOT, "data", "external", a.name, "sequences.csv")
-    out_dir = os.path.join(ROOT, "results", "external", a.name)
+    csv = a.csv or os.path.join(EXT, "data", "sequences.csv")
+    out_dir = os.path.join(EXT, "results") if a.name == "utah" else os.path.join(EXT, "results", a.name)
     os.makedirs(out_dir, exist_ok=True)
     logf = open(os.path.join(out_dir, "run.log"), "w")
 
@@ -194,6 +196,7 @@ def main():
     # 5. comparison with Fehring
     ref = json.load(open(os.path.join(ROOT, "results", "summary.json")))
     ref.setdefault("dataset", "fehring")
+    ref.setdefault("description", Dataset.from_csv(os.path.join(ROOT, "data", "FilteredData.csv"), "fehring").describe())
     ref_val = None
     rv_path = os.path.join(ROOT, "results", "sim_validation.npz")
     if val is not None and os.path.exists(rv_path):

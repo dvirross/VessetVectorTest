@@ -7,6 +7,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "scripts"))
 from patterns import PATTERN_LABELS
 
 C_PERM, C_MULTI, C_STRAT, C_OBS = "#2E86AB", "#3DAA5C", "#E07B39", "#C73E1D"

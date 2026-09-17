@@ -1,12 +1,12 @@
 # External replication on the Utah Creighton Model cohort — results (2026-09-17)
 
-All numbers from `results/external/utah/` (B = 50,000, seed 17; same engine, seeds and
+All numbers from `external_replication/results/` (B = 50,000, seed 17; same engine, seeds and
 constants as the Fehring analysis). Preprocessing and deviations:
-`revision_reports/utah_preprocessing_and_deviations.md`. Reproduce with
+`external_replication/reports/utah_preprocessing_and_deviations.md`. Reproduce with
 
 ```bash
-python scripts/external/prepare_utah.py           # raw deposit -> data/external/utah/sequences.csv
-python scripts/run_external.py utah --nproc 3      # ~30 min on 3 cores -> results/external/utah/
+python external_replication/scripts/prepare_utah.py           # raw deposit -> external_replication/data/sequences.csv
+python external_replication/scripts/run_external.py --nproc 3   # ~30 min on 3 cores -> external_replication/results/
 ```
 
 ## 1. Samples
@@ -109,13 +109,13 @@ as the source of the global signal; as before, this explanation is supported, no
 
 ## 8. Files
 
-Created: `scripts/analysis_engine.py`, `scripts/run_external.py`, `scripts/external_figures.py`,
-`scripts/external/prepare_utah.py`, `data/external/utah/{README.md, raw/*, sequences.csv, women.csv,
-preprocessing.json}`, `results/external/utah/{null_replicates.npz, summary.json,
-sensitivity_L18-54.json, sim_validation.npz, comparison.md, comparison.json, provenance.json, run.log,
-figures/figE1–E6.{pdf,png}}`, `revision_reports/utah_*.md`.
-Modified: `scripts/patterns.py` (Week anchors by calendar rule; Fehring unchanged),
-`scripts/rerun_nulls.py`, `scripts/postprocess.py`, `scripts/sim_validation.py` (wrappers),
-`results/summary.json` (three descriptive keys added, all values unchanged), `CLAUDE.md`.
-Environment: Python 3.11.15, numpy 2.4.6, scipy 1.17.1, pandas 3.0.5, matplotlib 3.11.2
-(`results/external/utah/provenance.json` records seeds, B, hashes and commit).
+Everything lives in `external_replication/`: `scripts/` (analysis_engine.py — self-contained copy of the
+analysis as functions of a Dataset, verified bit-identical to the cached Fehring results; run_external.py;
+external_figures.py; prepare_utah.py), `data/` (raw deposit, sequences.csv, women.csv, preprocessing.json,
+README.md), `results/` (null_replicates.npz, summary.json, sensitivity_L18-54.json, sim_validation.npz,
+comparison.md/json, provenance.json, run.log, figures/figE1–E6), `reports/` (this file, the preprocessing
+and deviation log, the draft manuscript subsection).
+The only file changed outside the folder is `scripts/patterns.py` (Week anchors defined by the calendar
+rule; Fehring anchors, counts and all cached results unchanged). Environment: Python 3.11.15,
+numpy 2.4.6, scipy 1.17.1, pandas 3.0.5, matplotlib 3.11.2 (`results/provenance.json` records seeds, B,
+hashes and commit).

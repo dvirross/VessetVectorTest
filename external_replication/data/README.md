@@ -13,10 +13,10 @@ Najmabadi et al. 2022, *Hum Reprod Open* 2022(4):hoac039; Ecochard et al. 2024, 
 hive.utah.edu is not reachable from the analysis sandbox. To run the replication:
 
 1. Download the data file(s) from the DOI above and place the original file(s) in this
-   directory (`data/external/utah/raw/`).
-2. `python scripts/external/prepare_utah.py data/external/utah/raw/<file>` → `sequences.csv`
+   directory (`external_replication/data/raw/`).
+2. `python external_replication/scripts/prepare_utah.py external_replication/data/raw/<file>` → `sequences.csv`
    and `preprocessing.json` (rules are pre-specified in the script docstring).
-3. `python scripts/run_external.py utah` → `results/external/utah/` (replicates, summary,
+3. `python external_replication/scripts/run_external.py utah` → `external_replication/results/` (replicates, summary,
    validation, figures, comparison with Fehring).
 
 `sequences.csv` has the analysed columns of `data/FilteredData.csv` (ClientID, CycleNumber,

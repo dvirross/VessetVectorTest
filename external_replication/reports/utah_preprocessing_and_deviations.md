@@ -13,7 +13,7 @@ participant).
 Stanford, J. B., & Najmabadi, S. (2023). *Menstrual Cycles Length of Women in the USA and Canada,
 1990–2013*. The Hive, University of Utah. https://doi.org/10.7278/S50d-4gxs-s4hj (CC BY-NC).
 Downloaded by the author from Hive and uploaded to the session on 2026-09-17 (the host is blocked
-from the sandbox). Files in `data/external/utah/raw/`:
+from the sandbox). Files in `external_replication/data/raw/`:
 
 | file | SHA-256 |
 |---|---|
@@ -33,7 +33,7 @@ cycles are a woman's last record. No contraception, pregnancy-history or procedu
 the README eligibility statement (regular bleeding, not pregnant, not exclusively breastfeeding,
 recent OC users after 1–2 bleeds).
 
-## Preprocessing applied (`scripts/external/prepare_utah.py`)
+## Preprocessing applied (`external_replication/scripts/prepare_utah.py`)
 1. L = recorded cycle_length (identical to next start − start for consecutive cycles; keeps each
    woman's last recorded cycle). H = L + 1.
 2. Conception cycles (no recorded length) excluded (180); the 7 cycles with flag "Missing" but a

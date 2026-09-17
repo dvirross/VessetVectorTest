@@ -1,6 +1,6 @@
 {
  "dataset": "utah",
- "sequences_csv": "data/external/utah/sequences.csv",
+ "sequences_csv": "external_replication/data/sequences.csv",
  "sequences_sha256": "08dddb0c04c6a107b95eefc6ef081fabedfe2e22bd8c9832ce6e1af45a9ee37f",
  "B": 50000,
  "seed": 17,
