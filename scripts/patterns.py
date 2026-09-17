@@ -39,8 +39,17 @@ def load_data(path: str):
 
 
 def weekly_anchor_set(H) -> set:
+    """Week anchors: haflaga values H = L + 1 whose cycle length L is a multiple of 7, so that
+    successive onsets fall on the same weekday (H = 22, 29, 36, ...), restricted to the
+    observed range of H.
+
+    Note (2026-09-17): the previous implementation, ``range(H_min + 3, H_max + 1, 7)``, gives
+    the same set on the Fehring data (H_min = 19 -> {22, 29, 36, 43, 50}) but encodes the
+    data range rather than the calendar rule and yields a different set whenever H_min is
+    not congruent to 5 mod 7. The Fehring results are unaffected by this change.
+    """
     mn, mx = int(H.min()), int(H.max())
-    return set(range(mn + 3, mx + 1, 7))
+    return {h for h in range(mn, mx + 1) if (h - 1) % 7 == 0}
 
 
 # ── Vectorised counter ─────────────────────────────────────────────────────────
