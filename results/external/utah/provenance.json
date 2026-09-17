@@ -1,0 +1,103 @@
+{
+ "dataset": "utah",
+ "sequences_csv": "data/external/utah/sequences.csv",
+ "sequences_sha256": "08dddb0c04c6a107b95eefc6ef081fabedfe2e22bd8c9832ce6e1af45a9ee37f",
+ "B": 50000,
+ "seed": 17,
+ "pairwise_B": 50000,
+ "validation": {
+  "B_REF": 20000,
+  "N_FRESH": 10000,
+  "R_ALT": 400,
+  "B_IN": 2000
+ },
+ "validation_seeds": {
+  "part_a": [
+   100,
+   101,
+   102
+  ],
+  "part_b_ar1": [
+   1000,
+   1001,
+   1002,
+   1003
+  ],
+  "part_b_persist": [
+   2000,
+   2001,
+   2002,
+   2003
+  ],
+  "part_c": 300
+ },
+ "python": "3.11.15",
+ "numpy": "2.4.6",
+ "scipy": "1.17.1",
+ "pandas": "3.0.5",
+ "matplotlib": "3.11.2",
+ "code_commit": "0658ff2ea58a684ab33c2b6eb56d71ef01bd3bed",
+ "quick": false,
+ "runtime_s": 1825,
+ "timestamp": "2026-09-17T00:43:23Z",
+ "preprocessing": {
+  "source_file": "CrMcyclelength_share.csv",
+  "source_sha256": "ad67a3eed731a038d6502a1eb42a9dcddf8f6c69a607a61b85f3798198043dac",
+  "n_rows_raw": 3324,
+  "n_women_raw": 581,
+  "duplicate_rows_removed": 0,
+  "min_cycles": 5,
+  "conception_cycles_excluded": 180,
+  "conception_cycles_all_terminal": true,
+  "cycles_with_missing_conception_flag_kept": 7,
+  "recorded_length_equals_dates": "asserted",
+  "rules": "see module docstring",
+  "gap_breaks": 170,
+  "gap_breaks_with_cycle_number_jump": 169,
+  "cycle_number_jumps_without_date_gap": 1,
+  "run_length_histogram": {
+   "1": 179,
+   "2": 113,
+   "3": 89,
+   "4": 74,
+   "5": 70,
+   "6": 45,
+   "7": 38,
+   "8": 21,
+   "9": 27,
+   "10": 20,
+   "11": 23,
+   "12": 17,
+   "13": 4,
+   "14": 10,
+   "15": 2
+  },
+  "women_with_eligible_run": 270,
+  "women_without_eligible_run": 311,
+  "women_with_several_eligible_runs": 7,
+  "n_cycles_analysed": 2139,
+  "n_women_analysed": 270,
+  "cycles_per_woman": {
+   "mean": 7.92,
+   "sd": 2.68,
+   "min": 5,
+   "max": 15
+  },
+  "L_min": 17,
+  "L_max": 98,
+  "n_cycles_L_below_18": 2,
+  "n_cycles_L_above_54": 26,
+  "age": {
+   "min": 19,
+   "max": 40,
+   "mean": 27.2,
+   "sd": 4.4
+  },
+  "cohort_era_counts": {
+   "CMFS 1990-1997": 162,
+   "CEIBA 2009-2013": 99,
+   "TTP 2003-2006": 9
+  },
+  "output_sha256": "08dddb0c04c6a107b95eefc6ef081fabedfe2e22bd8c9832ce6e1af45a9ee37f"
+ }
+}
