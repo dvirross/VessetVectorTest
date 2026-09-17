@@ -146,3 +146,12 @@ Part A ≈ 0.5 core-h; Part B (8 × 400 × 2,000) ≈ 21 core-h (≈ 5–7 h on 
    the Li/Urteaga generative model (5,000 × 11), reported as such — never as a Clue
    replication.
 4. Stop here.
+
+## 7. Engine verification addendum (2026-09-17)
+
+`scripts/analysis_engine.py` reproduces every cached Fehring result: null replicates under
+all three nulls and the per-woman H_W counts are bit-identical (B = 50,000, seed 17); every
+value in `results/summary.json` is unchanged; validation Parts A (three nulls), B (all eight
+power scenarios, 400 x 2,000 each) and C (first-12 truncation) match the cached
+`sim_validation.npz` exactly. `scripts/run_external.py` was smoke-tested end to end on the
+Fehring sequences.
