@@ -1,33 +1,42 @@
 """Build the analysed external sequence file from the University of Utah deposit
 "Menstrual Cycles Length of Women in the USA and Canada, 1990-2013"
-(Stanford & Najmabadi; Hive, DOI 10.7278/S50d-4gxs-s4hj; CC BY-NC).
+(Stanford & Najmabadi 2023; The Hive, DOI 10.7278/S50d-4gxs-s4hj; CC BY-NC).
+Raw file: data/external/utah/raw/CrMcyclelength_share.csv (columns new_id, age, cycle_number,
+cycle_start_date, cycle_end_date, cycle_length, conception_cycle).
 
-Pre-specified rules (fixed on 2026-09-16, before the file was seen):
-  1. Cycle length L = start of the next recorded cycle - start of this cycle (days), per
-     woman, in chronological order. Haflaga value H = L + 1 as in scripts/patterns.py.
-  2. Two successive records are *consecutive* when the next start equals this record's
-     end + 1 (if end dates exist); otherwise when next start - start equals the recorded
-     cycle length (if a length column exists). A woman's record is split at every gap;
-     gaps are never bridged.
-  3. Each run of at least MIN_CYCLES consecutive cycles is eligible; a woman contributes
-     her single longest eligible run (earliest on ties), as in the Fehring analysis where
-     each woman is one contiguous series.
-  4. No cycle-length cutoff. Records with unparseable dates or non-positive lengths are
-     dropped and counted. Exact duplicate rows (same woman, same start date) are removed
-     and counted.
-  5. Output schema equals data/FilteredData.csv's analysed columns (ClientID, CycleNumber,
-     LengthofCycle) so that patterns.load_data() and its contiguity assertion apply.
+Rules (pre-specified 2026-09-16; two refinements fixed on 2026-09-17 after inspecting the file
+structure and before any pattern count was computed):
+  1. Cycle length L = recorded ``cycle_length`` (days from the first day of menses to the day
+     before the next menses). The script asserts that L equals end date - start date + 1 for
+     every recorded cycle, so L is identical to the pre-specified "next start - start" for
+     consecutive cycles and additionally retains each woman's last recorded cycle, as in the
+     Fehring file. Haflaga value H = L + 1 (scripts/patterns.py).
+  2. A cycle is usable when ``cycle_length`` is recorded. The 180 conception cycles have no
+     recorded length (pregnancy, no menstrual end) and are excluded; they are always a woman's
+     last record. Seven cycles have conception_cycle = "Missing" but a recorded length that
+     matches the dates; they are kept as ordinary cycles (refinement).
+  3. Two successive usable cycles are consecutive when the next start equals this end + 1.
+     A woman's record is split at every gap (a gap always corresponds to at least one
+     excluded cycle); gaps are never bridged.
+  4. Each run of >= MIN_CYCLES (5) consecutive cycles is eligible; a woman contributes her
+     single longest eligible run (earliest on ties), so each woman is one contiguous series.
+  5. No cycle-length cutoff. Exact duplicate (woman, start date) rows would be removed and
+     counted (there are none).
+  6. Output schema = analysed columns of data/FilteredData.csv (ClientID, CycleNumber,
+     LengthofCycle), CycleNumber contiguous within every woman; women.csv gives age and cohort
+     era for the retained women.
 
-Usage: python scripts/external/prepare_utah.py RAW_FILE [--id COL --start COL --end COL --length COL]
-Writes data/external/utah/sequences.csv and data/external/utah/preprocessing.json.
+Usage: python scripts/external/prepare_utah.py [RAW_CSV]
+Writes data/external/utah/sequences.csv, women.csv and preprocessing.json.
 """
-import argparse, hashlib, json, os, sys
+import hashlib, json, os, sys
 from collections import Counter
 import numpy as np
 import pandas as pd
 
-ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT_DIR = os.path.join(ROOT, "data", "external", "utah")
+RAW = os.path.join(OUT_DIR, "raw", "CrMcyclelength_share.csv")
 MIN_CYCLES = 5
 
 
@@ -39,111 +48,81 @@ def sha256(path):
     return h.hexdigest()
 
 
-def guess(cols, keys):
-    for c in cols:
-        lc = c.lower()
-        if any(k in lc for k in keys):
-            return c
-    return None
+def main(raw_path=RAW):
+    raw = pd.read_csv(raw_path)
+    raw.columns = [c.lstrip("﻿") for c in raw.columns]
+    d = raw.copy()
+    d["start"] = pd.to_datetime(d["cycle_start_date"], format="%m/%d/%y")
+    d["end"] = pd.to_datetime(d["cycle_end_date"], format="%m/%d/%y")
+    dups = int(d.duplicated(["new_id", "start"]).sum())
+    d = d.drop_duplicates(["new_id", "start"]).sort_values(["new_id", "start"]).reset_index(drop=True)
+    span = (d["end"] - d["start"]).dt.days + 1
+    rec = d["cycle_length"].notna()
+    assert (span[rec] == d.loc[rec, "cycle_length"]).all(), "recorded length != end - start + 1"
+    assert (d.loc[~rec, "conception_cycle"] == "Yes").all(), "blank length outside conception cycles"
 
+    log = dict(source_file=os.path.basename(raw_path), source_sha256=sha256(raw_path),
+               n_rows_raw=int(len(raw)), n_women_raw=int(raw["new_id"].nunique()),
+               duplicate_rows_removed=dups, min_cycles=MIN_CYCLES,
+               conception_cycles_excluded=int((~rec).sum()),
+               conception_cycles_all_terminal=bool(int((d.groupby("new_id")["conception_cycle"].last() == "Yes").sum()) == int((~rec).sum())),
+               cycles_with_missing_conception_flag_kept=int(((d["conception_cycle"] == "Missing") & rec).sum()),
+               recorded_length_equals_dates="asserted",
+               rules="see module docstring")
 
-def read_any(path):
-    ext = os.path.splitext(path)[1].lower()
-    if ext in (".xlsx", ".xls"):
-        return pd.read_excel(path)
-    if ext == ".sav":
-        return pd.read_spss(path)
-    if ext in (".dta",):
-        return pd.read_stata(path)
-    return pd.read_csv(path)
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("raw")
-    ap.add_argument("--id"); ap.add_argument("--start"); ap.add_argument("--end"); ap.add_argument("--length")
-    ap.add_argument("--cohort", help="optional cohort column to report")
-    a = ap.parse_args()
-    raw = read_any(a.raw)
-    cols = list(raw.columns)
-    id_c = a.id or guess(cols, ["subject", "woman", "participant", "user", "id"])
-    st_c = a.start or guess(cols, ["start", "begin", "onset", "first_day", "firstday"])
-    en_c = a.end or guess(cols, ["end", "last_day", "lastday", "stop"])
-    ln_c = a.length or guess(cols, ["length", "cycle_len", "cyclelength", "days"])
-    print("columns:", cols)
-    print(f"using id={id_c!r} start={st_c!r} end={en_c!r} length={ln_c!r}")
-    if id_c is None or st_c is None:
-        sys.exit("Could not identify id/start columns; pass --id/--start explicitly.")
-
-    log = dict(source_file=os.path.basename(a.raw), source_sha256=sha256(a.raw), n_rows_raw=int(len(raw)),
-               n_women_raw=int(raw[id_c].nunique()), columns=cols, id_col=id_c, start_col=st_c, end_col=en_c,
-               length_col=ln_c, min_cycles=MIN_CYCLES, rules="see module docstring")
-    df = raw.copy()
-    df["_start"] = pd.to_datetime(df[st_c], errors="coerce")
-    bad_dates = int(df["_start"].isna().sum())
-    df = df[df["_start"].notna()]
-    dups = int(df.duplicated([id_c, "_start"]).sum())
-    df = df.drop_duplicates([id_c, "_start"]).sort_values([id_c, "_start"]).reset_index(drop=True)
-    if en_c:
-        df["_end"] = pd.to_datetime(df[en_c], errors="coerce")
-    log.update(rows_unparseable_start=bad_dates, duplicate_rows_removed=dups)
-
-    seqs, per_woman = [], []
-    n_gap_breaks = n_nonpos = 0
-    run_len_hist = Counter()
-    for wid_, g in df.groupby(id_c, sort=False):
-        starts = g["_start"].to_numpy()
-        L = (np.diff(starts) / np.timedelta64(1, "D")).astype(float)          # length of cycles 1..n-1
-        # consecutive flag between record k and k+1
-        if en_c and g["_end"].notna().all():
-            ends = g["_end"].to_numpy()
-            consec = (starts[1:] - ends[:-1]) / np.timedelta64(1, "D") == 1
-            rule = "next_start == end + 1"
-        elif ln_c:
-            rec = pd.to_numeric(g[ln_c], errors="coerce").to_numpy()[:-1]
-            consec = np.isclose(L, rec)
-            rule = "next_start - start == recorded length"
-        else:
-            consec = np.ones(len(L), bool)
-            rule = "no gap information: successive records treated as consecutive"
+    seqs, women_rows = [], []
+    n_gap_breaks = n_gap_with_cn_jump = n_cn_jump_without_gap = 0
+    run_hist = Counter()
+    for wid_, g in d.groupby("new_id", sort=True):
+        g = g.reset_index(drop=True)
         runs, cur = [], []
-        for k in range(len(L)):
-            if L[k] <= 0 or not np.isfinite(L[k]):
-                n_nonpos += 1
+        for k in range(len(g)):
+            if pd.isna(g.loc[k, "cycle_length"]):          # conception cycle: unusable, ends the run
                 if cur: runs.append(cur); cur = []
                 continue
-            if cur and not consec[k - 1]:
-                n_gap_breaks += 1
-                runs.append(cur); cur = []
-            cur.append(int(round(L[k])))
+            if cur:
+                gap = (g.loc[k, "start"] - g.loc[k - 1, "end"]).days - 1
+                cn_jump = int(g.loc[k, "cycle_number"] - g.loc[k - 1, "cycle_number"])
+                if gap != 0:
+                    n_gap_breaks += 1
+                    n_gap_with_cn_jump += int(cn_jump > 1)
+                    runs.append(cur); cur = []
+                elif cn_jump > 1:
+                    n_cn_jump_without_gap += 1     # dates abut: treated as consecutive
+            cur.append(int(g.loc[k, "cycle_length"]))
         if cur: runs.append(cur)
-        for r in runs: run_len_hist[len(r)] += 1
+        for r in runs: run_hist[len(r)] += 1
         elig = [r for r in runs if len(r) >= MIN_CYCLES]
-        per_woman.append(dict(id=str(wid_), n_records=int(len(g)), n_runs=len(runs), n_eligible=len(elig)))
         if elig:
-            best = max(elig, key=len)   # max keeps the first maximum -> earliest on ties
-            seqs.append((str(wid_), best))
-    log.update(gap_rule=rule, gap_breaks=n_gap_breaks, nonpositive_or_missing_lengths=n_nonpos,
-               women_with_eligible_run=len(seqs), women_without_eligible_run=len(per_woman) - len(seqs),
-               women_with_several_eligible_runs=int(sum(w["n_eligible"] > 1 for w in per_woman)),
-               run_length_histogram={int(k): v for k, v in sorted(run_len_hist.items())})
-    rows = []
-    for wid_, s in seqs:
-        for k, L_ in enumerate(s, 1):
-            rows.append((wid_, k, L_))
+            best = max(elig, key=len)          # first maximum = earliest run on ties
+            seqs.append((int(wid_), best))
+            first_year = int(g.loc[0, "start"].year)
+            era = "CMFS 1990-1997" if first_year <= 1997 else ("TTP 2003-2006" if first_year <= 2006 else "CEIBA 2009-2013")
+            women_rows.append(dict(ClientID=int(wid_), age=int(g.loc[0, "age"]), first_cycle_year=first_year, cohort_era=era,
+                                   n_records=int(len(g)), n_runs=len(runs), n_eligible_runs=len(elig), n_cycles_analysed=len(best)))
+    log.update(gap_breaks=n_gap_breaks, gap_breaks_with_cycle_number_jump=n_gap_with_cn_jump,
+               cycle_number_jumps_without_date_gap=n_cn_jump_without_gap,
+               run_length_histogram={int(k): v for k, v in sorted(run_hist.items())},
+               women_with_eligible_run=len(seqs), women_without_eligible_run=int(d["new_id"].nunique() - len(seqs)),
+               women_with_several_eligible_runs=int(sum(w["n_eligible_runs"] > 1 for w in women_rows)))
+    rows = [(wid_, k, L_) for wid_, s in seqs for k, L_ in enumerate(s, 1)]
     out = pd.DataFrame(rows, columns=["ClientID", "CycleNumber", "LengthofCycle"])
-    if a.cohort and a.cohort in raw.columns:
-        coh = raw.drop_duplicates(id_c).set_index(id_c)[a.cohort]
-        log["cohort_counts_analysed"] = out.drop_duplicates("ClientID")["ClientID"].map(lambda x: coh.get(x, coh.get(int(x)) if str(x).isdigit() else None)).value_counts(dropna=False).to_dict()
+    women = pd.DataFrame(women_rows)
     os.makedirs(OUT_DIR, exist_ok=True)
     out.to_csv(os.path.join(OUT_DIR, "sequences.csv"), index=False)
+    women.to_csv(os.path.join(OUT_DIR, "women.csv"), index=False)
     log.update(n_cycles_analysed=int(len(out)), n_women_analysed=int(out["ClientID"].nunique()),
+               cycles_per_woman=dict(mean=round(float(women.n_cycles_analysed.mean()), 2), sd=round(float(women.n_cycles_analysed.std()), 2),
+                                     min=int(women.n_cycles_analysed.min()), max=int(women.n_cycles_analysed.max())),
                L_min=int(out["LengthofCycle"].min()), L_max=int(out["LengthofCycle"].max()),
+               n_cycles_L_below_18=int((out["LengthofCycle"] < 18).sum()), n_cycles_L_above_54=int((out["LengthofCycle"] > 54).sum()),
+               age=dict(min=int(women.age.min()), max=int(women.age.max()), mean=round(float(women.age.mean()), 1), sd=round(float(women.age.std()), 1)),
+               cohort_era_counts=women.cohort_era.value_counts().to_dict(),
                output_sha256=sha256(os.path.join(OUT_DIR, "sequences.csv")))
     with open(os.path.join(OUT_DIR, "preprocessing.json"), "w") as fh:
         json.dump(log, fh, indent=1)
-    print(json.dumps({k: v for k, v in log.items() if k != "columns"}, indent=1))
+    print(json.dumps(log, indent=1))
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1] if len(sys.argv) > 1 else RAW)
