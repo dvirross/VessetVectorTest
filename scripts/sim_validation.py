@@ -12,7 +12,7 @@ Part B  Power of the within-woman (H_W) tests against two families of
         analysed with its own B_IN within-woman permutations:
           AR(1)       each woman's sequence is a Gaussian AR(1) process with
                       her observed mean and SD, rounded to whole days;
-          persistence each cycle repeats the previous haflaga exactly with
+          persistence each cycle repeats the previous interval exactly with
                       probability q, otherwise is drawn from the woman's own
                       observed multiset (q = 0 is exchangeable: size check).
 Part C  Sensitivity of the H_W analysis to unequal follow-up: each woman is

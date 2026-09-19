@@ -20,7 +20,7 @@ WEEK_DILUG_ANCHOR = 30
 
 
 def load_data(path: str):
-    """Return (haflaga values H_k = L_k + 1, woman-id integer array, boundaries).
+    """Return (interval values H_k = L_k + 1 (the halachic haflaga), woman-id integer array, boundaries).
 
     Also asserts that every woman's CycleNumber sequence is contiguous
     (1, 2, ..., n_i) so that no pattern window can bridge an excluded cycle.
@@ -39,17 +39,10 @@ def load_data(path: str):
 
 
 def weekly_anchor_set(H) -> set:
-    """Week anchors: haflaga values H = L + 1 whose cycle length L is a multiple of 7, so that
-    successive onsets fall on the same weekday (H = 22, 29, 36, ...), restricted to the
-    observed range of H.
-
-    Note (2026-09-17): the previous implementation, ``range(H_min + 3, H_max + 1, 7)``, gives
-    the same set on the Fehring data (H_min = 19 -> {22, 29, 36, 43, 50}) but encodes the
-    data range rather than the calendar rule and yields a different set whenever H_min is
-    not congruent to 5 mod 7. The Fehring results are unaffected by this change.
-    """
+    """Haflaga values H = L + 1 whose cycle length L is a multiple of 7 (H = 7n + 1),
+    i.e. successive onsets fall on the same weekday, restricted to the observed range."""
     mn, mx = int(H.min()), int(H.max())
-    return {h for h in range(mn, mx + 1) if (h - 1) % 7 == 0}
+    return {h for h in range(mn, mx + 1) if h % 7 == 1}
 
 
 # ── Vectorised counter ─────────────────────────────────────────────────────────

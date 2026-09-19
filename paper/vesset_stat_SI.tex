@@ -38,6 +38,9 @@
 \renewcommand{\thesection}{S\arabic{section}}
 \renewcommand{\thetable}{S\arabic{table}}
 \renewcommand{\thefigure}{S\arabic{figure}}
+\newcommand{\HG}{H_{G}}
+\newcommand{\HI}{H_{iid}}
+\newcommand{\HW}{H_{W}}
 \providecommand{\doi}{}
 \renewcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
 
@@ -52,7 +55,10 @@ Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules}\\[4pt]
 
 \bigskip
 \noindent This document contains the exploratory between-woman pairwise dependence
-analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article. That analysis is
+analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article (Section~S1), the
+literature search referred to in Section~1 (Section~S2) and the evaluation of the
+zero-count rule \textit{Haflaga Chozer Chalila} referred to in Sections~2.1 and 3.1
+(Section~S3). The pairwise analysis is
 secondary to the null-model comparison and does not bear on the primary question of
 whether within-woman ordering produces excess rule-defined events. Notation follows the
 main article; all computations are produced by \texttt{scripts/postprocess.py} and the
@@ -208,5 +214,116 @@ Dilug-in-Dilug events) and rest on few women. And the surviving association is c
 with the proximity argument but is not evidence for it: attributing co-occurrence to a
 mechanism would require an explicit generative model for the sequences, which the article
 does not fit.
+
+\section{Literature Search for Prior Randomisation-Based Tests}
+\label{sec:si-litsearch}
+
+The main article states that we are not aware of any formal randomisation-based test of
+whether the frequency of vesset-type arithmetic patterns in empirical cycle data departs
+from a chance null. A hit was taken to contradict this only if it used empirical cycle
+data, defined rule-based arithmetic events (equal intervals, constant first or second
+differences, weekly anchors or equivalent) and compared their observed frequency with a
+randomisation, permutation, bootstrap or Monte Carlo null. Descriptive halachic studies,
+forecasting models, Markov models and regularity statistics were not counted.
+
+The search had two stages. First, an unstructured search of the Hebrew and English
+halachic, medical-halachic and biostatistical literatures carried out by the author while
+preparing the dissertation (2019--2022); the quantitative halachic works it located are
+cited in Section~2.3 of the main article and none tests pattern frequencies against a
+randomisation null. Second, a logged web search on 16 September 2026 of twelve queries in
+English and Hebrew combining the halachic terms (\textit{vesset}, \textit{veset},
+\textit{haflaga}, \textit{dilug}, \textit{onah}, \textit{niddah}) with statistical
+terms (permutation, randomisation, Monte Carlo, probability, empirical data), together
+with citation-chasing queries for the author's earlier articles and for re-analyses of the
+Marquette dataset. Every returned item was screened by title and snippet. No publication
+meeting the criterion was found in either stage. The verbatim queries, hit descriptions
+and limitations of the search (general web index rather than bibliographic databases;
+snippet-level screening; possible unindexed Hebrew material) are recorded in
+\texttt{revision\_reports/literature\_search\_log.md} in the code repository. The
+main article therefore retains the wording ``we are not aware of'' rather than asserting
+absence.
+
+\section{The Zero-Count Rule \textit{Haflaga Chozer Chalila} Under the Three Nulls}
+\label{sec:si-hcc}
+
+\paragraph{Definition.} \textit{Haflaga Chozer Chalila} (``recurring haflaga'') is
+established when a block of $m \geq 3$ consecutive intervals is repeated exactly,
+three times in succession, so that the event occupies a window of $3m \geq 9$ cycles.
+Thus $(25, 27, 26, 25, 27, 26, 25, 27, 26)$ is an event, $(25, 27, 26, 28)$ repeated three
+times is an event with $m = 4$, and $(25, 27, 25, 27, 25, 27)$ is not (block of length 2).
+It is the sixth and last rule computable from interval lengths alone; the other
+repeating rule of the halachic literature, \textit{Dilug Chozer Chalila}, depends on
+calendar dates and is not computable from these data.
+
+\paragraph{Counting convention.} As for the five primary rules, distinct maximal
+$m$-periodic segments of length at least $3m$ count once each. A segment whose block has
+a shorter period $d$ dividing $m$ is not counted at $m$: it is the same event at period
+$d$ if $d \geq 3$, a Haflaga if $d = 1$, and not an event if $d = 2$. The rule is
+implemented twice (a reference loop and a vectorised version) in
+\texttt{scripts/hcc\_rule.py}, and the two implementations agree on the observed data and
+on 3,000 random sequences with planted repeating blocks. In the observed data 100 of the
+118 women have the nine or more cycles needed for an event; the observed count is 0.
+
+\paragraph{Null distributions.} The rule was counted under $\HG$, $\HI$ and $\HW$
+with $B = 50{,}000$ replicates each (seed 17), using the same generators as the main
+analysis (Table~\ref{tab:si-hcc}). Under the two global nulls an event occurs in fewer
+than 1 in 2,000 replicates; under $\HW$, which preserves each woman's multiset of
+values, a periodic reordering of a woman with few distinct values and many cycles is
+occasionally produced, and at least one event occurs in 2.8\% of replicates. The
+observed zero is the modal outcome under every null and its two-sided Monte Carlo
+$p$-value is 1. The replicate counts are stored in \texttt{results/hcc\_null.npz}.
+
+\paragraph{Effect on the joint statistic.} Because a near-degenerate component could in
+principle disturb the estimated covariance of the joint test, the check was made
+directly. The three null streams were regenerated with the seed and call order of the
+main analysis, so that the five primary counts reproduce the stored replicates exactly,
+and the rule was counted on the same permuted sequences, giving paired six-component
+replicate vectors (\texttt{scripts/hcc\_joint.py}; \texttt{results/hcc\_joint.npz}).
+Table~\ref{tab:si-hcc-joint} compares the five- and six-component Mahalanobis tests.
+The observed $D_M$ is unchanged to two decimals under every null, because the observed
+deviation of the sixth component from its null mean is essentially zero. The $p$-values
+increase slightly: every replicate that contains an event lies far beyond the observed
+vector in the sixth coordinate, so such replicates are added to the exceedance count
+(16, 19 and 1,378 replicates under $\HG$, $\HI$ and $\HW$). The split-batch estimate
+agrees. Under the two global nulls the joint test still rejects at $p < .001$; under
+$\HW$ the $p$-value moves from $.126$ to $.150$ and the test still does not reject. The
+condition numbers of the estimated $6 \times 6$ covariance matrices ($1.4 \times 10^5$,
+$1.2 \times 10^5$ and $2.0 \times 10^3$) reflect the near-zero variance of the sixth
+component but caused no numerical difficulty.
+
+\begin{table}[!htbp]
+\centering
+\caption{Joint Mahalanobis test with five components (main article) and with
+  \textit{Haflaga Chozer Chalila} added as a sixth component, on the same $B = 50{,}000$
+  paired replicates per null.}
+\label{tab:si-hcc-joint}
+\smallskip
+\begin{tabular}{L{1.4cm} C{1.4cm} C{1.6cm} C{1.4cm} C{1.6cm} C{2.6cm}}
+\toprule
+\textbf{Null} & $\mathbf{D_M^{(5)}}$ & $\mathbf{p^{(5)}}$ & $\mathbf{D_M^{(6)}}$ & $\mathbf{p^{(6)}}$ & \textbf{Split-batch} $\mathbf{D_M^{(6)}}$, $\mathbf{p^{(6)}}$ \\
+\midrule
+$\HG$  & 5.08 & $.0001$ & 5.08 & $.0005$ & 5.07, $.0005$ \\
+$\HI$  & 4.87 & $.0004$ & 4.87 & $.0007$ & 4.87, $.0007$ \\
+$\HW$  & 2.93 & $.126$  & 2.94 & $.150$  & 2.96, $.143$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{\textit{Haflaga Chozer Chalila} under the three nulls ($B = 50{,}000$ each;
+  observed count 0).}
+\label{tab:si-hcc}
+\smallskip
+\begin{tabular}{L{2.2cm} C{1.6cm} C{1.6cm} C{1.6cm} C{2.6cm} C{2.0cm}}
+\toprule
+\textbf{Null} & \textbf{Mean} & \textbf{SD} & \textbf{Max} & \textbf{P(count $\geq 1$)} & \textbf{$p$ (two-sided)} \\
+\midrule
+$\HG$   & 0.0003 & 0.018 & 1 & 0.0003 & 1.00 \\
+$\HI$   & 0.0004 & 0.020 & 1 & 0.0004 & 1.00 \\
+$\HW$   & 0.028  & 0.166 & 2 & 0.028  & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{document}
