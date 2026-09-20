@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage[a4paper, margin=2.54cm]{geometry}
+\usepackage[a4paper, margin=2.3cm]{geometry}
 \usepackage{times}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{setspace}
 \hypersetup{colorlinks=true,urlcolor=blue}
+\newcommand{\DM}{D_{M}}
 \setlength{\parskip}{2pt}
 \setlength{\parindent}{0pt}
 \pagestyle{empty}
@@ -72,8 +73,11 @@ why this contrast arises and what each null does and does not test. A compact
 simulation study reports the empirical size of every test used (including a split-batch
 check on the covariance estimate), the power of the within-woman tests against
 autoregressive and exact-repetition alternatives, and the sensitivity of the
-conclusions to unequal follow-up (truncation and leave-one-woman-out). An exploratory
-between-woman pairwise analysis is provided as Supporting Information.
+conclusions to unequal follow-up (truncation and leave-one-woman-out). The contrast
+reproduces in an independent, openly deposited Creighton Model cohort of 270 women and
+2,139 cycles analysed with identical code and seeds (global $\DM = 9.99$; within-woman
+$\DM = 1.20$, $p = .92$). An exploratory between-woman pairwise analysis is provided as
+Supporting Information.
 
 \medskip
 \textbf{Why a Case Study.}
@@ -140,9 +144,9 @@ All analysis code, the archived source file, the filtered dataset and the script
 derives it, and the cached Monte Carlo replicates needed to reproduce every number in
 the paper without re-simulation are publicly available at:
 \url{https://github.com/dvirross/VessetVectorTest}.\\
-The original dataset is archived at Marquette University e-Publications (Fehring, 2012):
-\url{https://epublications.marquette.edu/data_nfp/7/}. A Reproducible Research ZIP will
-be supplied at the revision stage.
+The original dataset is archived at Marquette University e-Publications (Fehring, 2012):\\
+\url{https://epublications.marquette.edu/data_nfp/7/}.\\
+A Reproducible Research ZIP will be supplied at the revision stage.
 
 \medskip
 

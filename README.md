@@ -59,6 +59,7 @@ VessetVectorTest/
 │   ├── supplementary_for_review/  PhD dissertation (2022) and accepted B.D.D. article (2021), Hebrew; for review only
 │   └── figures/                 PDF + PNG figures; gen_consort_flow.py generates fig2
 ├── revision_reports/            reviewer reports, author responses, triage matrices
+├── external_replication/        independent replication on the Utah Creighton Model cohort (own README; SI Section S4)
 ├── sim_results.npz, strat_full_118.pkl   legacy replicate files (superseded; computed on 1,553 cycles)
 └── requirements.txt
 ```

@@ -41,6 +41,7 @@
 \newcommand{\HG}{H_{G}}
 \newcommand{\HI}{H_{iid}}
 \newcommand{\HW}{H_{W}}
+\newcommand{\DM}{D_{M}}
 \providecommand{\doi}{}
 \renewcommand{\doi}[1]{\href{https://doi.org/#1}{\nolinkurl{https://doi.org/#1}}}
 
@@ -56,9 +57,11 @@ Sequences: A Case Study of Jewish Halachic Menstrual Anticipation Rules}\\[4pt]
 \bigskip
 \noindent This document contains the exploratory between-woman pairwise dependence
 analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article (Section~S1), the
-literature search referred to in Section~1 (Section~S2) and the evaluation of the
+literature search referred to in Section~1 (Section~S2), the evaluation of the
 zero-count rule \textit{Haflaga Chozer Chalila} referred to in Sections~2.1 and 3.1
-(Section~S3). The pairwise analysis is
+(Section~S3), the full results of the external replication in the Utah Creighton Model
+cohort referred to in Sections~3.6 and 4.6 (Section~S4), and the null distribution
+functions under the two global nulls (Section~S5). The pairwise analysis is
 secondary to the null-model comparison and does not bear on the primary question of
 whether within-woman ordering produces excess rule-defined events. Notation follows the
 main article; all computations are produced by \texttt{scripts/postprocess.py} and the
@@ -208,7 +211,9 @@ exploratory analysis, not as an additional primary result.
 
 \subsection*{S1.5 Interpretation}
 
-Three cautions apply. The associations are between women, not within sequences, and say
+Three cautions apply, and a fourth follows from the external replication: the Haflaga
+$\times$ Dilug-in-Dilug association did not replicate in the Utah cohort ($r_s = -.09$;
+Section~S4.6). The associations are between women, not within sequences, and say
 nothing about temporal ordering. They involve rare patterns (18 Week-Dilug and 27
 Dilug-in-Dilug events) and rest on few women. And the surviving association is compatible
 with the proximity argument but is not evidence for it: attributing co-occurrence to a
@@ -325,5 +330,301 @@ $\HW$   & 0.028  & 0.166 & 2 & 0.028  & 1.00 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\section{External Replication in the Utah Creighton Model Cohort}
+\label{sec:si-ext}
+
+\subsection*{S4.1 Source and preprocessing}
+
+The dataset is \textit{Menstrual Cycles Length of Women in the USA and Canada, 1990--2013}
+(Stanford \& Najmabadi, 2023; The Hive, University of Utah;
+\doi{10.7278/S50d-4gxs-s4hj}; licence CC BY-NC), which gives the start and end dates of
+3,324 cycles from 581 women aged 18--40 with regular bleeding, not pregnant, not
+exclusively breastfeeding and without known subfertility, pooled from three Creighton
+Model FertilityCare cohorts: CMFS (1990--1996, 162 analysed women), TTP (2003--2006, 9) and
+CEIBA (2009--2013, 99); the cohorts are described by Najmabadi et al.\ (2020,
+\textit{Paediatric and Perinatal Epidemiology} 34, 318--327). The deposit was downloaded by
+the author and is archived in the repository with its documentation
+(Table~\ref{tab:si-ext-files}). It contains no duplicate rows; the recorded cycle length
+equals end $-$ start $+ 1$ for every cycle with a length; 2,557 of 2,743 within-woman
+successive pairs abut and 186 have a date gap, each coinciding with a jump in the cycle
+number (a cycle excluded in the source).
+
+The preprocessing rules, fixed before any pattern was counted, are implemented in
+\texttt{external\_replication/scripts/prepare\_utah.py}: (1) cycle length $L$ is the
+recorded length, $H = L + 1$; (2) the 180 conception cycles, all terminal and without a
+recorded length, are excluded, and 7 cycles flagged ``missing'' but with a recorded length
+matching the dates are kept; (3) a woman's record is split at every date gap (170 breaks
+among usable cycles) and gaps are never bridged; (4) each woman contributes her longest run
+of at least five consecutive cycles (earliest on ties; 7 women had more than one eligible
+run); (5) no cycle-length criterion is applied. Result: 270 women, 2,139 cycles, 5--15
+cycles per woman ($M = 7.9$, SD 2.7, median 7); $L$ 17--98 days ($M = 30.0$, SD 6.2,
+median 29; 12.0\% of cycles $\geq 35$ days); age 19--40 ($M = 27.2$, SD 4.4). Code, seed
+(17), $B = 50{,}000$ and the simulation sizes are those of the main analysis; the Week
+anchor set over the observed range is $\{22, 29, \ldots, 99\}$.
+
+\begin{table}[!htbp]
+\centering
+\caption{Files of the external replication and their SHA-256 checksums.}
+\label{tab:si-ext-files}
+\smallskip
+\small
+\begin{tabular}{L{15cm}}
+\toprule
+\texttt{hive\_download.zip} (the deposit as downloaded)\newline
+{\footnotesize\texttt{ae0c63c3584c248bc10b141f49dbd9df34f550d56c8aff30dbb15471d455d71c}} \\
+\addlinespace
+\texttt{CrMcyclelength\_share.csv} (cycle table)\newline
+{\footnotesize\texttt{ad67a3eed731a038d6502a1eb42a9dcddf8f6c69a607a61b85f3798198043dac}} \\
+\addlinespace
+\texttt{Najmabadi\_README20230824.txt} (documentation)\newline
+{\footnotesize\texttt{4bbb2c93efada3c84fe841bc5ef82820c30f8c1dce7e7ebc07d98558138a4678}} \\
+\addlinespace
+\texttt{sequences.csv} (analysed sequences after preprocessing)\newline
+{\footnotesize\texttt{08dddb0c04c6a107b95eefc6ef081fabedfe2e22bd8c9832ce6e1af45a9ee37f}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{S4.2 Marginal and joint results}
+
+The observed counts are $(41, 76, 35, 40, 41)$ for (Haflaga, Dilug, Week, Week-Dilug,
+Dilug-in-Dilug); 38, 66, 33, 35 and 39 women establish each pattern. Table~\ref{tab:si-ext-marg}
+gives the marginal results under the three nulls and Figure~\ref{fig:si-ext-null} the null
+distributions; Table~\ref{tab:si-ext-joint} gives the joint statistics next to the
+Marquette values, and Figure~\ref{fig:si-ext-z} compares the standardised deviations of the
+two cohorts.
+
+\begin{table}[!htbp]
+\centering
+\caption{Utah cohort: marginal results under the three nulls ($B = 50{,}000$; two-sided
+  Monte Carlo $p$; Holm over the five patterns within each null).}
+\label{tab:si-ext-marg}
+\smallskip
+\small
+\begin{tabular}{L{1.2cm} L{2.6cm} C{1.0cm} C{2.3cm} C{1.4cm} C{1.6cm} C{1.4cm}}
+\toprule
+\textbf{Null} & \textbf{Pattern} & \textbf{Obs} & $\boldsymbol{\mu}$ ($\boldsymbol{\sigma}$) & $\mathbf{z}$ & $\mathbf{p}$ & \textbf{Holm} \\
+\midrule
+$\HG$ & Haflaga        & 41 & 12.42 (3.43) & $+8.33$ & $<.001$ & $<.001$ \\
+      & Dilug          & 76 & 54.95 (6.99) & $+3.01$ & $.006$  & $.021$ \\
+      & Week           & 35 & 27.09 (4.18) & $+1.89$ & $.083$  & $.083$ \\
+      & Week-Dilug     & 40 & 27.40 (4.17) & $+3.02$ & $.005$  & $.021$ \\
+      & Dilug-in-Dilug & 41 & 27.08 (5.04) & $+2.76$ & $.012$  & $.024$ \\
+\midrule
+$\HI$ & Haflaga        & 41 & 12.56 (3.47) & $+8.20$ & $<.001$ & $<.001$ \\
+      & Dilug          & 76 & 54.84 (7.05) & $+3.00$ & $.005$  & $.021$ \\
+      & Week           & 35 & 27.17 (5.05) & $+1.55$ & $.156$  & $.156$ \\
+      & Week-Dilug     & 40 & 27.52 (5.08) & $+2.46$ & $.025$  & $.050$ \\
+      & Dilug-in-Dilug & 41 & 27.09 (5.09) & $+2.73$ & $.014$  & $.042$ \\
+\midrule
+$\HW$ & Haflaga        & 41 & 35.60 (4.78) & $+1.13$ & $.313$  & $1.00$ \\
+      & Dilug          & 76 & 75.71 (7.75) & $+0.04$ & $1.00$  & $1.00$ \\
+      & Week           & 35 & 35.61 (3.97) & $-0.15$ & $.986$  & $1.00$ \\
+      & Week-Dilug     & 40 & 38.56 (4.10) & $+0.35$ & $.812$  & $1.00$ \\
+      & Dilug-in-Dilug & 41 & 41.48 (5.95) & $-0.08$ & $1.00$  & $1.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Joint Mahalanobis statistics in the two cohorts ($B = 50{,}000$ per null).
+  Three-pattern: exploratory Haflaga, Week-Dilug, Dilug-in-Dilug subspace.}
+\label{tab:si-ext-joint}
+\smallskip
+\small
+\begin{tabular}{L{1.2cm} C{2.6cm} C{2.6cm} C{2.6cm} C{2.6cm}}
+\toprule
+\textbf{Null} & \textbf{Marquette} $\DM$ ($p$) & \textbf{Utah} $\DM$ ($p$) & \textbf{Utah split-batch} & \textbf{Utah three-pattern} \\
+\midrule
+$\HG$ & 5.08 ($<.001$) & 9.99 ($<.001$) & 10.03 ($<.001$) & 9.10 ($<.001$) \\
+$\HI$ & 4.87 ($<.001$) & 9.53 ($<.001$) & 9.52 ($<.001$)  & 8.81 ($<.001$) \\
+$\HW$ & 2.93 ($.126$)  & 1.20 ($.921$)  & 1.20 ($.922$)   & 1.17 ($.715$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figE2_null_distributions}
+  \caption{Utah cohort: null distributions of the five counts under $\HG$, $\HI$ and
+    $\HW$ with the observed counts marked; two-sided Monte Carlo $p$-values.}
+  \label{fig:si-ext-null}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figE5_comparison_z}
+  \caption{Standardised deviations $z = (O - \mu)/\sigma$ under each null in the Marquette
+    sample and the Utah cohort.}
+  \label{fig:si-ext-z}
+\end{figure}
+
+\subsection*{S4.3 Sensitivity analyses}
+
+Leaving out any single woman moves the $\HW$ joint $p$-value within $.861$--$.974$
+(Marquette $.055$--$.224$); no marginal $p$ falls below $.05$ for any omission (Haflaga
+$.248$--$.467$). No woman has 20 or more cycles; the top follow-up quintile ($n_i \geq 11$,
+56 women) holds 31.7\% of cycles and 56\% of Haflaga events. Table~\ref{tab:si-ext-sens}
+gives the truncation and support-restriction analyses; in the latter every removed cycle
+sits at a sequence end, so no woman's record is split, and the observed counts are
+unchanged. The restriction harmonises the support with the Marquette data and is not an
+inclusion criterion of either study.
+
+\begin{table}[!htbp]
+\centering
+\caption{Utah cohort: sensitivity of the joint test to follow-up and support.}
+\label{tab:si-ext-sens}
+\smallskip
+\small
+\begin{tabular}{L{4.4cm} C{1.6cm} C{1.4cm} C{2.6cm} C{2.0cm} C{1.4cm}}
+\toprule
+\textbf{Analysis} & \textbf{Women} & \textbf{Cycles} & \textbf{Counts} & $\DM$ ($\HW$) & $p$ \\
+\midrule
+Primary                          & 270 & 2,139 & (41, 76, 35, 40, 41) & 1.20 & $.921$ \\
+First 12 cycles per woman        & 270 & 2,109 & (40, 75, 34, 36, 41) & 1.34 & $.878$ \\
+Support $18 \leq L \leq 54$      & 258 & 2,050 & (41, 76, 35, 40, 41) & 1.15 & $.933$ \\
+\bottomrule
+\end{tabular}
+\smallskip
+
+\footnotesize Under the support restriction the global nulls give $\DM = 9.27$ ($\HG$)
+and $8.85$ ($\HI$), both $p < .001$.
+\end{table}
+
+\subsection*{S4.4 Simulation validation}
+
+The size and power studies of the main article were re-run at full size on the Utah
+sequences (10,000 fresh datasets against 20,000 reference replicates for size; 400
+datasets $\times$ 2,000 permutations per alternative for power). Empirical size is at or
+below nominal for every procedure (Table~\ref{tab:si-ext-size}; Monte Carlo SE $\approx
+.002$ at $.05$), and the power of the $\HW$ tests (Table~\ref{tab:si-ext-power}) is close to
+that in the Marquette data (joint power $.507$, $.995$, $1.00$ at $\rho = .25$, $.50$,
+$.75$ and $.983$, $1.00$, $1.00$ at $q = .10$, $.20$, $.30$).
+
+\begin{table}[!htbp]
+\centering
+\caption{Utah cohort: empirical size at $\alpha = .05$ (10,000 datasets).}
+\label{tab:si-ext-size}
+\smallskip
+\small
+\begin{tabular}{L{1.2cm} C{5.2cm} C{1.6cm} C{2.4cm} C{2.4cm}}
+\toprule
+\textbf{Null} & \textbf{Marginal (Haf, Dil, Wk, W-D, DiD)} & \textbf{Holm} & \textbf{Joint plug-in} & \textbf{Joint split} \\
+\midrule
+$\HG$ & .039, .042, .030, .032, .046 & .039 & .051 & .051 \\
+$\HI$ & .028, .039, .038, .036, .048 & .038 & .052 & .046 \\
+$\HW$ & .045, .042, .044, .036, .035 & .034 & .049 & .051 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Utah cohort: power of the $\HW$ tests at $\alpha = .05$ (400 datasets $\times$
+  2,000 permutations).}
+\label{tab:si-ext-power}
+\smallskip
+\small
+\begin{tabular}{L{3.0cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.1cm} C{1.6cm} C{1.2cm}}
+\toprule
+\textbf{Alternative} & \textbf{Haf} & \textbf{Dil} & \textbf{Wk} & \textbf{W-D} & \textbf{DiD} & \textbf{Holm-any} & \textbf{Joint} \\
+\midrule
+AR(1) $\rho = 0$      & .030 & .048 & .035 & .032 & .035 & .030 & .045 \\
+$\rho = .25$          & .135 & .278 & .110 & .060 & .132 & .223 & .443 \\
+$\rho = .50$          & .682 & .818 & .358 & .200 & .465 & .877 & .993 \\
+$\rho = .75$          & 1.00 & .992 & .778 & .595 & .585 & 1.00 & 1.00 \\
+Persistence $q = 0$   & .045 & .025 & .030 & .058 & .035 & .028 & .058 \\
+$q = .10$             & .960 & .180 & .540 & .360 & .058 & .938 & .970 \\
+$q = .20$             & 1.00 & .422 & .942 & .782 & .070 & 1.00 & 1.00 \\
+$q = .30$             & 1.00 & .718 & .988 & .908 & .362 & 1.00 & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{S4.5 Decomposition of the global standardised deviation}
+
+For each pattern the global $z$ decomposes exactly as
+$z_G = (\mu_W - \mu_G)/\sigma_G + (O - \mu_W)/\sigma_G$: a heterogeneity gap between the
+within-woman and global null means, and a within-woman residual (Table~\ref{tab:si-ext-dec}).
+The gaps are of similar size in the two cohorts; the residuals are negative throughout in
+the Marquette data and near zero or positive in the Utah cohort, which is why the same
+heterogeneity produces a larger global displacement there.
+
+\begin{table}[!htbp]
+\centering
+\caption{Decomposition $z_G = \text{gap} + \text{residual}$, with
+  gap $= (\mu_W - \mu_G)/\sigma_G$ and residual $= (O - \mu_W)/\sigma_G$.}
+\label{tab:si-ext-dec}
+\smallskip
+\small
+\begin{tabular}{L{2.8cm} C{1.4cm} C{1.6cm} C{1.2cm} C{1.4cm} C{1.6cm} C{1.2cm}}
+\toprule
+ & \multicolumn{3}{c}{\textbf{Marquette}} & \multicolumn{3}{c}{\textbf{Utah}} \\
+\textbf{Pattern} & \textbf{gap} & \textbf{residual} & $\mathbf{z_G}$ & \textbf{gap} & \textbf{residual} & $\mathbf{z_G}$ \\
+\midrule
+Haflaga        & 6.28 & $-1.79$ & $4.50$  & 6.76 & $+1.57$ & $8.33$ \\
+Dilug          & 2.76 & $-0.92$ & $1.84$  & 2.97 & $+0.04$ & $3.01$ \\
+Week           & 1.69 & $-0.45$ & $1.24$  & 2.04 & $-0.15$ & $1.89$ \\
+Week-Dilug     & 1.43 & $-0.90$ & $0.54$  & 2.68 & $+0.35$ & $3.02$ \\
+Dilug-in-Dilug & 2.39 & $-2.42$ & $-0.03$ & 2.86 & $-0.10$ & $2.76$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{S4.6 Exploratory pairwise associations}
+
+The rate-based Spearman analysis of Section~S1 was repeated (Table~\ref{tab:si-ext-pair}).
+The Marquette association Haflaga $\times$ Dilug-in-Dilug did not replicate ($r_s = -.09$,
+$p = .14$; partial $r_s$ given $n_i$ $= -.14$; follow-up-stratified $p = .21$). The only
+non-null pair in the Utah cohort is Haflaga $\times$ Week ($r_s = .27$, $p = .0001$, Holm
+$p = .001$; binary version $\chi^2 = 19.9$, Holm $p = .001$); a Haflaga run at a Week anchor
+value necessarily produces a Week event, so this association is partly structural, in the
+same way as Haflaga-30 $\subseteq$ Week-Dilug. The 38 women with a Haflaga event had a mean
+within-woman SD of $H$ of 1.89 (SD across women 1.37) against 4.61 (4.47) for the 124 women
+with no event of any type, a difference expected by construction.
+
+\begin{table}[!htbp]
+\centering
+\caption{Pairwise Spearman correlations between per-woman pattern rates in the two cohorts
+  (two-sided permutation $p$, $50{,}000$ permutations; Holm over the ten pairs).}
+\label{tab:si-ext-pair}
+\smallskip
+\small
+\begin{tabular}{L{4.4cm} C{1.1cm} C{1.3cm} C{1.3cm} C{1.1cm} C{1.3cm} C{1.3cm}}
+\toprule
+ & \multicolumn{3}{c}{\textbf{Marquette}} & \multicolumn{3}{c}{\textbf{Utah}} \\
+\textbf{Pair} & $\mathbf{r_s}$ & $\mathbf{p}$ & \textbf{Holm} & $\mathbf{r_s}$ & $\mathbf{p}$ & \textbf{Holm} \\
+\midrule
+Haflaga $\times$ Week              & $+.10$ & $.277$ & $1.00$ & $+.27$ & $.0001$ & $.001$ \\
+Haflaga $\times$ Dilug-in-Dilug    & $+.27$ & $.004$ & $.038$ & $-.09$ & $.145$  & $1.00$ \\
+Week-Dilug $\times$ Dilug-in-Dilug & $+.07$ & $.480$ & $1.00$ & $+.09$ & $.172$  & $1.00$ \\
+Haflaga $\times$ Week-Dilug        & $+.23$ & $.011$ & $.102$ & $+.09$ & $.178$  & $1.00$ \\
+Dilug $\times$ Dilug-in-Dilug      & $-.02$ & $.819$ & $1.00$ & $+.07$ & $.223$  & $1.00$ \\
+Haflaga $\times$ Dilug             & $+.04$ & $.668$ & $1.00$ & $-.07$ & $.243$  & $1.00$ \\
+Dilug $\times$ Week                & $+.09$ & $.337$ & $1.00$ & $-.05$ & $.368$  & $1.00$ \\
+Dilug $\times$ Week-Dilug          & $-.12$ & $.206$ & $1.00$ & $+.01$ & $.886$  & $1.00$ \\
+Week $\times$ Week-Dilug           & $+.06$ & $.476$ & $1.00$ & $-.01$ & $.911$  & $1.00$ \\
+Week $\times$ Dilug-in-Dilug       & $+.09$ & $.326$ & $1.00$ & $-.00$ & $.980$  & $1.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Null Distribution Functions Under the Two Global Nulls (Marquette Data)}
+\label{sec:si-cdfs}
+
+Figure~\ref{fig:si-cdfs} shows the empirical distribution functions of the five counts under
+$\HG$ and $\HI$ in the Marquette data, referred to in Section~4.1 of the main article; the
+two global nulls agree closely (largest difference in two-sided $p$-values $0.11$, for
+Week, whose null SD is larger under $\HI$).
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{fig5_cdfs}
+  \caption{Empirical CDFs of the $\HG$ (solid) and $\HI$ (dashed) null distributions in
+    the Marquette data; dotted vertical line at the observed count.}
+  \label{fig:si-cdfs}
+\end{figure}
 
 \end{document}

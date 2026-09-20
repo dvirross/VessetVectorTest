@@ -153,7 +153,9 @@ means. Simulation shows type-I error at or below the nominal level for the margi
 Holm procedures and approximately nominal for the joint test, quantifies the power of
 the within-woman tests against simulated autoregressive and exact-repetition
 alternatives, and shows the conclusions are insensitive to unequal follow-up. The
-contrast is consistent with between-woman heterogeneity in regularity generating the
+contrast reproduced in an independent, openly deposited cohort of 270 women and 2,139
+cycles analysed with identical code (global $\DM = 9.99$; within-woman $\DM = 1.20$,
+$p = .92$). The contrast is consistent with between-woman heterogeneity in regularity generating the
 global excess, and provides no evidence that within-woman ordering produces additional
 rule-defined events; it does not establish the absence of serial dependence.
 
@@ -563,6 +565,21 @@ woman truncated to her first 12 recorded cycles ($20{,}000$ replicates), and a
 leave-one-woman-out analysis recomputed the $\HW$ joint and marginal $p$-values 118 times
 using per-woman replicate counts.
 
+\subsection{External Replication}
+\label{sec:extmethods}
+
+To test whether the contrast between nulls is a property of the Marquette sample, the
+complete analysis was repeated on an independent, openly deposited cohort: 3,324 cycles
+from 581 women aged 18--40 with regular bleeding and no known subfertility, pooled from
+three Creighton Model cohorts charted in 1990--2013 \citep{stanford2023data,najmabadi2020};
+licence CC BY-NC. Preprocessing rules were fixed before any pattern was counted: the
+recorded cycle length, exclusion of the 180 terminal conception cycles, splitting of a
+woman's record at every date gap, and each woman's longest run of at least five
+consecutive cycles, with no cycle-length criterion, giving 270 women and 2,139 cycles
+(5--15 per woman). Code, seed, $B$ and simulation sizes were identical to the main
+analysis; full results are in the Supporting Information (Section~S4) and the
+\texttt{external\_replication} folder of the repository.
+
 \begin{algorithm}[!htbp]
 \caption{Simulation pipeline}
 \label{alg:sim}
@@ -604,7 +621,7 @@ mean of 11.31 ($z = 4.50$); only 4 of 50,000 $\HG$ replicates reached 26 (two-si
 $p = .0002$; Holm-adjusted $p = .001$). No other pattern is significant. Dilug
 ($z = 1.84$, $p = .085$, Holm $p = .34$) is at most hypothesis-generating; Week,
 Week-Dilug and Dilug-in-Dilug lie within their null ranges. The two global nulls agree
-closely (Figure~\ref{fig:cdfs}; largest difference in two-sided $p$-values 0.11, for
+closely (Supporting Information, Figure~S4; largest difference in two-sided $p$-values 0.11, for
 Week, whose null SD is larger under $\HI$).
 
 \begin{table}[!htbp]
@@ -648,14 +665,6 @@ Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
     $z$ for the same count because each has its own mean and SD (e.g.\ Week: 1.24 vs.\
     0.98).}
   \label{fig:zscores}
-\end{figure}
-
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=\textwidth]{fig5_cdfs}
-  \caption{Empirical CDFs of the $\HG$ (solid) and $\HI$ (dashed) null distributions;
-    dotted vertical line at the observed count.}
-  \label{fig:cdfs}
 \end{figure}
 
 \subsection{Within-Woman Null}
@@ -881,6 +890,38 @@ woman moves the joint $\HW$ $p$-value within $.055$--$.224$ and never below $.05
 114 of 118 leave-one-out analyses, so it is not driven by one woman, but it remains
 non-significant after Holm correction throughout.
 
+\subsection{External Replication}
+\label{sec:extresults}
+
+In the Utah cohort the observed counts are $(41, 76, 35, 40, 41)$. Under $\HG$ all five
+exceed their null means (Haflaga $z = 8.33$, no replicate reached 41; Dilug, Week-Dilug
+and Dilug-in-Dilug Holm-adjusted $p$ $.021$--$.024$) and $\DM = 9.99$
+(Table~\ref{tab:ext}). Under $\HW$ every $|z| \leq 1.13$, all two-sided $p \geq .31$, and
+$\DM = 1.20$ ($p = .92$; split-batch $1.20$, $.92$); the Dilug-in-Dilug deficit seen in
+the Marquette data is absent ($z = -0.08$). The conclusion is unchanged by leaving any
+woman out (joint $p$ $.86$--$.97$), truncation to twelve cycles ($\DM = 1.34$, $p = .88$)
+or restriction of the support to 18--54 days ($\DM = 1.15$, $p = .93$); empirical size is
+at or below nominal and the power of the $\HW$ tests is comparable to that in the
+Marquette data (Supporting Information, Section~S4).
+
+\begin{table}[!htbp]
+\centering
+\caption{Joint five-pattern test in the Marquette sample (118 women, 1,554 cycles) and
+  the Utah replication cohort (270 women, 2,139 cycles); $B = 50{,}000$ per null.
+  $p$-values are Monte Carlo, $(b+1)/(B+1)$.}
+\label{tab:ext}
+\smallskip
+\begin{tabular}{L{2.2cm} C{3.4cm} C{3.4cm} C{3.0cm}}
+\toprule
+\textbf{Null} & \textbf{Marquette} $\DM$ ($p$) & \textbf{Utah} $\DM$ ($p$) & \textbf{Utah Haflaga} $z$ \\
+\midrule
+$\HG$  & 5.08 ($<.001$) & 9.99 ($<.001$) & $+8.33$ \\
+$\HI$  & 4.87 ($<.001$) & 9.53 ($<.001$) & $+8.20$ \\
+$\HW$  & 2.93 ($.126$)  & 1.20 ($.921$)  & $+1.13$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 % ─── 5. Discussion ────────────────────────────────────────────────────────────
 \section{Discussion}
 
@@ -900,6 +941,13 @@ generate many exact repetitions under any ordering, and the global nulls, which 
 across women, treat this as excess. This account is supported by the data; it is not
 uniquely identified by them, and other mechanisms that leave the multiset-conditional
 distribution of these counts unchanged cannot be excluded.
+
+The replication sharpens this account. Writing $z_G = (\mu_W - \mu_G)/\sigma_G +
+(O - \mu_W)/\sigma_G$, the heterogeneity gap for Haflaga is nearly identical in the two
+cohorts (6.28 and 6.76) while the within-woman residual is $-1.79$ and $+1.57$: the larger
+global displacement in the Utah cohort arises because its counts sit at, rather than
+below, their within-woman expectations, and from its larger sample; the within-woman null
+gives the same answer in both (Supporting Information, Table~S10).
 
 Two things the $\HW$ result does not show should be stated. It does not show that cycle
 lengths are serially independent: the autocorrelation documented by \citet{ecochard2024}
@@ -997,8 +1045,10 @@ negligible null expectation (Section~\ref{sec:data}). The sample consists of non
 NFP users (trial eligibility 18--42 years; \citealp{fehring2013}), a self-selected,
 cycle-aware group who may be more regular than
 the general population; some halachic authorities hold that regularities in this
-population need not transfer to observant Jewish women \citep{ross2022phd}. Results
-should not be generalised without replication in the target population.
+population need not transfer to observant Jewish women \citep{ross2022phd}. Both
+cohorts were selected for regular cycles at entry, and follow-up in the Utah cohort is
+short (5--15 cycles per woman). Results should not be generalised without replication in
+the target population.
 
 \paragraph{Statistical.}
 $\HW$ tests exchangeability of each woman's observed values and nothing more general.
@@ -1056,8 +1106,10 @@ This study is a secondary analysis of a publicly archived, anonymised dataset
 \citep{fehring2012data} collected in the randomised trial of \citet{fehring2013}. The
 original data collection was approved by the Institutional Review Board at Marquette
 University. No new data were collected, and no individual participant can be identified
-from the released dataset. Separate ethics approval for secondary analysis was not
-required under the applicable regulations.
+from the released dataset. The second dataset, used for the external replication, is a
+de-identified public deposit \citep{stanford2023data} analysed as secondary data under
+its licence. Separate ethics approval for secondary analysis was not required under the
+applicable regulations.
 
 \section*{Patient Consent Statement}
 
@@ -1097,6 +1149,13 @@ original filtering notebook are included in the code release; the archive itself
 available from the Marquette repository cited above. Women retained
 in the filtered file have between 5 and 45 consecutive recorded cycles, and every
 retained woman's cycle numbering is contiguous.
+
+The external replication uses the openly deposited dataset of \citet{stanford2023data},
+held at The Hive, University of Utah, under a CC BY-NC licence
+(\doi{10.7278/S50d-4gxs-s4hj}). The raw
+deposit, the pre-specified preprocessing script and its output with SHA-256 checksums,
+the analysis code, the cached replicates, the simulation output, the figures and the
+reports are in the \texttt{external\_replication} folder of the repository.
 
 % ─── References ───────────────────────────────────────────────────────────────
 \bibliographystyle{plainnat}
