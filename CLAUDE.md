@@ -116,7 +116,9 @@ Compile the SI separately: `pdflatex vesset_stat_SI.tex` ×2 (no BibTeX needed).
 **Bibliography conventions (final pass 2026-09-16):**
 - `fehring2012data` = the archived dataset (Fehring, 2012, Marquette e-Publications) — cite for *the data*.
 - `fehring2013` = the randomised trial article (Fehring, Schneider, Raviele, Rodriguez & Pruszynski, *Contraception* 88(1):24–30) — cite for *how the data were collected*. Never attribute the 18–54-day filter to Creinin et al.
-- `ross2021statistical` is intentionally "Accepted 3 September 2021" — do not add volume/pages/DOI.
+- `ross2021statistical` (and `anon2021statistical`) is an `@unpublished` entry: note "In Hebrew. Accepted for publication in *B.D.D*, 3 September" + year 2021 → renders "…3 September, 2021." Do not add volume/pages/DOI or turn it back into an `@article`.
+- `ross2022phd`/`anon2022phd` exact title: *Probabilistic and Statistical Analysis of the Menstrual Cycle with regard to Jewish Religious Laws* (not "in a Halachic Context").
+- `king2020` (J. Econometrics 219(2):425–455) replaced the old `king2018` working paper; currently uncited. Bibliography DOI pass done 2026-09-20 (13 DOIs added; Münster co-author **Lone** Schmidt; Harlow first name **Siobán**).
 - `ross_planned` uses `year = {in preparation}` (renders "Ross, in preparation").
 - Ecochard et al. 2024 co-author is **Marie** Schneider; Münster 1992 first author is **Kirstine** Münster.
 - Prose uses `$p$-value` (math-mode p), British spelling throughout.
