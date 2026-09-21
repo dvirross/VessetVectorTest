@@ -154,7 +154,7 @@ Holm procedures and approximately nominal for the joint test, quantifies the pow
 the within-woman tests against simulated autoregressive and exact-repetition
 alternatives, and shows the conclusions are insensitive to unequal follow-up. The
 contrast reproduced in an independent, openly deposited cohort of 270 women and 2,139
-cycles analysed with identical code (global $\DM = 9.99$; within-woman $\DM = 1.20$,
+cycles analysed with the same code and settings (global $\DM = 9.99$; within-woman $\DM = 1.20$,
 $p = .92$). The contrast is consistent with between-woman heterogeneity in regularity generating the
 global excess, and provides no evidence that within-woman ordering produces additional
 rule-defined events; it does not establish the absence of serial dependence.
@@ -576,8 +576,10 @@ licence CC BY-NC. Preprocessing rules were fixed before any pattern was counted:
 recorded cycle length, exclusion of the 180 terminal conception cycles, splitting of a
 woman's record at every date gap, and each woman's longest run of at least five
 consecutive cycles, with no cycle-length criterion, giving 270 women and 2,139 cycles
-(5--15 per woman). Code, seed, $B$ and simulation sizes were identical to the main
-analysis; full results are in the Supporting Information (Section~S4) and the
+(5--15 per woman). The counting rules, null generators and test statistics are the same
+functions as in the main analysis, run with the same seed, $B$ and simulation sizes
+through a dataset-agnostic driver that was first verified to reproduce every Marquette
+result exactly; full results are in the Supporting Information (Section~S4) and the
 \texttt{external\_replication} folder of the repository.
 
 \begin{algorithm}[!htbp]
