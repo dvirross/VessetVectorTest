@@ -118,7 +118,7 @@ Compile the SI separately: `pdflatex vesset_stat_SI.tex` ×2 (no BibTeX needed).
 **Bibliography conventions (final pass 2026-09-16):**
 - `fehring2012data` = the archived dataset (Fehring, 2012, Marquette e-Publications) — cite for *the data*.
 - `fehring2013` = the randomised trial article (Fehring, Schneider, Raviele, Rodriguez & Pruszynski, *Contraception* 88(1):24–30) — cite for *how the data were collected*. Never attribute the 18–54-day filter to Creinin et al.
-- `ross2021statistical` (and `anon2021statistical`) is an `@unpublished` entry: note "In Hebrew. Accepted for publication in *B.D.D*, 3 September" + year 2021 → renders "…3 September, 2021." Do not add volume/pages/DOI or turn it back into an `@article`.
+- `ross2026statistical` (and `anon2026statistical`) is the B.D.D. article, published April 2026 in the triple issue *B.D.D* 38–40, pp. 59–74 (end page inferred from the catalogue contents: the next article starts at p. 75), `note = {In Hebrew}`; formerly the `@unpublished` key `ross2021statistical` (accepted 3 September 2021). No DOI is known; do not invent one.
 - `ross2022phd`/`anon2022phd` exact title: *Probabilistic and Statistical Analysis of the Menstrual Cycle with regard to Jewish Religious Laws* (not "in a Halachic Context").
 - `king2020` (J. Econometrics 219(2):425–455) replaced the old `king2018` working paper; currently uncited. Bibliography DOI pass done 2026-09-20 (13 DOIs added; Münster co-author **Lone** Schmidt; Harlow first name **Siobán**).
 - `ross_planned` uses `year = {in preparation}` (renders "Ross, in preparation").
@@ -173,7 +173,7 @@ Compile the SI separately: `pdflatex vesset_stat_SI.tex` ×2 (no BibTeX needed).
 
 ## 8. Self-citations — keep them low
 
-- `ross2022phd` ≤ 5 occurrences; `ross2021statistical` ≤ 2. Describe methods inline rather than citing the thesis.
+- `ross2022phd` ≤ 5 occurrences; `ross2026statistical` ≤ 2. Describe methods inline rather than citing the thesis.
 
 ---
 
@@ -188,7 +188,7 @@ paper/vesset_stat.tex          manuscript (Case Study framing, author–year ref
 paper/vesset_stat_SI.tex       Supporting Information (exploratory pairwise analysis; compile separately)
 paper/references.bib           bibliography
 paper/cover_letter.tex         BJ cover letter + declarations
-paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2021_BDD_accepted_article_Hebrew.pdf (review only)
+paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2021_BDD_accepted_article_Hebrew.pdf (accepted version of the article published in B.D.D 38–40, 2026; review only)
 paper/figures/                 figures as PDF + PNG
 notebooks/analysis.ipynb       generated notebook; produces fig1, fig3–fig10 and figA1 (Fig 2 comes from paper/figures/gen_consort_flow.py)
 revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md
@@ -209,4 +209,4 @@ Responded to three AI pre-submission reviews (statistical, journal-fit, literatu
 - [x] Trial eligibility confirmed (dissertation p. 22 + ClinicalTrials.gov NCT00843336): women 18–42 years, cycle lengths 21–42 days, no hormonal contraception in prior 3 months; NCT number now cited in §3.1 and Fig 2
 - [x] Patient Consent wording now cites the Marquette archive record: "anonymized for dissemination", "data reuse was agreed to by subjects in the consent form" (data_nfp/7 "Rights, Permissions, & Privacy" field, confirmed verbatim by the author on 2026-09-16). This is reported in the Patient Consent Statement only — do **not** restore the quotation to the `fehring2012data` bib note, which stays `note = {Dataset (.sav/.csv)}`
 - [ ] Word count exceeds BJ's recommended 4,500 for a Case Study (≈6,100 Introduction–Conclusion words by `scratchpad/wc.py`-style count, floats excluded; the earlier ≈4,800 figure used a different, unrecorded method). Fig 5 has been moved to the SI (Figure S4); further cuts are an author decision
-- [x] Raw→filtered pipeline recovered: `data/RawData.csv` (author's copy of the archive, 1,665 cycles/159 women) + `scripts/Filtering_original.ipynb` (from https://github.com/dvirross/PhD) + `scripts/filter_raw.py` (re-implementation; verified identical output). Dissertation and 2021 B.D.D. article are in `paper/supplementary_for_review/` (Hebrew; upload as "supplementary material for review only")
+- [x] Raw→filtered pipeline recovered: `data/RawData.csv` (author's copy of the archive, 1,665 cycles/159 women) + `scripts/Filtering_original.ipynb` (from https://github.com/dvirross/PhD) + `scripts/filter_raw.py` (re-implementation; verified identical output). Dissertation and the B.D.D. article (accepted version; published 2026 in vol. 38–40) are in `paper/supplementary_for_review/` (Hebrew; upload as "supplementary material for review only")

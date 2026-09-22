@@ -57,7 +57,7 @@ VessetVectorTest/
 │   ├── vesset_stat.tex          manuscript (LaTeX, author-year references)
 │   ├── references.bib
 │   ├── cover_letter.tex
-│   ├── supplementary_for_review/  PhD dissertation (2022) and accepted B.D.D. article (2021), Hebrew; for review only
+│   ├── supplementary_for_review/  PhD dissertation (2022) and B.D.D. article (2026; accepted 2021), Hebrew; for review only
 │   └── figures/                 PDF + PNG figures; gen_consort_flow.py generates fig2
 ├── revision_reports/            reviewer reports, author responses, triage matrices
 ├── external_replication/        independent replication on the Utah Creighton Model cohort (own README; SI Section S4)
