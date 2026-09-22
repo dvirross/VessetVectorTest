@@ -24,5 +24,6 @@ python external_replication/scripts/build_replication_notebook.py
 (cd external_replication/notebooks && jupyter nbconvert --to notebook --execute --inplace replication.ipynb)
 ```
 
-Headline: observed counts (41, 76, 35, 40, 41); joint D_M = 9.99 / 9.53 under H_G / H_iid (p < .001),
-1.20 under H_W (p = .92; LOO .86–.97). Fehring: 5.08 / 4.87 / 2.93 (p = .126).
+Headline (Week-Dilug anchors H = 7n + 2, 2026-09-22): observed counts (41, 76, 35, 42, 41); joint
+D_M = 10.04 / 9.56 under H_G / H_iid (p < .001), 1.22 under H_W (p = .92; LOO .86–.97).
+Fehring: 5.07 / 4.87 / 2.97 (p = .115).
