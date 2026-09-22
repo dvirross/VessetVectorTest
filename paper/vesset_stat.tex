@@ -670,6 +670,7 @@ Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
 \end{figure}
 
 \subsection{Within-Woman Null}
+\label{sec:within}
 \label{sec:stratified}
 
 The global nulls remove between-woman heterogeneity in regularity: they ask whether the
@@ -713,7 +714,16 @@ The shift between nulls is large: for Haflaga the $\HG$ null is centred at 11.3 
 $\HW$ null at 31.8, above the observed 26. A principal contributor to this shift is that
 women with narrow cycle-length multisets generate many exact repetitions under
 \emph{any} ordering of their values; conditioning on each woman's multiset preserves this
-feature, whereas the global nulls erase it.
+feature, whereas the global nulls erase it. Two further checks, computed from the
+per-woman replicate counts, indicate that the concentration of events in a minority of
+women is a property of their multisets rather than of their orderings (Supporting
+Information, Section~S6). Within terciles of within-woman SD the joint $\HW$ test is
+non-significant in every stratum ($p = .37$, $.79$ and $.26$), and the women who produce
+the most events are those the null expects to: the rank correlation between a woman's
+observed and expected event totals is $0.62$, no woman departs from her own null after
+correction (1 of 118 with two-sided $p < .05$, against about 6 expected), and the share of
+all events held by the six most productive women ($.24$) is at its null level ($.21$,
+$p = .12$).
 
 \begin{figure}[!htbp]
   \centering
@@ -904,7 +914,10 @@ the Marquette data is absent ($z = -0.08$). The conclusion is unchanged by leavi
 woman out (joint $p$ $.86$--$.97$), truncation to twelve cycles ($\DM = 1.34$, $p = .88$)
 or restriction of the support to 18--54 days ($\DM = 1.15$, $p = .93$); empirical size is
 at or below nominal and the power of the $\HW$ tests is comparable to that in the
-Marquette data (Supporting Information, Section~S4).
+Marquette data (Supporting Information, Section~S4). The per-woman checks of
+Section~\ref{sec:within} also hold: every regularity stratum is null (joint $p \geq .49$),
+the rank correlation between observed and expected per-woman totals is $0.70$, and the
+concentration of events among women is at its null level (Section~S6).
 
 \begin{table}[!htbp]
 \centering
@@ -940,8 +953,10 @@ statistics, against random reorderings, at the sensitivity documented in
 Section~\ref{sec:simresults}. The simplest account consistent with both is
 between-woman heterogeneity in regularity: women with narrow cycle-length distributions
 generate many exact repetitions under any ordering, and the global nulls, which pool
-across women, treat this as excess. This account is supported by the data; it is not
-uniquely identified by them, and other mechanisms that leave the multiset-conditional
+across women, treat this as excess. This account is supported by the data, most directly
+by the per-woman checks of Section~\ref{sec:within}, in which the women who produce the
+most events are those whose multisets predict the most under $\HW$; it is not uniquely
+identified by them, and other mechanisms that leave the multiset-conditional
 distribution of these counts unchanged cannot be excluded.
 
 The replication sharpens this account. Writing $z_G = (\mu_W - \mu_G)/\sigma_G +

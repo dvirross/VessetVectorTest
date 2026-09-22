@@ -60,8 +60,10 @@ analysis referred to in Sections~3.4, 4.4 and 5.2 of the main article (Section~S
 literature search referred to in Section~1 (Section~S2), the evaluation of the
 zero-count rule \textit{Haflaga Chozer Chalila} referred to in Sections~2.1 and 3.1
 (Section~S3), the full results of the external replication in the Utah Creighton Model
-cohort referred to in Sections~3.6 and 4.6 (Section~S4), and the null distribution
-functions under the two global nulls (Section~S5). The pairwise analysis is
+cohort referred to in Sections~3.6 and 4.6 (Section~S4), the null distribution
+functions under the two global nulls (Section~S5), and the regularity-stratified and
+per-woman checks of the within-woman null referred to in Sections~4.2 and 4.6
+(Section~S6). The pairwise analysis is
 secondary to the null-model comparison and does not bear on the primary question of
 whether within-woman ordering produces excess rule-defined events. Notation follows the
 main article; all computations are produced by \texttt{scripts/postprocess.py} and the
@@ -626,5 +628,93 @@ Week, whose null SD is larger under $\HI$).
     the Marquette data; dotted vertical line at the observed count.}
   \label{fig:si-cdfs}
 \end{figure}
+
+\section{Regularity Strata and Per-Woman Concentration Under \texorpdfstring{$\HW$}{HW}}
+\label{sec:si-perwoman}
+
+The aggregate $\HW$ tests of the main article could in principle hide offsetting
+deviations in subgroups of women, or a within-woman excess confined to the few women who
+produce most events. Both possibilities were checked in each cohort using the per-woman
+replicate counts stored with the $\HW$ replicates (\texttt{scripts/per\_woman\_hw.py};
+results in \texttt{results/per\_woman\_hw.json} and \texttt{per\_woman\_hw\_utah.json}).
+A woman's within-woman SD of intervals is a function of her multiset, which $\HW$
+preserves, so strata defined by it are fixed under the null and the stratified tests
+remain exact conditional Monte Carlo tests.
+
+\paragraph{Regularity strata.} Women were split into terciles (and halves) of
+within-woman SD; observed and replicate counts were summed within each stratum and the
+marginal and joint tests recomputed (Table~\ref{tab:si-strata}). No stratum in either
+cohort shows an excess of any pattern; every joint test is non-significant. The only
+marginal result surviving Holm correction within a stratum is a deficit, Dilug in the
+less regular half of the Marquette sample (13 observed against 25.1 expected, $z = -2.63$,
+Holm $p = .033$), which drives that stratum's joint $p$ of $.051$; it is in the same
+direction as the aggregate Dilug-in-Dilug deficit, is one of ten stratum-level analyses,
+and does not recur in the Utah cohort ($z = +0.72$). The least regular strata produce few
+events and therefore have little power against an excess.
+
+\paragraph{Per-woman concentration.} For each woman the observed event total (all five
+patterns) was compared with her own $\HW$ null distribution, and the distribution of
+events across women was compared with the null through the share of events held by the
+$k$ most productive women \emph{of each replicate}, the Gini coefficient of per-woman
+totals, and the number of women with no event (Table~\ref{tab:si-conc}). In both
+cohorts the women who produce the most events are those whose multisets predict the
+most (rank correlation $0.62$ and $0.70$), no woman departs from her own null after
+multiplicity correction, and every concentration statistic lies at its null level. The
+concentration of events in a minority of regular women, which the global nulls register
+as excess, is therefore what $\HW$ predicts woman by woman from the multisets alone.
+
+\begin{table}[!htbp]
+\centering
+\caption{$\HW$ tests within strata of within-woman SD of intervals (each stratum's counts
+  are sums over its women; $B = 50{,}000$). Min Holm: smallest Holm-adjusted two-sided
+  marginal $p$ in the stratum.}
+\label{tab:si-strata}
+\smallskip
+\small
+\begin{tabular}{L{1.6cm} L{3.1cm} C{1.0cm} C{1.1cm} C{1.8cm} C{1.0cm} C{1.0cm} C{2.3cm}}
+\toprule
+\textbf{Cohort} & \textbf{Stratum} & $\mathbf{n}$ & \textbf{Cycles} & \textbf{SD range} & $\DM$ & $p$ & \textbf{Min Holm} \\
+\midrule
+Marquette & most regular tercile  & 40 & 570 & 0.71--1.86 & 2.33 & $.37$ & $.32$ \\
+          & middle tercile        & 39 & 511 & 1.86--2.81 & 1.57 & $.79$ & $1.00$ \\
+          & least regular tercile & 39 & 473 & 2.85--8.66 & 2.53 & $.26$ & $.39$ \\
+          & below-median SD       & 59 & 796 & 0.71--2.19 & 2.69 & $.20$ & $.13$ \\
+          & above-median SD       & 59 & 758 & 2.28--8.66 & 3.31 & $.051$ & $.033$ (Dilug deficit) \\
+\midrule
+Utah      & most regular tercile  & 90 & 741 & 0.52--1.77 & 2.00 & $.55$ & $.80$ \\
+          & middle tercile        & 90 & 708 & 1.78--2.94 & 2.10 & $.49$ & $1.00$ \\
+          & least regular tercile & 90 & 690 & 2.98--26.9 & 0.73 & $.99$ & $1.00$ \\
+          & below-median SD       & 135 & 1,110 & 0.52--2.16 & 1.40 & $.86$ & $1.00$ \\
+          & above-median SD       & 135 & 1,029 & 2.16--26.9 & 1.60 & $.77$ & $1.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Per-woman concentration of events under $\HW$. Overlap: women in both the top-$k$
+  by observed events and the top-$k$ by $\HW$ expected events. Shares are of all events;
+  the null value is the mean over replicates of the share held by the top-$k$ women of that
+  replicate; $p$ two-sided Monte Carlo.}
+\label{tab:si-conc}
+\smallskip
+\small
+\begin{tabular}{L{6.6cm} C{3.6cm} C{3.6cm}}
+\toprule
+ & \textbf{Marquette} (118 women) & \textbf{Utah} (270 women) \\
+\midrule
+Spearman $r_s$, observed vs expected per-woman total & $0.62$ & $0.70$ \\
+Overlap of top-5 / top-10 / top-20 sets & 4 / 7 / 12 & 3 / 4 / 8 \\
+Women with per-woman two-sided $p < .05$ (expected) & 1 (5.9) & 1 (13.5) \\
+Smallest Holm / Benjamini--Hochberg adjusted $p$ & 1.00 / 1.00 & 1.00 / 1.00 \\
+Per-woman $z$: mean (SD) & $-0.23$ (0.89) & $0.02$ (0.93) \\
+Share of events, top 6 women: observed vs null ($p$) & .238 vs .208 ($.12$) & .107 vs .110 ($.75$) \\
+Share of events, top 12 women: observed vs null ($p$) & .354 vs .336 ($.40$) & .185 vs .192 ($.56$) \\
+Share of events, top 24 women: observed vs null ($p$) & .524 vs .526 ($.98$) & .313 vs .326 ($.49$) \\
+Gini of per-woman totals: observed vs null ($p$) & .530 vs .515 ($.59$) & .595 vs .600 ($.80$) \\
+Women with no event: observed vs null ($p$) & 35 vs 31.1 ($.41$) & 124 vs 125.3 ($.90$) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{document}

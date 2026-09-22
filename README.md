@@ -44,6 +44,7 @@ VessetVectorTest/
 │   ├── Filtering_original.ipynb original filtering notebook (from the PhD repository)
 │   ├── hcc_rule.py              sixth interval-computable rule (Haflaga Chozer Chalila): counting + 3 nulls -> results/hcc_null.npz
 │   ├── hcc_joint.py             5- vs 6-component Mahalanobis test on paired replicates -> results/hcc_joint.npz
+│   ├── per_woman_hw.py          H_W within regularity strata + per-woman concentration checks -> results/per_woman_hw*.json (SI S6)
 │   ├── patterns.py              counting rules (vectorised + reference loop; equivalence test), null generators,
 │   │                            two-sided Monte Carlo p, Holm, Mahalanobis test
 │   ├── rerun_nulls.py           B = 50,000 replicates under H_G, H_iid, H_W (seed 17) -> results/null_replicates.npz

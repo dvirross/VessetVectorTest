@@ -342,6 +342,20 @@ print('LOO marginal p range per pattern:', {l: (round(loo_pm[:, j].min(), 3), ro
 """)
 
 md(r"""
+### 5b. Regularity strata and per-woman concentration under $H_W$ (SI Section S6)
+
+Two checks from the per-woman replicate counts: (A) the $H_W$ marginal and joint tests recomputed within terciles
+and halves of within-woman SD (the SD is a function of the multiset, so strata are fixed under $H_W$); (B) whether the
+women who produce the most events are those the null expects to (Spearman of observed vs expected per-woman totals,
+top-$k$ overlaps, per-woman two-sided $p$, and concentration statistics — share held by the top-$k$ women of each
+replicate, Gini, number of event-free women). Implemented in `scripts/per_woman_hw.py`.
+""")
+code(r"""
+from per_woman_hw import run as per_woman_checks
+pw_res = per_woman_checks('../data/FilteredData.csv', '../results/null_replicates.npz')
+""")
+
+md(r"""
 ## 6. Pairwise dependence (exploratory)
 
 Rate-based Spearman correlations between per-woman event rates (events / cycles), two-sided permutation

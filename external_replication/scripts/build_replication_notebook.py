@@ -237,6 +237,16 @@ display(Markdown(open(os.path.join(RES, 'comparison.md')).read()))
 """)
 
 md(r"""
+## 10b. Regularity strata and per-woman concentration under $H_W$ (main article SI, Section S6)
+Same checks as for the Marquette data (`scripts/per_woman_hw.py` in the repository root): $H_W$ tests within
+terciles/halves of within-woman SD, and whether the women producing the most events are those the null expects to.
+""")
+code(r"""
+from per_woman_hw import run as per_woman_checks
+pw_res = per_woman_checks(os.path.join(DATA, 'sequences.csv'), os.path.join(RES, 'null_replicates.npz'))
+""")
+
+md(r"""
 ## 11. Provenance
 """)
 code(r"""
