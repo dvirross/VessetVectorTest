@@ -351,12 +351,10 @@ cohorts ($n = 69$ and $49$ women in the filtered sample); cohort membership was 
 in the analysis. All lengths were incremented by 1 to the haflaga convention, giving
 $M = 30.3$, SD $= 3.9$.
 
-Because the pattern detectors operate on \emph{consecutive} cycles, it matters whether
-the exclusions could have created artificial adjacency across a removed cycle. They
-could not: the filtering removed whole women or duplicated rows only, and in the filtered
-file every woman's recorded \texttt{CycleNumber} runs $1, 2, \ldots, n_i$ without gaps
-(verified programmatically and asserted in the analysis code), so no pattern window spans
-an excluded cycle. The five-cycle minimum ensures that every retained woman can in
+Because the detectors operate on \emph{consecutive} cycles, we verified that the
+exclusions created no artificial adjacency: only whole women or duplicated rows were
+removed, and every retained woman's \texttt{CycleNumber} runs $1, 2, \ldots, n_i$
+without gaps (asserted in the analysis code). The five-cycle minimum ensures that every retained woman can in
 principle produce each of the five pattern types, the longest of which requires four
 consecutive intervals. The filtering script is part of the code release and reproduces
 the filtered file exactly from the archived source file (Section~\ref{sec:das}).
