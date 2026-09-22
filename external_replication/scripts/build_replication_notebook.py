@@ -87,7 +87,8 @@ md(r"""
 
 Same five rules as the main analysis (Haflaga ≥ 3 equal; Dilug constant non-zero first difference; Week two
 consecutive **equal** values at a same-weekday anchor $H \in \{22, 29, 36, \ldots\}$; Week-Dilug two consecutive
-values equal to 30; Dilug-in-Dilug constant non-zero second difference); distinct maximal runs, never across
+equal values at a one-weekday-progression anchor $H \in \{23, 30, 37, \ldots\}$ — in these data 40 of the 42 events are
+at 30; Dilug-in-Dilug constant non-zero second difference); distinct maximal runs, never across
 women. The vectorised counter is checked against the reference loop implementation.
 """)
 code(r"""
