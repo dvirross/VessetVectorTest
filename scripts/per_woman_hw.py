@@ -13,7 +13,9 @@ B. Concentration of events among women: are the women who produce the most event
    the share of all events held by the top-k women *of each replicate*, compared with the
    observed share (two-sided Monte Carlo p).
 
-Usage: python scripts/per_woman_hw.py  -> results/per_woman_hw.json (and prints a report)
+Usage: python scripts/per_woman_hw.py [DATA_CSV NULL_NPZ OUT_JSON]
+  default: data/FilteredData.csv results/null_replicates.npz results/per_woman_hw.json
+  Utah:    external_replication/data/sequences.csv external_replication/results/null_replicates.npz results/per_woman_hw_utah.json
 """
 import json, os, sys
 import numpy as np
@@ -23,14 +25,21 @@ sys.path.insert(0, os.path.dirname(__file__))
 from patterns import load_data, weekly_anchor_set, Counter, two_sided_p, holm_adjust, mahalanobis_test, PATTERN_LABELS
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-H, wid, bounds = load_data(os.path.join(ROOT, "data", "FilteredData.csv"))
+DATA = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "data", "FilteredData.csv")
+NPZ = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, "results", "null_replicates.npz")
+OUT = sys.argv[3] if len(sys.argv) > 3 else os.path.join(ROOT, "results", "per_woman_hw.json")
+H, wid, bounds = load_data(DATA)
 n_w = len(bounds)
 C = Counter(wid, weekly_anchor_set(H))
-obs_w = C.count_by_woman(H, n_w).astype(int)                 # (118, 5)
-rep = np.load(os.path.join(ROOT, "results", "null_replicates.npz"))
+obs_w = C.count_by_woman(H, n_w).astype(int)                 # (n_women, 5)
+rep = np.load(NPZ)
 W = rep["within_by_woman"].astype(np.int16)                   # (B, 118, 5)
 B = W.shape[0]
-assert np.array_equal(W.sum(1).sum(0) * 0 + obs_w.sum(0), rep["observed"]), "per-woman observed counts do not sum to stored observed"
+assert np.array_equal(obs_w.sum(0), rep["observed"]), "per-woman observed counts do not sum to stored observed"
+assert W.shape[1] == n_w, "replicate array has a different number of women"
+# ordering check: per-woman null means must be zero for every woman whose multiset cannot produce a pattern
+# (constant sequences aside); more usefully, they must track the women's own cycle counts in this ordering
+_mu = W.sum(2).mean(0); print(f"ordering check: Spearman(per-woman H_W mean total, n_i) = {stats.spearmanr(_mu, np.array([f - s for s, f in bounds]))[0]:.3f} (expect strongly positive)")
 sd_w = np.array([H[s:f].std(ddof=1) for s, f in bounds]); n_i = np.array([f - s for s, f in bounds])
 out = {"B": int(B), "n_women": n_w}
 
@@ -109,5 +118,5 @@ out["gini"] = dict(observed=round(float(go), 3), null_mean=round(float(gr.mean()
 # women with zero events: observed vs null
 zo = int((tot_o == 0).sum()); zr = (tot_r == 0).sum(1); print(f"  women with no event of any type: observed {zo}; null mean {zr.mean():.1f} (SD {zr.std(ddof=1):.1f}); two-sided p = {two_sided_p(zr, zo):.3f}")
 out["zero_event_women"] = dict(observed=zo, null_mean=round(float(zr.mean()), 1), null_sd=round(float(zr.std(ddof=1)), 1), p_two=round(float(two_sided_p(zr, zo)), 3))
-json.dump(out, open(os.path.join(ROOT, "results", "per_woman_hw.json"), "w"), indent=1)
-print("saved results/per_woman_hw.json")
+json.dump(out, open(OUT, "w"), indent=1)
+print("saved", OUT)
