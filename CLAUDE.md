@@ -188,7 +188,7 @@ paper/vesset_stat.tex          manuscript (Case Study framing, author–year ref
 paper/vesset_stat_SI.tex       Supporting Information (exploratory pairwise analysis; compile separately)
 paper/references.bib           bibliography
 paper/cover_letter.tex         BJ cover letter + declarations
-paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2021_BDD_accepted_article_Hebrew.pdf (accepted version of the article published in B.D.D 38–40, 2026; review only)
+paper/supplementary_for_review/  Ross_2022_PhD_dissertation_Hebrew.pdf, Ross_2026_BDD_38-40_article_Hebrew.pdf (author's copy of the article published in B.D.D 38–40, 2026, pp. 59–74; review only)
 paper/figures/                 figures as PDF + PNG
 notebooks/analysis.ipynb       generated notebook; produces fig1, fig3–fig10 and figA1 (Fig 2 comes from paper/figures/gen_consort_flow.py)
 revision_reports/              SMMR rounds 1–3; bj_round1_*.md; bj_round2_triage.md; bj_round2_changelog.md
