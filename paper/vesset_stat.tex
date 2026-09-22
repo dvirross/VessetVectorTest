@@ -146,15 +146,15 @@ and a within-woman permutation null that conditions on each woman's multiset of 
 lengths and randomises only their order. All are evaluated with two-sided Monte Carlo
 marginal tests and a joint quadratic-form (Mahalanobis) permutation statistic whose
 covariance is estimated from the null replicates. Under the global nulls the count
-vector is displaced far into the tail ($\DM = 5.08$, $p < .001$; Haflaga $z = 4.50$).
-Under the within-woman null it is not ($\DM = 2.93$, $p = .13$; smallest Holm-adjusted
+vector is displaced far into the tail ($\DM = 5.07$, $p < .001$; Haflaga $z = 4.50$).
+Under the within-woman null it is not ($\DM = 2.97$, $p = .11$; smallest Holm-adjusted
 marginal $p = .19$), and all five observed counts lie at or below their conditional null
 means. Simulation shows type-I error at or below the nominal level for the marginal and
 Holm procedures and approximately nominal for the joint test, quantifies the power of
 the within-woman tests against simulated autoregressive and exact-repetition
 alternatives, and shows the conclusions are insensitive to unequal follow-up. The
 contrast reproduced in an independent, openly deposited cohort of 270 women and 2,139
-cycles analysed with the same code and settings (global $\DM = 9.99$; within-woman $\DM = 1.20$,
+cycles analysed with the same code and settings (global $\DM = 10.04$; within-woman $\DM = 1.22$,
 $p = .92$). The contrast is consistent with between-woman heterogeneity in regularity generating the
 global excess, and provides no evidence that within-woman ordering produces additional
 rule-defined events; it does not establish the absence of serial dependence.
@@ -247,11 +247,17 @@ here are:
     whose cycle length $L = H - 1$ is a multiple of 7, so that successive onsets fall on
     the same weekday; in these data $\mathcal{W} \cap [19, 55] = \{22, 29, 36, 43,
     50\}$. Degree-0 anchored to weekly values; minimum run 2.
-  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} = 30$. An interval of 30 (29 days, four weeks
-    plus one day) is the unique interval for which each successive onset falls one
-    weekday later, producing an arithmetic progression of weekdays --- hence the name
-    (Hebrew \textit{shavu'a be-dilug}; \citealp{ross2022phd}). Degree-0 at the canonical
-    anchor; minimum run 2.
+  \item[\textit{Week-Dilug.}] $H_k = H_{k-1} \in \mathcal{W}'$, where
+    $\mathcal{W}' = \{7n + 2 : n \in \mathbb{N}^{+}\} = \{23, 30, 37, \ldots\}$ is the
+    set of intervals whose cycle length $L = H - 1$ exceeds a whole number of weeks by
+    one day, so that each successive onset falls one weekday later, producing an
+    arithmetic progression of weekdays --- hence the name (Hebrew \textit{shavu'a
+    be-dilug}; \citealp{ross2022phd}). Only the one-weekday progression is recognised in
+    the halachic sources; a progression of $k$ weekdays for arbitrary $k$ would make every
+    pair of equal intervals a Week-Dilug event and the rule would collapse into a two-cycle
+    Haflaga. In these data every observed Week-Dilug event is at $H = 30$ (29 days, four
+    weeks plus one day), the dominant anchor in practice. Degree-0 anchored to weekly
+    values; minimum run 2.
 \end{description}
 
 Haflaga, Dilug and Dilug-in-Dilug follow increasing polynomial order in cycle index;
@@ -268,12 +274,14 @@ Supporting Information (Section~S3).
 Two relationships follow from the definitions and are relevant to how the counts should
 be tested jointly.
 
-\paragraph{Haflaga-30 $\subseteq$ Week-Dilug (deterministic containment).}
-Week-Dilug requires two consecutive intervals equal to 30; a Haflaga sequence with
-value 30 requires three. Every Haflaga-30 sequence therefore generates a Week-Dilug
-event in its first two cycles. This is set-theoretic inclusion, not a stochastic
-association: in the data, the 3 Haflaga sequences with $H = 30$ contribute directly to
-the Week-Dilug count of 18.
+\paragraph{Haflaga at a Week-Dilug anchor $\subseteq$ Week-Dilug (deterministic
+containment).}
+Week-Dilug requires two consecutive equal intervals at a value in $\mathcal{W}'$; a
+Haflaga sequence at such a value requires three. Every Haflaga sequence at a Week-Dilug
+anchor therefore generates a Week-Dilug event in its first two cycles. This is
+set-theoretic inclusion, not a stochastic association: in the data, the 3 Haflaga
+sequences at an anchor value (all at $H = 30$) contribute directly to the Week-Dilug
+count of 18, all of whose events are at $H = 30$.
 
 \paragraph{Haflaga and Dilug-in-Dilug (algebraic proximity).}
 When the second difference $|d|$ of a Dilug-in-Dilug sequence is 1, its first
@@ -361,9 +369,9 @@ count is $0.0003$ under $\HG$, $0.0004$ under $\HI$ and $0.028$ under $\HW$, wit
 least one event in $0.03\%$, $0.04\%$ and $2.8\%$ of replicates respectively, so the
 observed zero is the modal null outcome (two-sided $p = 1$ under each null). Adding the
 rule as a sixth component of the joint statistic, on the same paired replicates, leaves
-the observed $\DM$ unchanged ($5.08$, $4.87$ and $2.94$ under $\HG$, $\HI$ and $\HW$)
-and moves the joint $p$-values from $< .001$, $< .001$ and $.126$ to $< .001$, $< .001$
-and $.150$, because every null replicate that contains an event lies beyond the observed
+the observed $\DM$ unchanged ($5.07$, $4.87$ and $2.98$ under $\HG$, $\HI$ and $\HW$)
+and moves the joint $p$-values from $< .001$, $< .001$ and $.115$ to $< .001$, $< .001$
+and $.139$, because every null replicate that contains an event lies beyond the observed
 vector; in the Holm family the rule would contribute a $p$-value of 1. The conclusions
 are therefore unaffected by its exclusion. The five-pattern family was nevertheless fixed after
 inspection of the observed counts and should be regarded as data-informed rather than
@@ -642,7 +650,7 @@ Week, whose null SD is larger under $\HI$).
 Haflaga        & 26 & 11.31 & 3.27 & $+4.50$ & $\mathbf{<.001}$ & $\mathbf{.001}$ & $\mathbf{<.001}$ \\
 Dilug          & 61 & 48.92 & 6.57 & $+1.84$ & $.085$ & $.340$ & $.082$ \\
 Week           & 32 & 27.02 & 4.01 & $+1.24$ & $.265$ & $.794$ & $.373$ \\
-Week-Dilug     & 18 & 16.25 & 3.25 & $+0.54$ & $.688$ & $1.00$ & $.743$ \\
+Week-Dilug     & 18 & 16.61 & 3.30 & $+0.42$ & $.774$ & $1.00$ & $.817$ \\
 Dilug-in-Dilug & 27 & 27.17 & 5.00 & $-0.03$ & $1.00$ & $1.00$ & $1.00$ \\
 \bottomrule
 \end{tabular}
@@ -694,10 +702,10 @@ predict. $\HW$ asks the latter. Table~\ref{tab:stratified} and Figure~\ref{fig:s
 Haflaga        & 26 & 31.84 & 4.68 & $-1.25$ & $.254$ & $1.00$ & $.12$--$.39$ \\
 Dilug          & 61 & 67.04 & 7.38 & $-0.82$ & $.460$ & $1.00$ & $.34$--$.60$ \\
 Week           & 32 & 33.79 & 3.88 & $-0.46$ & $.749$ & $1.00$ & $.53$--$.93$ \\
-Week-Dilug     & 18 & 20.91 & 3.22 & $-0.90$ & $.460$ & $1.00$ & $.31$--$.69$ \\
+Week-Dilug     & 18 & 21.46 & 3.30 & $-1.05$ & $.370$ & $1.00$ & $.24$--$.58$ \\
 Dilug-in-Dilug & 27 & 39.12 & 5.84 & $-2.07$ & $.038$ & $.192$ & $.014$--$.073$ \\
 \midrule
-\multicolumn{8}{@{}p{14.6cm}@{}}{Joint test (five patterns): $\DM = 2.93$, $p = .126$ (6,285 of 50,000 replicates at or beyond the observed value); split-batch $\DM = 2.95$, $p = .119$; leave-one-woman-out range of $p$: $.055$--$.224$.} \\
+\multicolumn{8}{@{}p{14.6cm}@{}}{Joint test (five patterns): $\DM = 2.97$, $p = .115$ (5,728 of 50,000 replicates at or beyond the observed value); split-batch $\DM = 2.99$, $p = .107$; leave-one-woman-out range of $p$: $.051$--$.207$.} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -707,8 +715,8 @@ counts lie \emph{below} their conditional null means. The most extreme component
 Dilug-in-Dilug ($z = -2.07$; nominal two-sided $p = .038$, Holm $p = .19$): fewer
 second-order progressions were observed than random reorderings of the same values
 produce. The direction is noted; the mechanism is not identified by these data, and the
-result is exploratory. The joint test is non-significant ($\DM = 2.93$, $p = .13$) and
-essentially unchanged in the split-batch form ($\DM = 2.95$, $p = .12$).
+result is exploratory. The joint test is non-significant ($\DM = 2.97$, $p = .11$) and
+essentially unchanged in the split-batch form ($\DM = 2.99$, $p = .11$).
 
 The shift between nulls is large: for Haflaga the $\HG$ null is centred at 11.3 and the
 $\HW$ null at 31.8, above the observed 26. A principal contributor to this shift is that
@@ -718,12 +726,12 @@ feature, whereas the global nulls erase it. Two further checks, computed from th
 per-woman replicate counts, indicate that the concentration of events in a minority of
 women is a property of their multisets rather than of their orderings (Supporting
 Information, Section~S6). Within terciles of within-woman SD the joint $\HW$ test is
-non-significant in every stratum ($p = .37$, $.79$ and $.26$), and the women who produce
+non-significant in every stratum ($p = .37$, $.79$ and $.25$), and the women who produce
 the most events are those the null expects to: the rank correlation between a woman's
-observed and expected event totals is $0.62$, no woman departs from her own null after
+observed and expected event totals is $0.61$, no woman departs from her own null after
 correction (1 of 118 with two-sided $p < .05$, against about 6 expected), and the share of
 all events held by the six most productive women ($.24$) is at its null level ($.21$,
-$p = .12$).
+$p = .11$).
 
 \begin{figure}[!htbp]
   \centering
@@ -738,18 +746,18 @@ $p = .12$).
 \subsection{Joint Tests}
 \label{sec:joint}
 
-Under $\HG$ the five-pattern Mahalanobis distance is $\DM = 5.08$ ($p < .001$; 6 of
-50,000 replicates at or beyond) and under $\HI$ it is $\DM = 4.87$ ($p < .001$; 17 of
+Under $\HG$ the five-pattern Mahalanobis distance is $\DM = 5.07$ ($p < .001$; 7 of
+50,000 replicates at or beyond) and under $\HI$ it is $\DM = 4.87$ ($p < .001$; 16 of
 50,000); the split-batch values are $5.07$ and $4.87$ with the same $p$-values. Under
-$\HW$, $\DM = 2.93$, $p = .126$ (Table~\ref{tab:stratified};
+$\HW$, $\DM = 2.97$, $p = .115$ (Table~\ref{tab:stratified};
 Figure~\ref{fig:joint1d}). The displacement under the global nulls is driven by Haflaga,
 which has the smallest null SD (3.27) and the largest standardised departure and
 therefore receives the largest weight in the quadratic form; the null covariance matrices
-are well conditioned (condition numbers 4.6, 4.4 and 5.4 for $\HG$, $\HI$, $\HW$) with
+are well conditioned (condition numbers 4.6, 4.4 and 5.2 for $\HG$, $\HI$, $\HW$) with
 all pairwise null correlations below 0.17 in absolute value.
 
 The exploratory three-pattern test (Haflaga, Week-Dilug, Dilug-in-Dilug) gives
-$\DM = 4.50$ ($p < .001$), $4.39$ ($p < .001$) and $2.68$ ($p = .067$) under $\HG$,
+$\DM = 4.50$ ($p < .001$), $4.39$ ($p < .001$) and $2.72$ ($p = .059$) under $\HG$,
 $\HI$ and $\HW$ respectively, consistent with the five-pattern analysis
 (Figure~\ref{fig:joint3panels}).
 
@@ -798,9 +806,9 @@ Table~\ref{tab:size} reports empirical rejection rates under each null for 10,00
 pseudo-observed datasets (Monte Carlo standard error about 0.002 at $\alpha = .05$).
 Type-I error is controlled at or below the nominal level by the marginal and Holm
 procedures and is approximately nominal for the joint test: the two-sided marginal tests
-reject between 2.9\% and 4.8\% of the time (conservative because the counts are
-discrete), the Holm family between 3.2\% and 3.7\%, and the joint test between 4.8\% and
-5.3\% at $\alpha = .05$ and between 0.7\% and 1.1\% at $\alpha = .01$. The plug-in and
+reject between 2.8\% and 4.8\% of the time (conservative because the counts are
+discrete), the Holm family between 3.0\% and 3.6\%, and the joint test between 4.6\% and
+5.3\% at $\alpha = .05$ and between 0.7\% and 1.0\% at $\alpha = .01$. The plug-in and
 split-batch versions of the joint test are indistinguishable, so re-using the replicates
 for $\hat\Sigma$ has no detectable effect at $B \geq 20{,}000$.
 
@@ -819,9 +827,9 @@ for $\hat\Sigma$ has no detectable effect at $B \geq 20{,}000$.
 \cmidrule(lr){2-6}\cmidrule(lr){8-9}
 Null & Haf. & Dilug & Week & W-D & DiD & family & plug-in & split-batch \\
 \midrule
-$\HG$  & .029 & .047 & .034 & .031 & .046 & .033 & .048 (.011) & .052 (.010) \\
-$\HI$  & .048 & .038 & .040 & .038 & .046 & .032 & .049 (.007) & .047 (.007) \\
-$\HW$  & .043 & .041 & .043 & .042 & .040 & .037 & .053 (.009) & .053 (.010) \\
+$\HG$  & .029 & .047 & .034 & .034 & .046 & .034 & .050 (.010) & .053 (.009) \\
+$\HI$  & .048 & .038 & .040 & .028 & .046 & .030 & .048 (.007) & .046 (.008) \\
+$\HW$  & .043 & .041 & .043 & .032 & .040 & .036 & .052 (.009) & .051 (.010) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -830,16 +838,16 @@ $\HW$  & .043 & .041 & .043 & .042 & .040 & .037 & .053 (.009) & .053 (.010) \\
 Table~\ref{tab:power} and Figure~\ref{fig:power} give rejection rates of the $\HW$ tests
 for datasets with genuine within-woman ordering (400 datasets per scenario; Monte Carlo
 SE $\leq 0.025$). At $\rho = 0$ and $q = 0$, which are exchangeable within woman, all
-tests reject at nominal rates under these heterogeneous marginals (joint 6.2\%, SE 1.2\%).
+tests reject at nominal rates under these heterogeneous marginals (joint 5.0\% and 6.0\%, SE 1.2\%).
 Autoregressive dependence with $\rho = 0.25$ --- which raises the expected Haflaga count
 by about five events over its conditional null mean --- is detected by the joint test in
-51\% of datasets and by the Holm family in 26\%; at $\rho = 0.5$ the joint test rejects
-in 99.5\% and at $\rho = 0.75$ always. Exact-repetition persistence is detected far more
+53\% of datasets and by the Holm family in 27\%; at $\rho = 0.5$ the joint test rejects
+in 99.8\% and at $\rho = 0.75$ always. Exact-repetition persistence is detected far more
 readily: when one cycle in ten copies its predecessor ($q = 0.1$) the joint test rejects
 in 98\% of datasets and the Haflaga marginal test in 96\%; at $q \geq 0.2$ detection is
 certain. The Dilug-in-Dilug marginal has no power against persistence (repetition
-suppresses second-order progressions), and Week-Dilug has the least power against
-autoregression, as expected from their definitions.
+suppresses second-order progressions), and Week and Week-Dilug have the least power
+against autoregression, as expected from their definitions.
 
 \begin{table}[!htbp]
 \centering
@@ -855,15 +863,15 @@ autoregression, as expected from their definitions.
 \toprule
 Alternative & Level & $\Delta$Haf. & Haf. & Dilug & Week & W-D & DiD & Holm & Joint \\
 \midrule
-AR(1) $\rho$       & 0    & $-0.1$ & .04 & .05 & .04 & .04 & .04 & .03 & .06 \\
-                   & 0.25 & $+5.1$ & .18 & .24 & .10 & .06 & .18 & .26 & .51 \\
-                   & 0.50 & $+13.8$ & .76 & .74 & .35 & .31 & .44 & .89 & .995 \\
-                   & 0.75 & $+33.3$ & 1.00 & .97 & .78 & .66 & .73 & 1.00 & 1.00 \\
+AR(1) $\rho$       & 0    & $-0.1$ & .04 & .05 & .04 & .04 & .04 & .03 & .05 \\
+                   & 0.25 & $+5.1$ & .18 & .24 & .10 & .09 & .18 & .27 & .53 \\
+                   & 0.50 & $+13.8$ & .76 & .74 & .35 & .39 & .44 & .89 & .998 \\
+                   & 0.75 & $+33.3$ & 1.00 & .97 & .78 & .77 & .73 & 1.00 & 1.00 \\
 \midrule
-Persistence $q$    & 0    & $+0.2$ & .04 & .04 & .04 & .04 & .06 & .05 & .06 \\
-                   & 0.1  & $+24.1$ & .96 & .19 & .61 & .41 & .04 & .94 & .98 \\
-                   & 0.2  & $+52.7$ & 1.00 & .60 & .96 & .86 & .04 & 1.00 & 1.00 \\
-                   & 0.3  & $+80.4$ & 1.00 & .93 & .99 & .96 & .16 & 1.00 & 1.00 \\
+Persistence $q$    & 0    & $+0.2$ & .04 & .04 & .04 & .03 & .06 & .05 & .06 \\
+                   & 0.1  & $+24.1$ & .96 & .19 & .61 & .54 & .04 & .94 & .98 \\
+                   & 0.2  & $+52.7$ & 1.00 & .60 & .96 & .95 & .04 & 1.00 & 1.00 \\
+                   & 0.3  & $+80.4$ & 1.00 & .93 & .99 & .99 & .16 & 1.00 & 1.00 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -881,8 +889,8 @@ Persistence $q$    & 0    & $+0.2$ & .04 & .04 & .04 & .04 & .06 & .05 & .06 \\
 
 These results calibrate the main finding for the two mechanisms simulated. Under the
 AR(1) alternative at $\rho = 0.25$, which added about five Haflaga events on average,
-the joint test rejected in 51\% of datasets; at $\rho = 0.5$ (about 14 additional
-events) it rejected in 99.5\%. Under the persistence alternative, one exact repetition
+the joint test rejected in 53\% of datasets; at $\rho = 0.5$ (about 14 additional
+events) it rejected in 99.8\%. Under the persistence alternative, one exact repetition
 in ten cycles was detected in 98\% of datasets. The observed Haflaga count is six
 \emph{below} its conditional null mean. These figures do not transfer to arbitrary forms
 of temporal dependence: autoregression weaker than $\rho \approx 0.25$, or dependence
@@ -894,10 +902,10 @@ Eleven women with 20 or more cycles contribute 20\% of cycles and 35\% of Haflag
 (21\%, 28\%, 11\% and 30\% of Dilug, Week, Week-Dilug and Dilug-in-Dilug events); the
 Spearman correlation between a woman's cycle count and her Haflaga events is 0.28. When
 every woman is truncated to her first 12 cycles (1,289 cycles), the observed counts are
-$(19, 51, 21, 16, 21)$, all $z$ remain negative ($-1.18$, $-0.32$, $-0.89$, $-0.68$,
+$(19, 51, 21, 16, 21)$, all $z$ remain negative ($-1.18$, $-0.32$, $-0.89$, $-0.83$,
 $-1.78$), no marginal test approaches significance (smallest two-sided $p = .080$, for
-Dilug-in-Dilug), and the joint test gives $\DM = 2.49$, $p = .29$. Leaving out any single
-woman moves the joint $\HW$ $p$-value within $.055$--$.224$ and never below $.05$
+Dilug-in-Dilug), and the joint test gives $\DM = 2.52$, $p = .27$. Leaving out any single
+woman moves the joint $\HW$ $p$-value within $.051$--$.207$ and never below $.05$
 (Table~\ref{tab:stratified}); the nominal Dilug-in-Dilug marginal stays below $.05$ in
 114 of 118 leave-one-out analyses, so it is not driven by one woman, but it remains
 non-significant after Holm correction throughout.
@@ -907,15 +915,15 @@ non-significant after Holm correction throughout.
 
 In the Utah cohort the observed counts are $(41, 76, 35, 40, 41)$. Under $\HG$ all five
 exceed their null means (Haflaga $z = 8.33$, no replicate reached 41; Dilug, Week-Dilug
-and Dilug-in-Dilug Holm-adjusted $p$ $.021$--$.024$) and $\DM = 9.99$
+and Dilug-in-Dilug Holm-adjusted $p$ $.010$--$.024$) and $\DM = 10.04$
 (Table~\ref{tab:ext}). Under $\HW$ every $|z| \leq 1.13$, all two-sided $p \geq .31$, and
-$\DM = 1.20$ ($p = .92$; split-batch $1.20$, $.92$); the Dilug-in-Dilug deficit seen in
+$\DM = 1.22$ ($p = .92$; split-batch $1.21$, $.92$); the Dilug-in-Dilug deficit seen in
 the Marquette data is absent ($z = -0.08$). The conclusion is unchanged by leaving any
-woman out (joint $p$ $.86$--$.97$), truncation to twelve cycles ($\DM = 1.34$, $p = .88$)
-or restriction of the support to 18--54 days ($\DM = 1.15$, $p = .93$); empirical size is
+woman out (joint $p$ $.86$--$.97$), truncation to twelve cycles ($\DM = 1.33$, $p = .88$)
+or restriction of the support to 18--54 days ($\DM = 1.20$, $p = .92$); empirical size is
 at or below nominal and the power of the $\HW$ tests is comparable to that in the
 Marquette data (Supporting Information, Section~S4). The per-woman checks of
-Section~\ref{sec:within} also hold: every regularity stratum is null (joint $p \geq .49$),
+Section~\ref{sec:within} also hold: every regularity stratum is null (joint $p \geq .55$),
 the rank correlation between observed and expected per-woman totals is $0.70$, and the
 concentration of events among women is at its null level (Section~S6).
 
@@ -930,9 +938,9 @@ concentration of events among women is at its null level (Section~S6).
 \toprule
 \textbf{Null} & \textbf{Marquette} $\DM$ ($p$) & \textbf{Utah} $\DM$ ($p$) & \textbf{Utah Haflaga} $z$ \\
 \midrule
-$\HG$  & 5.08 ($<.001$) & 9.99 ($<.001$) & $+8.33$ \\
-$\HI$  & 4.87 ($<.001$) & 9.53 ($<.001$) & $+8.20$ \\
-$\HW$  & 2.93 ($.126$)  & 1.20 ($.921$)  & $+1.13$ \\
+$\HG$  & 5.07 ($<.001$) & 10.04 ($<.001$) & $+8.33$ \\
+$\HI$  & 4.87 ($<.001$) & 9.56 ($<.001$) & $+8.20$ \\
+$\HW$  & 2.97 ($.115$)  & 1.22 ($.916$)  & $+1.13$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -943,8 +951,8 @@ $\HW$  & 2.93 ($.126$)  & 1.20 ($.921$)  & $+1.13$ \\
 \subsection{What the Contrast Between Nulls Shows}
 
 The same five counts are extreme under population-level exchangeability
-($\DM = 5.08$, $p < .001$) and unremarkable under within-woman exchangeability
-($\DM = 2.93$, $p = .13$). The global result is real and is not an artefact of the
+($\DM = 5.07$, $p < .001$) and unremarkable under within-woman exchangeability
+($\DM = 2.97$, $p = .11$). The global result is real and is not an artefact of the
 multinomial versus permutation choice (the two agree). It says that vesset events are
 concentrated in a way a homogeneous population would not produce. The within-woman result
 says that, conditional on each woman's own cycle-length values, the order in which they
@@ -995,8 +1003,8 @@ $z = 1.84$ does not survive correction and should be treated as hypothesis-gener
 gradual trends (age, weight, hormonal change) would produce arithmetic progressions,
 but no such mechanism is tested here. The Week pattern in this sample is almost entirely
 the 28-day cycle ($H = 29$) repeated twice, because longer weekly anchors (35, 42 days)
-are rare (9.6\% of cycles are $\geq 35$ days). Week-Dilug events include the 3 Haflaga-30
-sequences by containment.
+are rare (9.6\% of cycles are $\geq 35$ days). Every Week-Dilug event is at the anchor
+$H = 30$, and the events include the 3 Haflaga-30 sequences by containment.
 
 \subsection{The Joint Statistic}
 
@@ -1043,9 +1051,10 @@ natural next step.
 \label{sec:limitations}
 
 \paragraph{Coding and measurement.}
-Counts are invariant to the $H_k = L_k + 1$ relabelling provided the Week-Dilug anchor is
-shifted accordingly (verified: 26 Haflaga, 18 Week-Dilug under both conventions;
-computing on $L_k$ with an unshifted anchor of 30 gives 12 Week-Dilug events). The
+Counts are invariant to the $H_k = L_k + 1$ relabelling provided the Week and Week-Dilug
+anchor sets are shifted accordingly (verified: 26 Haflaga, 18 Week-Dilug under both
+conventions; computing on $L_k$ with the unshifted anchors $\{23, 30, 37, \ldots\}$ gives
+13 Week-Dilug events). The
 distribution of intervals declines smoothly through the anchor ($H = 29$: 225 cycles;
 $30$: 175; $31$: 141; Figure~\ref{fig:heaping}), so the Week-Dilug count does not appear
 to reflect digit preference; no formal test of heaping was performed. Onset time of day
@@ -1087,7 +1096,7 @@ dependence of both rates on follow-up length.
   \caption{Frequency of each interval value $H_k = L_k + 1$ in the analysed sample.
     Red bars: $H = 29$ and $H = 31$, the round-number cycle lengths $L = 28$ and
     $L = 30$ at which digit preference would appear; orange bar: $H = 30$ ($L = 29$),
-    the Week-Dilug anchor. Counts decline smoothly through these values
+    the Week-Dilug anchor at which all 18 events occur. Counts decline smoothly through these values
     (225, 175, 141), so the Week-Dilug count does not appear to reflect reporting
     heaping.}
   \label{fig:heaping}

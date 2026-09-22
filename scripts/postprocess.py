@@ -8,7 +8,7 @@ from scipy import stats
 from itertools import combinations
 
 sys.path.insert(0, os.path.dirname(__file__))
-from patterns import (load_data, weekly_anchor_set, Counter, two_sided_p,
+from patterns import (load_data, weekly_anchor_set, Counter, two_sided_p, WEEK_DILUG_ANCHORS,
                       mahalanobis_test, PATTERN_LABELS)
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -72,13 +72,15 @@ for m, arr in nulls.items():
 out["max_p_diff_G_iid"] = round(float(np.max(np.abs(np.array(out["G"]["p_two"]) - np.array(out["iid"]["p_two"])))), 3)
 
 # ── run details: Haflaga value 30, DiD |d| = 1 ────────────────────────────────
-haf30 = did1 = 0
+haf30 = did1 = hafwd = 0
+wd_by_anchor = {}
 for s, f in bounds:
     x = H[s:f]; n = f - s
     i = 2
     while i < n:
         if x[i] == x[i-1] == x[i-2]:
             if x[i] == 30: haf30 += 1
+            if x[i] in WEEK_DILUG_ANCHORS: hafwd += 1
             while i + 1 < n and x[i+1] == x[i]: i += 1
         i += 1
     i = 3
@@ -90,8 +92,17 @@ for s, f in bounds:
             b, d = b3, d2
             while i + 1 < n and x[i+1] == x[i] + b + d: i += 1; b += d
         i += 1
-out["haflaga_runs_at_30"] = haf30; out["did_runs_abs_d_1"] = did1
-print(f"\nHaflaga runs with H=30: {haf30}; DiD runs with |d|=1: {did1}")
+# Week-Dilug events by anchor value (H = 7n + 2)
+for s, f in bounds:
+    x = H[s:f]; n = f - s; i = 1
+    while i < n:
+        if x[i] == x[i-1] and x[i] in WEEK_DILUG_ANCHORS:
+            wd_by_anchor[int(x[i])] = wd_by_anchor.get(int(x[i]), 0) + 1
+            while i + 1 < n and x[i+1] == x[i]: i += 1
+        i += 1
+out["haflaga_runs_at_30"] = haf30; out["haflaga_runs_at_week_dilug_anchor"] = hafwd; out["did_runs_abs_d_1"] = did1
+out["week_dilug_by_anchor"] = dict(sorted(wd_by_anchor.items()))
+print(f"\nHaflaga runs with H=30: {haf30} (at any Week-Dilug anchor 7n+2: {hafwd}); DiD runs with |d|=1: {did1}; Week-Dilug events by anchor: {out['week_dilug_by_anchor']}")
 
 # ── per-woman counts, SD comparison ───────────────────────────────────────────
 pw = C.count_by_woman(H, n_w)

@@ -1,5 +1,8 @@
 # Draft subsection (not yet inserted in the manuscript)
 
+> **Superseded numbers (2026-09-22).** After this report was written the Week-Dilug rule was generalised from H = 30 to all one-weekday-progression anchors H ≡ 2 (mod 7) = {23, 30, 37, …} and the whole pipeline was rerun. Utah Week-Dilug count 40 → 42 (2 events at H = 37); joint D_M 9.99/9.53/1.20 → 10.04/9.56/1.22 (H_W p .921 → .916). Current numbers: `external_replication/results/comparison.md` and `summary.json`; the manuscript and SI Section S4 are up to date.
+
+
 ## External Replication in an Independent Creighton Model Cohort
 
 To test whether the contrast between the pooled and within-woman nulls is a property of the Marquette

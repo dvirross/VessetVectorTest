@@ -20,9 +20,9 @@ that the answer depends on which exchangeability null defines "chance":
 
 | Null | What is randomised | Joint Mahalanobis test |
 |---|---|---|
-| `H_G` global permutation | all cycle lengths across women | D_M = 5.08, p < .001 |
+| `H_G` global permutation | all cycle lengths across women | D_M = 5.07, p < .001 |
 | `H_iid` multinomial | i.i.d. draws from the pooled distribution | D_M = 4.87, p < .001 |
-| `H_W` within-woman permutation | order of each woman's own cycles only | D_M = 2.93, p = .13 |
+| `H_W` within-woman permutation | order of each woman's own cycles only | D_M = 2.97, p = .11 |
 
 Under `H_W` no pattern is individually significant after Holm correction (smallest
 Holm-adjusted p = .19) and all observed counts fall at or below their null means. The

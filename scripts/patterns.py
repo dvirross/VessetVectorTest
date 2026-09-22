@@ -16,7 +16,11 @@ import numpy as np
 import pandas as pd
 
 PATTERN_LABELS = ["Haflaga", "Dilug", "Week", "Week-Dilug", "Dilug-in-Dilug"]
-WEEK_DILUG_ANCHOR = 30
+# Week-Dilug anchors: intervals H = L + 1 with L = 7n + 1, i.e. each onset falls one weekday
+# later than the previous one (H = 23, 30, 37, ...). Defined arithmetically over a wide range;
+# values outside the observed range never occur, so no data-dependent restriction is needed.
+WEEK_DILUG_ANCHORS = frozenset(range(2, 1000, 7))
+WEEK_DILUG_ANCHOR = 30   # the dominant anchor in practice (kept for reference only)
 
 
 def load_data(path: str):
@@ -58,6 +62,7 @@ class Counter:
         self.same3[:2] = False
         self.same3[2:] &= self.same1[:-2]
         self.weekly = np.array(sorted(weekly), dtype=np.int64)
+        self.week_dilug = np.array(sorted(WEEK_DILUG_ANCHORS), dtype=np.int64)
 
     @staticmethod
     def _n_runs(flag: np.ndarray) -> int:
@@ -94,7 +99,7 @@ class Counter:
         return [self._run_starts(triple),
                 self._run_starts(dil),
                 self._run_starts(eq & np.isin(H, self.weekly)),       # Week
-                self._run_starts(eq & (H == WEEK_DILUG_ANCHOR)),      # Week-Dilug
+                self._run_starts(eq & np.isin(H, self.week_dilug)),  # Week-Dilug
                 self._run_starts(did)]
 
     def count(self, H: np.ndarray) -> np.ndarray:
@@ -150,7 +155,7 @@ def count_all_loop(H, bounds, weekly) -> np.ndarray:
         for s, f in bounds:
             i = s + 1
             while i < f:
-                if H[i] == WEEK_DILUG_ANCHOR == H[i - 1]:
+                if H[i] in WEEK_DILUG_ANCHORS and H[i] == H[i - 1]:
                     n += 1
                     while i + 1 < f and H[i + 1] == H[i]:
                         i += 1

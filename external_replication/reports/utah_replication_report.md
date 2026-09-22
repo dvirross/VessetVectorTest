@@ -1,5 +1,8 @@
 # External replication on the Utah Creighton Model cohort — results (2026-09-17)
 
+> **Superseded numbers (2026-09-22).** After this report was written the Week-Dilug rule was generalised from H = 30 to all one-weekday-progression anchors H ≡ 2 (mod 7) = {23, 30, 37, …} and the whole pipeline was rerun. Utah Week-Dilug count 40 → 42 (2 events at H = 37); joint D_M 9.99/9.53/1.20 → 10.04/9.56/1.22 (H_W p .921 → .916). Current numbers: `external_replication/results/comparison.md` and `summary.json`; the manuscript and SI Section S4 are up to date.
+
+
 All numbers from `external_replication/results/` (B = 50,000, seed 17; same engine, seeds and
 constants as the Fehring analysis). Preprocessing and deviations:
 `external_replication/reports/utah_preprocessing_and_deviations.md`. Reproduce with

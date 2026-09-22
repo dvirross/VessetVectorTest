@@ -110,7 +110,7 @@ for v, c in zip(vals, cnts):
         ax.text(v, c + 3, str(c), ha='center', va='bottom', fontsize=9, fontweight='bold' if v in (29, 30, 31) else 'normal')
 from matplotlib.patches import Patch
 ax.legend(handles=[Patch(color=C_CONCERN, label='$H = 29$ ($L = 28$) and $H = 31$ ($L = 30$): round-number cycle lengths'),
-                   Patch(color=C_ANCHOR, label='$H = 30$ ($L = 29$): Week-Dilug anchor'),
+                   Patch(color=C_ANCHOR, label='$H = 30$ ($L = 29$): dominant Week-Dilug anchor (all 18 events)'),
                    Patch(color=C_PERM, label='Other values')], loc='upper right', fontsize=9, framealpha=0.95)
 ax.set_xlabel('Haflaga value $H_k = L_k + 1$ (days)'); ax.set_ylabel('Number of cycles')
 ax.set_title('Heaping diagnostic: counts decline smoothly through the round-number lengths and the Week-Dilug anchor', fontweight='bold', fontsize=11)
@@ -133,7 +133,7 @@ Formal definitions ($H_k = L_k + 1$):
 | Haflaga | $H_k = H_{k-1} = H_{k-2}$ | 0 | 3 |
 | Dilug | $H_k - H_{k-1} = H_{k-1} - H_{k-2} = d \neq 0$ | 1 | 3 |
 | Week | $H_k = H_{k-1} \in \mathcal{W}$ | 0 | 2 |
-| Week-Dilug | $H_k = H_{k-1} = 30$ | 0 | 2 |
+| Week-Dilug | $H_k = H_{k-1} \in \{7n+2\}$ (23, 30, 37, …; onset one weekday later each cycle) | 0 | 2 |
 | Dilug-in-Dilug | constant non-zero second difference | 2 | 4 |
 
 Counting convention: distinct maximal contiguous runs within a woman; extended runs count once;
@@ -360,7 +360,7 @@ md(r"""
 
 Rate-based Spearman correlations between per-woman event rates (events / cycles), two-sided permutation
 $p$-values ($B = 50{,}000$, seed 17), Holm across the 10 pairs; binary co-occurrence robustness check.
-Haflaga-30 ⊆ Week-Dilug is a deterministic property of the definitions, not an empirical finding.
+A Haflaga run at a Week-Dilug anchor value (7n+2; in these data all such runs are at 30) is by definition also a Week-Dilug event — a deterministic property of the definitions, not an empirical finding.
 """)
 code(r"""
 rates = pw / n_i[:, None]

@@ -88,7 +88,8 @@ analysis asks a different and secondary question --- whether women who produce o
 pattern type tend to produce another --- as a consistency check against the relationships
 derived from the pattern definitions (main article, Section~2.2). Those relationships
 lead to two expectations: a positive Haflaga $\times$ Week-Dilug association, which is
-partly an arithmetic consequence of containment (every Haflaga sequence at $H = 30$
+partly an arithmetic consequence of containment (every Haflaga sequence at a Week-Dilug
+anchor value $7n + 2$, here $H = 30$,
 contains a Week-Dilug event) rather than an empirical hypothesis, and a plausible but not
 entailed positive Haflaga $\times$ Dilug-in-Dilug association from polynomial proximity.
 No expectation is held for the other eight pairs, so the analysis is a consistency check,
@@ -293,7 +294,7 @@ increase slightly: every replicate that contains an event lies far beyond the ob
 vector in the sixth coordinate, so such replicates are added to the exceedance count
 (16, 19 and 1,378 replicates under $\HG$, $\HI$ and $\HW$). The split-batch estimate
 agrees. Under the two global nulls the joint test still rejects at $p < .001$; under
-$\HW$ the $p$-value moves from $.126$ to $.150$ and the test still does not reject. The
+$\HW$ the $p$-value moves from $.115$ to $.139$ and the test still does not reject. The
 condition numbers of the estimated $6 \times 6$ covariance matrices ($1.4 \times 10^5$,
 $1.2 \times 10^5$ and $2.0 \times 10^3$) reflect the near-zero variance of the sixth
 component but caused no numerical difficulty.
@@ -309,9 +310,9 @@ component but caused no numerical difficulty.
 \toprule
 \textbf{Null} & $\mathbf{D_M^{(5)}}$ & $\mathbf{p^{(5)}}$ & $\mathbf{D_M^{(6)}}$ & $\mathbf{p^{(6)}}$ & \textbf{Split-batch} $\mathbf{D_M^{(6)}}$, $\mathbf{p^{(6)}}$ \\
 \midrule
-$\HG$  & 5.08 & $.0001$ & 5.08 & $.0005$ & 5.07, $.0005$ \\
-$\HI$  & 4.87 & $.0004$ & 4.87 & $.0007$ & 4.87, $.0007$ \\
-$\HW$  & 2.93 & $.126$  & 2.94 & $.150$  & 2.96, $.143$ \\
+$\HG$  & 5.07 & $.0002$ & 5.07 & $.0005$ & 5.07, $.0005$ \\
+$\HI$  & 4.87 & $.0003$ & 4.87 & $.0007$ & 4.87, $.0007$ \\
+$\HW$  & 2.97 & $.115$  & 2.98 & $.139$  & 3.00, $.132$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -390,8 +391,9 @@ anchor set over the observed range is $\{22, 29, \ldots, 99\}$.
 
 \subsection*{S4.2 Marginal and joint results}
 
-The observed counts are $(41, 76, 35, 40, 41)$ for (Haflaga, Dilug, Week, Week-Dilug,
-Dilug-in-Dilug); 38, 66, 33, 35 and 39 women establish each pattern. Table~\ref{tab:si-ext-marg}
+The observed counts are $(41, 76, 35, 42, 41)$ for (Haflaga, Dilug, Week, Week-Dilug,
+Dilug-in-Dilug); 38, 66, 33, 37 and 39 women establish each pattern. Of the 42
+Week-Dilug events, 40 are at the anchor $H = 30$ and 2 at $H = 37$. Table~\ref{tab:si-ext-marg}
 gives the marginal results under the three nulls and Figure~\ref{fig:si-ext-null} the null
 distributions; Table~\ref{tab:si-ext-joint} gives the joint statistics next to the
 Marquette values, and Figure~\ref{fig:si-ext-z} compares the standardised deviations of the
@@ -409,21 +411,21 @@ two cohorts.
 \textbf{Null} & \textbf{Pattern} & \textbf{Obs} & $\boldsymbol{\mu}$ ($\boldsymbol{\sigma}$) & $\mathbf{z}$ & $\mathbf{p}$ & \textbf{Holm} \\
 \midrule
 $\HG$ & Haflaga        & 41 & 12.42 (3.43) & $+8.33$ & $<.001$ & $<.001$ \\
-      & Dilug          & 76 & 54.95 (6.99) & $+3.01$ & $.006$  & $.021$ \\
+      & Dilug          & 76 & 54.95 (6.99) & $+3.01$ & $.006$  & $.017$ \\
       & Week           & 35 & 27.09 (4.18) & $+1.89$ & $.083$  & $.083$ \\
-      & Week-Dilug     & 40 & 27.40 (4.17) & $+3.02$ & $.005$  & $.021$ \\
+      & Week-Dilug     & 42 & 28.25 (4.26) & $+3.23$ & $.002$  & $.010$ \\
       & Dilug-in-Dilug & 41 & 27.08 (5.04) & $+2.76$ & $.012$  & $.024$ \\
 \midrule
 $\HI$ & Haflaga        & 41 & 12.56 (3.47) & $+8.20$ & $<.001$ & $<.001$ \\
       & Dilug          & 76 & 54.84 (7.05) & $+3.00$ & $.005$  & $.021$ \\
       & Week           & 35 & 27.17 (5.05) & $+1.55$ & $.156$  & $.156$ \\
-      & Week-Dilug     & 40 & 27.52 (5.08) & $+2.46$ & $.025$  & $.050$ \\
+      & Week-Dilug     & 42 & 28.40 (5.16) & $+2.64$ & $.016$  & $.042$ \\
       & Dilug-in-Dilug & 41 & 27.09 (5.09) & $+2.73$ & $.014$  & $.042$ \\
 \midrule
 $\HW$ & Haflaga        & 41 & 35.60 (4.78) & $+1.13$ & $.313$  & $1.00$ \\
       & Dilug          & 76 & 75.71 (7.75) & $+0.04$ & $1.00$  & $1.00$ \\
       & Week           & 35 & 35.61 (3.97) & $-0.15$ & $.986$  & $1.00$ \\
-      & Week-Dilug     & 40 & 38.56 (4.10) & $+0.35$ & $.812$  & $1.00$ \\
+      & Week-Dilug     & 42 & 40.27 (4.25) & $+0.41$ & $.764$  & $1.00$ \\
       & Dilug-in-Dilug & 41 & 41.48 (5.95) & $-0.08$ & $1.00$  & $1.00$ \\
 \bottomrule
 \end{tabular}
@@ -440,9 +442,9 @@ $\HW$ & Haflaga        & 41 & 35.60 (4.78) & $+1.13$ & $.313$  & $1.00$ \\
 \toprule
 \textbf{Null} & \textbf{Marquette} $\DM$ ($p$) & \textbf{Utah} $\DM$ ($p$) & \textbf{Utah split-batch} & \textbf{Utah three-pattern} \\
 \midrule
-$\HG$ & 5.08 ($<.001$) & 9.99 ($<.001$) & 10.03 ($<.001$) & 9.10 ($<.001$) \\
-$\HI$ & 4.87 ($<.001$) & 9.53 ($<.001$) & 9.52 ($<.001$)  & 8.81 ($<.001$) \\
-$\HW$ & 2.93 ($.126$)  & 1.20 ($.921$)  & 1.20 ($.922$)   & 1.17 ($.715$) \\
+$\HG$ & 5.07 ($<.001$) & 10.04 ($<.001$) & 10.07 ($<.001$) & 9.15 ($<.001$) \\
+$\HI$ & 4.87 ($<.001$) & 9.56 ($<.001$)  & 9.55 ($<.001$)  & 8.84 ($<.001$) \\
+$\HW$ & 2.97 ($.115$)  & 1.22 ($.916$)   & 1.21 ($.916$)   & 1.19 ($.705$) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -465,8 +467,8 @@ $\HW$ & 2.93 ($.126$)  & 1.20 ($.921$)  & 1.20 ($.922$)   & 1.17 ($.715$) \\
 
 \subsection*{S4.3 Sensitivity analyses}
 
-Leaving out any single woman moves the $\HW$ joint $p$-value within $.861$--$.974$
-(Marquette $.055$--$.224$); no marginal $p$ falls below $.05$ for any omission (Haflaga
+Leaving out any single woman moves the $\HW$ joint $p$-value within $.856$--$.970$
+(Marquette $.051$--$.207$); no marginal $p$ falls below $.05$ for any omission (Haflaga
 $.248$--$.467$). No woman has 20 or more cycles; the top follow-up quintile ($n_i \geq 11$,
 56 women) holds 31.7\% of cycles and 56\% of Haflaga events. Table~\ref{tab:si-ext-sens}
 gives the truncation and support-restriction analyses; in the latter every removed cycle
@@ -484,15 +486,15 @@ inclusion criterion of either study.
 \toprule
 \textbf{Analysis} & \textbf{Women} & \textbf{Cycles} & \textbf{Counts} & $\DM$ ($\HW$) & $p$ \\
 \midrule
-Primary                          & 270 & 2,139 & (41, 76, 35, 40, 41) & 1.20 & $.921$ \\
-First 12 cycles per woman        & 270 & 2,109 & (40, 75, 34, 36, 41) & 1.34 & $.878$ \\
-Support $18 \leq L \leq 54$      & 258 & 2,050 & (41, 76, 35, 40, 41) & 1.15 & $.933$ \\
+Primary                          & 270 & 2,139 & (41, 76, 35, 42, 41) & 1.22 & $.916$ \\
+First 12 cycles per woman        & 270 & 2,109 & (40, 75, 34, 38, 41) & 1.33 & $.884$ \\
+Support $18 \leq L \leq 54$      & 258 & 2,050 & (41, 76, 35, 42, 41) & 1.20 & $.921$ \\
 \bottomrule
 \end{tabular}
 \smallskip
 
-\footnotesize Under the support restriction the global nulls give $\DM = 9.27$ ($\HG$)
-and $8.85$ ($\HI$), both $p < .001$.
+\footnotesize Under the support restriction the global nulls give $\DM = 9.32$ ($\HG$)
+and $8.88$ ($\HI$), both $p < .001$.
 \end{table}
 
 \subsection*{S4.4 Simulation validation}
@@ -502,7 +504,7 @@ sequences (10,000 fresh datasets against 20,000 reference replicates for size; 4
 datasets $\times$ 2,000 permutations per alternative for power). Empirical size is at or
 below nominal for every procedure (Table~\ref{tab:si-ext-size}; Monte Carlo SE $\approx
 .002$ at $.05$), and the power of the $\HW$ tests (Table~\ref{tab:si-ext-power}) is close to
-that in the Marquette data (joint power $.507$, $.995$, $1.00$ at $\rho = .25$, $.50$,
+that in the Marquette data (joint power $.525$, $.998$, $1.00$ at $\rho = .25$, $.50$,
 $.75$ and $.983$, $1.00$, $1.00$ at $q = .10$, $.20$, $.30$).
 
 \begin{table}[!htbp]
@@ -515,9 +517,9 @@ $.75$ and $.983$, $1.00$, $1.00$ at $q = .10$, $.20$, $.30$).
 \toprule
 \textbf{Null} & \textbf{Marginal (Haf, Dil, Wk, W-D, DiD)} & \textbf{Holm} & \textbf{Joint plug-in} & \textbf{Joint split} \\
 \midrule
-$\HG$ & .039, .042, .030, .032, .046 & .039 & .051 & .051 \\
-$\HI$ & .028, .039, .038, .036, .048 & .038 & .052 & .046 \\
-$\HW$ & .045, .042, .044, .036, .035 & .034 & .049 & .051 \\
+$\HG$ & .039, .042, .030, .036, .046 & .041 & .051 & .052 \\
+$\HI$ & .028, .039, .038, .040, .048 & .038 & .053 & .047 \\
+$\HW$ & .045, .042, .044, .029, .035 & .032 & .050 & .051 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -534,13 +536,13 @@ $\HW$ & .045, .042, .044, .036, .035 & .034 & .049 & .051 \\
 \textbf{Alternative} & \textbf{Haf} & \textbf{Dil} & \textbf{Wk} & \textbf{W-D} & \textbf{DiD} & \textbf{Holm-any} & \textbf{Joint} \\
 \midrule
 AR(1) $\rho = 0$      & .030 & .048 & .035 & .032 & .035 & .030 & .045 \\
-$\rho = .25$          & .135 & .278 & .110 & .060 & .132 & .223 & .443 \\
-$\rho = .50$          & .682 & .818 & .358 & .200 & .465 & .877 & .993 \\
-$\rho = .75$          & 1.00 & .992 & .778 & .595 & .585 & 1.00 & 1.00 \\
-Persistence $q = 0$   & .045 & .025 & .030 & .058 & .035 & .028 & .058 \\
-$q = .10$             & .960 & .180 & .540 & .360 & .058 & .938 & .970 \\
-$q = .20$             & 1.00 & .422 & .942 & .782 & .070 & 1.00 & 1.00 \\
-$q = .30$             & 1.00 & .718 & .988 & .908 & .362 & 1.00 & 1.00 \\
+$\rho = .25$          & .135 & .278 & .110 & .105 & .132 & .220 & .455 \\
+$\rho = .50$          & .682 & .818 & .358 & .300 & .465 & .885 & .995 \\
+$\rho = .75$          & 1.00 & .992 & .778 & .698 & .585 & 1.00 & 1.00 \\
+Persistence $q = 0$   & .045 & .025 & .030 & .058 & .035 & .028 & .052 \\
+$q = .10$             & .960 & .180 & .540 & .495 & .058 & .945 & .985 \\
+$q = .20$             & 1.00 & .422 & .942 & .920 & .070 & 1.00 & 1.00 \\
+$q = .30$             & 1.00 & .718 & .988 & .982 & .362 & 1.00 & 1.00 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -569,7 +571,7 @@ heterogeneity produces a larger global displacement there.
 Haflaga        & 6.28 & $-1.79$ & $4.50$  & 6.76 & $+1.57$ & $8.33$ \\
 Dilug          & 2.76 & $-0.92$ & $1.84$  & 2.97 & $+0.04$ & $3.01$ \\
 Week           & 1.69 & $-0.45$ & $1.24$  & 2.04 & $-0.15$ & $1.89$ \\
-Week-Dilug     & 1.43 & $-0.90$ & $0.54$  & 2.68 & $+0.35$ & $3.02$ \\
+Week-Dilug     & 1.47 & $-1.05$ & $0.42$  & 2.82 & $+0.41$ & $3.23$ \\
 Dilug-in-Dilug & 2.39 & $-2.42$ & $-0.03$ & 2.86 & $-0.10$ & $2.76$ \\
 \bottomrule
 \end{tabular}
@@ -583,8 +585,8 @@ $p = .14$; partial $r_s$ given $n_i$ $= -.14$; follow-up-stratified $p = .21$). 
 non-null pair in the Utah cohort is Haflaga $\times$ Week ($r_s = .27$, $p = .0001$, Holm
 $p = .001$; binary version $\chi^2 = 19.9$, Holm $p = .001$); a Haflaga run at a Week anchor
 value necessarily produces a Week event, so this association is partly structural, in the
-same way as Haflaga-30 $\subseteq$ Week-Dilug. The 38 women with a Haflaga event had a mean
-within-woman SD of $H$ of 1.89 (SD across women 1.37) against 4.61 (4.47) for the 124 women
+same way as a Haflaga run at a Week-Dilug anchor $\subseteq$ Week-Dilug. The 38 women with a Haflaga event had a mean
+within-woman SD of $H$ of 1.89 (SD across women 1.37) against 4.61 (4.47) for the 122 women
 with no event of any type, a difference expected by construction.
 
 \begin{table}[!htbp]
@@ -601,13 +603,13 @@ with no event of any type, a difference expected by construction.
 \midrule
 Haflaga $\times$ Week              & $+.10$ & $.277$ & $1.00$ & $+.27$ & $.0001$ & $.001$ \\
 Haflaga $\times$ Dilug-in-Dilug    & $+.27$ & $.004$ & $.038$ & $-.09$ & $.145$  & $1.00$ \\
-Week-Dilug $\times$ Dilug-in-Dilug & $+.07$ & $.480$ & $1.00$ & $+.09$ & $.172$  & $1.00$ \\
-Haflaga $\times$ Week-Dilug        & $+.23$ & $.011$ & $.102$ & $+.09$ & $.178$  & $1.00$ \\
+Week-Dilug $\times$ Dilug-in-Dilug & $+.07$ & $.480$ & $1.00$ & $+.08$ & $.213$  & $1.00$ \\
+Haflaga $\times$ Week-Dilug        & $+.23$ & $.011$ & $.102$ & $+.07$ & $.213$  & $1.00$ \\
 Dilug $\times$ Dilug-in-Dilug      & $-.02$ & $.819$ & $1.00$ & $+.07$ & $.223$  & $1.00$ \\
 Haflaga $\times$ Dilug             & $+.04$ & $.668$ & $1.00$ & $-.07$ & $.243$  & $1.00$ \\
 Dilug $\times$ Week                & $+.09$ & $.337$ & $1.00$ & $-.05$ & $.368$  & $1.00$ \\
-Dilug $\times$ Week-Dilug          & $-.12$ & $.206$ & $1.00$ & $+.01$ & $.886$  & $1.00$ \\
-Week $\times$ Week-Dilug           & $+.06$ & $.476$ & $1.00$ & $-.01$ & $.911$  & $1.00$ \\
+Dilug $\times$ Week-Dilug          & $-.12$ & $.206$ & $1.00$ & $-.00$ & $.950$  & $1.00$ \\
+Week $\times$ Week-Dilug           & $+.06$ & $.476$ & $1.00$ & $-.02$ & $.811$  & $1.00$ \\
 Week $\times$ Dilug-in-Dilug       & $+.09$ & $.326$ & $1.00$ & $-.00$ & $.980$  & $1.00$ \\
 \bottomrule
 \end{tabular}
@@ -644,10 +646,11 @@ remain exact conditional Monte Carlo tests.
 \paragraph{Regularity strata.} Women were split into terciles (and halves) of
 within-woman SD; observed and replicate counts were summed within each stratum and the
 marginal and joint tests recomputed (Table~\ref{tab:si-strata}). No stratum in either
-cohort shows an excess of any pattern; every joint test is non-significant. The only
-marginal result surviving Holm correction within a stratum is a deficit, Dilug in the
-less regular half of the Marquette sample (13 observed against 25.1 expected, $z = -2.63$,
-Holm $p = .033$), which drives that stratum's joint $p$ of $.051$; it is in the same
+cohort shows an excess of any pattern, and every joint test is non-significant except
+that of the less regular half of the Marquette sample ($p = .047$). The only marginal
+result surviving Holm correction within a stratum is a deficit, Dilug in that same half
+(13 observed against 25.1 expected, $z = -2.63$, Holm $p = .033$), which drives its joint
+$p$; it is in the same
 direction as the aggregate Dilug-in-Dilug deficit, is one of ten stratum-level analyses,
 and does not recur in the Utah cohort ($z = +0.72$). The least regular strata produce few
 events and therefore have little power against an excess.
@@ -658,7 +661,7 @@ events across women was compared with the null through the share of events held 
 $k$ most productive women \emph{of each replicate}, the Gini coefficient of per-woman
 totals, and the number of women with no event (Table~\ref{tab:si-conc}). In both
 cohorts the women who produce the most events are those whose multisets predict the
-most (rank correlation $0.62$ and $0.70$), no woman departs from her own null after
+most (rank correlation $0.61$ and $0.70$), no woman departs from her own null after
 multiplicity correction, and every concentration statistic lies at its null level. The
 concentration of events in a minority of regular women, which the global nulls register
 as excess, is therefore what $\HW$ predicts woman by woman from the multisets alone.
@@ -677,15 +680,15 @@ as excess, is therefore what $\HW$ predicts woman by woman from the multisets al
 \midrule
 Marquette & most regular tercile  & 40 & 570 & 0.71--1.86 & 2.33 & $.37$ & $.32$ \\
           & middle tercile        & 39 & 511 & 1.86--2.81 & 1.57 & $.79$ & $1.00$ \\
-          & least regular tercile & 39 & 473 & 2.85--8.66 & 2.53 & $.26$ & $.39$ \\
+          & least regular tercile & 39 & 473 & 2.85--8.66 & 2.57 & $.25$ & $.39$ \\
           & below-median SD       & 59 & 796 & 0.71--2.19 & 2.69 & $.20$ & $.13$ \\
-          & above-median SD       & 59 & 758 & 2.28--8.66 & 3.31 & $.051$ & $.033$ (Dilug deficit) \\
+          & above-median SD       & 59 & 758 & 2.28--8.66 & 3.34 & $.047$ & $.033$ (Dilug deficit) \\
 \midrule
 Utah      & most regular tercile  & 90 & 741 & 0.52--1.77 & 2.00 & $.55$ & $.80$ \\
-          & middle tercile        & 90 & 708 & 1.78--2.94 & 2.10 & $.49$ & $1.00$ \\
-          & least regular tercile & 90 & 690 & 2.98--26.9 & 0.73 & $.99$ & $1.00$ \\
-          & below-median SD       & 135 & 1,110 & 0.52--2.16 & 1.40 & $.86$ & $1.00$ \\
-          & above-median SD       & 135 & 1,029 & 2.16--26.9 & 1.60 & $.77$ & $1.00$ \\
+          & middle tercile        & 90 & 708 & 1.78--2.94 & 1.95 & $.58$ & $1.00$ \\
+          & least regular tercile & 90 & 690 & 2.98--26.9 & 0.68 & $.99$ & $1.00$ \\
+          & below-median SD       & 135 & 1,110 & 0.52--2.16 & 1.37 & $.87$ & $1.00$ \\
+          & above-median SD       & 135 & 1,029 & 2.16--26.9 & 1.61 & $.77$ & $1.00$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -703,16 +706,16 @@ Utah      & most regular tercile  & 90 & 741 & 0.52--1.77 & 2.00 & $.55$ & $.80$
 \toprule
  & \textbf{Marquette} (118 women) & \textbf{Utah} (270 women) \\
 \midrule
-Spearman $r_s$, observed vs expected per-woman total & $0.62$ & $0.70$ \\
+Spearman $r_s$, observed vs expected per-woman total & $0.61$ & $0.70$ \\
 Overlap of top-5 / top-10 / top-20 sets & 4 / 7 / 12 & 3 / 4 / 8 \\
 Women with per-woman two-sided $p < .05$ (expected) & 1 (5.9) & 1 (13.5) \\
 Smallest Holm / Benjamini--Hochberg adjusted $p$ & 1.00 / 1.00 & 1.00 / 1.00 \\
-Per-woman $z$: mean (SD) & $-0.23$ (0.89) & $0.02$ (0.93) \\
-Share of events, top 6 women: observed vs null ($p$) & .238 vs .208 ($.12$) & .107 vs .110 ($.75$) \\
-Share of events, top 12 women: observed vs null ($p$) & .354 vs .336 ($.40$) & .185 vs .192 ($.56$) \\
-Share of events, top 24 women: observed vs null ($p$) & .524 vs .526 ($.98$) & .313 vs .326 ($.49$) \\
-Gini of per-woman totals: observed vs null ($p$) & .530 vs .515 ($.59$) & .595 vs .600 ($.80$) \\
-Women with no event: observed vs null ($p$) & 35 vs 31.1 ($.41$) & 124 vs 125.3 ($.90$) \\
+Per-woman $z$: mean (SD) & $-0.23$ (0.89) & $0.02$ (0.94) \\
+Share of events, top 6 women: observed vs null ($p$) & .238 vs .208 ($.11$) & .106 vs .110 ($.74$) \\
+Share of events, top 12 women: observed vs null ($p$) & .354 vs .335 ($.38$) & .183 vs .191 ($.55$) \\
+Share of events, top 24 women: observed vs null ($p$) & .524 vs .525 ($.99$) & .311 vs .324 ($.47$) \\
+Gini of per-woman totals: observed vs null ($p$) & .530 vs .514 ($.55$) & .589 vs .595 ($.74$) \\
+Women with no event: observed vs null ($p$) & 35 vs 30.9 ($.38$) & 122 vs 123.9 ($.84$) \\
 \bottomrule
 \end{tabular}
 \end{table}
