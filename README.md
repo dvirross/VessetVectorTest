@@ -104,6 +104,7 @@ python scripts/sim_validation.py                      # ~20 min on 4 cores: size
 python scripts/postprocess.py                         # all reported statistics -> results/summary.json
 python scripts/hcc_rule.py 50000 17                   # ~1 min: zero-count rule Haflaga Chozer Chalila under the 3 nulls (SI S3)
 python scripts/hcc_joint.py 50000 17                  # ~2 min: 6-component joint test on paired replicates (SI S3, Table S3)
+python scripts/directional_ordering.py                # ~30 s: directional + generic ordering statistics under H_W, both cohorts (SI S7)
 python scripts/build_notebook.py
 (cd notebooks && jupyter nbconvert --to notebook --execute --inplace analysis.ipynb)   # regenerates figures
 python paper/figures/gen_consort_flow.py              # fig2

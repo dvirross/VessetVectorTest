@@ -498,6 +498,43 @@ Support $18 \leq L \leq 54$      & 258 & 2,050 & (41, 76, 35, 42, 41) & 1.20 & $
 and $8.88$ ($\HI$), both $p < .001$.
 \end{table}
 
+\paragraph{Run selection.} The pre-specified rule keeps each woman's single longest run of
+at least five consecutive cycles. Seven women have a second eligible run, so 37 cycles are
+discarded, and many shorter runs are excluded altogether. Three alternative specifications
+were analysed with the same functions, seed and $B$
+(\nolinkurl{external_replication/scripts/all_runs_sensitivity.py}; the script re-segments
+the raw deposit, verifies that its baseline reproduces the released sequences and the
+cached replicates exactly, and writes \texttt{results/all\_runs\_sensitivity.json}). In every
+specification events are counted within runs and never across a date gap. They are:
+every run of at least five cycles, with $\HW$ permuting within each run; the same runs, with
+$\HW$ permuting each woman's values across all her runs while keeping run lengths and
+boundaries fixed; and every run of at least three cycles (Dilug-in-Dilug needs four, so
+three-cycle runs cannot contribute to it), with $\HW$ within runs. These specifications
+were chosen after the primary results were known, in response to a review of the
+preprocessing. The contrast between nulls is unchanged in all of them
+(Table~\ref{tab:si-ext-runs}).
+
+\begin{table}[!htbp]
+\centering
+\caption{Utah cohort: sensitivity to the run-selection rule ($B = 50{,}000$ per null,
+  seed 17). Runs: counting units. $\HG$ $p < .001$ in every row (no replicate reached the
+  observed $\DM$). Min $p$: smallest two-sided marginal $p$ under $\HW$.}
+\label{tab:si-ext-runs}
+\smallskip
+\footnotesize
+\begin{tabular}{L{3.3cm} C{0.9cm} C{1.2cm} C{1.1cm} C{2.6cm} C{1.0cm} C{1.6cm} C{0.8cm}}
+\toprule
+\textbf{Specification} & \textbf{Runs} & \textbf{Women} & \textbf{Cycles} & \textbf{Counts}
+  & $\DM$ ($\HG$) & $\DM$ ($\HW$), $p$ & \textbf{Min $p$} \\
+\midrule
+Longest run $\geq 5$ (primary)       & 270 & 270 & 2,139 & (41, 76, 35, 42, 41) & 10.04 & 1.22, $.916$ & $.31$ \\
+All runs $\geq 5$, $\HW$ within run   & 277 & 270 & 2,176 & (41, 77, 36, 43, 42) & 9.90  & 1.11, $.943$ & $.35$ \\
+All runs $\geq 5$, $\HW$ within woman & 277 & 270 & 2,176 & (41, 77, 36, 43, 42) & 9.90  & 1.19, $.923$ & $.32$ \\
+All runs $\geq 3$, $\HW$ within run   & 440 & 392 & 2,739 & (46, 91, 45, 54, 43) & 10.77 & 1.43, $.843$ & $.30$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \subsection*{S4.4 Simulation validation}
 
 The size and power studies of the main article were re-run at full size on the Utah
@@ -724,11 +761,11 @@ Women with no event: observed vs null ($p$) & 35 vs 30.9 ($.38$) & 122 vs 123.9 
 \section{Directional and Generic Ordering Statistics Under \texorpdfstring{$\HW$}{HW}}
 \label{sec:si-directional}
 
-Two exploratory complements to the primary $\HW$ analysis are reported here
-(\texttt{scripts/directional\_ordering.py}; results in
-\texttt{results/directional\_ordering.json} and \texttt{directional\_ordering\_utah.json}).
-Both were added after the observed counts had been seen and are not part of the primary
-analysis.
+Two exploratory complements to the primary $\HW$ analysis are reported here. Both were
+added after the observed counts had been seen and are not part of the primary analysis.
+They are computed by \nolinkurl{scripts/directional_ordering.py}, which writes
+\nolinkurl{results/directional_ordering.json} and
+\nolinkurl{results/directional_ordering_utah.json}.
 
 \paragraph{Direction of the count vector.} The joint statistic $\DM$ is omnidirectional:
 it does not distinguish a coherent shift of all five counts in one direction from
@@ -813,7 +850,7 @@ limited sensitivity.
 \label{tab:si-ordering}
 \smallskip
 \small
-\begin{tabular}{L{2.4cm} L{3.0cm} C{1.5cm} C{2.3cm} C{1.0cm} C{1.1cm} C{1.1cm}}
+\begin{tabular}{L{2.4cm} L{2.7cm} C{1.8cm} C{2.3cm} C{1.0cm} C{1.1cm} C{1.1cm}}
 \toprule
 \textbf{Analysis} & \textbf{Statistic} & \textbf{Observed} & \textbf{Null mean (SD)} & $z$ & $p$ & \textbf{Holm} \\
 \midrule
