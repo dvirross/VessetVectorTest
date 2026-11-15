@@ -1,0 +1,50 @@
+{
+ "R": 500,
+ "B": 2000,
+ "seed": 17,
+ "generator": "per-woman i.i.d. rounded normal (own mean, SD >= 0.3), own n_i",
+ "Marquette": {
+  "n_women": 118,
+  "n_cycles": 1554,
+  "haflaga_zG_q025_50_975": [
+   3.36,
+   6.41,
+   10.1
+  ],
+  "DM_G_q025_50_975": [
+   6.14,
+   8.55,
+   11.53
+  ],
+  "DM_W_q025_50_975": [
+   0.98,
+   2.11,
+   3.76
+  ],
+  "reject_G_05": 1.0,
+  "reject_W_05": 0.072,
+  "min_haflaga_zG": 1.79
+ },
+ "Utah": {
+  "n_women": 270,
+  "n_cycles": 2139,
+  "haflaga_zG_q025_50_975": [
+   4.84,
+   8.15,
+   11.5
+  ],
+  "DM_G_q025_50_975": [
+   7.84,
+   10.9,
+   13.79
+  ],
+  "DM_W_q025_50_975": [
+   0.99,
+   2.11,
+   3.59
+  ],
+  "reject_G_05": 1.0,
+  "reject_W_05": 0.052,
+  "min_haflaga_zG": 3.01
+ }
+}

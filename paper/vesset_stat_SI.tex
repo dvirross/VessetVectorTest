@@ -64,7 +64,9 @@ cohort referred to in Sections~3.6 and 4.6 (Section~S4), the null distribution
 functions under the two global nulls (Section~S5), and the regularity-stratified and
 per-woman checks of the within-woman null referred to in Sections~4.2 and 4.6
 (Section~S6), and the exploratory directional and generic ordering statistics under the
-within-woman null referred to in Sections~4.2 and 5.1 (Section~S7). The pairwise analysis is
+within-woman null referred to in Sections~4.2 and 5.1 (Section~S7), and the
+heterogeneity-only benchmark and independent re-implementation referred to in the Abstract
+and Section~3.6 (Section~S8). The pairwise analysis is
 secondary to the null-model comparison and does not bear on the primary question of
 whether within-woman ordering produces excess rule-defined events. Notation follows the
 main article; all computations are produced by \texttt{scripts/postprocess.py} and the
@@ -865,6 +867,64 @@ Utah                  & $r_1$                     & $0.008$  & $-0.134$ (0.048) 
 Utah, 18--54          & $r_1$                     & $-0.080$ & $-0.130$ (0.026) & $+1.93$ & $.053$ & $.11$ \\
 (252 women,           & $\overline{|\Delta H|}$   & 2.786    & 2.900 (0.040)    & $-2.83$ & $.006$ & $.017$ \\
 2,014 cycles)         & $P(\Delta H = 0)$         & .154     & .148 (.007)      & $+0.88$ & $.40$ & $.40$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{What the Replication Can and Cannot Show}
+\label{sec:si-benchmark}
+
+\paragraph{Heterogeneity-only benchmark.} The global excess is not specific to either
+cohort. To show this, synthetic cohorts were generated in which women differ in level and
+regularity but the order of each woman's cycles carries no information: woman $i$ keeps her
+$n_i$, and her intervals are drawn independently from a normal distribution with her
+observed mean and SD (SD floored at 0.3 days), rounded to whole days and clipped to the
+cohort's range. Each synthetic cohort was analysed with the code of the main analysis
+($B = 2{,}000$ per null; 500 synthetic cohorts per cohort; script
+\nolinkurl{scripts/heterogeneity_benchmark.py}). $\HW$ is true by construction, and $\HG$ is
+false whenever women differ (Table~\ref{tab:si-benchmark}).
+
+Every synthetic cohort rejected $\HG$, with Haflaga $z$ comparable to or larger than the
+observed values, while $\HW$ was rejected at about the nominal rate (Marquette $7.2\%$,
+Monte Carlo SE $1.2\%$; a further 300 cohorts with another seed gave $3.7\%$; Utah $5.2\%$).
+The global contrast is therefore expected in any cohort with between-woman heterogeneity in
+regularity, which is well documented (Harlow et al., 2000; Dasharathy et al., 2012), and its recurrence
+in the Utah cohort is not independent evidence. The observed Utah Haflaga $z_G = 8.33$ lies
+at the centre of its benchmark distribution (median $8.15$); the Marquette value, $4.50$,
+lies below the median ($6.41$), consistent with its within-woman deficit
+(Section~\ref{sec:si-directional}). What the replication tests non-trivially is the
+within-woman result, and that result is a non-rejection, with the power limits of
+Section~S4.4.
+
+\paragraph{Independent re-implementation.} The main analysis and the replication driver use
+the same counting module, so an error in it would be shared. The five rules, the $\HG$ and
+$\HW$ nulls and the joint statistic were therefore re-implemented without importing any
+project code (plain Python from the definitions of Section~2.1 of the main article,
+Python's own random number generator, seed 2026, $B = 20{,}000$; script
+\nolinkurl{scripts/independent_check.py}). The observed counts are identical and the joint
+statistics agree with the main analysis to Monte Carlo accuracy (Table~\ref{tab:si-benchmark}).
+The preprocessing of the Utah deposit was checked separately (Table~\ref{tab:si-ext-runs}).
+
+\begin{table}[!htbp]
+\centering
+\caption{Top: heterogeneity-only benchmark (500 synthetic cohorts per cohort; median and
+  2.5--97.5\% range over synthetic cohorts; rejection rates at $\alpha = .05$). Bottom: joint
+  statistics from the main pipeline ($B = 50{,}000$) and from the independent
+  re-implementation ($B = 20{,}000$), $\DM$ ($p$).}
+\label{tab:si-benchmark}
+\smallskip
+\small
+\begin{tabular}{L{6.4cm} C{3.6cm} C{3.6cm}}
+\toprule
+ & \textbf{Marquette} & \textbf{Utah} \\
+\midrule
+Haflaga $z_G$, observed & $4.50$ & $8.33$ \\
+Haflaga $z_G$, benchmark median (range) & $6.41$ ($3.36$--$10.1$) & $8.15$ ($4.84$--$11.5$) \\
+$\DM$ under $\HG$, benchmark median & $8.55$ & $10.9$ \\
+Rejection of $\HG$ / $\HW$ (joint test) & $1.00$ / $.072$ & $1.00$ / $.052$ \\
+\midrule
+$\HG$: main pipeline / independent & $5.07$ ($<.001$) / $5.08$ ($<.001$) & $10.04$ ($<.001$) / $10.00$ ($<.001$) \\
+$\HW$: main pipeline / independent & $2.97$ ($.115$) / $2.98$ ($.115$) & $1.22$ ($.916$) / $1.21$ ($.917$) \\
 \bottomrule
 \end{tabular}
 \end{table}

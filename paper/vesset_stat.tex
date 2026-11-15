@@ -152,10 +152,10 @@ marginal $p = .19$), and all five observed counts lie at or below their conditio
 means. Simulation shows type-I error at or below the nominal level for the marginal and
 Holm procedures and approximately nominal for the joint test, quantifies the power of
 the within-woman tests against simulated autoregressive and exact-repetition
-alternatives, and shows the conclusions are insensitive to unequal follow-up. The
-contrast reproduced in an independent, openly deposited cohort of 270 women and 2,139
-cycles analysed with the same code and settings (global $\DM = 10.04$; within-woman $\DM = 1.22$,
-$p = .92$). The contrast is consistent with between-woman heterogeneity in regularity generating the
+alternatives, and shows the conclusions are insensitive to unequal follow-up. In an
+independent cohort of 270 women and 2,139 cycles the global excess recurred, as
+heterogeneity alone predicts, and the counts again matched the within-woman null
+($\DM = 1.22$, $p = .92$). The contrast is consistent with between-woman heterogeneity in regularity generating the
 global excess, and provides no evidence that within-woman ordering produces additional
 rule-defined events; it does not establish the absence of serial dependence.
 
@@ -577,8 +577,9 @@ using per-woman replicate counts.
 \subsection{External Replication}
 \label{sec:extmethods}
 
-To test whether the contrast between nulls is a property of the Marquette sample, the
-complete analysis was repeated on an independent, openly deposited cohort: 3,324 cycles
+Between-woman heterogeneity alone produces the global excess in any cohort (Supporting
+Information, Section~S8), so the informative question is whether the within-woman result
+recurs. The complete analysis was therefore repeated on an independent, openly deposited cohort: 3,324 cycles
 from 581 women aged 18--40 with regular bleeding and no known subfertility, pooled from
 three Creighton Model cohorts charted in 1990--2013 \citep{stanford2023data,najmabadi2020};
 licence CC BY-NC. Preprocessing rules were fixed before any pattern was counted: the
@@ -588,8 +589,7 @@ consecutive cycles, with no cycle-length criterion, giving 270 women and 2,139 c
 (5--15 per woman). The counting rules, null generators and test statistics are the same
 functions as in the main analysis, run with the same seed, $B$ and simulation sizes
 through a dataset-agnostic driver that was first verified to reproduce every Marquette
-result exactly; full results are in the Supporting Information (Section~S4) and the
-\texttt{external\_replication} folder of the repository.
+result exactly; full results are in the Supporting Information (Section~S4).
 
 \begin{algorithm}[!htbp]
 \caption{Simulation pipeline}
