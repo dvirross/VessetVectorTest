@@ -1,0 +1,75 @@
+{
+ "data": "data/FilteredData.csv",
+ "n_cycles": 1554,
+ "n_women": 118,
+ "B_counts": 50000,
+ "directional": {
+  "G": {
+   "T_z": 7.962,
+   "T_z_null_sd": 2.214,
+   "T_z_p_two": 0.00044,
+   "T_z_p_lower": 0.9998,
+   "T_tot": 164,
+   "T_tot_null_mean": 131.04,
+   "T_tot_null_sd": 9.86,
+   "T_tot_z": 3.34,
+   "T_tot_p_two": 0.00116,
+   "n_patterns_below_mean": 1,
+   "P_all_five_at_or_below_mean": 0.0365
+  },
+  "iid": {
+   "T_z": 7.47,
+   "T_z_null_sd": 2.269,
+   "T_z_p_two": 0.00132,
+   "T_z_p_lower": 0.99936,
+   "T_tot": 164,
+   "T_tot_null_mean": 131.46,
+   "T_tot_null_sd": 10.9,
+   "T_tot_z": 2.98,
+   "T_tot_p_two": 0.00432,
+   "n_patterns_below_mean": 1,
+   "P_all_five_at_or_below_mean": 0.0371
+  },
+  "W": {
+   "T_z": -5.652,
+   "T_z_null_sd": 2.156,
+   "T_z_p_two": 0.0082,
+   "T_z_p_lower": 0.0041,
+   "T_tot": 164,
+   "T_tot_null_mean": 193.25,
+   "T_tot_null_sd": 10.9,
+   "T_tot_z": -2.68,
+   "T_tot_p_two": 0.00768,
+   "n_patterns_below_mean": 5,
+   "P_all_five_at_or_below_mean": 0.0298
+  }
+ },
+ "ordering_HW": {
+  "lag1_autocorrelation": {
+   "observed": -0.0858,
+   "null_mean": -0.0794,
+   "null_sd": 0.0342,
+   "z": -0.19,
+   "p_two": 0.85406,
+   "holm": 1.0
+  },
+  "mean_abs_consecutive_difference": {
+   "observed": 2.7674,
+   "null_mean": 2.7433,
+   "null_sd": 0.0429,
+   "z": 0.56,
+   "p_two": 0.58199,
+   "holm": 1.0
+  },
+  "prop_equal_consecutive": {
+   "observed": 0.1379,
+   "null_mean": 0.1481,
+   "null_sd": 0.0082,
+   "z": -1.24,
+   "p_two": 0.22628,
+   "holm": 0.67883
+  },
+  "B": 50000,
+  "seed": 17
+ }
+}

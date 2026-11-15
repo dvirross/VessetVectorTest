@@ -1,0 +1,105 @@
+{
+ "data": "external_replication/data/sequences.csv",
+ "n_cycles": 2139,
+ "n_women": 270,
+ "B_counts": 50000,
+ "directional": {
+  "G": {
+   "T_z": 19.221,
+   "T_z_null_sd": 2.222,
+   "T_z_p_two": 4e-05,
+   "T_z_p_lower": 1.0,
+   "T_tot": 235,
+   "T_tot_null_mean": 149.78,
+   "T_tot_null_sd": 10.62,
+   "T_tot_z": 8.03,
+   "T_tot_p_two": 4e-05,
+   "n_patterns_below_mean": 0,
+   "P_all_five_at_or_below_mean": 0.0383
+  },
+  "iid": {
+   "T_z": 18.121,
+   "T_z_null_sd": 2.276,
+   "T_z_p_two": 4e-05,
+   "T_z_p_lower": 1.0,
+   "T_tot": 235,
+   "T_tot_null_mean": 150.07,
+   "T_tot_null_sd": 11.77,
+   "T_tot_z": 7.21,
+   "T_tot_p_two": 4e-05,
+   "n_patterns_below_mean": 0,
+   "P_all_five_at_or_below_mean": 0.039
+  },
+  "W": {
+   "T_z": 1.342,
+   "T_z_null_sd": 2.144,
+   "T_z_p_two": 0.52955,
+   "T_z_p_lower": 0.73527,
+   "T_tot": 235,
+   "T_tot_null_mean": 228.66,
+   "T_tot_null_sd": 11.54,
+   "T_tot_z": 0.55,
+   "T_tot_p_two": 0.60619,
+   "n_patterns_below_mean": 2,
+   "P_all_five_at_or_below_mean": 0.0284
+  }
+ },
+ "ordering_HW": {
+  "lag1_autocorrelation": {
+   "observed": 0.0083,
+   "null_mean": -0.1336,
+   "null_sd": 0.048,
+   "z": 2.96,
+   "p_two": 0.00528,
+   "holm": 0.01056
+  },
+  "mean_abs_consecutive_difference": {
+   "observed": 3.382,
+   "null_mean": 3.5793,
+   "null_sd": 0.0583,
+   "z": -3.38,
+   "p_two": 0.00124,
+   "holm": 0.00372
+  },
+  "prop_equal_consecutive": {
+   "observed": 0.1477,
+   "null_mean": 0.1422,
+   "null_sd": 0.0066,
+   "z": 0.83,
+   "p_two": 0.43047,
+   "holm": 0.43047
+  },
+  "B": 50000,
+  "seed": 17
+ },
+ "ordering_HW_women_all_L18_54": {
+  "lag1_autocorrelation": {
+   "observed": -0.0798,
+   "null_mean": -0.1296,
+   "null_sd": 0.0258,
+   "z": 1.93,
+   "p_two": 0.05344,
+   "holm": 0.10688
+  },
+  "mean_abs_consecutive_difference": {
+   "observed": 2.786,
+   "null_mean": 2.8995,
+   "null_sd": 0.0401,
+   "z": -2.83,
+   "p_two": 0.00576,
+   "holm": 0.01728
+  },
+  "prop_equal_consecutive": {
+   "observed": 0.1544,
+   "null_mean": 0.1483,
+   "null_sd": 0.007,
+   "z": 0.88,
+   "p_two": 0.40331,
+   "holm": 0.40331
+  },
+  "B": 50000,
+  "seed": 17,
+  "n_women": 252,
+  "n_cycles": 2014
+ }
+}

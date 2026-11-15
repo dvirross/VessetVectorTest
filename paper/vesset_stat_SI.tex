@@ -63,7 +63,8 @@ zero-count rule \textit{Haflaga Chozer Chalila} referred to in Sections~2.1 and 
 cohort referred to in Sections~3.6 and 4.6 (Section~S4), the null distribution
 functions under the two global nulls (Section~S5), and the regularity-stratified and
 per-woman checks of the within-woman null referred to in Sections~4.2 and 4.6
-(Section~S6). The pairwise analysis is
+(Section~S6), and the exploratory directional and generic ordering statistics under the
+within-woman null referred to in Sections~4.2 and 5.1 (Section~S7). The pairwise analysis is
 secondary to the null-model comparison and does not bear on the primary question of
 whether within-woman ordering produces excess rule-defined events. Notation follows the
 main article; all computations are produced by \texttt{scripts/postprocess.py} and the
@@ -716,6 +717,117 @@ Share of events, top 12 women: observed vs null ($p$) & .354 vs .335 ($.38$) & .
 Share of events, top 24 women: observed vs null ($p$) & .524 vs .525 ($.99$) & .311 vs .324 ($.47$) \\
 Gini of per-woman totals: observed vs null ($p$) & .530 vs .514 ($.55$) & .589 vs .595 ($.74$) \\
 Women with no event: observed vs null ($p$) & 35 vs 30.9 ($.38$) & 122 vs 123.9 ($.84$) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Directional and Generic Ordering Statistics Under \texorpdfstring{$\HW$}{HW}}
+\label{sec:si-directional}
+
+Two exploratory complements to the primary $\HW$ analysis are reported here
+(\texttt{scripts/directional\_ordering.py}; results in
+\texttt{results/directional\_ordering.json} and \texttt{directional\_ordering\_utah.json}).
+Both were added after the observed counts had been seen and are not part of the primary
+analysis.
+
+\paragraph{Direction of the count vector.} The joint statistic $\DM$ is omnidirectional:
+it does not distinguish a coherent shift of all five counts in one direction from
+scattered departures of the same size. Two one-dimensional summaries of direction were
+therefore evaluated on the cached replicates of each null (no new simulation): the
+equally weighted sum of standardised departures, $T_z = \sum_j (O_j - \bar S_j)/\sigma_j$,
+with $\bar S_j$ and $\sigma_j$ from the same replicates as for $\DM$, and the total number of
+rule-defined events, $T_{\mathrm{tot}} = \sum_j O_j$. Both are two-sided Monte Carlo tests
+with the convention of Eq.~(1) of the main article (Table~\ref{tab:si-directional}).
+
+Under the global nulls both statistics are large and positive in both cohorts, as the
+main analysis implies. Under $\HW$ the cohorts differ. In the Marquette sample all five
+counts lie below their conditional means (an outcome in $3.0\%$ of $\HW$ replicates), and
+the directional statistics place the vector in the lower tail: 164 events observed against
+193.2 expected ($z = -2.68$, two-sided $p = .008$) and $T_z = -5.65$ ($p = .008$). In the
+Utah cohort neither statistic departs from $\HW$ (235 events against 228.7, $p = .61$;
+$T_z = +1.34$, $p = .53$). The Marquette deficit is therefore an exploratory, post hoc
+finding that did not replicate. It is the opposite of the excess the rules presuppose, and
+its mechanism is not identified. The generic ordering statistics below show no matching
+departure in the Marquette data, and the proportion of equal consecutive intervals is only
+nominally lower than its null expectation.
+
+\begin{table}[!htbp]
+\centering
+\caption{Directional statistics of the five-count vector ($B = 50{,}000$ per null; cached
+  replicates of the main analysis). $T_{\mathrm{tot}}$: total events, with null mean and SD;
+  $T_z$: sum of the five standardised departures, with its null SD. $p$-values are
+  two-sided Monte Carlo. Last column: fraction of replicates in which all five counts lie
+  at or below their null means. Exploratory.}
+\label{tab:si-directional}
+\smallskip
+\small
+\begin{tabular}{L{1.7cm} L{0.9cm} C{2.6cm} C{1.0cm} C{1.3cm} C{1.6cm} C{1.3cm} C{1.6cm}}
+\toprule
+\textbf{Cohort} & \textbf{Null} & $T_{\mathrm{tot}}$: obs.\ vs mean (SD) & $z$ & $p$ & $T_z$ (null SD) & $p$ & \textbf{All $\leq$ mean} \\
+\midrule
+Marquette & $\HG$ & 164 vs 131.0 (9.9)  & $+3.34$ & $.001$  & $+7.96$ (2.21) & $<.001$ & .037 \\
+          & $\HI$ & 164 vs 131.5 (10.9) & $+2.98$ & $.004$  & $+7.47$ (2.27) & $.001$  & .037 \\
+          & $\HW$ & 164 vs 193.2 (10.9) & $-2.68$ & $.008$  & $-5.65$ (2.16) & $.008$  & .030 \\
+\midrule
+Utah      & $\HG$ & 235 vs 149.8 (10.6) & $+8.03$ & $<.001$ & $+19.22$ (2.22) & $<.001$ & .038 \\
+          & $\HI$ & 235 vs 150.1 (11.8) & $+7.21$ & $<.001$ & $+18.12$ (2.28) & $<.001$ & .039 \\
+          & $\HW$ & 235 vs 228.7 (11.5) & $+0.55$ & $.61$   & $+1.34$ (2.14)  & $.53$   & .028 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Generic ordering statistics (positive control).} The main article stresses that
+a non-rejection of $\HW$ for the vesset counts does not imply serial independence. To show
+what within-woman ordering structure the data do contain, three standard serial statistics
+were tested against the same within-woman permutation null ($B = 50{,}000$ fresh
+permutations, seed 17): the pooled within-woman lag-1 autocorrelation
+$r_1 = \sum x_k x_{k-1} / \sum x_k^2$, with $x$ centred at each woman's own mean; the mean
+absolute difference between consecutive intervals, $\overline{|\Delta H|}$; and the
+proportion of consecutive equal intervals, $P(\Delta H = 0)$, the elementary event behind
+Haflaga, Week and Week-Dilug. Under $\HW$ each woman's mean and sum of squares are fixed,
+and the expected $r_1$ is negative (about $-1/(n_i - 1)$ per woman), so $r_1$ is compared
+with its permutation distribution and not with zero; naive autocorrelation estimates from
+short sequences are biased in the same way. Holm correction is across the three statistics
+(Table~\ref{tab:si-ordering}).
+
+In the Marquette sample none of the three departs from $\HW$. In the Utah cohort
+consecutive intervals are more alike than random reorderings of the same values produce
+($r_1$: $0.008$ against $-0.134$, Holm $p = .011$; $\overline{|\Delta H|}$: $3.38$ against
+$3.58$ days, Holm $p = .004$), and the second departure persists when the 18 women with any
+cycle outside 18--54 days are removed (Holm $p = .017$). Exact repetition, however, is not
+more frequent than under $\HW$ ($P(\Delta H = 0)$: $.148$ against $.142$, $p = .43$), and the
+five vesset counts are at their conditional null (main article, Section~4.6). The Utah data
+therefore contain genuine within-woman ordering structure, detectable by the same
+permutation null, that does not translate into additional rule-defined events. This
+illustrates concretely the main article's caveat that the $\HW$ non-rejection for the
+vesset counts is not evidence of serial independence. It also locates the observed
+dependence in the weak regime of the power study, where the vesset statistics have
+limited sensitivity.
+
+\begin{table}[!htbp]
+\centering
+\caption{Generic ordering statistics under $\HW$ ($B = 50{,}000$ within-woman permutations
+  per analysis, seed 17). $p$ two-sided Monte Carlo; Holm across the three statistics
+  within each analysis. Utah, 18--54: women all of whose cycles lie in $18 \leq L \leq 54$.
+  Exploratory.}
+\label{tab:si-ordering}
+\smallskip
+\small
+\begin{tabular}{L{2.4cm} L{3.0cm} C{1.5cm} C{2.3cm} C{1.0cm} C{1.1cm} C{1.1cm}}
+\toprule
+\textbf{Analysis} & \textbf{Statistic} & \textbf{Observed} & \textbf{Null mean (SD)} & $z$ & $p$ & \textbf{Holm} \\
+\midrule
+Marquette             & $r_1$                     & $-0.086$ & $-0.079$ (0.034) & $-0.19$ & $.85$ & $1.00$ \\
+(118 women,           & $\overline{|\Delta H|}$   & 2.767    & 2.743 (0.043)    & $+0.56$ & $.58$ & $1.00$ \\
+1,554 cycles)         & $P(\Delta H = 0)$         & .138     & .148 (.008)      & $-1.24$ & $.23$ & $.68$ \\
+\midrule
+Utah                  & $r_1$                     & $0.008$  & $-0.134$ (0.048) & $+2.96$ & $.005$ & $.011$ \\
+(270 women,           & $\overline{|\Delta H|}$   & 3.382    & 3.579 (0.058)    & $-3.38$ & $.001$ & $.004$ \\
+2,139 cycles)         & $P(\Delta H = 0)$         & .148     & .142 (.007)      & $+0.83$ & $.43$ & $.43$ \\
+\midrule
+Utah, 18--54          & $r_1$                     & $-0.080$ & $-0.130$ (0.026) & $+1.93$ & $.053$ & $.11$ \\
+(252 women,           & $\overline{|\Delta H|}$   & 2.786    & 2.900 (0.040)    & $-2.83$ & $.006$ & $.017$ \\
+2,014 cycles)         & $P(\Delta H = 0)$         & .154     & .148 (.007)      & $+0.88$ & $.40$ & $.40$ \\
 \bottomrule
 \end{tabular}
 \end{table}
