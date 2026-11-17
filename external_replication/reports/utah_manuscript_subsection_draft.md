@@ -2,6 +2,8 @@
 
 > **Superseded numbers (2026-09-22).** After this report was written the Week-Dilug rule was generalised from H = 30 to all one-weekday-progression anchors H ≡ 2 (mod 7) = {23, 30, 37, …} and the whole pipeline was rerun. Utah Week-Dilug count 40 → 42 (2 events at H = 37); joint D_M 9.99/9.53/1.20 → 10.04/9.56/1.22 (H_W p .921 → .916). Current numbers: `external_replication/results/comparison.md` and `summary.json`; the manuscript and SI Section S4 are up to date.
 
+> **Update (2026-11-17).** The closing paragraph's claim that the cohort "reproduces, more sharply, the pattern" is no longer the manuscript's framing: a heterogeneity-only benchmark (SI Section S8) shows the global excess is expected in any heterogeneous cohort, so only the within-woman non-rejection replicates non-trivially. The manuscript's Section 3.6 now opens with that point, and Section 4.6 adds the run-selection sensitivity (SI Table S8) and the serial structure detected by generic ordering statistics (SI Section S7). See `utah_replication_report.md`, Section 9. This draft is kept as a historical record only.
+
 
 ## External Replication in an Independent Creighton Model Cohort
 

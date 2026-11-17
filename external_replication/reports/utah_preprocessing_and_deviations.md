@@ -68,3 +68,18 @@ age 19–40 (mean 27.2, SD 4.4); cohort era: CMFS 162, CEIBA 99, TTP 9 women.
 - Harmonised 18–54 sensitivity removes 28 cycles and splits sequences at those points.
 - Validation at full size (10,000 fresh datasets vs 20,000 replicates; 8 × 400 × 2,000 power)
   is feasible (≈ 40 min on 3 cores) and is run unreduced.
+
+## Addendum (2026-11-17): run-selection rule revisited
+The independent audit of 2026-11-01 (`2026-11-01_preprocessing_audit_and_open_questions.md`) confirmed
+that `prepare_utah.py` reproduces the specified segmentation row for row (2,139/2,139) and the current
+counts, and noted that the longest-run-only rule discards 37 cycles in secondary runs of ≥ 5 cycles
+from 7 women, with a further 968 recorded cycles in runs shorter than 5. `scripts/all_runs_sensitivity.py`
+re-segments the raw deposit with the same gap rule (732 runs), verifies that the baseline reproduces
+`data/sequences.csv` and the cached replicates exactly, and analyses all runs ≥ 5 (277 runs, 2,176
+cycles; H_W either within each run or pooling each woman's values over her runs) and all runs ≥ 3
+(440 runs, 392 women, 2,739 cycles). H_W D_M 1.11–1.43, p ≥ .84; H_G and H_iid p < .001 throughout
+(`results/all_runs_sensitivity.json`; SI Table S8; `utah_replication_report.md`, Section 9.1). The
+pre-specified longest-run rule remains the primary specification. Not resolved by this addendum, and
+left to the author: whether a pattern may be counted across a gap in the released file, and whether the
+separately released CEIBA data (https://hive.utah.edu/records/kfcm2-ynw54) can be reconciled with the
+deposit used here.

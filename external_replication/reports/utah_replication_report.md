@@ -2,6 +2,8 @@
 
 > **Superseded numbers (2026-09-22).** After this report was written the Week-Dilug rule was generalised from H = 30 to all one-weekday-progression anchors H ≡ 2 (mod 7) = {23, 30, 37, …} and the whole pipeline was rerun. Utah Week-Dilug count 40 → 42 (2 events at H = 37); joint D_M 9.99/9.53/1.20 → 10.04/9.56/1.22 (H_W p .921 → .916). Current numbers: `external_replication/results/comparison.md` and `summary.json`; the manuscript and SI Section S4 are up to date.
 
+> **Update (2026-11-17).** Three later analyses qualify this report; the numbers below are otherwise unchanged. (1) *Framing:* a heterogeneity-only benchmark (SI Section S8; `scripts/heterogeneity_benchmark.py`) shows that the global excess is expected in any cohort with between-woman heterogeneity, so its recurrence here is not independent evidence; what replicates non-trivially is the within-woman non-rejection. The manuscript's abstract and Section 3.6 were reworded accordingly, and Section 7 of this report should be read with that qualification. (2) *Run selection:* the 2026-11-01 preprocessing audit's question is answered by `scripts/all_runs_sensitivity.py` (SI Table S8): the H_W result holds under every alternative run-selection rule (see the addendum at the end). (3) *Ordering:* generic serial statistics detect real within-woman serial structure in this cohort (SI Section S7) that does not translate into vesset events. Details in the addendum.
+
 
 All numbers from `external_replication/results/` (B = 50,000, seed 17; same engine, seeds and
 constants as the Fehring analysis). Preprocessing and deviations:
@@ -122,3 +124,63 @@ The only file changed outside the folder is `scripts/patterns.py` (Week anchors 
 rule; Fehring anchors, counts and all cached results unchanged). Environment: Python 3.11.15,
 numpy 2.4.6, scipy 1.17.1, pandas 3.0.5, matplotlib 3.11.2 (`results/provenance.json` records seeds, B,
 hashes and commit).
+
+## 9. Addendum (2026-11-17): later analyses
+
+All numbers below use the current counts (41, 76, 35, 42, 41) and the current baseline D_M
+10.04 / 9.56 / 1.22. Scripts: `scripts/all_runs_sensitivity.py` (this folder) and, at the repository root,
+`scripts/directional_ordering.py`, `scripts/heterogeneity_benchmark.py`, `scripts/independent_check.py`.
+Re-derived in `notebooks/replication.ipynb`, sections 10c–10e.
+
+### 9.1 Run-selection sensitivity (answers the 2026-11-01 audit; SI Table S8)
+
+The raw deposit was re-segmented exactly as in `prepare_utah.py` (runs end at a conception cycle or any
+date gap; gaps never bridged): 732 runs in total; 7 women have more than one run of ≥ 5 cycles, holding
+37 cycles in secondary runs. The baseline specification reproduces `data/sequences.csv` and the cached
+replicates exactly. B = 50,000 per null, seed 17.
+
+| specification | runs / women / cycles | observed counts | D_M under H_G / H_iid / H_W | p (H_W) |
+|---|---|---|---|---|
+| baseline: longest run ≥ 5 per woman (published) | 270 / 270 / 2,139 | 41, 76, 35, 42, 41 | 10.04 / 9.56 / 1.22 | .916 |
+| all runs ≥ 5; H_W within each run | 277 / 270 / 2,176 | 41, 77, 36, 43, 42 | 9.90 / 9.42 / 1.11 | .943 |
+| all runs ≥ 5; H_W pools each woman's values over her runs | 277 / 270 / 2,176 | 41, 77, 36, 43, 42 | 9.90 / 9.42 / 1.19 | .923 |
+| all runs ≥ 3; H_W within each run | 440 / 392 / 2,739 | 46, 91, 45, 54, 43 | 10.77 / 10.11 / 1.43 | .843 |
+
+H_G and H_iid give p < .001 throughout. The audit's remaining questions (the halachic semantics of
+counting across a gap; reconciliation with the separately released CEIBA data) are author decisions and
+remain open.
+
+### 9.2 Directional and generic ordering statistics under H_W (SI Section S7; exploratory)
+
+Directional summaries from the cached replicates: total events 235 vs 228.7 expected under H_W
+(z = +0.55, two-sided p = .61; sum of z = +1.34, p = .53); 2 of 5 counts below their H_W means. The
+Marquette post hoc deficit (164 vs 193.2, p = .008) therefore does not recur here.
+
+Generic serial statistics against 50,000 fresh within-woman permutations (Holm across the three):
+
+| statistic | observed | H_W mean (SD) | z | two-sided p | Holm |
+|---|---|---|---|---|---|
+| pooled within-woman lag-1 autocorrelation | .008 | −.134 (.048) | +2.96 | .005 | .011 |
+| mean absolute consecutive difference (days) | 3.38 | 3.58 (.058) | −3.38 | .001 | .004 |
+| proportion of equal consecutive intervals | .148 | .142 (.007) | +0.83 | .43 | .43 |
+
+Restricted to the 242 women whose every cycle lies in 18–54 days: lag-1 Holm .11, mean |ΔH| Holm .017,
+P(ΔH = 0) .40. Consecutive Utah intervals are therefore more alike than random reorderings of the same
+values produce — real within-woman serial structure — while exact repetitions and the five vesset counts
+stay at their conditional null. In the Marquette data all three statistics are null (p .85, .58, .23).
+
+### 9.3 What the replication can and cannot show (SI Section S8)
+
+*Heterogeneity-only benchmark.* 500 synthetic cohorts per cohort in which each woman keeps her n_i and
+draws her intervals i.i.d. from a rounded normal with her own mean and SD (SD ≥ 0.3), so H_W is true and
+H_G false by construction (B = 2,000 per null). Utah: every synthetic cohort rejects H_G (Haflaga z_G
+median 8.15, 95% range 4.84–11.5, minimum 3.01; D_M(G) median 10.9), and H_W is rejected in 5.2%
+(Marquette: z_G median 6.41; H_W rejected in 7.2%, 3.7% with another seed). The observed Utah z_G = 8.33
+sits at the centre of its benchmark distribution. The global contrast is therefore expected in any cohort
+with between-woman heterogeneity, and its recurrence in Utah is not independent evidence for the paper's
+account; the non-trivial replication is the H_W non-rejection, with the power limits of Section 5.
+
+*Independent re-implementation.* `scripts/independent_check.py` (no project imports; Python's `random`,
+seed 2026, B = 20,000) reproduces the Utah counts exactly and gives D_M 10.00 (H_G) and 1.21 (H_W,
+p = .917) against 10.04 and 1.22 (p = .916) from the main pipeline; Marquette 5.08 / 2.98 (p = .115)
+against 5.07 / 2.97 (p = .115).
