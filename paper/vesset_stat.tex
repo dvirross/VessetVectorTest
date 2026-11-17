@@ -209,7 +209,12 @@ hold part of the data structure fixed have a modern theory
 vesset counts and uses the application to make one point concrete: for the same data,
 a population-level exchangeability null and a within-subject conditional null return
 diametrically different answers, and only the latter addresses the question the rules
-implicitly pose.
+implicitly pose. The pooled nulls are retained because they are the reference against
+which vesset frequencies have so far been judged, including by the author
+\citep{ross2022phd}, and because the question is not whether women differ in regularity,
+which is well documented, but whether that heterogeneity accounts for the whole excess;
+the comparison between nulls answers this, and a heterogeneity-only benchmark (Supporting
+Information, Section~S8) shows what the answer looks like when it does.
 
 We compare three nulls --- a global permutation null $\HG$, a multinomial i.i.d.\ null
 $\HI$ and a within-woman permutation null $\HW$ --- using the same two-sided Monte Carlo
@@ -265,8 +270,8 @@ Week and Week-Dilug are specialisations of the degree-0 case anchored to calenda
 values. The sixth rule computable from interval lengths alone, \textit{Haflaga Chozer
 Chalila} (a block of at least three intervals repeated exactly three times in
 succession, hence a window of at least nine cycles), had no observed occurrence; it is
-discussed in Section~\ref{sec:data} and evaluated under the three nulls in the
-Supporting Information (Section~S3).
+discussed in Section~\ref{sec:data} and evaluated under the three nulls in
+Section~\ref{sec:joint} and the Supporting Information (Section~S3).
 
 \subsection{Dependence Structure Implied by the Definitions}
 \label{sec:mathdep}
@@ -360,24 +365,13 @@ consecutive intervals. The filtering script is part of the code release and repr
 the filtered file exactly from the archived source file (Section~\ref{sec:das}).
 
 Of the six rule types computable from cycle-length data, \textit{Haflaga Chozer
-Chalila} had no observed occurrence. Because a zero count is informative only relative
-to what the nulls expect, the rule was implemented and evaluated under the same three
-nulls with $B = 50{,}000$ replicates (Supporting Information, Section~S3): its expected
-count is $0.0003$ under $\HG$, $0.0004$ under $\HI$ and $0.028$ under $\HW$, with at
-least one event in $0.03\%$, $0.04\%$ and $2.8\%$ of replicates respectively, so the
-observed zero is the modal null outcome (two-sided $p = 1$ under each null). Adding the
-rule as a sixth component of the joint statistic changes little, for two reasons. Because
-the observed count lies within $0.03$ of its null mean, the sixth component contributes
-essentially nothing to the observed distance, and $\DM$ is unchanged ($5.07$, $4.87$ and
-$2.98$ under $\HG$, $\HI$ and $\HW$). At the same time, every null replicate that
-contains an event lies beyond the observed vector in that component, so the few such
-replicates can only raise the joint $p$-value: on the same paired replicates it moves
-from $< .001$, $< .001$ and $.115$ to $< .001$, $< .001$ and $.139$. In the Holm family
-the rule would contribute a $p$-value of 1. The conclusions are therefore unaffected by
-its exclusion. The five-pattern family was nevertheless fixed after
-inspection of the observed counts and should be regarded as data-informed rather than
-pre-specified; the analyses reported below are accordingly described as primary rather
-than confirmatory.
+Chalila} had no observed occurrence and was excluded from the pattern family. The
+five-pattern family was therefore fixed after inspection of the observed counts and
+should be regarded as data-informed rather than pre-specified; the analyses reported
+below are accordingly described as primary rather than confirmatory. Because a zero count
+is informative only relative to what the nulls expect, the excluded rule was nevertheless
+evaluated as a sensitivity check (Section~\ref{sec:inference}; results in
+Section~\ref{sec:joint}).
 
 As a descriptive characterisation, each woman's within-woman SD of cycle length was
 computed; among the 20 women with at least one Haflaga event the within-woman SD averaged 1.54 days
@@ -526,7 +520,11 @@ distribution from the last 25,000) and verify calibration by simulation
 (Section~\ref{sec:simdesign}). Condition numbers of $\hat\Sigma$ (4.4--5.4) indicate a
 numerically stable inversion; they say nothing about power. The joint test and the Holm
 family answer different questions (one global null versus family-wise error control over
-five component nulls) and are reported as complements.
+five component nulls) and are reported as complements. As a sensitivity check on the
+exclusion of the zero-count rule (Section~\ref{sec:data}), Haflaga Chozer Chalila was
+evaluated under the same three nulls with $B = 50{,}000$ replicates and added as a sixth
+component of the joint statistic on the same paired replicates (Supporting Information,
+Section~S3).
 
 The joint test on all five patterns is the primary multivariate analysis. An
 \textbf{exploratory} joint test on the three structurally linked patterns (Haflaga,
@@ -764,6 +762,19 @@ $\DM = 4.50$ ($p < .001$), $4.39$ ($p < .001$) and $2.72$ ($p = .059$) under $\H
 $\HI$ and $\HW$ respectively, consistent with the five-pattern analysis
 (Figure~\ref{fig:joint3panels}).
 
+The excluded zero-count rule, Haflaga Chozer Chalila, has expected count $0.0003$ under
+$\HG$, $0.0004$ under $\HI$ and $0.028$ under $\HW$, with at least one event in
+$0.03\%$, $0.04\%$ and $2.8\%$ of replicates respectively, so the observed zero is the
+modal null outcome (two-sided $p = 1$ under each null). Adding it as a sixth component of
+the joint statistic changes little, for two reasons. Because the observed count lies
+within $0.03$ of its null mean, the sixth component contributes essentially nothing to
+the observed distance, and $\DM$ is unchanged ($5.07$, $4.87$ and $2.98$). At the same
+time, every null replicate that contains an event lies beyond the observed vector in that
+component, so the few such replicates can only raise the joint $p$-value: on the same
+paired replicates it moves from $< .001$, $< .001$ and $.115$ to $< .001$, $< .001$ and
+$.139$. In the Holm family the rule would contribute a $p$-value of 1. The conclusions
+are therefore unaffected by its exclusion (Supporting Information, Section~S3).
+
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=\textwidth]{fig7_dm_nulldist}
@@ -991,11 +1002,12 @@ interval is a forecasting question, not addressed here.
 
 \emph{Primary:} the five-pattern joint tests under $\HG$ and $\HW$, and the Holm-corrected
 marginal tests under each. \emph{Exploratory:} the Dilug marginal ($p = .085$), the
-Dilug-in-Dilug deficit under $\HW$ (Holm $p = .19$), the pairwise associations
+Dilug-in-Dilug deficit under $\HW$ (Holm $p = .19$), the post hoc total-event deficit
+under $\HW$ ($p = .008$), the generic ordering statistics, the pairwise associations
 (Supporting Information), and the three-pattern subspace. \emph{Robustness:} the multinomial null, the split-batch joint
 test, truncation, and leave-one-woman-out. No analysis was pre-registered; the
-five-pattern family was fixed after two rules were found to have zero occurrences
-(Section~\ref{sec:data}).
+five-pattern family was fixed after the one further interval-computable rule was found
+to have zero occurrences (Section~\ref{sec:data}).
 
 \subsection{Pattern-Specific Findings}
 
@@ -1072,7 +1084,7 @@ addressed.
 Calendar dates are absent, precluding the 11 date-dependent rule types; body-sign
 patterns (\textit{vesset haguf}) are invisible to cycle-length data. The sixth
 interval-computable rule, Haflaga Chozer Chalila, had no observed occurrence and a
-negligible null expectation (Section~\ref{sec:data}). The sample consists of non-Jewish, regularly cycling, married
+negligible null expectation (Section~\ref{sec:joint}). The sample consists of non-Jewish, regularly cycling, married
 NFP users (trial eligibility 18--42 years; \citealp{fehring2013}), a self-selected,
 cycle-aware group who may be more regular than
 the general population; some halachic authorities hold that regularities in this
