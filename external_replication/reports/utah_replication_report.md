@@ -164,7 +164,7 @@ Generic serial statistics against 50,000 fresh within-woman permutations (Holm a
 | mean absolute consecutive difference (days) | 3.38 | 3.58 (.058) | −3.38 | .001 | .004 |
 | proportion of equal consecutive intervals | .148 | .142 (.007) | +0.83 | .43 | .43 |
 
-Restricted to the 242 women whose every cycle lies in 18–54 days: lag-1 Holm .11, mean |ΔH| Holm .017,
+Restricted to the 252 women (2,014 cycles) whose every cycle lies in 18–54 days: lag-1 Holm .11, mean |ΔH| Holm .017,
 P(ΔH = 0) .40. Consecutive Utah intervals are therefore more alike than random reorderings of the same
 values produce — real within-woman serial structure — while exact repetitions and the five vesset counts
 stay at their conditional null. In the Marquette data all three statistics are null (p .85, .58, .23).
