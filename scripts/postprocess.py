@@ -54,12 +54,15 @@ for m, arr in nulls.items():
     DM_s, pj_s, _, _ = mahalanobis_test(arr[half:], obs, ref=arr[:half])
     DM3, pj3, dm3, _ = mahalanobis_test(arr[:, [0, 3, 4]], obs[[0, 3, 4]])
     corr = np.corrcoef(arr.T); np.fill_diagonal(corr, 0)
+    absz = np.abs((arr - mu) / sd).max(axis=1); maxT = float(np.abs(z).max())   # max-|z| (max-T) statistic
+    p_maxT = (np.count_nonzero(absz >= maxT) + 1) / (B + 1)
     out[m] = dict(mean=mu.round(2).tolist(), sd=sd.round(2).tolist(), z=z.round(2).tolist(),
                   p_two=p.round(4).tolist(), p_upper=up.round(5).tolist(), n_ge_obs=n_ge,
                   holm=adj.round(4).tolist(), DM=round(DM, 3), p_DM=round(pj, 4), n_exceed_DM=n_exc,
                   DM_split=round(DM_s, 3), p_DM_split=round(pj_s, 4),
                   DM3=round(DM3, 3), p_DM3=round(pj3, 4), n_exceed_DM3=int(np.count_nonzero(dm3 >= DM3)),
                   cond=round(float(np.linalg.cond(Sig)), 2), max_abs_corr=round(float(np.abs(corr).max()), 3),
+                  maxT=round(maxT, 2), p_maxT=round(float(p_maxT), 4),
                   pct95=np.percentile(arr, 95, axis=0).tolist(), pct975=np.percentile(arr, 97.5, axis=0).tolist())
     print(f"\n── H_{m} ──")
     for j, l in enumerate(PATTERN_LABELS):
@@ -67,6 +70,7 @@ for m, arr in nulls.items():
               f"p2 {p[j]:.4f} ({fmt_p(p[j])})  Holm {adj[j]:.4f}  #>=obs {n_ge[j]}")
     print(f"D_M = {DM:.3f}  p = {pj:.4f} ({n_exc} of {B} exceed)  | split-batch D_M = {DM_s:.3f} p = {pj_s:.4f}")
     print(f"3-pattern D_M = {DM3:.3f} p = {pj3:.4f} ({out[m]['n_exceed_DM3']} exceed) | cond {out[m]['cond']} | max|r| {out[m]['max_abs_corr']}")
+    print(f"max-T (max |z|) = {maxT:.2f}  p = {p_maxT:.4f}")
 
 # max p-value difference between H_G and H_iid
 out["max_p_diff_G_iid"] = round(float(np.max(np.abs(np.array(out["G"]["p_two"]) - np.array(out["iid"]["p_two"])))), 3)

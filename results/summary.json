@@ -70,6 +70,8 @@
   "n_exceed_DM3": 13,
   "cond": 4.57,
   "max_abs_corr": 0.123,
+  "maxT": 4.5,
+  "p_maxT": 0.0003,
   "pct95": [
    17.0,
    60.0,
@@ -145,6 +147,8 @@
   "n_exceed_DM3": 23,
   "cond": 4.35,
   "max_abs_corr": 0.164,
+  "maxT": 4.39,
+  "p_maxT": 0.0003,
   "pct95": [
    17.0,
    60.0,
@@ -220,6 +224,8 @@
   "n_exceed_DM3": 2956,
   "cond": 5.17,
   "max_abs_corr": 0.14,
+  "maxT": 2.07,
+  "p_maxT": 0.1738,
   "pct95": [
    40.0,
    79.0,

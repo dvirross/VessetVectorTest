@@ -473,7 +473,7 @@ A within-woman \emph{bootstrap} (sampling each woman's values with replacement) 
 considered and rejected as the conditional null: with-replacement draws are independent,
 whereas permutation draws are negatively dependent (a value used at one position is less
 available at the next), so the bootstrap inflates the expected count of repetition-based
-patterns (Haflaga null mean 54.5 vs.\ 31.8; verified with $B = 50{,}000$). The two
+patterns (Section~\ref{sec:within}). The two
 procedures encode different nulls --- i.i.d.\ resampling versus exchangeability of the
 observed values --- and are not more or less conservative versions of one another;
 permutation is the exact conditional test for the stated exchangeability null.
@@ -517,8 +517,9 @@ tests \citep{szekely2013}. Because the same replicates estimate $\hat\Sigma$ and
 reference distribution, we also report a \textbf{split-batch} version
 ($\hat{\boldsymbol{\mu}}, \hat\Sigma$ from the first 25,000 replicates; reference
 distribution from the last 25,000) and verify calibration by simulation
-(Section~\ref{sec:simdesign}). Condition numbers of $\hat\Sigma$ (4.4--5.4) indicate a
-numerically stable inversion; they say nothing about power. The joint test and the Holm
+(Section~\ref{sec:simdesign}). Condition numbers of $\hat\Sigma$ are reported as a
+diagnostic of numerical stability (Section~\ref{sec:joint}); they say nothing about
+power. The joint test and the Holm
 family answer different questions (one global null versus family-wise error control over
 five component nulls) and are reported as complements. As a sensitivity check on the
 exclusion of the zero-count rule (Section~\ref{sec:data}), Haflaga Chozer Chalila was
@@ -540,8 +541,7 @@ two-sided permutation $p$-values and Holm correction over the ten pairs, and rep
 binary ever/never indicators. Rates reduce but do not remove the dependence of both
 variables on follow-up length. The methods, their rationale, the results and a
 follow-up-stratified robustness check are given in the Supporting Information
-(Section~S1); they do not bear on the primary question of whether within-woman ordering
-produces excess events.
+(Section~S1).
 
 \subsection{Simulation Validation and Sensitivity Analyses}
 \label{sec:simdesign}
@@ -565,7 +565,7 @@ to the observed range. \emph{Persistence}: each cycle exactly repeats the previo
 interval with probability $q \in \{0, .1, .2, .3\}$ and is otherwise drawn from the
 woman's own observed values; this is the mechanism the Haflaga rule presupposes. In both
 families the zero level is exchangeable within woman and serves as a further size check
-under heterogeneous, realistic marginals.
+under marginals matched to the observed per-woman means and SDs.
 
 \paragraph{Sensitivity to unequal follow-up.} The $\HW$ analysis was repeated with every
 woman truncated to her first 12 recorded cycles ($20{,}000$ replicates), and a
@@ -575,9 +575,9 @@ using per-woman replicate counts.
 \subsection{External Replication}
 \label{sec:extmethods}
 
-Between-woman heterogeneity alone produces the global excess in any cohort (Supporting
-Information, Section~S8), so the informative question is whether the within-woman result
-recurs. The complete analysis was therefore repeated on an independent, openly deposited cohort: 3,324 cycles
+Because synthetic cohorts with between-woman heterogeneity and no ordering effect
+reproduce the global excess (Supporting Information, Section~S8), the informative question
+is whether the within-woman result recurs. The complete analysis was therefore repeated on an independent, openly deposited cohort: 3,324 cycles
 from 581 women aged 18--40 with regular bleeding and no known subfertility, pooled from
 three Creighton Model cohorts charted in 1990--2013 \citep{stanford2023data,najmabadi2020};
 licence CC BY-NC. Preprocessing rules were fixed before any pattern was counted: the
@@ -586,8 +586,8 @@ woman's record at every date gap, and each woman's longest run of at least five
 consecutive cycles, with no cycle-length criterion, giving 270 women and 2,139 cycles
 (5--15 per woman). The counting rules, null generators and test statistics are the same
 functions as in the main analysis, run with the same seed, $B$ and simulation sizes
-through a dataset-agnostic driver that was first verified to reproduce every Marquette
-result exactly; full results are in the Supporting Information (Section~S4).
+through a dataset-agnostic driver that was first verified to reproduce the cached
+Marquette replicates; full results are in the Supporting Information (Section~S4).
 
 \begin{algorithm}[!htbp]
 \caption{Simulation pipeline}
@@ -714,25 +714,25 @@ counts lie \emph{below} their conditional null means. The most extreme component
 Dilug-in-Dilug ($z = -2.07$; nominal two-sided $p = .038$, Holm $p = .19$): fewer
 second-order progressions were observed than random reorderings of the same values
 produce. The direction is noted; the mechanism is not identified by these data, and the
-result is exploratory. The joint test is non-significant ($\DM = 2.97$, $p = .11$) and
-essentially unchanged in the split-batch form ($\DM = 2.99$, $p = .11$). Post hoc, the
+result is exploratory. The joint test is non-significant (Section~\ref{sec:joint}). Post hoc, the
 total number of events lies below its $\HW$ expectation (164 against 193.2, $p = .008$), a
 deficit that did not recur in the replication cohort (Supporting Information, Section~S7).
 
-The shift between nulls is large: for Haflaga the $\HG$ null is centred at 11.3 and the
-$\HW$ null at 31.8, above the observed 26. A principal contributor to this shift is that
-women with narrow cycle-length multisets generate many exact repetitions under
-\emph{any} ordering of their values; conditioning on each woman's multiset preserves this
-feature, whereas the global nulls erase it. Two further checks, computed from the
-per-woman replicate counts, indicate that the concentration of events in a minority of
-women is a property of their multisets rather than of their orderings (Supporting
-Information, Section~S6). Within terciles of within-woman SD the joint $\HW$ test is
-non-significant in every stratum ($p = .37$, $.79$ and $.25$), and the women who produce
-the most events are those the null expects to: the rank correlation between a woman's
-observed and expected event totals is $0.61$, no woman departs from her own null after
-correction (1 of 118 with two-sided $p < .05$, against about 6 expected), and the share of
-all events held by the six most productive women ($.24$) is at its null level ($.21$,
-$p = .11$).
+Conditioning on each woman's multiset preserves a feature the global nulls erase: women
+with narrow cycle-length multisets generate many exact repetitions under \emph{any}
+ordering of their values. The shift between nulls is accordingly large: for Haflaga the
+$\HG$ null is centred at 11.3 and the $\HW$ null at 31.8, above the observed 26 (a
+within-woman bootstrap, which resamples with replacement, would centre it at 54.5;
+Section~\ref{sec:nullmodels}). Further checks, computed from the per-woman replicate
+counts, indicate that the concentration of events in a minority of women is a property of
+their multisets rather than of their orderings (Supporting Information, Section~S6). The
+joint $\HW$ test is non-significant in the low, middle and high terciles of within-woman
+SD ($p = .37$, $.79$ and $.25$), and the women who produce the most events are those the
+null expects to: the rank correlation between a woman's observed and expected event
+totals is $0.61$, no woman departs from her own null after correction (1 of 118 with
+two-sided $p < .05$, against about 6 expected), and the share of all events held by the
+six most productive women (observed $.24$, null mean $.21$, $p = .11$) is at its null
+level.
 
 \begin{figure}[!htbp]
   \centering
@@ -765,15 +765,16 @@ $\HI$ and $\HW$ respectively, consistent with the five-pattern analysis
 The excluded zero-count rule, Haflaga Chozer Chalila, has expected count $0.0003$ under
 $\HG$, $0.0004$ under $\HI$ and $0.028$ under $\HW$, with at least one event in
 $0.03\%$, $0.04\%$ and $2.8\%$ of replicates respectively, so the observed zero is the
-modal null outcome (two-sided $p = 1$ under each null). Adding it as a sixth component of
+modal null outcome (two-sided $p = 1$ under each null, so the Holm family is unaffected).
+Adding it as a sixth component of
 the joint statistic changes little, for two reasons. Because the observed count lies
 within $0.03$ of its null mean, the sixth component contributes essentially nothing to
 the observed distance, and $\DM$ is unchanged ($5.07$, $4.87$ and $2.98$). At the same
 time, every null replicate that contains an event lies beyond the observed vector in that
 component, so the few such replicates can only raise the joint $p$-value: on the same
 paired replicates it moves from $< .001$, $< .001$ and $.115$ to $< .001$, $< .001$ and
-$.139$. In the Holm family the rule would contribute a $p$-value of 1. The conclusions
-are therefore unaffected by its exclusion (Supporting Information, Section~S3).
+$.139$. The conclusions are therefore unaffected by its exclusion (Supporting
+Information, Section~S3).
 
 \begin{figure}[!htbp]
   \centering
@@ -823,8 +824,9 @@ procedures and is approximately nominal for the joint test: the two-sided margin
 reject between 2.8\% and 4.8\% of the time (conservative because the counts are
 discrete), the Holm family between 3.0\% and 3.6\%, and the joint test between 4.6\% and
 5.3\% at $\alpha = .05$ and between 0.7\% and 1.0\% at $\alpha = .01$. The plug-in and
-split-batch versions of the joint test are indistinguishable, so re-using the replicates
-for $\hat\Sigma$ has no detectable effect at $B \geq 20{,}000$.
+split-batch versions of the joint test differ by no more than the Monte Carlo standard
+error (Table~\ref{tab:size}), so re-using the replicates for $\hat\Sigma$ has no
+detectable effect at $B \geq 20{,}000$.
 
 \begin{table}[!htbp]
 \centering
@@ -852,14 +854,15 @@ $\HW$  & .043 & .041 & .043 & .032 & .040 & .036 & .052 (.009) & .051 (.010) \\
 Table~\ref{tab:power} and Figure~\ref{fig:power} give rejection rates of the $\HW$ tests
 for datasets with genuine within-woman ordering (400 datasets per scenario; Monte Carlo
 SE $\leq 0.025$). At $\rho = 0$ and $q = 0$, which are exchangeable within woman, all
-tests reject at nominal rates under these heterogeneous marginals (joint 5.0\% and 6.0\%, SE 1.2\%).
+tests reject at nominal rates under these heterogeneous marginals (joint test 5.0\% at
+$\rho = 0$ and 6.0\% at $q = 0$; SE 1.2\%).
 Autoregressive dependence with $\rho = 0.25$ --- which raises the expected Haflaga count
 by about five events over its conditional null mean --- is detected by the joint test in
 53\% of datasets and by the Holm family in 27\%; at $\rho = 0.5$ the joint test rejects
-in 99.8\% and at $\rho = 0.75$ always. Exact-repetition persistence is detected far more
+in 99.8\% and at $\rho = 0.75$ in all 400 datasets. Exact-repetition persistence is detected far more
 readily: when one cycle in ten copies its predecessor ($q = 0.1$) the joint test rejects
-in 98\% of datasets and the Haflaga marginal test in 96\%; at $q \geq 0.2$ detection is
-certain. The Dilug-in-Dilug marginal has no power against persistence (repetition
+in 98\% of datasets and the Haflaga marginal test in 96\%; at $q \geq 0.2$ every dataset
+is detected. The Dilug-in-Dilug marginal has no power against persistence (repetition
 suppresses second-order progressions), and Week and Week-Dilug have the least power
 against autoregression, as expected from their definitions.
 
@@ -901,12 +904,9 @@ Persistence $q$    & 0    & $+0.2$ & .04 & .04 & .04 & .03 & .06 & .05 & .06 \\
   \label{fig:power}
 \end{figure}
 
-These results calibrate the main finding for the two mechanisms simulated. Under the
-AR(1) alternative at $\rho = 0.25$, which added about five Haflaga events on average,
-the joint test rejected in 53\% of datasets; at $\rho = 0.5$ (about 14 additional
-events) it rejected in 99.8\%. Under the persistence alternative, one exact repetition
-in ten cycles was detected in 98\% of datasets. The observed Haflaga count is six
-\emph{below} its conditional null mean. These figures do not transfer to arbitrary forms
+These results calibrate the main finding for the two mechanisms simulated, against
+which the observed Haflaga count, six \emph{below} its conditional null mean, is far from
+the alternatives detected. The power figures do not transfer to arbitrary forms
 of temporal dependence: autoregression weaker than $\rho \approx 0.25$, or dependence
 that does not manifest as whole-day autoregression or exact repetition, may go
 undetected by these statistics.
@@ -967,8 +967,8 @@ $\HW$  & 2.97 ($.115$)  & 1.22 ($.916$)  & $+1.13$ \\
 
 The same five counts are extreme under population-level exchangeability
 ($\DM = 5.07$, $p < .001$) and unremarkable under within-woman exchangeability
-($\DM = 2.97$, $p = .11$). The global result is real and is not an artefact of the
-multinomial versus permutation choice (the two agree). It says that vesset events are
+($\DM = 2.97$, $p = .11$). The global excess is robust to the multinomial-versus-permutation
+choice (the two nulls agree). It says that vesset events are
 concentrated in a way a homogeneous population would not produce. The within-woman result
 says that, conditional on each woman's own cycle-length values, the order in which they
 occurred produced no detectable excess of rule-defined events --- for these exact
@@ -982,19 +982,22 @@ most events are those whose multisets predict the most under $\HW$; it is not un
 identified by them, and other mechanisms that leave the multiset-conditional
 distribution of these counts unchanged cannot be excluded.
 
-The replication sharpens this account. Writing $z_G = (\mu_W - \mu_G)/\sigma_G +
-(O - \mu_W)/\sigma_G$, the heterogeneity gap for Haflaga is nearly identical in the two
-cohorts (6.28 and 6.76) while the within-woman residual is $-1.79$ and $+1.57$: the larger
+The replication sharpens this account. Writing $z_j^{(G)} = (\bar S_j^{(W)} -
+\bar S_j^{(G)})/\sigma_j^{(G)} + (O_j - \bar S_j^{(W)})/\sigma_j^{(G)}$ with the null
+means and SDs of Section~\ref{sec:inference}, the first term (the heterogeneity gap) for
+Haflaga is similar in the two cohorts (6.28 in Marquette, 6.76 in Utah) while the second
+(the within-woman residual) is $-1.79$ and $+1.57$ respectively: the larger
 global displacement in the Utah cohort arises because its counts sit at, rather than
 below, their within-woman expectations, and from its larger sample; the within-woman null
 gives the same answer in both (Supporting Information, Table~S11).
 
 Two things the $\HW$ result does not show should be stated. It does not show that cycle
 lengths are serially independent: the autocorrelation documented by \citet{ecochard2024}
-in an overlapping cohort is exactly the kind of structure that $\HW$ destroys, and its
+in an overlapping cohort is the kind of structure that $\HW$ destroys, and its
 non-detection here means only that it does not translate into extra exact vesset events
-in this sample; in the Utah data the same null detects serial dependence that produces no
-extra vesset events (Supporting Information, Section~S7). And it does not show that the rules are without anticipatory value:
+in this sample; in the Utah data the same null, applied to generic ordering statistics,
+detects serial dependence that produces no extra vesset events (Supporting Information,
+Section~S7). And it does not show that the rules are without anticipatory value:
 whether a woman with three equal consecutive intervals is more likely to repeat the
 interval is a forecasting question, not addressed here.
 
@@ -1018,10 +1021,12 @@ lower within-woman SD than women with no events, as the definition of the rule i
 this characterises whom the rule selects rather than validating it. Dilug's global
 $z = 1.84$ does not survive correction and should be treated as hypothesis-generating;
 gradual trends (age, weight, hormonal change) would produce arithmetic progressions,
-but no such mechanism is tested here. The Week pattern in this sample is almost entirely
-the 28-day cycle ($H = 29$) repeated twice, because longer weekly anchors (35, 42 days)
-are rare (9.6\% of cycles are $\geq 35$ days). Every Week-Dilug event is at the anchor
-$H = 30$, and the events include the 3 Haflaga-30 sequences by containment.
+but no such mechanism is tested here. The Week pattern in this sample is predominantly
+the 28-day cycle ($H = 29$) repeated twice (31 of 32 events), because the longer anchors
+in $\mathcal{W}$ ($H = 36, 43$, i.e.\ 35- and 42-day cycles) are rare (9.6\% of cycles
+have $H \geq 36$). Every Week-Dilug event occurs at $H = 30$, the only anchor in
+$\mathcal{W}'$ with appreciable support in this sample, and the events include the 3
+Haflaga sequences at $H = 30$ by containment (Section~\ref{sec:mathdep}).
 
 \subsection{The Joint Statistic}
 
@@ -1029,9 +1034,11 @@ The quadratic form standardises each component by its null variance and accounts
 the null covariance implied by the definitions; Haflaga dominates under the global nulls
 because its null SD is smallest. Hotelling's $T^2$ shares the form but assumes
 multivariate normality of the count vector, which fails for counts as small as 18; the
-Monte Carlo reference distribution avoids this. A max-$T$ statistic would be less
-sensitive to simultaneous displacement of several components; in these data it leads to
-the same conclusions under all nulls. Using the same replicates to estimate $\hat\Sigma$
+Monte Carlo reference distribution avoids this. A max-$T$ statistic (the largest
+$|z_j|$, referred to its own Monte Carlo distribution) would be less sensitive to
+simultaneous displacement of several components; in these data it leads to the same
+conclusions ($4.50$, $4.39$ and $2.07$ under $\HG$, $\HI$ and $\HW$; $p < .001$,
+$< .001$ and $.17$). Using the same replicates to estimate $\hat\Sigma$
 and to form the reference distribution introduces a finite-$B$ dependence; the
 split-batch results and the size simulation show it is immaterial at $B = 50{,}000$. We
 regard the statistic as a routine adaptation of permutation MANOVA-type tests
@@ -1040,7 +1047,7 @@ regard the statistic as a routine adaptation of permutation MANOVA-type tests
 \subsection{Implications}
 
 All implications are hypotheses for future study; none is tested here. A woman with an
-established Haflaga has a within-woman SD below about 1.6 days in this dataset, which is
+established Haflaga has a within-woman SD averaging about 1.5 days in this dataset, which is
 the situation in which calendar-based fertility awareness is most reliable
 \citep{bortot2010}; whether the halachic marker adds to statistical cycle-length
 prediction is the subject of a companion forecasting study \citep{ross_planned}. For
@@ -1072,7 +1079,7 @@ Counts are invariant to the $H_k = L_k + 1$ relabelling provided the Week and We
 anchor sets are shifted accordingly (verified: 26 Haflaga, 18 Week-Dilug under both
 conventions; computing on $L_k$ with the unshifted anchors $\{23, 30, 37, \ldots\}$ gives
 13 Week-Dilug events). The
-distribution of intervals declines smoothly through the anchor ($H = 29$: 225 cycles;
+distribution of intervals declines smoothly through the dominant Week-Dilug anchor $H = 30$ ($H = 29$: 225 cycles;
 $30$: 175; $31$: 141; Figure~\ref{fig:heaping}), so the Week-Dilug count does not appear
 to reflect digit preference; no formal test of heaping was performed. Onset time of day
 is not recorded, so some events may be misclassified relative to the halachic requirement
@@ -1138,8 +1145,9 @@ unequal follow-up. The results are consistent with
 between-woman heterogeneity in regularity generating the global excess and provide no
 evidence that within-woman ordering adds rule-defined events; they do not establish the
 absence of serial dependence, and they say nothing about the forecasting value of the
-rules, which is the subject of ongoing work. To our knowledge this is the first formal
-randomisation-based test of the halachic vesset rules on empirical data. The general
+rules, which is the subject of ongoing work. We are not aware of an earlier formal
+randomisation-based test of the halachic vesset rules on empirical data (Supporting
+Information, Section~S2). The general
 lesson is that for rule-defined counts in clustered longitudinal sequences the choice of
 exchangeability null is the analysis, and that a within-subject conditional null should
 be reported alongside any pooled one.
