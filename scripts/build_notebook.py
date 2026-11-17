@@ -30,6 +30,9 @@ against a reference loop implementation). Heavy Monte Carlo work is done by scri
 | `scripts/rerun_nulls.py` | `results/null_replicates.npz` | $B = 50{,}000$ replicate count vectors under $H_G$, $H_{iid}$, $H_W$ (seed 17), plus per-woman $H_W$ counts |
 | `scripts/sim_validation.py` | `results/sim_validation.npz` | size calibration, power vs AR(1)/persistence alternatives, truncation sensitivity |
 | `scripts/postprocess.py` | `results/summary.json` | every number reported in the paper |
+| `scripts/directional_ordering.py` | `results/directional_ordering*.json` | directional and generic ordering statistics under $H_W$ (SI S7) |
+| `scripts/heterogeneity_benchmark.py` | `results/heterogeneity_benchmark.json` | heterogeneity-only synthetic cohorts (SI S8) |
+| `scripts/independent_check.py` | `results/independent_check.json` | re-implementation with no project imports (SI S8) |
 | `paper/figures/gen_consort_flow.py` | `fig2_consort_flow` | participant flow diagram (standalone) |
 
 Figures generated here: fig1, fig3, fig4, fig5, fig6, fig7, fig8, fig9, fig10, figA1.
@@ -353,6 +356,67 @@ replicate, Gini, number of event-free women). Implemented in `scripts/per_woman_
 code(r"""
 from per_woman_hw import run as per_woman_checks
 pw_res = per_woman_checks('../data/FilteredData.csv', '../results/null_replicates.npz')
+""")
+
+md(r"""
+### 5c. Directional and generic ordering statistics under $H_W$ (SI Section S7; exploratory)
+
+$D_M$ is omnidirectional. Two one-dimensional summaries of the *direction* of the count vector are computed from the
+cached replicates under each null: $T_{tot} = \sum_j S_j$ (total rule-defined events) and
+$T_z = \sum_j (S_j - \mu_j)/\sigma_j$. These were chosen after the observed counts were seen to lie below their
+$H_W$ means and are post hoc. As a positive control, three generic serial statistics (pooled within-woman lag-1
+autocorrelation, mean absolute consecutive difference, proportion of equal consecutive intervals) are tested against
+the same within-woman permutation null ($B = 50{,}000$ fresh permutations, seed 17; Holm across the three).
+Implemented in `scripts/directional_ordering.py`; the cell recomputes everything and checks it against the cached
+`results/directional_ordering.json`.
+""")
+code(r"""
+from directional_ordering import run as directional_ordering
+do_res = directional_ordering('../data/FilteredData.csv', '../results/null_replicates.npz')
+cached = json.load(open('../results/directional_ordering.json'))
+assert do_res['directional'] == cached['directional'] and do_res['ordering_HW'] == cached['ordering_HW'], 'differs from cached S7 results'
+print('matches results/directional_ordering.json')
+""")
+
+md(r"""
+### 5d. What the replication can and cannot show (SI Section S8)
+
+**Heterogeneity-only benchmark.** Synthetic cohorts in which woman $i$ keeps her $n_i$ and her intervals are drawn
+i.i.d. from a rounded normal with her own mean and SD (SD floored at 0.3 days): $H_W$ is true by construction and
+$H_G$ is false whenever women differ. 500 synthetic cohorts per cohort, $B = 2{,}000$ per null
+(`scripts/heterogeneity_benchmark.py`, about 30 min; the cached `results/heterogeneity_benchmark.json` is displayed,
+set `RUN_BENCHMARK = True` to recompute).
+
+**Independent re-implementation.** `scripts/independent_check.py` imports nothing from the repository (plain Python
+from the definitions of Section 2.1, Python's `random`, seed 2026, $B = 20{,}000$); it is run here (about 3 min) and
+compared with the main pipeline.
+""")
+code(r"""
+RUN_BENCHMARK = False
+if RUN_BENCHMARK:
+    import heterogeneity_benchmark; heterogeneity_benchmark.main()
+hb = json.load(open('../results/heterogeneity_benchmark.json'))
+print(f"heterogeneity-only benchmark: R = {hb['R']} synthetic cohorts per cohort, B = {hb['B']:,} per null, seed {hb['seed']}; {hb['generator']}")
+rows = []
+for name in ('Marquette', 'Utah'):
+    r = hb[name]
+    rows.append(dict(cohort=name, women=r['n_women'], cycles=r['n_cycles'],
+                     haflaga_zG_median=r['haflaga_zG_q025_50_975'][1], haflaga_zG_95=f"{r['haflaga_zG_q025_50_975'][0]}–{r['haflaga_zG_q025_50_975'][2]}",
+                     haflaga_zG_min=r['min_haflaga_zG'], DM_G_median=r['DM_G_q025_50_975'][1], DM_W_median=r['DM_W_q025_50_975'][1],
+                     reject_HG_05=r['reject_G_05'], reject_HW_05=r['reject_W_05']))
+print(pd.DataFrame(rows).to_string(index=False))
+summ = json.load(open('../results/summary.json'))
+print(f"observed Marquette: Haflaga z_G {summ['G']['z'][0]:.2f}, D_M(G) {summ['G']['DM']:.2f}, D_M(W) {summ['W']['DM']:.2f}")
+
+import independent_check
+independent_check.main()          # deterministic (random.Random(2026)); rewrites results/independent_check.json identically
+ic = json.load(open('../results/independent_check.json'))
+usumm = json.load(open('../external_replication/results/summary.json'))
+for name, S in (('Marquette', summ), ('Utah', usumm)):
+    r = ic[name]
+    assert r['observed'] == list(S['observed']), name
+    print(f"{name:9s} counts identical {r['observed']}; D_M(G) {r['G']['DM']:.2f} vs {S['G']['DM']:.2f}; "
+          f"D_M(W) {r['W']['DM']:.2f} vs {S['W']['DM']:.2f} (p {r['W']['p_DM']:.3f} vs {S['W']['p_DM']:.3f})")
 """)
 
 md(r"""

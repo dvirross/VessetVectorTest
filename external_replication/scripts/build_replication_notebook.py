@@ -248,6 +248,66 @@ pw_res = per_woman_checks(os.path.join(DATA, 'sequences.csv'), os.path.join(RES,
 """)
 
 md(r"""
+## 10c. Sensitivity to the run-selection rule (main article SI, Table S8)
+The pre-specified rule keeps each woman's single longest run of $\geq 5$ consecutive cycles. Following the 2026-11-01
+preprocessing audit (`../reports/2026-11-01_preprocessing_audit_and_open_questions.md`), `../scripts/all_runs_sensitivity.py`
+re-segments the raw deposit, verifies that the baseline reproduces `sequences.csv` and the cached replicates exactly,
+and analyses three alternative specifications (all runs $\geq 5$ with $H_W$ within each run; all runs $\geq 5$ with
+$H_W$ pooling each woman's values over her runs; all runs $\geq 3$). About 5 min; the cached
+`../results/all_runs_sensitivity.json` is displayed (set `RUN_SENSITIVITY = True` to recompute).
+""")
+code(r"""
+RUN_SENSITIVITY = False
+if RUN_SENSITIVITY:
+    import all_runs_sensitivity; all_runs_sensitivity.main()
+ar = json.load(open(os.path.join(RES, 'all_runs_sensitivity.json')))
+print(f"B = {ar['B']:,}, seed {ar['seed']}; segmentation: {ar['segmentation']}")
+print('baseline reproduces cached replicates:', ar['baseline'].get('reproduces_cached_replicates'))
+rows = []
+for spec in ('baseline', 'all5_run', 'all5_woman', 'all3_run'):
+    r = ar[spec]
+    rows.append(dict(spec=spec, runs=r['n_runs'], women=r['n_women'], cycles=r['n_cycles'], observed=r['observed'],
+                     **{f'DM_{m}': r[m]['DM'] for m in ('G', 'iid', 'W')}, **{f'p_{m}': r[m]['p_DM'] for m in ('G', 'iid', 'W')}))
+display(pd.DataFrame(rows).set_index('spec'))
+""")
+
+md(r"""
+## 10d. Directional and generic ordering statistics under $H_W$ (main article SI, Section S7; exploratory)
+Same statistics as for the Marquette data (`scripts/directional_ordering.py` in the repository root): directional
+summaries ($T_{tot}$, $T_z$) from the cached replicates under each null, and three generic serial statistics (lag-1
+autocorrelation, mean absolute consecutive difference, proportion of equal consecutive intervals) against fresh
+within-woman permutations ($B = 50{,}000$, seed 17; Holm across the three), repeated in the women whose every cycle
+lies in 18–54 days. Recomputed here and checked against the cached `../../results/directional_ordering_utah.json`.
+""")
+code(r"""
+from directional_ordering import run as directional_ordering
+do_res = directional_ordering(os.path.join(DATA, 'sequences.csv'), os.path.join(RES, 'null_replicates.npz'))
+cached = json.load(open('../../results/directional_ordering_utah.json'))
+for key in ('directional', 'ordering_HW', 'ordering_HW_women_all_L18_54'):
+    assert do_res[key] == cached[key], key
+print('matches results/directional_ordering_utah.json')
+""")
+
+md(r"""
+## 10e. What the replication can and cannot show (main article SI, Section S8)
+Utah rows of the heterogeneity-only benchmark (`scripts/heterogeneity_benchmark.py`; 500 synthetic cohorts with
+per-woman i.i.d. intervals, so $H_W$ is true and $H_G$ false by construction) and of the independent re-implementation
+(`scripts/independent_check.py`, no project imports). Both are computed by the main notebook; the cached JSON files
+are displayed here.
+""")
+code(r"""
+hb = json.load(open('../../results/heterogeneity_benchmark.json'))['Utah']
+print(f"benchmark (Utah): Haflaga z_G median {hb['haflaga_zG_q025_50_975'][1]} (95% {hb['haflaga_zG_q025_50_975'][0]}–{hb['haflaga_zG_q025_50_975'][2]}, "
+      f"min {hb['min_haflaga_zG']}); D_M(G) median {hb['DM_G_q025_50_975'][1]}, D_M(W) median {hb['DM_W_q025_50_975'][1]}; "
+      f"reject H_G {hb['reject_G_05']:.3f}, reject H_W {hb['reject_W_05']:.3f}")
+print(f"observed Utah: Haflaga z_G {summ['G']['z'][0]:.2f}, D_M(G) {summ['G']['DM']:.2f}, D_M(W) {summ['W']['DM']:.2f}")
+ic = json.load(open('../../results/independent_check.json'))['Utah']
+assert ic['observed'] == list(summ['observed'])
+print(f"independent re-implementation (Utah): counts identical {ic['observed']}; D_M(G) {ic['G']['DM']:.2f} vs {summ['G']['DM']:.2f}; "
+      f"D_M(W) {ic['W']['DM']:.2f} vs {summ['W']['DM']:.2f} (p {ic['W']['p_DM']:.3f} vs {summ['W']['p_DM']:.3f})")
+""")
+
+md(r"""
 ## 11. Provenance
 """)
 code(r"""
