@@ -228,3 +228,20 @@ Responded to three AI pre-submission reviews (statistical, journal-fit, literatu
 - [x] Patient Consent wording now cites the Marquette archive record: "anonymized for dissemination", "data reuse was agreed to by subjects in the consent form" (data_nfp/7 "Rights, Permissions, & Privacy" field, confirmed verbatim by the author on 2026-09-16). This is reported in the Patient Consent Statement only — do **not** restore the quotation to the `fehring2012data` bib note, which stays `note = {Dataset (.sav/.csv)}`
 - [ ] Word count: 6,371 Introduction–Conclusion words on 2026-11-17 (floats and displayed maths excluded; +273 since 2026-09-22: Intro 'why H_G' sentence, HCC move, S4.7/Scope, editorial pass). BJ's 4,500 is a **recommended** word count shared by Research Articles and Case Studies (Review 8,000; Short Communication 2,000), not a stated maximum; a 2026-11-17 web survey found every located BJ Case Study 2019–2025 with a page range runs 12–19 journal pages, i.e. an estimated 5,300–9,000 main-text words (Senn 2019 61(2):379–390; Zapf 2021 63(4):699–711; Kim 2021 63(7):1493–1506; Rücker 2021 63(2):447–461; van den Heuvel 2020 62(1):34–52), and Research Articles 10–19 pages. Estimates from page counts, no full text reachable (Wiley, Crossref, PMC blocked). Conclusion: the manuscript sits inside the published range; further cuts are an author choice, not a compliance need
 - [x] Raw→filtered pipeline recovered: `data/RawData.csv` (author's copy of the archive, 1,665 cycles/159 women) + `scripts/Filtering_original.ipynb` (from https://github.com/dvirross/PhD) + `scripts/filter_raw.py` (re-implementation; verified identical output). Dissertation and the B.D.D. article (accepted version; published 2026 in vol. 38–40) are in `paper/supplementary_for_review/` (Hebrew; upload as "supplementary material for review only")
+
+## AI-assisted change attribution
+
+Record AI use in the final Git commit so later reviews can identify which tools and model versions contributed to each change. Add these Git trailers at the end of every commit containing AI-assisted work:
+
+```
+AI-Assisted: yes
+AI-Use: <tool or interface> | <exact model name and version> | <role and scope of contribution>
+```
+
+Repeat `AI-Use` once for each model that contributed. Use the model name and version shown in the interface or API; do not infer it or use a generic label such as “Claude” or “GPT” by itself. If the model identifier was not exposed, write `unknown (not exposed)` and do not claim greater precision. Describe the contribution narrowly (for example: literature search, proof exploration, statistical analysis, coding, testing, drafting, editing, translation, or review) so the record does not imply that a model did the entire change. For a commit with no AI assistance, use `AI-Assisted: no`.
+
+Preserve these trailers when commits are squashed or rebased. Do not put prompts, private session URLs, unpublished sensitive data, personal data, or credentials in commit metadata.
+
+For manuscripts and research reports, prepare any AI-use disclosure from these records and the project’s usage notes, then follow the target journal’s disclosure rules. State the exact tool and model versions and the actual contribution where requested; distinguish research or analysis assistance from coding, writing, editing, translation, and review. Do not infer use that the records do not support. Human authors remain responsible for checking claims, citations, calculations, and the final text.
+
+For this manuscript, reconcile the commit-level records with the journal’s current AI disclosure requirements before submission. Report only models and roles supported by the records; do not use a generic Claude attribution when the exact model is available.
